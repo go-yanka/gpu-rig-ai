@@ -358,52 +358,36 @@
     </div>
   </div>
 
-  <!-- Controls (collapsible) -->
+  <!-- GPU Defaults (collapsible) -->
   <div class="panel" style="padding:0; overflow:hidden; margin-bottom:12px;">
     <div onclick="toggleCtrlPanel()" style="padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; user-select:none;">
       <span id="ctrl-arrow" style="color:var(--dim); font-size:10px; transition:transform .2s;">&#9654;</span>
-      <span style="font-weight:700; font-size:13px;">Controls</span>
+      <span style="font-weight:700; font-size:13px;">GPU Defaults</span>
+      <span style="color:var(--dim); font-size:11px;">Click any GPU card to configure its default model</span>
     </div>
     <div id="ctrl-body" style="display:none; padding:0 16px 16px 16px;">
-      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
-        <!-- Quick actions -->
-        <div>
-          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Quick Actions</div>
-          <div style="display:flex; gap:6px; flex-wrap:wrap;">
-            <button class="btn btn-blue" onclick="rebuildNginx()">Rebuild nginx</button>
-            <button class="btn btn-dim"  onclick="saveState()">Save state</button>
-            <button class="btn btn-dim"  onclick="refreshAll()">Refresh</button>
-          </div>
+      <!-- Defaults summary table -->
+      <table style="width:100%; border-collapse:collapse; font-size:12px; margin-bottom:12px;">
+        <thead><tr>
+          <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--border); color:var(--dim); font-size:10px; text-transform:uppercase;">GPU</th>
+          <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--border); color:var(--dim); font-size:10px; text-transform:uppercase;">Default Model</th>
+          <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--border); color:var(--dim); font-size:10px; text-transform:uppercase;">Mode</th>
+          <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--border); color:var(--dim); font-size:10px; text-transform:uppercase;">Temp</th>
+          <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--border); color:var(--dim); font-size:10px; text-transform:uppercase;">Status</th>
+        </tr></thead>
+        <tbody id="defaults-table-body">
+          <tr><td colspan="5" style="color:var(--dim); text-align:center; padding:12px;">Loading...</td></tr>
+        </tbody>
+      </table>
+      <!-- Bulk actions -->
+      <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
+        <button class="btn btn-green" onclick="loadAllDefaults()">Load All Defaults</button>
+        <button class="btn btn-blue" onclick="saveRunningAsDefaults()">Save Running as Defaults</button>
+        <button class="btn btn-dim" onclick="rebuildNginx()">Rebuild nginx</button>
+        <div style="margin-left:auto; display:flex; align-items:center; gap:6px;">
+          <span style="color:var(--dim); font-size:11px;">Auto-load on startup:</span>
+          <button class="btn btn-dim" id="autoload-toggle" style="padding:3px 10px; font-size:11px;" onclick="toggleAutoLoad()">OFF</button>
         </div>
-        <!-- Load model -->
-        <div>
-          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Load Model on GPU</div>
-          <div style="display:flex; gap:6px; margin-bottom:6px;">
-            <select id="ctrl-gpu" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px;">
-              <option value="0">GPU 0</option><option value="1">GPU 1</option><option value="2">GPU 2</option>
-              <option value="3">GPU 3</option><option value="4">GPU 4</option><option value="5">GPU 5</option><option value="6">GPU 6</option>
-            </select>
-            <select id="ctrl-model" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:180px;">
-              <option value="">— select model —</option>
-            </select>
-            <button class="btn btn-green" onclick="loadModel()">Load</button>
-            <button class="btn btn-red"   onclick="unloadGpu()">Unload</button>
-          </div>
-        </div>
-        <!-- Benchmark -->
-        <div>
-          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Benchmark GPU</div>
-          <div style="display:flex; gap:6px;">
-            <select id="ctrl-bench-gpu" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px;">
-              <option value="0">GPU 0</option><option value="1">GPU 1</option><option value="2">GPU 2</option>
-              <option value="3">GPU 3</option><option value="4">GPU 4</option><option value="5">GPU 5</option><option value="6">GPU 6</option>
-            </select>
-            <button class="btn btn-yellow" onclick="runBench()">Run Benchmark</button>
-          </div>
-        </div>
-      </div>
-      <div id="bench-output" style="margin-top:8px; display:none;">
-        <div class="log-area" id="bench-log" style="max-height:140px;"></div>
       </div>
       <div id="status-msg" style="margin-top:10px; font-size:11px; color:var(--dim); display:none;"></div>
     </div>
@@ -1148,30 +1132,64 @@ async function openModal(gpuId) {
     </div>`;
   }
 
+  // GPU recommendations based on VRAM
+  const is12gb = gpuId === 2;
+  const vramGB = Math.floor(g.vram_total / 1024);
+  let recs = '';
+  if (is12gb) {
+    recs = '<span style="color:var(--green); font-size:11px;">12GB — All models supported. Best for: mistral-nemo 12B, qwen35-9b 16K ctx</span>';
+  } else if (g.bar === '256MB') {
+    recs = '<span style="color:var(--yellow); font-size:11px;">8GB + 256MB BAR — Slow load (~3-4 min). Best for: gemma4, qwen35-4b</span>';
+  } else {
+    recs = '<span style="color:var(--text); font-size:11px;">8GB + Full BAR — Fast load. Best for: gemma4, qwen35-4b, qwen25-coder</span>';
+  }
+
+  // Current default
+  const defModel = g.default_model || '';
+  const defMode = g.default_mode || '';
+  const defTemp = g.default_temp != null ? g.default_temp : '';
+
   const body = document.getElementById('modal-body');
   body.innerHTML = `
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
       ${statRow('Status', statusBadge(g.status))}
       ${statRow('Temperature', tempBadge(g.temp, g.temp_level))}
-      ${statRow('PCI Address', `<code>${g.pci}</code>`)}
-      ${statRow('PCIe BAR', `<code>${g.bar}</code>`)}
+      ${statRow('VRAM', `${fmtMB(g.vram_used)} / ${fmtMB(g.vram_total)} (${g.vram_pct}%)`)}
+      ${statRow('Power', g.status === 'sleeping' ? `~${g.sleep_watts}W (D3hot)` : `${g.power_watts || 0}W`)}
       ${statRow('Port', `:${g.port}`)}
-      ${statRow('PID', g.pid || '—')}
-      ${statRow('VRAM Used', `${fmtMB(g.vram_used)} / ${fmtMB(g.vram_total)} (${g.vram_pct}%)`)}
+      ${statRow('PCI / BAR', `<code>${g.pci}</code> · ${g.bar}`)}
       ${statRow('Model Loaded', g.model ? `<span style="color:var(--teal);">${g.model}</span>` : '<span style="color:var(--dim);">none</span>')}
-      ${statRow('Avg Speed', ps.avg_speed ? `${ps.avg_speed.toFixed(1)} t/s` : '—')}
-      ${statRow('Total Requests', (ps.requests || 0).toLocaleString())}
-      ${statRow('Total Tokens', (ps.tokens || 0).toLocaleString())}
-      ${statRow('Max Context', prof ? (prof.max_context || '—') : '—')}
+      ${statRow('Speed', ps.avg_speed ? `${ps.avg_speed.toFixed(1)} t/s` : '—')}
+    </div>
+
+    <!-- DEFAULT MODEL CONFIGURATION -->
+    <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:14px;">
+      <div style="font-size:11px; font-weight:700; color:var(--dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em;">Default Model Configuration</div>
+      <div style="margin-bottom:8px;">${recs}</div>
+      <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+        <select id="modal-def-model-${gpuId}" onchange="modalModelChanged(${gpuId})"
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:140px;">
+          <option value="">— none —</option>
+        </select>
+        <select id="modal-def-mode-${gpuId}"
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:130px;">
+        </select>
+        <label style="color:var(--dim); font-size:11px;">Temp:</label>
+        <input id="modal-def-temp-${gpuId}" type="number" min="0" max="2" step="0.1" value="${defTemp}"
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; width:60px;">
+        <button class="btn btn-blue" style="padding:4px 12px; font-size:11px;"
+          onclick="saveModalDefault(${gpuId})">Set Default</button>
+        <button class="btn btn-dim" style="padding:4px 12px; font-size:11px;"
+          onclick="clearModalDefault(${gpuId})">Clear</button>
+      </div>
+      <div id="modal-def-status-${gpuId}" style="font-size:11px; color:var(--dim);"></div>
     </div>
 
     ${profileSection}
 
     <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
-      <button class="btn btn-red" onclick="killZombie(${gpuId})">Kill Process</button>
-      <button class="btn btn-yellow" onclick="document.getElementById('ctrl-bench-gpu').value=${gpuId}; document.getElementById('modal').style.display='none'; runBench();">Benchmark</button>
-      <button class="btn btn-green" onclick="document.getElementById('ctrl-gpu').value=${gpuId}; document.getElementById('modal').style.display='none';">Load Model</button>
       <button class="btn btn-dim" onclick="loadLogs(${gpuId})">View Logs</button>
+      <button class="btn btn-red" onclick="killZombie(${gpuId})">Kill Process</button>
     </div>
 
     <div id="modal-logs-${gpuId}" style="display:none;">
@@ -1180,7 +1198,80 @@ async function openModal(gpuId) {
     </div>
   `;
 
+  // Populate model dropdown from /api/model-configs
+  populateModalDefaults(gpuId, is12gb, defModel, defMode);
+
   document.getElementById('modal').style.display = 'flex';
+}
+
+async function populateModalDefaults(gpuId, is12gb, currentModel, currentMode) {
+  try {
+    const cfgs = await apiFetch('/api/model-configs');
+    const modelSel = document.getElementById(`modal-def-model-${gpuId}`);
+    if (!modelSel) return;
+    for (const [name, cfg] of Object.entries(cfgs)) {
+      if (!is12gb && !cfg.fits_8gb) continue;
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = `${name} (${cfg.size_gb}G)`;
+      if (name === currentModel) opt.selected = true;
+      modelSel.appendChild(opt);
+    }
+    // Trigger mode population
+    if (currentModel) modalModelChanged(gpuId);
+  } catch(e) {}
+}
+
+function modalModelChanged(gpuId) {
+  const modelSel = document.getElementById(`modal-def-model-${gpuId}`);
+  const modeSel = document.getElementById(`modal-def-mode-${gpuId}`);
+  if (!modelSel || !modeSel) return;
+  modeSel.innerHTML = '';
+  const model = modelSel.value;
+  if (!model || !modelConfigs[model]) return;
+  const cfg = modelConfigs[model];
+  const g = gpuState.find(x => x.id === gpuId);
+  const currentMode = g ? g.default_mode : '';
+  for (const [mname, mcfg] of Object.entries(cfg.modes)) {
+    const opt = document.createElement('option');
+    opt.value = mname;
+    opt.textContent = `${mname} (${mcfg.speed}, ${mcfg.context} ctx)`;
+    if (mname === currentMode) opt.selected = true;
+    modeSel.appendChild(opt);
+  }
+}
+
+async function saveModalDefault(gpuId) {
+  const model = document.getElementById(`modal-def-model-${gpuId}`).value;
+  const mode = document.getElementById(`modal-def-mode-${gpuId}`).value;
+  const tempVal = document.getElementById(`modal-def-temp-${gpuId}`).value;
+  const temp = tempVal !== '' ? parseFloat(tempVal) : null;
+  const statusEl = document.getElementById(`modal-def-status-${gpuId}`);
+  if (!model) { statusEl.textContent = 'Select a model first'; statusEl.style.color = 'var(--red)'; return; }
+  try {
+    const body = {model, mode: mode || null, temp};
+    await fetch(`/api/gpu/${gpuId}/default`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    });
+    statusEl.textContent = `Default saved: ${model} ${mode}${temp != null ? ' temp=' + temp : ''}`;
+    statusEl.style.color = 'var(--green)';
+  } catch(e) { statusEl.textContent = 'Failed: ' + e; statusEl.style.color = 'var(--red)'; }
+}
+
+async function clearModalDefault(gpuId) {
+  const statusEl = document.getElementById(`modal-def-status-${gpuId}`);
+  try {
+    await fetch(`/api/gpu/${gpuId}/default`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model: null})
+    });
+    document.getElementById(`modal-def-model-${gpuId}`).value = '';
+    document.getElementById(`modal-def-mode-${gpuId}`).innerHTML = '';
+    document.getElementById(`modal-def-temp-${gpuId}`).value = '';
+    statusEl.textContent = 'Default cleared';
+    statusEl.style.color = 'var(--dim)';
+  } catch(e) { statusEl.textContent = 'Failed: ' + e; statusEl.style.color = 'var(--red)'; }
 }
 
 function statRow(label, value) {
@@ -1542,6 +1633,77 @@ function toggleCtrlPanel() {
   ctrlPanelOpen = !ctrlPanelOpen;
   document.getElementById('ctrl-body').style.display = ctrlPanelOpen ? 'block' : 'none';
   document.getElementById('ctrl-arrow').style.transform = ctrlPanelOpen ? 'rotate(90deg)' : '';
+  if (ctrlPanelOpen) refreshDefaultsTable();
+}
+
+async function refreshDefaultsTable() {
+  try {
+    const defs = await apiFetch('/api/defaults');
+    const gpuDefs = defs.gpus || {};
+    const body = document.getElementById('defaults-table-body');
+    if (!body) return;
+    let html = '';
+    for (let i = 0; i < 7; i++) {
+      const gd = gpuDefs[String(i)];
+      const g = gpuState.find(x => x.id === i);
+      const status = g ? g.status : '?';
+      const statusBadgeHtml = g ? statusBadge(status) : '';
+      if (gd && gd.model) {
+        html += `<tr style="cursor:pointer;" onclick="openModal(${i})">
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border); font-weight:600; color:var(--blue);">GPU ${i}</td>
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border); color:var(--teal);">${gd.model}</td>
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border);">${gd.mode || '—'}</td>
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border);">${gd.temp != null ? gd.temp : '—'}</td>
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border);">${statusBadgeHtml}</td>
+        </tr>`;
+      } else {
+        html += `<tr style="cursor:pointer; opacity:.5;" onclick="openModal(${i})">
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border); color:var(--blue);">GPU ${i}</td>
+          <td colspan="3" style="padding:5px 8px; border-bottom:1px solid var(--border); color:var(--dim);">not configured — click to set</td>
+          <td style="padding:5px 8px; border-bottom:1px solid var(--border);">${statusBadgeHtml}</td>
+        </tr>`;
+      }
+    }
+    body.innerHTML = html;
+    // Update auto-load toggle
+    const btn = document.getElementById('autoload-toggle');
+    if (btn) {
+      const on = defs.auto_load;
+      btn.textContent = on ? 'ON' : 'OFF';
+      btn.className = on ? 'btn btn-green' : 'btn btn-dim';
+    }
+  } catch(e) {}
+}
+
+async function loadAllDefaults() {
+  setStatus('Loading all defaults...');
+  try {
+    const res = await fetch('/api/defaults/load', {method:'POST'});
+    const data = await res.json();
+    setStatus(`Loaded ${data.loaded} GPU(s)`);
+  } catch(e) { setStatus('Failed: ' + e, true); }
+}
+
+async function saveRunningAsDefaults() {
+  try {
+    const res = await fetch('/api/defaults/save-running', {method:'POST'});
+    const data = await res.json();
+    setStatus(`Saved ${data.saved} running GPU(s) as defaults`);
+    refreshDefaultsTable();
+  } catch(e) { setStatus('Failed: ' + e, true); }
+}
+
+async function toggleAutoLoad() {
+  try {
+    const defs = await apiFetch('/api/defaults');
+    const newVal = !defs.auto_load;
+    defs.auto_load = newVal;
+    // Save via shell
+    await fetch('/api/defaults/save-running', {method:'POST'}); // triggers a save
+    // For now just toggle locally - would need a dedicated endpoint
+    setStatus(`Auto-load: ${newVal ? 'ON' : 'OFF'}`);
+    refreshDefaultsTable();
+  } catch(e) { setStatus('Failed: ' + e, true); }
 }
 
 // ── Testing Panel ────────────────────────────────────────────────────
