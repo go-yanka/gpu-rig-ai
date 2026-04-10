@@ -75,6 +75,25 @@
   .gpu-card.sleeping:hover { opacity: .65; border-color: #30363d; }
   .gpu-card.error       { border-left: 3px solid var(--red); background: rgba(248,81,73,.04); }
   .btn-wake { background: rgba(63,185,80,.2); color: var(--green); border-color: rgba(63,185,80,.5); font-weight: 600; }
+  /* Scrollable dropdown menus */
+  .actions-dropdown {
+    display:none; position:absolute; right:0; bottom:100%; z-index:999;
+    background:#1c2128; border:1px solid #3d444d; border-radius:6px;
+    min-width:170px; max-height:320px; box-shadow:0 -4px 16px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .actions-dropdown-inner {
+    max-height:310px; overflow-y:auto; scrollbar-width:thin; scrollbar-color:#3d444d transparent;
+  }
+  .actions-dropdown-inner::-webkit-scrollbar { width:5px; }
+  .actions-dropdown-inner::-webkit-scrollbar-thumb { background:#3d444d; border-radius:3px; }
+  .actions-dropdown-inner::-webkit-scrollbar-track { background:transparent; }
+  /* Scroll hint arrows */
+  .scroll-hint-top, .scroll-hint-bottom {
+    text-align:center; font-size:9px; color:var(--dim); padding:2px 0; line-height:1;
+    background:linear-gradient(180deg, #1c2128 60%, transparent);
+  }
+  .scroll-hint-bottom { background:linear-gradient(0deg, #1c2128 60%, transparent); }
 
   .vram-bar {
     background: #21262d;
@@ -280,7 +299,7 @@
       <div style="display:flex; gap:6px; margin-top:6px; align-items:center;">
         <div style="position:relative; display:inline-block;">
           <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
-            onclick="document.getElementById('hdr-power-menu').style.display = document.getElementById('hdr-power-menu').style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
+            onclick="document.getElementById('hdr-power-menu').style.display = document.getElementById('hdr-power-menu').style.display === 'block' ? 'none' : 'block'">Actions ▼</button>
           <div id="hdr-power-menu" style="display:none; position:absolute; left:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:180px; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
             <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green);"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
@@ -701,9 +720,13 @@ function buildActionsBtn(g) {
 
   return `<div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
     <button class="btn btn-dim" style="padding:2px 10px; font-size:10px;"
-      onclick="populateActionsModels(${g.id}, '${menuId}-models', ${g.id === 2}); document.getElementById('${menuId}').style.display = document.getElementById('${menuId}').style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
-    <div id="${menuId}" style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:170px; max-height:320px; overflow-y:auto; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
-      ${items}
+      onclick="populateActionsModels(${g.id}, '${menuId}-models', ${g.id === 2}); toggleMenu('${menuId}')">Actions \u25bc</button>
+    <div id="${menuId}" class="actions-dropdown">
+      <div class="scroll-hint-top">\u25b2 scroll up</div>
+      <div class="actions-dropdown-inner">
+        ${items}
+      </div>
+      <div class="scroll-hint-bottom">\u25bc scroll down</div>
     </div>
   </div>`;
 }
@@ -1293,6 +1316,36 @@ async function wakeAndLoad(gpuId) {
     loadGpuDefault(gpuId);
   } catch(e) { setStatus(`Error: ${e}`, true); }
 }
+
+function toggleMenu(menuId) {
+  const menu = document.getElementById(menuId);
+  if (!menu) return;
+  const show = menu.style.display !== 'block';
+  // Close all other open menus first
+  document.querySelectorAll('.actions-dropdown').forEach(m => m.style.display = 'none');
+  if (show) {
+    menu.style.display = 'block';
+    // Update scroll hints based on actual scroll state
+    const inner = menu.querySelector('.actions-dropdown-inner');
+    const hintTop = menu.querySelector('.scroll-hint-top');
+    const hintBottom = menu.querySelector('.scroll-hint-bottom');
+    if (inner && hintTop && hintBottom) {
+      const updateHints = () => {
+        hintTop.style.display = inner.scrollTop > 5 ? 'block' : 'none';
+        hintBottom.style.display = (inner.scrollHeight - inner.scrollTop - inner.clientHeight) > 5 ? 'block' : 'none';
+      };
+      updateHints();
+      inner.onscroll = updateHints;
+    }
+  }
+}
+
+// Close menus when clicking outside
+document.addEventListener('click', () => {
+  document.querySelectorAll('.actions-dropdown').forEach(m => m.style.display = 'none');
+  const hdrMenu = document.getElementById('hdr-power-menu');
+  if (hdrMenu) hdrMenu.style.display = 'none';
+});
 
 async function populateActionsModels(gpuId, containerId, is12gb) {
   const container = document.getElementById(containerId);
