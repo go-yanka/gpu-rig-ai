@@ -1111,6 +1111,74 @@ def cmd_defaults(args):
         print(co(R, f"  Unknown: {cmd}. Use set/clear/load/save-running/auto"))
     print()
 
+def rig_graceful_save():
+    """Save running models as defaults before shutdown/suspend."""
+    saved = save_running_as_defaults()
+    if saved:
+        print(f"  Saved {saved} running GPU(s) as defaults")
+    return saved
+
+def cmd_rig(args):
+    """Rig power control: shutdown, reboot, suspend."""
+    if not args:
+        print()
+        print(co(BOLD, "  Rig Power Control"))
+        print()
+        print(co(DIM, "  rig shutdown    — Save state + power off (S5). WoL to wake."))
+        print(co(DIM, "  rig reboot      — Save state + reboot. Dashboard auto-starts."))
+        print(co(DIM, "  rig suspend     — Save state + suspend to RAM (S3). WoL to wake."))
+        print(co(DIM, "                    WARNING: S3 may not resume cleanly with 7 GPUs on risers."))
+        print()
+        return
+
+    action = args.strip().lower()
+
+    if action == "shutdown":
+        print(co(Y, "\n  Shutting down rig (S5)..."))
+        print("  Saving running models as defaults...")
+        rig_graceful_save()
+        save_state()
+        print("  Stopping all GPU processes...")
+        for gpu in range(NUM_GPUS):
+            kill_port(BASE_PORT + gpu)
+        print(co(R, "  Powering off. Send WoL to wake: python rig_client.py --wake"))
+        time.sleep(1)
+        os.system("sudo systemctl poweroff")
+
+    elif action == "reboot":
+        print(co(Y, "\n  Rebooting rig..."))
+        print("  Saving running models as defaults...")
+        rig_graceful_save()
+        save_state()
+        print("  Stopping all GPU processes...")
+        for gpu in range(NUM_GPUS):
+            kill_port(BASE_PORT + gpu)
+        print(co(C, "  Rebooting. Dashboard will auto-start."))
+        time.sleep(1)
+        os.system("sudo reboot")
+
+    elif action == "suspend":
+        print(co(Y, "\n  Suspending rig to RAM (S3)..."))
+        print(co(R, "  WARNING: Resume may fail with 7 GPUs on USB risers."))
+        print(co(R, "  If resume fails, you'll need to power-cycle the rig."))
+        resp = input("  Continue? (y/n): ").strip().lower()
+        if resp != "y":
+            print("  Cancelled."); return
+        print("  Saving running models as defaults...")
+        rig_graceful_save()
+        save_state()
+        print("  Stopping all GPU processes...")
+        for gpu in range(NUM_GPUS):
+            kill_port(BASE_PORT + gpu)
+        print(co(C, "  Suspending. Send WoL to wake: python rig_client.py --wake"))
+        time.sleep(1)
+        os.system("sudo systemctl suspend")
+
+    else:
+        print(co(R, f"  Unknown action: {action}"))
+        print(co(DIM, "  Use: rig shutdown, rig reboot, rig suspend"))
+    print()
+
 def calibrate_sleep_power():
     """Measure each GPU's D3hot sleep power using subtraction method.
     Sleeps one GPU at a time, measures power delta from remaining awake GPUs.
@@ -2945,6 +3013,7 @@ HELP_SHORT = f"""
   {co(C, 'diagnose')} <gpu|all>     Deep GPU diagnosis (uses AI)
   {co(C, 'nginx reload')}           Update load balancer
   {co(C, 'resume')}                 Reload from saved state
+  {co(C, 'rig')} <shutdown|reboot|suspend>  Rig power (saves state first)
   {co(C, 'defaults')}                 GPU default models (set/load/save)
   {co(C, 'power')} [sleep|wake|...] GPU power + auto-sleep policy
   {co(C, 'kill-zombies')}           Kill stuck processes
@@ -3295,6 +3364,7 @@ def main():
                     "unload", "unload all", "test", "test all", "bench", "status",
                     "perf", "logs", "chat", "diagnose", "diagnose all", "verify",
                     "power", "power sleep all", "power wake all", "power sleep", "power wake", "power calibrate",
+                    "rig shutdown", "rig reboot", "rig suspend",
                     "power autosleep", "power autosleep off",
                     "defaults", "defaults load", "defaults save-running", "defaults auto on", "defaults auto off",
                     "nginx reload", "resume", "kill-zombies", "ports", "help", "exit"]
@@ -3419,6 +3489,8 @@ def main():
             cmd_kill_zombies()
         elif cmd == "power":
             cmd_power(args)
+        elif cmd == "rig":
+            cmd_rig(args)
         elif cmd in ("defaults", "default"):
             cmd_defaults(args)
         elif cmd == "ports":

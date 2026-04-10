@@ -324,16 +324,17 @@
                 <option value="30">30 min</option>
               </select>
             </div>
-            <div style="padding:5px 14px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Rig</div>
-            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--yellow);"
+            <div style="padding:5px 14px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Rig Power</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--text);"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('reboot')">Reboot Rig</div>
-            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid #3d444d;"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('reboot')">Reboot</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--yellow); border-top:1px solid #3d444d;"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('sleep')">Sleep Rig (WoL to wake)</div>
+              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('suspend')">Suspend to RAM (S3)</div>
             <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--red); border-top:1px solid #3d444d;"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('shutdown')">Shutdown Rig</div>
+              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('shutdown')">Shutdown (S5)</div>
+            <div style="padding:4px 14px; font-size:10px; color:var(--dim); border-top:1px solid #3d444d;">Saves running models as defaults before any action. WoL to wake from S3/S5.</div>
           </div>
         </div>
         <span id="hdr-autosleep-label" style="font-size:10px; color:var(--dim);"></span>
@@ -1630,9 +1631,9 @@ async function sleepIdleGpus() {
 
 async function rigAction(action) {
   const msgs = {
-    reboot: 'Reboot the rig? All GPUs will stop.',
-    sleep: 'Suspend the rig to RAM? Send WoL magic packet to wake it later.',
-    shutdown: 'Shutdown the rig? It will need physical power-on to restart.'
+    reboot: 'Reboot the rig?\n\nRunning models will be saved as defaults and auto-loaded on restart.',
+    suspend: 'Suspend to RAM (S3)?\n\nWARNING: Resume may fail with 7 GPUs on USB risers. If it fails, you\'ll need to power-cycle.\n\nSend WoL magic packet to wake.',
+    shutdown: 'Shutdown the rig (S5)?\n\nRunning models saved as defaults. Send WoL to wake, or press power button.'
   };
   if (!confirm(msgs[action] || 'Are you sure?')) return;
   try {

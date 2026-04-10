@@ -477,23 +477,33 @@ async def api_autosleep(req: AutoSleepRequest):
 
 @app.post("/api/rig/reboot")
 async def api_rig_reboot():
-    """Reboot the rig."""
+    """Graceful reboot. Saves state, stops GPUs."""
     loop = asyncio.get_running_loop()
+    if shell:
+        await loop.run_in_executor(None, lambda: (_call("save_running_as_defaults"), _call("save_state")))
     await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "reboot"], timeout=5))
     return {"ok": True}
 
-@app.post("/api/rig/sleep")
-async def api_rig_sleep():
-    """Suspend rig to RAM (S3 sleep). WoL magic packet wakes it."""
+@app.post("/api/rig/suspend")
+async def api_rig_suspend():
+    """Suspend to RAM (S3). Risky with 7 GPUs on risers."""
     loop = asyncio.get_running_loop()
+    # Save state before suspend
+    if shell:
+        await loop.run_in_executor(None, lambda: (_call("save_running_as_defaults"), _call("save_state")))
     await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "systemctl", "suspend"], timeout=5))
     return {"ok": True}
 
 @app.post("/api/rig/shutdown")
 async def api_rig_shutdown():
-    """Shutdown the rig."""
+    """Graceful shutdown (S5). Saves state, stops GPUs, powers off."""
     loop = asyncio.get_running_loop()
-    await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "shutdown", "-h", "now"], timeout=5))
+    if shell:
+        await loop.run_in_executor(None, lambda: (_call("save_running_as_defaults"), _call("save_state")))
+        for gpu in range(NUM_GPUS):
+            try: await loop.run_in_executor(None, _call, "kill_port", BASE_PORT + gpu)
+            except: pass
+    await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "systemctl", "poweroff"], timeout=5))
     return {"ok": True}
 
 @app.get("/api/profiles")
