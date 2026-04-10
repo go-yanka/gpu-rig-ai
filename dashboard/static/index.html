@@ -164,7 +164,7 @@
     border-radius: 12px;
     padding: 24px;
     width: 90%;
-    max-width: 560px;
+    max-width: 720px;
     max-height: 90vh;
     overflow-y: auto;
   }
@@ -1166,31 +1166,32 @@ async function openModal(gpuId) {
     <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:14px;">
       <div style="font-size:11px; font-weight:700; color:var(--dim); margin-bottom:4px; text-transform:uppercase; letter-spacing:.05em;">Default Model Configuration</div>
       <div style="margin-bottom:8px;">${recs}</div>
-      <div style="display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-bottom:8px;">
+      <div style="display:flex; gap:6px; align-items:center; margin-bottom:8px;">
         <select id="modal-def-model-${gpuId}" onchange="modalModelChanged(${gpuId})"
-          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:140px;">
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; flex:1; min-width:0;">
           <option value="">— none —</option>
         </select>
         <select id="modal-def-mode-${gpuId}"
-          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:130px;">
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; flex:1; min-width:0;">
         </select>
-        <label style="color:var(--dim); font-size:11px;">Temp:</label>
-        <input id="modal-def-temp-${gpuId}" type="number" min="0" max="2" step="0.1" value="${defTemp}"
-          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; width:60px;">
-        <button class="btn btn-blue" style="padding:4px 12px; font-size:11px;"
+        <span style="color:var(--dim); font-size:11px; flex-shrink:0;">Temp:</span>
+        <input id="modal-def-temp-${gpuId}" type="number" min="0" max="2" step="0.1" value="${defTemp !== '' && defTemp != null ? defTemp : '0.8'}" placeholder="0.8"
+          style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; width:55px; flex-shrink:0;">
+        <button class="btn btn-blue" style="padding:4px 12px; font-size:11px; flex-shrink:0;"
           onclick="saveModalDefault(${gpuId})">Set Default</button>
-        <button class="btn btn-dim" style="padding:4px 12px; font-size:11px;"
+        <button class="btn btn-dim" style="padding:4px 12px; font-size:11px; flex-shrink:0;"
           onclick="clearModalDefault(${gpuId})">Clear</button>
       </div>
-      <div id="modal-def-status-${gpuId}" style="font-size:11px; color:var(--dim);"></div>
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div id="modal-def-status-${gpuId}" style="font-size:11px; color:var(--dim);"></div>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;" onclick="loadLogs(${gpuId})">View Logs</button>
+          <button class="btn btn-red" style="padding:3px 10px; font-size:11px;" onclick="killZombie(${gpuId})">Kill Process</button>
+        </div>
+      </div>
     </div>
 
     ${profileSection}
-
-    <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
-      <button class="btn btn-dim" onclick="loadLogs(${gpuId})">View Logs</button>
-      <button class="btn btn-red" onclick="killZombie(${gpuId})">Kill Process</button>
-    </div>
 
     <div id="modal-logs-${gpuId}" style="display:none;">
       <div style="color:var(--dim); font-size:11px; margin-bottom:4px;">STDERR (last 50 lines)</div>
@@ -1206,10 +1207,13 @@ async function openModal(gpuId) {
 
 async function populateModalDefaults(gpuId, is12gb, currentModel, currentMode) {
   try {
-    const cfgs = await apiFetch('/api/model-configs');
+    // Ensure global modelConfigs is loaded
+    if (!Object.keys(modelConfigs).length) {
+      modelConfigs = await apiFetch('/api/model-configs');
+    }
     const modelSel = document.getElementById(`modal-def-model-${gpuId}`);
     if (!modelSel) return;
-    for (const [name, cfg] of Object.entries(cfgs)) {
+    for (const [name, cfg] of Object.entries(modelConfigs)) {
       if (!is12gb && !cfg.fits_8gb) continue;
       const opt = document.createElement('option');
       opt.value = name;
@@ -1217,9 +1221,9 @@ async function populateModalDefaults(gpuId, is12gb, currentModel, currentMode) {
       if (name === currentModel) opt.selected = true;
       modelSel.appendChild(opt);
     }
-    // Trigger mode population
-    if (currentModel) modalModelChanged(gpuId);
-  } catch(e) {}
+    // Trigger mode population — always, even if no current model but user selected one
+    modalModelChanged(gpuId);
+  } catch(e) { console.error('populateModalDefaults error:', e); }
 }
 
 function modalModelChanged(gpuId) {
