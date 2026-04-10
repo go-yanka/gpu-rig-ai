@@ -458,6 +458,13 @@ async def api_rig_reboot():
     await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "reboot"], timeout=5))
     return {"ok": True}
 
+@app.post("/api/rig/sleep")
+async def api_rig_sleep():
+    """Suspend rig to RAM (S3 sleep). WoL magic packet wakes it."""
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "systemctl", "suspend"], timeout=5))
+    return {"ok": True}
+
 @app.post("/api/rig/shutdown")
 async def api_rig_shutdown():
     """Shutdown the rig."""
