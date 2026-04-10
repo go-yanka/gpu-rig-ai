@@ -79,32 +79,56 @@ GPU_MAP = {
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
-DB_PATH = "/dev/shm/ai-rig.db"
-DEFAULTS_FILE = "/opt/ai-rig-defaults.json"
+DB_PATH = "/opt/ai-rig.db"  # Persistent — same as shell
 
 def _load_defaults():
-    """Read defaults file (persistent, written by shell)."""
+    """Read defaults from SQLite (single source of truth)."""
     try:
-        with open(DEFAULTS_FILE) as f:
-            return json.load(f)
+        conn = _db()
+        gpus = {}
+        sleep_watts = {}
+        awake_watts = {}
+        for r in conn.execute("SELECT gpu_id, default_model, default_mode, default_temp, sleep_watts_cal, awake_watts_cal FROM gpu_state"):
+            gid = str(r["gpu_id"])
+            if r["default_model"]:
+                gpus[gid] = {"model": r["default_model"], "mode": r["default_mode"], "temp": r["default_temp"]}
+            if r["sleep_watts_cal"] is not None:
+                sleep_watts[gid] = r["sleep_watts_cal"]
+            if r["awake_watts_cal"] is not None:
+                awake_watts[gid] = r["awake_watts_cal"]
+        sys = conn.execute("SELECT auto_sleep_minutes, auto_load FROM system_state WHERE id=1").fetchone()
+        conn.close()
+        return {
+            "auto_load": bool(sys["auto_load"]) if sys else False,
+            "auto_sleep_minutes": sys["auto_sleep_minutes"] if sys else 0,
+            "gpus": gpus,
+            "gpu_sleep_watts": sleep_watts,
+            "gpu_awake_watts": awake_watts,
+        }
     except:
         return {}
 
 def _get_sleep_watts(gpu_id):
     """Get calibrated or estimated sleep watts for a GPU."""
-    defaults = _load_defaults()
-    cal = defaults.get("gpu_sleep_watts", {})
-    val = cal.get(str(gpu_id))
-    if val is not None:
-        return round(val, 1), True
+    try:
+        conn = _db()
+        r = conn.execute("SELECT sleep_watts_cal FROM gpu_state WHERE gpu_id=?", (gpu_id,)).fetchone()
+        conn.close()
+        if r and r["sleep_watts_cal"] is not None:
+            return round(r["sleep_watts_cal"], 1), True
+    except: pass
     return (6.0 if gpu_id == 2 else 5.0), False
 
 def _get_awake_watts(gpu_id):
-    """Get calibrated awake watts (from last calibration) for savings calculation."""
-    defaults = _load_defaults()
-    aw = defaults.get("gpu_awake_watts", {})
-    val = aw.get(str(gpu_id))
-    return round(val, 1) if val is not None else 10.0
+    """Get calibrated awake watts for savings calculation."""
+    try:
+        conn = _db()
+        r = conn.execute("SELECT awake_watts_cal FROM gpu_state WHERE gpu_id=?", (gpu_id,)).fetchone()
+        conn.close()
+        if r and r["awake_watts_cal"] is not None:
+            return round(r["awake_watts_cal"], 1)
+    except: pass
+    return 10.0
 
 def _db():
     """Get a SQLite connection. Dashboard ONLY reads from this DB."""

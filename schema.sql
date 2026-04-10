@@ -1,5 +1,5 @@
 -- AI Rig SQLite Schema
--- Database: /dev/shm/ai-rig.db (tmpfs, created fresh on boot)
+-- Database: /opt/ai-rig.db (persistent on USB drive, survives reboot)
 -- Writer: ai_rig_shell.py (the only writer)
 -- Reader: dashboard/app.py (read-only)
 

@@ -176,7 +176,7 @@ _PCI_RE = re.compile(r'^[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$')
 # DATABASE — Single Source of Truth
 # ══════════════════════════════════════════════════════════════════════════
 
-DB_PATH = "/dev/shm/ai-rig.db"
+DB_PATH = "/opt/ai-rig.db"  # Persistent — survives reboot (was /dev/shm, now on USB)
 
 def init_db():
     """Create SQLite database and tables if they don't exist."""
@@ -233,13 +233,15 @@ def init_db():
             created_at  TEXT
         );
         CREATE TABLE IF NOT EXISTS system_state (
-            id          INTEGER PRIMARY KEY DEFAULT 1,
-            ram_total   INTEGER,
-            ram_used    INTEGER,
-            ram_avail   INTEGER,
-            nginx_active INTEGER,
-            uptime_sec  INTEGER,
-            updated_at  TEXT
+            id                  INTEGER PRIMARY KEY DEFAULT 1,
+            ram_total           INTEGER,
+            ram_used            INTEGER,
+            ram_avail           INTEGER,
+            nginx_active        INTEGER,
+            uptime_sec          INTEGER,
+            auto_sleep_minutes  INTEGER DEFAULT 0,
+            auto_load           INTEGER DEFAULT 0,
+            updated_at          TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_worklog_gpu ON worklog(gpu_id, started_at);
         CREATE INDEX IF NOT EXISTS idx_events_gpu ON events(gpu_id, created_at);
@@ -248,10 +250,44 @@ def init_db():
     existing_cols = {r[1] for r in conn.execute("PRAGMA table_info(gpu_state)")}
     for col, typ in [("power_watts", "REAL"), ("perf_level", "TEXT"), ("pci_addr", "TEXT"),
                       ("vram_total", "INTEGER"), ("idle_since", "TEXT"),
-                      ("default_model", "TEXT"), ("default_mode", "TEXT"), ("default_temp", "REAL")]:
+                      ("default_model", "TEXT"), ("default_mode", "TEXT"), ("default_temp", "REAL"),
+                      ("sleep_watts_cal", "REAL"), ("awake_watts_cal", "REAL")]:
         if col not in existing_cols:
             try: conn.execute(f"ALTER TABLE gpu_state ADD COLUMN {col} {typ}")
             except: pass
+
+    # Migrate system_state columns
+    sys_cols = {r[1] for r in conn.execute("PRAGMA table_info(system_state)")}
+    for col, typ in [("auto_sleep_minutes", "INTEGER DEFAULT 0"), ("auto_load", "INTEGER DEFAULT 0")]:
+        cname = col.split()[0] if " " in col else col
+        if cname not in sys_cols:
+            try: conn.execute(f"ALTER TABLE system_state ADD COLUMN {col} {typ}")
+            except: pass
+
+    # Migrate data from JSON file if it exists (one-time migration)
+    try:
+        import json as _json
+        jpath = "/opt/ai-rig-defaults.json"
+        if os.path.exists(jpath):
+            with open(jpath) as f:
+                jdata = _json.load(f)
+            # Migrate auto_sleep and auto_load
+            conn.execute("UPDATE system_state SET auto_sleep_minutes=?, auto_load=? WHERE id=1",
+                (jdata.get("auto_sleep_minutes", 0), 1 if jdata.get("auto_load") else 0))
+            # Migrate GPU defaults and calibration
+            for gid_str, gdef in jdata.get("gpus", {}).items():
+                if gdef:
+                    conn.execute("UPDATE gpu_state SET default_model=?, default_mode=?, default_temp=? WHERE gpu_id=?",
+                        (gdef.get("model"), gdef.get("mode"), gdef.get("temp"), int(gid_str)))
+            for gid_str, sw in jdata.get("gpu_sleep_watts", {}).items():
+                aw = jdata.get("gpu_awake_watts", {}).get(gid_str)
+                conn.execute("UPDATE gpu_state SET sleep_watts_cal=?, awake_watts_cal=? WHERE gpu_id=?",
+                    (sw, aw, int(gid_str)))
+            conn.commit()
+            # Rename JSON file so migration doesn't run again
+            os.rename(jpath, jpath + ".migrated")
+    except Exception:
+        pass
 
     # Initialize gpu_state rows from GPU_MAP
     for gpu_id, info in GPU_MAP.items():
@@ -819,29 +855,70 @@ def set_all_gpu_power(level, exclude=None):
 # ══════════════════════════════════════════════════════════════════════════
 
 def load_defaults_file():
-    """Load /opt/ai-rig-defaults.json. Returns dict."""
+    """Load defaults from SQLite. Returns dict matching old JSON format for compatibility."""
     try:
-        with open(DEFAULTS_FILE) as f:
-            return json.load(f)
+        conn = _db()
+        gpus = {}
+        for r in conn.execute("SELECT gpu_id, default_model, default_mode, default_temp, sleep_watts_cal, awake_watts_cal FROM gpu_state"):
+            gid = str(r["gpu_id"])
+            if r["default_model"]:
+                gpus[gid] = {"model": r["default_model"], "mode": r["default_mode"], "temp": r["default_temp"]}
+            else:
+                gpus[gid] = None
+        sys = conn.execute("SELECT auto_sleep_minutes, auto_load FROM system_state WHERE id=1").fetchone()
+        sleep_watts = {}
+        awake_watts = {}
+        for r in conn.execute("SELECT gpu_id, sleep_watts_cal, awake_watts_cal FROM gpu_state"):
+            if r["sleep_watts_cal"] is not None:
+                sleep_watts[str(r["gpu_id"])] = r["sleep_watts_cal"]
+            if r["awake_watts_cal"] is not None:
+                awake_watts[str(r["gpu_id"])] = r["awake_watts_cal"]
+        conn.close()
+        return {
+            "version": 1,
+            "auto_load": bool(sys["auto_load"]) if sys else False,
+            "auto_sleep_minutes": sys["auto_sleep_minutes"] if sys else 0,
+            "gpus": gpus,
+            "gpu_sleep_watts": sleep_watts,
+            "gpu_awake_watts": awake_watts,
+        }
     except:
-        return {"version": 1, "auto_load": False, "gpus": {}, "gpu_sleep_watts": {}, "calibrated_at": None}
+        return {"version": 1, "auto_load": False, "auto_sleep_minutes": 0, "gpus": {}, "gpu_sleep_watts": {}, "gpu_awake_watts": {}}
 
 def save_defaults_file(data):
-    """Write defaults file atomically."""
-    data["version"] = 1
-    tmp = DEFAULTS_FILE + ".tmp"
-    with open(tmp, "w") as f:
-        json.dump(data, f, indent=2)
-    os.rename(tmp, DEFAULTS_FILE)
+    """Save defaults to SQLite (replaces old JSON file)."""
+    try:
+        conn = _db()
+        # Save system-level settings
+        conn.execute("UPDATE system_state SET auto_sleep_minutes=?, auto_load=? WHERE id=1",
+            (data.get("auto_sleep_minutes", 0), 1 if data.get("auto_load") else 0))
+        # Save per-GPU defaults
+        for gid_str, gdef in data.get("gpus", {}).items():
+            if gdef:
+                conn.execute("UPDATE gpu_state SET default_model=?, default_mode=?, default_temp=? WHERE gpu_id=?",
+                    (gdef.get("model"), gdef.get("mode"), gdef.get("temp"), int(gid_str)))
+            else:
+                conn.execute("UPDATE gpu_state SET default_model=NULL, default_mode=NULL, default_temp=NULL WHERE gpu_id=?",
+                    (int(gid_str),))
+        # Save calibration data
+        for gid_str, sw in data.get("gpu_sleep_watts", {}).items():
+            aw = data.get("gpu_awake_watts", {}).get(gid_str)
+            conn.execute("UPDATE gpu_state SET sleep_watts_cal=?, awake_watts_cal=? WHERE gpu_id=?",
+                (sw, aw, int(gid_str)))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"  save_defaults error: {e}")
 
 def get_gpu_sleep_watts(gpu_idx):
     """Get calibrated sleep power for a GPU, or estimate if not calibrated."""
-    defaults = load_defaults_file()
-    cal = defaults.get("gpu_sleep_watts", {})
-    val = cal.get(str(gpu_idx))
-    if val is not None:
-        return round(val, 1), True  # (watts, is_calibrated)
-    # Estimate: ~5W for RDNA1 on USB risers, ~6W for RDNA2
+    try:
+        conn = _db()
+        r = conn.execute("SELECT sleep_watts_cal FROM gpu_state WHERE gpu_id=?", (gpu_idx,)).fetchone()
+        conn.close()
+        if r and r["sleep_watts_cal"] is not None:
+            return round(r["sleep_watts_cal"], 1), True
+    except: pass
     est = 6.0 if GPU_MAP.get(gpu_idx, {}).get("arch") == "RDNA2" else 5.0
     return est, False
 
@@ -861,18 +938,26 @@ def _read_gpu_power_avg(gpu_idx, samples=20, interval=0.5):
     return sum(readings) / len(readings) if readings else 0
 
 def set_default(gpu_idx, model, mode, temp=None):
-    """Set the default model for a GPU. Saved to /opt/ai-rig-defaults.json."""
-    defaults = load_defaults_file()
-    if "gpus" not in defaults: defaults["gpus"] = {}
-    defaults["gpus"][str(gpu_idx)] = {"model": model, "mode": mode, "temp": temp}
-    save_defaults_file(defaults)
+    """Set the default model for a GPU. Saved to SQLite."""
+    try:
+        conn = _db()
+        conn.execute("UPDATE gpu_state SET default_model=?, default_mode=?, default_temp=? WHERE gpu_id=?",
+            (model, mode, temp, gpu_idx))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"  set_default error: {e}")
 
 def clear_default(gpu_idx):
     """Clear the default model for a GPU."""
-    defaults = load_defaults_file()
-    if "gpus" not in defaults: defaults["gpus"] = {}
-    defaults["gpus"][str(gpu_idx)] = None
-    save_defaults_file(defaults)
+    try:
+        conn = _db()
+        conn.execute("UPDATE gpu_state SET default_model=NULL, default_mode=NULL, default_temp=NULL WHERE gpu_id=?",
+            (gpu_idx,))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"  clear_default error: {e}")
 
 def load_all_defaults():
     """Load all configured GPU defaults. Returns list of (gpu, model, mode, temp)."""
