@@ -626,8 +626,18 @@ function buildSleepingCard(g) {
       <span style="color:var(--green); font-size:11px;">~${sw}W ${tag}</span>
       <span style="color:var(--dim); font-size:10px;">\u2193${saving}W saved</span>
       <div style="flex:1;"></div>
-      <button class="btn btn-wake" style="padding:3px 12px; font-size:11px;"
-        onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'sleep')">Wake</button>
+      <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
+        <button class="btn btn-wake" style="padding:3px 12px; font-size:11px;"
+          onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Wake \u25bc</button>
+        <div style="display:none; position:absolute; right:0; top:100%; z-index:50; background:var(--panel); border:1px solid var(--border); border-radius:6px; overflow:hidden; min-width:120px; box-shadow:0 4px 12px rgba(0,0,0,.4);">
+          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--text);"
+            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
+            onclick="this.parentElement.style.display='none'; toggleGpuPower(${g.id}, 'sleep')">Wake</div>
+          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid var(--border);"
+            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
+            onclick="this.parentElement.style.display='none'; wakeAndLoad(${g.id})">Wake &amp; Load</div>
+        </div>
+      </div>
     </div>
   </div>`;
 }
@@ -697,8 +707,20 @@ function buildActiveCard(g) {
       <div style="min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${model}</div>
       <span style="color:var(--purple); font-weight:600; font-size:12px;">${toks}</span>
     </div>
-    <div style="margin-top:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center; color:var(--dim);">
-      <span>${g.power_watts ? g.power_watts + 'W' : ''} \u00b7 Port :${g.port}</span>
+    <div style="margin-top:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:var(--dim);">${g.power_watts ? g.power_watts + 'W' : ''} \u00b7 Port :${g.port}</span>
+      <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
+        <button class="btn btn-red" style="padding:2px 10px; font-size:10px;"
+          onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Unload \u25bc</button>
+        <div style="display:none; position:absolute; right:0; top:100%; z-index:50; background:var(--panel); border:1px solid var(--border); border-radius:6px; overflow:hidden; min-width:130px; box-shadow:0 4px 12px rgba(0,0,0,.4);">
+          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--text);"
+            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
+            onclick="this.parentElement.style.display='none'; gpuUnload(${g.id})">Unload</div>
+          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--green); border-top:1px solid var(--border);"
+            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
+            onclick="this.parentElement.style.display='none'; unloadAndSleep(${g.id})">Unload &amp; Sleep</div>
+        </div>
+      </div>
     </div>
     ${hasProf ? `
     <div class="profile-toggle ${isOpen}" id="ptoggle-${g.id}" onclick="toggleProfile(event, ${g.id})">
@@ -1206,6 +1228,41 @@ async function toggleGpuPower(gpuId, currentLevel) {
       setStatus(`GPU ${gpuId}: power change failed`, true);
     }
   } catch(e) { setStatus(`Power error: ${e}`, true); }
+}
+
+async function gpuUnload(gpuId) {
+  try {
+    setStatus(`GPU ${gpuId}: unloading...`);
+    await fetch(`/api/gpu/${gpuId}/unload`, {method:'POST'});
+    setStatus(`GPU ${gpuId}: unloaded`);
+  } catch(e) { setStatus(`Error: ${e}`, true); }
+}
+
+async function unloadAndSleep(gpuId) {
+  try {
+    setStatus(`GPU ${gpuId}: unloading + sleeping...`);
+    await fetch(`/api/gpu/${gpuId}/unload`, {method:'POST'});
+    await new Promise(r => setTimeout(r, 2000));
+    await fetch(`/api/gpu/${gpuId}/power`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({level:'sleep'})
+    });
+    setStatus(`GPU ${gpuId}: sleeping`);
+  } catch(e) { setStatus(`Error: ${e}`, true); }
+}
+
+async function wakeAndLoad(gpuId) {
+  try {
+    setStatus(`GPU ${gpuId}: waking + loading default...`);
+    // Wake first
+    await fetch(`/api/gpu/${gpuId}/power`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({level:'wake'})
+    });
+    await new Promise(r => setTimeout(r, 2000));
+    // Load default model from file
+    loadGpuDefault(gpuId);
+  } catch(e) { setStatus(`Error: ${e}`, true); }
 }
 
 async function loadGpuDefault(gpuId) {
