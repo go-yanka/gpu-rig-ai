@@ -1260,6 +1260,7 @@ async function saveModalDefault(gpuId) {
     });
     statusEl.textContent = `Default saved: ${model} ${mode}${temp != null ? ' temp=' + temp : ''}`;
     statusEl.style.color = 'var(--green)';
+    refreshDefaultsTable(); // Update GPU Defaults panel immediately
   } catch(e) { statusEl.textContent = 'Failed: ' + e; statusEl.style.color = 'var(--red)'; }
 }
 
@@ -1275,6 +1276,7 @@ async function clearModalDefault(gpuId) {
     document.getElementById(`modal-def-temp-${gpuId}`).value = '';
     statusEl.textContent = 'Default cleared';
     statusEl.style.color = 'var(--dim)';
+    refreshDefaultsTable();
   } catch(e) { statusEl.textContent = 'Failed: ' + e; statusEl.style.color = 'var(--red)'; }
 }
 
