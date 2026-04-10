@@ -1,1 +1,58 @@
+# Private/personal files
 RITU_AGENT_INSTRUCTIONS.md
+.rig_config
+.claude/
+
+# Old/legacy files
+SESSION_HANDOFF.md
+GEMMA4_TEST_REPORT.md
+INTEGRATION_GUIDE.md
+MODEL_COMPARISON_REPORT.md
+RIG_COMPLETE_DOCUMENTATION.md
+RIG_INFO.md
+RIG_SETUP.md
+RIG_TUNING_GUIDE.md
+UBUNTU_INSTALL_GUIDE.md
+VISION_BUG_FOR_OTHER_LLM.md
+_rig_done.txt
+_rig_output.txt
+
+# Binary/large files
+*.gguf
+*.img.xz
+*.png
+*.exe
+*.ini
+
+# Old scripts (not part of current system)
+paddler/
+paddler-*.sh
+paddler_start.sh
+manage_paddler.py
+openclaw/
+Rufus/
+models/
+rig_scripts/
+
+# Misc
+chat-ui.js
+deploy_gemma4.sh
+ebay_*
+find_rig.py
+fix_share_access.bat
+gpu_inventory.sh
+hiveos-*
+llama-server.sh
+newegg_*
+prepare_usb.py
+qwen_*
+gemma4_*
+rig_cmd*.py
+run_*.py
+search_ram.py
+share_models_folder.bat
+start.bat
+stress_test*
+test-models.sh
+wake_rig.py
+dashboard/QA_REPORT.md
