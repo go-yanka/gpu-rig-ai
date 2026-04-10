@@ -169,6 +169,8 @@ def get_gpu_data() -> list[dict]:
                 "sleep_watts": _get_sleep_watts(r["gpu_id"])[0],
                 "sleep_calibrated": _get_sleep_watts(r["gpu_id"])[1],
                 "awake_watts": _get_awake_watts(r["gpu_id"]),
+                "default_model": r["default_model"] if "default_model" in r.keys() else None,
+                "default_mode": r["default_mode"] if "default_mode" in r.keys() else None,
             })
         return result
     except Exception as e:

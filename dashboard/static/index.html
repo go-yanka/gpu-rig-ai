@@ -65,11 +65,16 @@
     cursor: pointer;
   }
   .gpu-card:hover { border-color: #3d444d; box-shadow: 0 0 0 1px #3d444d; }
-  .gpu-card.ok     { border-left: 3px solid var(--green); }
-  .gpu-card.warm   { border-left: 3px solid var(--yellow); }
-  .gpu-card.hot    { border-left: 3px solid var(--red); }
-  .gpu-card.error  { border-left: 3px solid var(--red); background: rgba(248,81,73,.04); }
-  .gpu-card.off    { border-left: 3px solid #30363d; opacity: .7; }
+  /* Three-state cards */
+  .gpu-card.active      { border-left: 3px solid var(--green); }
+  .gpu-card.active.warm { border-left-color: var(--yellow); }
+  .gpu-card.active.hot  { border-left-color: var(--red); }
+  .gpu-card.idle        { border-left: 3px solid #30363d; opacity: .75; }
+  .gpu-card.idle:hover  { opacity: .85; }
+  .gpu-card.sleeping    { border-left: 3px solid #21262d; opacity: .5; padding: 8px 16px; }
+  .gpu-card.sleeping:hover { opacity: .65; border-color: #30363d; }
+  .gpu-card.error       { border-left: 3px solid var(--red); background: rgba(248,81,73,.04); }
+  .btn-wake { background: rgba(63,185,80,.2); color: var(--green); border-color: rgba(63,185,80,.5); font-weight: 600; }
 
   .vram-bar {
     background: #21262d;
@@ -235,7 +240,12 @@
       <span id="live-label">connecting…</span>
     </span>
   </div>
-  <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+  <div style="display:flex; gap:8px; align-items:stretch; flex-wrap:wrap;">
+    <!-- System clock -->
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-clock" style="font-size:16px;">--:--</div>
+      <div class="stat-label">System Time</div>
+    </div>
     <div class="stat-box" style="padding:6px 14px;">
       <div class="stat-value" id="hdr-gpus" style="font-size:16px;">—</div>
       <div class="stat-label">Active GPUs</div>
@@ -256,20 +266,33 @@
       <div class="stat-value" id="hdr-ram" style="font-size:16px;">—</div>
       <div class="stat-label">RAM Free</div>
     </div>
-    <div class="stat-box" style="padding:8px 14px; min-width:220px;">
+    <!-- GPU Power Panel (wider) -->
+    <div class="stat-box" style="padding:8px 14px; min-width:300px;">
       <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">GPU Power</div>
-      <div style="display:flex; gap:12px; align-items:baseline;">
-        <span id="hdr-power-total" style="font-size:18px; font-weight:700;">—</span>
+      <div style="display:flex; gap:14px; align-items:baseline;">
+        <span id="hdr-power-total" style="font-size:20px; font-weight:700;">—</span>
         <span id="hdr-power-saving" style="font-size:12px; color:var(--green);"></span>
       </div>
-      <div style="display:flex; gap:10px; margin-top:4px; font-size:11px;">
+      <div style="display:flex; gap:14px; margin-top:4px; font-size:11px;">
         <span id="hdr-power-active" style="color:var(--dim);">Active: —</span>
-        <span id="hdr-power-sleep" style="color:var(--green);">Sleep: —</span>
+        <span id="hdr-power-sleep" style="color:var(--teal);">Sleep: —</span>
       </div>
-      <div style="display:flex; gap:4px; margin-top:6px; align-items:center;">
-        <button class="btn btn-green" style="padding:2px 8px; font-size:10px;" onclick="sleepIdleGpus()" title="Sleep all GPUs with no model loaded">Sleep Idle</button>
-        <button class="btn btn-dim" style="padding:2px 8px; font-size:10px;" onclick="setAllPower('wake')" title="Wake all GPUs">Wake All</button>
-        <span id="hdr-autosleep" style="font-size:10px; color:var(--dim); margin-left:4px;"></span>
+      <div style="display:flex; gap:6px; margin-top:6px; align-items:center;">
+        <button class="btn btn-green" style="padding:3px 10px; font-size:11px;" onclick="sleepIdleGpus()">Sleep Idle</button>
+        <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;" onclick="setAllPower('wake')">Wake All</button>
+        <div style="margin-left:auto; display:flex; align-items:center; gap:4px;">
+          <span style="font-size:10px; color:var(--dim);">Auto:</span>
+          <select id="hdr-autosleep-select" onchange="setAutoSleep(this.value)"
+            style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:2px 6px; border-radius:4px; font-family:inherit; font-size:10px;">
+            <option value="0">Off</option>
+            <option value="1">1m</option>
+            <option value="2">2m</option>
+            <option value="5" selected>5m</option>
+            <option value="10">10m</option>
+            <option value="15">15m</option>
+            <option value="30">30m</option>
+          </select>
+        </div>
       </div>
     </div>
   </div>
@@ -281,7 +304,7 @@
 <div style="padding:16px 20px; max-width:1600px; margin:0 auto;">
 
   <!-- GPU Grid -->
-  <div id="gpu-grid" class="gpu-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-bottom:16px;">
+  <div id="gpu-grid" class="gpu-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-bottom:16px; align-items:start;">
     <!-- GPU cards injected by JS -->
   </div>
 
@@ -493,9 +516,9 @@ let lastGpuTs = 0;
 function statusBadge(s) {
   if (s === 'ready')       return '<span class="badge badge-green">ready</span>';
   if (s === 'loading')     return '<span class="badge badge-yellow">loading\u2026</span>';
-  if (s === 'sleeping')    return '<span class="badge badge-green">sleep \ud83d\udca4</span>';
+  if (s === 'sleeping')    return '<span class="badge badge-green">sleeping</span>';
   if (s === 'crashed')     return '<span class="badge badge-red">crashed</span>';
-  if (s === 'unreachable') return '<span class="badge badge-red">no conn</span>';
+  if (s === 'stopped')     return '<span class="badge badge-dim">idle</span>';
   return '<span class="badge badge-dim">off</span>';
 }
 
@@ -506,12 +529,12 @@ function tempBadge(temp, level) {
 }
 
 function cardClass(g) {
-  if (g.status === 'sleeping')         return 'off';
-  if (g.status === 'stopped')          return 'off';
+  if (g.status === 'sleeping') return 'sleeping';
+  if (g.status === 'stopped')  return 'idle';
   if (g.status === 'crashed' || g.status === 'unreachable') return 'error';
-  if (g.temp_level === 'hot')          return 'hot';
-  if (g.temp_level === 'warm')         return 'warm';
-  return 'ok';
+  if (g.temp_level === 'hot')  return 'active hot';
+  if (g.temp_level === 'warm') return 'active warm';
+  return 'active';
 }
 
 function vramColor(pct) {
@@ -581,74 +604,105 @@ function toggleProfile(event, gpuId) {
   if (toggle) toggle.classList.toggle('open', !!expandedProfiles[gpuId]);
 }
 
-// ── Card builder ──────────────────────────────────────────────────────
+// ── Card builder — 3 state-specific renderers ────────────────────────
 
 function buildGpuCard(g) {
-  const ps         = perfData[String(g.id)] || {};
-  const toks       = ps.avg_speed ? `${ps.avg_speed.toFixed(0)} t/s` : '—';
-  const model      = g.model
-    ? `<span title="${g.model}" style="color:var(--teal);">${truncate(g.model, 32)}</span>`
-    : `<span style="color:var(--dim);">no model</span>`;
-  const pid        = g.pid ? `<span style="color:var(--dim);">PID ${g.pid}</span>` : '';
-  const vc         = vramColor(g.vram_pct);
-  const isFlagship = g.id === 2;
-  const crown      = isFlagship
-    ? `<span class="flagship-crown" title="Flagship — 12GB VRAM, full 8GB PCIe BAR">★ FLAGSHIP</span>` : '';
-  const hasProf    = !!profilesData[String(g.id)];
-  const isOpen     = expandedProfiles[g.id] ? 'open' : '';
+  if (g.status === 'sleeping') return buildSleepingCard(g);
+  if (g.status === 'stopped')  return buildIdleCard(g);
+  return buildActiveCard(g);
+}
 
+function buildSleepingCard(g) {
+  // Compact single-row: GPU ID · sleeping · ~0W cal (↓10W) · [Wake]
+  const sw = g.sleep_watts || 0;
+  const aw = g.awake_watts || 10;
+  const saving = (aw - sw).toFixed(0);
+  const tag = g.sleep_calibrated ? 'cal' : 'est';
+  return `
+  <div class="gpu-card sleeping" id="card-${g.id}" onclick="openModal(${g.id})">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <span style="font-weight:700; font-size:13px; color:var(--blue);">GPU ${g.id}</span>
+      <span style="color:var(--dim); font-size:11px;">sleeping</span>
+      <span style="color:var(--green); font-size:11px;">~${sw}W ${tag}</span>
+      <span style="color:var(--dim); font-size:10px;">\u2193${saving}W saved</span>
+      <div style="flex:1;"></div>
+      <button class="btn btn-wake" style="padding:3px 12px; font-size:11px;"
+        onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'sleep')">Wake</button>
+    </div>
+  </div>`;
+}
+
+function buildIdleCard(g) {
+  // Idle: GPU name, power + temp, [Load Default] [Sleep] buttons
+  const pwr = g.power_watts ? g.power_watts + 'W' : '';
+  const tmp = g.temp ? g.temp + '\u00b0C' : '';
+  const info = [pwr, tmp].filter(Boolean).join(' \u00b7 ');
+  const defModel = g.default_model;
+  const defBtn = defModel
+    ? `<button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
+        onclick="event.stopPropagation(); loadGpuDefault(${g.id})" title="Load ${defModel} ${g.default_mode || ''}">Load ${truncate(defModel, 12)}</button>`
+    : '';
+  return `
+  <div class="gpu-card idle" id="card-${g.id}" onclick="openModal(${g.id})">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+      <div>
+        <span style="font-weight:700; font-size:13px; color:var(--blue);">GPU ${g.id}</span>
+        <span style="color:var(--dim); font-size:11px; margin-left:6px;">${g.name}</span>
+      </div>
+      ${statusBadge(g.status)}
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:var(--dim); font-size:11px;">${info}</span>
+      <div style="display:flex; gap:5px;">
+        ${defBtn}
+        <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
+          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'on')">Sleep</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildActiveCard(g) {
+  // Full card: model, VRAM, temp, speed, power, port
+  const ps = perfData[String(g.id)] || {};
+  const toks = ps.avg_speed ? `${ps.avg_speed.toFixed(0)} t/s` : '';
+  const model = g.model
+    ? `<span title="${g.model}" style="color:var(--teal);">${truncate(g.model, 28)}</span>`
+    : '';
+  const vc = vramColor(g.vram_pct);
+  const isFlagship = g.id === 2;
+  const crown = isFlagship
+    ? `<span class="flagship-crown" title="12GB VRAM">\u2605 FLAGSHIP</span>` : '';
+  const hasProf = !!profilesData[String(g.id)];
+  const isOpen = expandedProfiles[g.id] ? 'open' : '';
   return `
   <div class="gpu-card ${cardClass(g)}" id="card-${g.id}" onclick="openModal(${g.id})" style="position:relative;">
     ${crown}
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; ${isFlagship ? 'padding-right:76px;' : ''}">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; ${isFlagship ? 'padding-right:76px;' : ''}">
       <div>
         <span style="font-weight:700; font-size:13px; color:var(--blue);">GPU ${g.id}</span>
-        <span style="color:var(--dim); font-size:11px; margin-left:6px;">${g.pci}</span>
+        <span style="color:var(--dim); font-size:11px; margin-left:4px;">${g.name}</span>
       </div>
       <div style="display:flex; gap:5px; align-items:center;">
         ${tempBadge(g.temp, g.temp_level)}
         ${statusBadge(g.status)}
       </div>
     </div>
-
-    <div style="font-size:12px; color:var(--dim); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${g.name}">
-      ${g.name} <span style="color:#3d444d;">[${g.bar}]</span>
-    </div>
-
-    <div class="vram-bar">
-      <div class="vram-fill ${vc}" style="width:${g.vram_pct}%"></div>
-    </div>
-    <div style="display:flex; justify-content:space-between; margin-top:4px; font-size:11px; color:var(--dim);">
+    <div class="vram-bar"><div class="vram-fill ${vc}" style="width:${g.vram_pct}%"></div></div>
+    <div style="display:flex; justify-content:space-between; margin-top:3px; font-size:11px; color:var(--dim);">
       <span>VRAM ${fmtMB(g.vram_used)} / ${fmtMB(g.vram_total)}</span>
       <span>${g.vram_pct}%</span>
     </div>
-
-    <div style="margin-top:8px; font-size:12px; display:flex; justify-content:space-between; align-items:center; gap:6px;">
+    <div style="margin-top:6px; font-size:12px; display:flex; justify-content:space-between; align-items:center;">
       <div style="min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${model}</div>
-      <div style="flex-shrink:0; display:flex; align-items:center; gap:8px; color:var(--purple);">
-        ${pid}
-        <span style="font-weight:600;">${toks}</span>
-      </div>
+      <span style="color:var(--purple); font-weight:600; font-size:12px;">${toks}</span>
     </div>
-
-    <div style="margin-top:5px; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
-      <span style="color:var(--dim);">Port <span style="color:var(--text);">:${g.port}</span></span>
-      <span style="display:flex; align-items:center; gap:6px;">
-        ${g.status === 'sleeping'
-          ? `<span style="color:var(--green);">~${g.sleep_watts}W ${g.sleep_calibrated ? 'cal' : 'est'} (\u2193${((g.awake_watts || 10) - (g.sleep_watts || 0)).toFixed(0)}W)</span>`
-          : `<span style="color:var(--dim);">${g.power_watts ? g.power_watts + 'W' : ''}</span>`
-        }
-        <button class="btn ${g.perf_level === 'sleep' ? 'btn-green' : 'btn-dim'}" style="padding:2px 8px; font-size:10px;"
-          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, '${g.perf_level}')"
-          title="${g.perf_level === 'sleep' ? 'Sleeping (D3hot) \u2014 click to wake' : 'Click to sleep (D3hot)'}">
-          ${g.perf_level === 'sleep' ? 'Wake' : 'Sleep'}
-        </button>
-      </span>
+    <div style="margin-top:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center; color:var(--dim);">
+      <span>${g.power_watts ? g.power_watts + 'W' : ''} \u00b7 Port :${g.port}</span>
     </div>
-
     ${hasProf ? `
     <div class="profile-toggle ${isOpen}" id="ptoggle-${g.id}" onclick="toggleProfile(event, ${g.id})">
-      <span class="chevron">▶</span> Profile
+      <span class="chevron">\u25b6</span> Profile
     </div>
     ${buildProfilePanel(g.id)}
     ` : ''}
@@ -828,12 +882,12 @@ function startSSE() {
         setText('hdr-power-saving', savedW > 0 ? `\u2193${savedW.toFixed(0)}W saved` : '');
         setText('hdr-power-active', `Active: ${activeCount} GPUs ${activeW.toFixed(0)}W`);
         setText('hdr-power-sleep', sleepCount > 0 ? `Sleep: ${sleepCount} GPUs ~${sleepW.toFixed(0)}W` : `Sleep: 0`);
-        // Auto-sleep indicator (fetch periodically)
+        // Auto-sleep dropdown sync (every 10s)
         if (!window._lastAutoSleepCheck || Date.now() - window._lastAutoSleepCheck > 10000) {
           window._lastAutoSleepCheck = Date.now();
           fetch('/api/defaults').then(r=>r.json()).then(d => {
-            const m = d.auto_sleep_minutes || 0;
-            setText('hdr-autosleep', m > 0 ? `Auto: ${m}min` : '');
+            const sel = document.getElementById('hdr-autosleep-select');
+            if (sel) sel.value = String(d.auto_sleep_minutes || 0);
           }).catch(()=>{});
         }
       }
@@ -1154,6 +1208,24 @@ async function toggleGpuPower(gpuId, currentLevel) {
   } catch(e) { setStatus(`Power error: ${e}`, true); }
 }
 
+async function loadGpuDefault(gpuId) {
+  try {
+    const defs = await apiFetch('/api/defaults');
+    const gd = (defs.gpus || {})[String(gpuId)];
+    if (!gd || !gd.model) { setStatus(`GPU ${gpuId}: no default configured`, true); return; }
+    setStatus(`GPU ${gpuId}: loading ${gd.model} ${gd.mode || ''}...`);
+    // Use the shell's load via defaults/load-single (or load endpoint with model path)
+    const cfgs = await apiFetch('/api/model-configs');
+    const cfg = cfgs[gd.model];
+    if (!cfg) { setStatus(`Unknown model: ${gd.model}`, true); return; }
+    await fetch(`/api/gpu/${gpuId}/load`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model_path: `/opt/ai-models/${cfg.file}`})
+    });
+    setStatus(`GPU ${gpuId}: loading ${gd.model}...`);
+  } catch(e) { setStatus(`Load default failed: ${e}`, true); }
+}
+
 async function sleepIdleGpus() {
   // Only sleep GPUs that have no model loaded
   const idle = gpuState.filter(g => g.status === 'stopped');
@@ -1170,6 +1242,16 @@ async function sleepIdleGpus() {
     } catch(e) {}
   }
   setStatus(`${ok} idle GPU(s) put to sleep`);
+}
+
+async function setAutoSleep(minutes) {
+  try {
+    await fetch('/api/power/autosleep', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({minutes: parseInt(minutes)})
+    });
+    setStatus(minutes > 0 ? `Auto-sleep: ${minutes} minutes` : 'Auto-sleep: off');
+  } catch(e) { setStatus('Auto-sleep update failed', true); }
 }
 
 async function setAllPower(level) {
@@ -1455,6 +1537,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initChart();
   fetchInitial();
   startSSE();
+
+  // System clock — updates every second
+  function updateClock() {
+    const now = new Date();
+    setText('hdr-clock', now.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit', second:'2-digit'}));
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // Load auto-sleep setting on startup
+  fetch('/api/defaults').then(r=>r.json()).then(d => {
+    const sel = document.getElementById('hdr-autosleep-select');
+    if (sel) sel.value = String(d.auto_sleep_minutes || 0);
+  }).catch(()=>{});
 
   // Keyboard: Escape closes modal
   document.addEventListener('keydown', e => {
