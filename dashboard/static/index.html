@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Rig Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg:       #0a0e14;
+    --bg2:      #0d1117;
+    --panel:    #161b22;
+    --border:   #21262d;
+    --text:     #e6edf3;
+    --dim:      #7d8590;
+    --green:    #3fb950;
+    --yellow:   #d29922;
+    --red:      #f85149;
+    --blue:     #58a6ff;
+    --purple:   #bc8cff;
+    --teal:     #39c5cf;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    font-size: 13px;
+    margin: 0;
+    min-height: 100vh;
+  }
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .badge {
+    padding: 1px 7px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-block;
+    letter-spacing: 0.03em;
+  }
+  .badge-green  { background: rgba(63,185,80,.15);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
+  .badge-yellow { background: rgba(210,153,34,.15); color: var(--yellow); border: 1px solid rgba(210,153,34,.3); }
+  .badge-red    { background: rgba(248,81,73,.15);  color: var(--red);    border: 1px solid rgba(248,81,73,.3); }
+  .badge-dim    { background: rgba(125,133,144,.1); color: var(--dim);    border: 1px solid rgba(125,133,144,.2); }
+  .badge-blue   { background: rgba(88,166,255,.12); color: var(--blue);   border: 1px solid rgba(88,166,255,.25); }
+
+  /* GPU card */
+  .gpu-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color .2s, box-shadow .2s;
+    position: relative;
+    cursor: pointer;
+  }
+  .gpu-card:hover { border-color: #3d444d; box-shadow: 0 0 0 1px #3d444d; }
+  .gpu-card.ok     { border-left: 3px solid var(--green); }
+  .gpu-card.warm   { border-left: 3px solid var(--yellow); }
+  .gpu-card.hot    { border-left: 3px solid var(--red); }
+  .gpu-card.error  { border-left: 3px solid var(--red); background: rgba(248,81,73,.04); }
+  .gpu-card.off    { border-left: 3px solid #30363d; opacity: .7; }
+
+  .vram-bar {
+    background: #21262d;
+    border-radius: 3px;
+    height: 5px;
+    overflow: hidden;
+    margin-top: 6px;
+  }
+  .vram-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .5s ease;
+  }
+  .vram-fill.low  { background: linear-gradient(90deg, #3fb950, #56d364); }
+  .vram-fill.med  { background: linear-gradient(90deg, #d29922, #e3b341); }
+  .vram-fill.high { background: linear-gradient(90deg, #f85149, #ff7b72); }
+
+  /* Header stat boxes */
+  .stat-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    text-align: center;
+  }
+  .stat-value { font-size: 22px; font-weight: 700; line-height: 1.2; }
+  .stat-label { color: var(--dim); font-size: 11px; margin-top: 2px; letter-spacing: .05em; text-transform: uppercase; }
+
+  /* Log panel */
+  .log-area {
+    background: #0d1117;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 11px;
+    line-height: 1.6;
+    max-height: 220px;
+    overflow-y: auto;
+    color: #8b949e;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  /* Animations */
+  @keyframes pulse-ring {
+    0%   { opacity: .7; transform: scale(1); }
+    50%  { opacity: .3; transform: scale(1.1); }
+    100% { opacity: .7; transform: scale(1); }
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    display: inline-block;
+    animation: pulse-ring 2s infinite;
+  }
+  .live-dot.dead { background: var(--red); animation: none; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.75);
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 560px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+
+  /* Buttons */
+  .btn {
+    padding: 5px 14px;
+    border-radius: 6px;
+    border: 1px solid;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: opacity .15s;
+    font-weight: 500;
+  }
+  .btn:hover { opacity: .8; }
+  .btn:active { opacity: .6; }
+  .btn-green  { background: rgba(63,185,80,.15);  color: var(--green);  border-color: rgba(63,185,80,.4); }
+  .btn-red    { background: rgba(248,81,73,.15);  color: var(--red);    border-color: rgba(248,81,73,.4); }
+  .btn-blue   { background: rgba(88,166,255,.15); color: var(--blue);   border-color: rgba(88,166,255,.4); }
+  .btn-dim    { background: rgba(125,133,144,.1); color: var(--dim);    border-color: rgba(125,133,144,.25); }
+  .btn-yellow { background: rgba(210,153,34,.15); color: var(--yellow); border-color: rgba(210,153,34,.4); }
+  .btn:disabled { opacity: .35; cursor: not-allowed; }
+
+  /* Tab */
+  .tab { padding: 6px 14px; border-radius: 6px; cursor: pointer; color: var(--dim); border: 1px solid transparent; font-size: 12px; }
+  .tab.active { color: var(--text); background: rgba(255,255,255,.07); border-color: var(--border); }
+
+  /* Bench result row */
+  .bench-row { display: flex; gap: 12px; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); }
+
+  /* Profile panel */
+  .profile-panel {
+    border-top: 1px solid var(--border);
+    margin-top: 10px;
+    padding-top: 10px;
+    display: none;
+    animation: fadeIn .15s ease;
+  }
+  .profile-panel.open { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .workload-pill {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600;
+    margin: 2px;
+  }
+  .workload-pill.fits    { background: rgba(63,185,80,.12);  color: var(--green);  border: 1px solid rgba(63,185,80,.3); }
+  .workload-pill.no-fit { background: rgba(248,81,73,.1);  color: var(--red);    border: 1px solid rgba(248,81,73,.25); }
+
+  .profile-toggle {
+    display: flex; align-items: center; gap: 5px;
+    color: var(--dim); font-size: 11px; cursor: pointer;
+    margin-top: 8px; user-select: none;
+    width: fit-content;
+  }
+  .profile-toggle:hover { color: var(--blue); }
+  .profile-toggle .chevron { transition: transform .15s; display: inline-block; }
+  .profile-toggle.open .chevron { transform: rotate(90deg); }
+
+  .flagship-crown {
+    font-size: 11px; color: #ffd700;
+    position: absolute; top: 10px; right: 12px;
+  }
+
+  /* Spinner */
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* Expandable test detail rows */
+  .expand-row { display: none; }
+  .expand-row.open { display: table-row; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .stat-value { font-size: 18px; }
+    .gpu-grid { grid-template-columns: 1fr !important; }
+    .bottom-row { grid-template-columns: 1fr !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- HEADER                                                            -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div style="background:var(--bg2); border-bottom:1px solid var(--border); padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <span style="font-size:18px; font-weight:800; letter-spacing:-.02em;">AI Rig</span>
+    <span class="badge badge-dim" id="stub-badge" style="display:none;">STUB MODE</span>
+    <span style="display:flex; align-items:center; gap:5px; color:var(--dim); font-size:11px;">
+      <span class="live-dot" id="live-dot"></span>
+      <span id="live-label">connecting…</span>
+    </span>
+  </div>
+  <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-gpus" style="font-size:16px;">—</div>
+      <div class="stat-label">Active GPUs</div>
+    </div>
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-vram" style="font-size:16px;">—</div>
+      <div class="stat-label">VRAM Used</div>
+    </div>
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-toks" style="font-size:16px;">—</div>
+      <div class="stat-label">Tok/s</div>
+    </div>
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-uptime" style="font-size:16px;">—</div>
+      <div class="stat-label">Uptime</div>
+    </div>
+    <div class="stat-box" style="padding:6px 14px;">
+      <div class="stat-value" id="hdr-ram" style="font-size:16px;">—</div>
+      <div class="stat-label">RAM Free</div>
+    </div>
+    <div class="stat-box" style="padding:8px 14px; min-width:220px;">
+      <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">GPU Power</div>
+      <div style="display:flex; gap:12px; align-items:baseline;">
+        <span id="hdr-power-total" style="font-size:18px; font-weight:700;">—</span>
+        <span id="hdr-power-saving" style="font-size:12px; color:var(--green);"></span>
+      </div>
+      <div style="display:flex; gap:10px; margin-top:4px; font-size:11px;">
+        <span id="hdr-power-active" style="color:var(--dim);">Active: —</span>
+        <span id="hdr-power-sleep" style="color:var(--green);">Sleep: —</span>
+      </div>
+      <div style="display:flex; gap:4px; margin-top:6px; align-items:center;">
+        <button class="btn btn-green" style="padding:2px 8px; font-size:10px;" onclick="sleepIdleGpus()" title="Sleep all GPUs with no model loaded">Sleep Idle</button>
+        <button class="btn btn-dim" style="padding:2px 8px; font-size:10px;" onclick="setAllPower('wake')" title="Wake all GPUs">Wake All</button>
+        <span id="hdr-autosleep" style="font-size:10px; color:var(--dim); margin-left:4px;"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- MAIN CONTENT                                                      -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div style="padding:16px 20px; max-width:1600px; margin:0 auto;">
+
+  <!-- GPU Grid -->
+  <div id="gpu-grid" class="gpu-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:12px; margin-bottom:16px;">
+    <!-- GPU cards injected by JS -->
+  </div>
+
+  <!-- Performance History (collapsible) -->
+  <div class="panel" style="padding:0; overflow:hidden; margin-bottom:12px;">
+    <div onclick="togglePerfPanel()" style="padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; user-select:none;">
+      <span id="perf-arrow" style="color:var(--dim); font-size:10px; transition:transform .2s;">&#9654;</span>
+      <span style="font-weight:700; font-size:13px;">Performance History</span>
+      <div style="flex:1;"></div>
+      <span class="tab active" id="tab-speed" onclick="event.stopPropagation(); switchTab('speed')">Tok/s</span>
+      <span class="tab" id="tab-vram" onclick="event.stopPropagation(); switchTab('vram')">VRAM</span>
+      <span class="tab" id="tab-temp" onclick="event.stopPropagation(); switchTab('temp')">Temp</span>
+    </div>
+    <div id="perf-body" style="display:none; padding:0 16px 16px 16px;">
+      <div style="height:220px; position:relative;">
+        <canvas id="perf-chart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls (collapsible) -->
+  <div class="panel" style="padding:0; overflow:hidden; margin-bottom:12px;">
+    <div onclick="toggleCtrlPanel()" style="padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; user-select:none;">
+      <span id="ctrl-arrow" style="color:var(--dim); font-size:10px; transition:transform .2s;">&#9654;</span>
+      <span style="font-weight:700; font-size:13px;">Controls</span>
+    </div>
+    <div id="ctrl-body" style="display:none; padding:0 16px 16px 16px;">
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+        <!-- Quick actions -->
+        <div>
+          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Quick Actions</div>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="btn btn-blue" onclick="rebuildNginx()">Rebuild nginx</button>
+            <button class="btn btn-dim"  onclick="saveState()">Save state</button>
+            <button class="btn btn-dim"  onclick="refreshAll()">Refresh</button>
+          </div>
+        </div>
+        <!-- Load model -->
+        <div>
+          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Load Model on GPU</div>
+          <div style="display:flex; gap:6px; margin-bottom:6px;">
+            <select id="ctrl-gpu" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px;">
+              <option value="0">GPU 0</option><option value="1">GPU 1</option><option value="2">GPU 2</option>
+              <option value="3">GPU 3</option><option value="4">GPU 4</option><option value="5">GPU 5</option><option value="6">GPU 6</option>
+            </select>
+            <select id="ctrl-model" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px; min-width:180px;">
+              <option value="">— select model —</option>
+            </select>
+            <button class="btn btn-green" onclick="loadModel()">Load</button>
+            <button class="btn btn-red"   onclick="unloadGpu()">Unload</button>
+          </div>
+        </div>
+        <!-- Benchmark -->
+        <div>
+          <div style="color:var(--dim); font-size:11px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Benchmark GPU</div>
+          <div style="display:flex; gap:6px;">
+            <select id="ctrl-bench-gpu" style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:5px 8px; border-radius:6px; font-family:inherit; font-size:12px;">
+              <option value="0">GPU 0</option><option value="1">GPU 1</option><option value="2">GPU 2</option>
+              <option value="3">GPU 3</option><option value="4">GPU 4</option><option value="5">GPU 5</option><option value="6">GPU 6</option>
+            </select>
+            <button class="btn btn-yellow" onclick="runBench()">Run Benchmark</button>
+          </div>
+        </div>
+      </div>
+      <div id="bench-output" style="margin-top:8px; display:none;">
+        <div class="log-area" id="bench-log" style="max-height:140px;"></div>
+      </div>
+      <div id="status-msg" style="margin-top:10px; font-size:11px; color:var(--dim); display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- TESTING PANEL                                                     -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div style="padding:0 20px 16px 20px; max-width:1600px; margin:0 auto;">
+  <div class="panel" id="test-panel" style="padding:0; overflow:hidden;">
+    <!-- Toggle header -->
+    <div onclick="toggleTestPanel()" style="padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; user-select:none; border-bottom:1px solid var(--border);">
+      <span id="test-arrow" style="color:var(--dim); font-size:10px; transition:transform .2s;">&#9654;</span>
+      <span style="font-weight:700; font-size:13px;">Testing</span>
+      <span id="test-summary-badge" class="badge badge-dim" style="font-size:10px;">idle</span>
+    </div>
+    <!-- Collapsible body -->
+    <div id="test-body" style="display:none; padding:16px;">
+      <!-- Mode tabs -->
+      <div style="display:flex; gap:6px; margin-bottom:14px; align-items:center; flex-wrap:wrap;">
+        <span class="tab active" id="test-tab-models" onclick="switchTestTab('models')">Models</span>
+        <span class="tab" id="test-tab-gpus" onclick="switchTestTab('gpus')">GPUs</span>
+        <span class="tab" id="test-tab-custom" onclick="switchTestTab('custom')">Custom</span>
+        <div style="flex:1;"></div>
+        <span id="test-timer" style="color:var(--dim); font-size:12px;"></span>
+      </div>
+
+      <!-- Models controls -->
+      <div id="test-ctrl-models">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
+          <button class="btn btn-green" onclick="runTests('/api/test/run')">Run All Model Tests</button>
+          <button class="btn btn-red" id="test-btn-stop" onclick="stopTests()" disabled>Stop</button>
+          <span id="test-status" style="color:var(--dim); font-size:12px;">7 model configs × 5 verify prompts each</span>
+          <label style="color:var(--dim);font-size:11px;display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer;user-select:none;">
+            <input type="checkbox" class="verbose-check" onchange="testRender()" style="accent-color:var(--blue);"> Verbose
+          </label>
+        </div>
+      </div>
+      <!-- GPUs controls -->
+      <div id="test-ctrl-gpus" style="display:none;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
+          <button class="btn btn-green" onclick="runTests('/api/test/gpu/run')">Test All GPUs</button>
+          <button class="btn btn-red" onclick="stopTests()" disabled id="test-btn-stop-gpu">Stop</button>
+          <span style="color:var(--dim); font-size:12px;">Load standard model on each GPU, verify fitness</span>
+          <label style="color:var(--dim);font-size:11px;display:flex;align-items:center;gap:4px;margin-left:auto;cursor:pointer;user-select:none;">
+            <input type="checkbox" class="verbose-check" onchange="testRender()" style="accent-color:var(--blue);"> Verbose
+          </label>
+        </div>
+      </div>
+      <!-- Custom controls -->
+      <div id="test-ctrl-custom" style="display:none;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+          <select id="custom-gpu" onchange="customGpuChanged()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-family:inherit;font-size:12px;">
+            <option value="0">GPU 0 (8GB)</option><option value="1">GPU 1 (8GB)</option>
+            <option value="2">GPU 2 (12GB)</option><option value="3">GPU 3 (8GB)</option>
+            <option value="4">GPU 4 (8GB)</option><option value="5">GPU 5 (8GB)</option>
+            <option value="6">GPU 6 (8GB)</option><option value="all">All applicable</option>
+          </select>
+          <select id="custom-model" onchange="customModelChanged()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-family:inherit;font-size:12px;min-width:140px;">
+          </select>
+          <select id="custom-mode" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-family:inherit;font-size:12px;">
+          </select>
+          <label style="color:var(--dim);font-size:11px;">Temp:</label>
+          <input id="custom-temp" type="number" min="0" max="2" step="0.1" value="0.0" style="background:var(--bg);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:6px;font-family:inherit;font-size:12px;width:60px;">
+          <button class="btn btn-green" onclick="runCustomTest()">Run</button>
+          <button class="btn btn-red" onclick="stopTests()" disabled id="test-btn-stop-custom">Stop</button>
+          <label style="color:var(--dim);font-size:11px;display:flex;align-items:center;gap:4px;margin-left:8px;cursor:pointer;user-select:none;">
+            <input type="checkbox" class="verbose-check" onchange="testRender()" style="accent-color:var(--blue);"> Verbose
+          </label>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div id="test-progress" style="display:none; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+          <span id="test-progress-label" style="font-size:12px;"></span>
+          <span id="test-progress-count" style="color:var(--dim); font-size:11px;"></span>
+        </div>
+        <div style="background:#21262d; border-radius:4px; height:5px; overflow:hidden;">
+          <div id="test-progress-fill" style="height:100%; border-radius:4px; background:linear-gradient(90deg,var(--blue),var(--teal)); transition:width .5s; width:0%;"></div>
+        </div>
+      </div>
+
+      <!-- Results + Log side by side -->
+      <div style="display:grid; grid-template-columns:1fr 340px; gap:12px;">
+        <div>
+          <table style="width:100%; border-collapse:collapse; font-size:12px;">
+            <thead><tr>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">#</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">Model / GPU</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">Load</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">Speed</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">Tests</th>
+              <th style="text-align:left;padding:6px 8px;border-bottom:2px solid var(--border);color:var(--dim);font-size:10px;text-transform:uppercase;">Status</th>
+            </tr></thead>
+            <tbody id="test-results-body">
+              <tr><td colspan="6" style="color:var(--dim);text-align:center;padding:20px;">Select a test mode and click Run</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div style="color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Live Output</div>
+          <div class="log-area" id="test-log" style="max-height:400px; min-height:200px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- GPU DETAIL MODAL                                                  -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<div id="modal" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+      <div class="modal-title" id="modal-title">GPU Detail</div>
+      <button class="btn btn-dim" onclick="document.getElementById('modal').style.display='none'">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                        -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ── State ────────────────────────────────────────────────────────────
+let gpuState   = [];
+let perfData   = {};
+let modelsData = [];
+let profilesData = {};        // gpu_profiles.json data keyed by gpu id string
+let expandedProfiles = {};    // { gpuId: true/false }
+let activeTab = 'speed';
+let perfChart = null;
+let sseConn   = null;
+let lastGpuTs = 0;
+
+// ── GPU card rendering ────────────────────────────────────────────────
+
+function statusBadge(s) {
+  if (s === 'ready')       return '<span class="badge badge-green">ready</span>';
+  if (s === 'loading')     return '<span class="badge badge-yellow">loading\u2026</span>';
+  if (s === 'sleeping')    return '<span class="badge badge-green">sleep \ud83d\udca4</span>';
+  if (s === 'crashed')     return '<span class="badge badge-red">crashed</span>';
+  if (s === 'unreachable') return '<span class="badge badge-red">no conn</span>';
+  return '<span class="badge badge-dim">off</span>';
+}
+
+function tempBadge(temp, level) {
+  if (!temp) return '<span class="badge badge-dim">—</span>';
+  const cls = level === 'hot' ? 'badge-red' : level === 'warm' ? 'badge-yellow' : 'badge-green';
+  return `<span class="badge ${cls}">${temp}°C</span>`;
+}
+
+function cardClass(g) {
+  if (g.status === 'sleeping')         return 'off';
+  if (g.status === 'stopped')          return 'off';
+  if (g.status === 'crashed' || g.status === 'unreachable') return 'error';
+  if (g.temp_level === 'hot')          return 'hot';
+  if (g.temp_level === 'warm')         return 'warm';
+  return 'ok';
+}
+
+function vramColor(pct) {
+  if (pct >= 85) return 'high';
+  if (pct >= 60) return 'med';
+  return 'low';
+}
+
+function fmtMB(mb) {
+  return mb >= 1024 ? `${(mb/1024).toFixed(1)}G` : `${mb}M`;
+}
+
+// ── Profile helpers ───────────────────────────────────────────────────
+
+function buildWorkloadPills(workloads) {
+  if (!workloads || !workloads.length) return '';
+  return workloads.map(w => {
+    const cls   = w.fits ? 'fits' : 'no-fit';
+    const icon  = w.fits ? '✓' : '✗';
+    const label = `${w.size} ${w.quant}`;
+    const note  = w.note ? ` (${w.note})` : '';
+    return `<span class="workload-pill ${cls}" title="${label}${note}">${icon} ${label}${note}</span>`;
+  }).join('');
+}
+
+function buildProfilePanel(gpuId) {
+  const prof = profilesData[String(gpuId)];
+  if (!prof) return '';
+  const isOpen = expandedProfiles[gpuId] ? 'open' : '';
+
+  const strengths = (prof.strengths || []).map(s =>
+    `<li style="color:var(--green); margin-bottom:2px;">▸ ${esc(s)}</li>`).join('');
+  const limits = (prof.limitations || []).map(l =>
+    `<li style="color:var(--yellow); margin-bottom:2px;">▸ ${esc(l)}</li>`).join('');
+  const pills = buildWorkloadPills(prof.workloads);
+  const ctx   = prof.max_context
+    ? `<span class="badge badge-blue" style="font-size:10px; margin-left:4px;">ctx ${esc(prof.max_context)}</span>` : '';
+  const notes = prof.notes
+    ? `<div style="margin-top:6px; font-size:10px; color:var(--dim); font-style:italic;">${esc(prof.notes)}</div>` : '';
+
+  return `
+    <div class="profile-panel ${isOpen}" id="profile-${gpuId}">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;">
+        <div>
+          <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">Strengths</div>
+          <ul style="list-style:none; margin:0; padding:0; font-size:11px;">${strengths}</ul>
+        </div>
+        <div>
+          <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">Limitations</div>
+          <ul style="list-style:none; margin:0; padding:0; font-size:11px;">${limits}</ul>
+        </div>
+      </div>
+      <div style="margin-bottom:4px;">
+        <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">Model Compatibility ${ctx}</div>
+        <div>${pills}</div>
+      </div>
+      ${notes}
+    </div>`;
+}
+
+function toggleProfile(event, gpuId) {
+  event.stopPropagation();
+  expandedProfiles[gpuId] = !expandedProfiles[gpuId];
+  const panel  = document.getElementById(`profile-${gpuId}`);
+  const toggle = document.getElementById(`ptoggle-${gpuId}`);
+  if (panel)  panel.classList.toggle('open', !!expandedProfiles[gpuId]);
+  if (toggle) toggle.classList.toggle('open', !!expandedProfiles[gpuId]);
+}
+
+// ── Card builder ──────────────────────────────────────────────────────
+
+function buildGpuCard(g) {
+  const ps         = perfData[String(g.id)] || {};
+  const toks       = ps.avg_speed ? `${ps.avg_speed.toFixed(0)} t/s` : '—';
+  const model      = g.model
+    ? `<span title="${g.model}" style="color:var(--teal);">${truncate(g.model, 32)}</span>`
+    : `<span style="color:var(--dim);">no model</span>`;
+  const pid        = g.pid ? `<span style="color:var(--dim);">PID ${g.pid}</span>` : '';
+  const vc         = vramColor(g.vram_pct);
+  const isFlagship = g.id === 2;
+  const crown      = isFlagship
+    ? `<span class="flagship-crown" title="Flagship — 12GB VRAM, full 8GB PCIe BAR">★ FLAGSHIP</span>` : '';
+  const hasProf    = !!profilesData[String(g.id)];
+  const isOpen     = expandedProfiles[g.id] ? 'open' : '';
+
+  return `
+  <div class="gpu-card ${cardClass(g)}" id="card-${g.id}" onclick="openModal(${g.id})" style="position:relative;">
+    ${crown}
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; ${isFlagship ? 'padding-right:76px;' : ''}">
+      <div>
+        <span style="font-weight:700; font-size:13px; color:var(--blue);">GPU ${g.id}</span>
+        <span style="color:var(--dim); font-size:11px; margin-left:6px;">${g.pci}</span>
+      </div>
+      <div style="display:flex; gap:5px; align-items:center;">
+        ${tempBadge(g.temp, g.temp_level)}
+        ${statusBadge(g.status)}
+      </div>
+    </div>
+
+    <div style="font-size:12px; color:var(--dim); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${g.name}">
+      ${g.name} <span style="color:#3d444d;">[${g.bar}]</span>
+    </div>
+
+    <div class="vram-bar">
+      <div class="vram-fill ${vc}" style="width:${g.vram_pct}%"></div>
+    </div>
+    <div style="display:flex; justify-content:space-between; margin-top:4px; font-size:11px; color:var(--dim);">
+      <span>VRAM ${fmtMB(g.vram_used)} / ${fmtMB(g.vram_total)}</span>
+      <span>${g.vram_pct}%</span>
+    </div>
+
+    <div style="margin-top:8px; font-size:12px; display:flex; justify-content:space-between; align-items:center; gap:6px;">
+      <div style="min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${model}</div>
+      <div style="flex-shrink:0; display:flex; align-items:center; gap:8px; color:var(--purple);">
+        ${pid}
+        <span style="font-weight:600;">${toks}</span>
+      </div>
+    </div>
+
+    <div style="margin-top:5px; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
+      <span style="color:var(--dim);">Port <span style="color:var(--text);">:${g.port}</span></span>
+      <span style="display:flex; align-items:center; gap:6px;">
+        ${g.status === 'sleeping'
+          ? `<span style="color:var(--green);">~${g.sleep_watts}W ${g.sleep_calibrated ? 'cal' : 'est'} (\u2193${((g.awake_watts || 10) - (g.sleep_watts || 0)).toFixed(0)}W)</span>`
+          : `<span style="color:var(--dim);">${g.power_watts ? g.power_watts + 'W' : ''}</span>`
+        }
+        <button class="btn ${g.perf_level === 'sleep' ? 'btn-green' : 'btn-dim'}" style="padding:2px 8px; font-size:10px;"
+          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, '${g.perf_level}')"
+          title="${g.perf_level === 'sleep' ? 'Sleeping (D3hot) \u2014 click to wake' : 'Click to sleep (D3hot)'}">
+          ${g.perf_level === 'sleep' ? 'Wake' : 'Sleep'}
+        </button>
+      </span>
+    </div>
+
+    ${hasProf ? `
+    <div class="profile-toggle ${isOpen}" id="ptoggle-${g.id}" onclick="toggleProfile(event, ${g.id})">
+      <span class="chevron">▶</span> Profile
+    </div>
+    ${buildProfilePanel(g.id)}
+    ` : ''}
+  </div>`;
+}
+
+function renderGpuGrid() {
+  const grid = document.getElementById('gpu-grid');
+  grid.innerHTML = gpuState.map(buildGpuCard).join('');
+}
+
+// ── Header stats ──────────────────────────────────────────────────────
+
+function updateHeader(state) {
+  if (!state) return;
+  setText('hdr-gpus',   `${state.active_gpus}/${state.total_gpus || 7}`);
+  if (state.total_vram_mb != null) {
+    setText('hdr-vram', `${fmtMB(state.used_vram_mb)}/${fmtMB(state.total_vram_mb)}`);
+  }
+  if (state.total_tok_s != null) setText('hdr-toks', `${state.total_tok_s} t/s`);
+  if (state.uptime) setText('hdr-uptime', state.uptime);
+  if (state.ram)    setText('hdr-ram', `${fmtMB(state.ram.avail)}`);
+  if (state.stub_mode) document.getElementById('stub-badge').style.display = '';
+}
+
+// ── Charts ────────────────────────────────────────────────────────────
+
+const COLORS = ['#58a6ff','#3fb950','#e3b341','#f085c4','#bc8cff','#39c5cf','#ff7b72'];
+const GPU_LABELS = ['GPU0 5700XT','GPU1 5700XT','GPU2 6700XT','GPU3 5700XT','GPU4 5700XT','GPU5 5700XT','GPU6 5700XT'];
+
+function initChart() {
+  const ctx = document.getElementById('perf-chart').getContext('2d');
+  Chart.defaults.color = '#7d8590';
+  Chart.defaults.borderColor = '#21262d';
+  perfChart = new Chart(ctx, {
+    type: 'line',
+    data: { labels: [], datasets: [] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 300 },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
+        tooltip: { bodyFont: { family: 'monospace', size: 11 } }
+      },
+      scales: {
+        x: { ticks: { maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#21262d' } },
+        y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+function updateChart(recent) {
+  if (!perfChart || !recent || !recent.length) return;
+
+  if (activeTab === 'speed') {
+    // Build timeseries per GPU from recent perf log entries
+    const byGpu = {};
+    for (let i = 0; i < 7; i++) byGpu[i] = [];
+    recent.forEach(e => {
+      if (e.gpu != null && byGpu[e.gpu] !== undefined) {
+        byGpu[e.gpu].push({ t: e.ts, v: e.speed });
+      }
+    });
+    // Guard against all-empty arrays (Math.max() with no args returns -Infinity)
+    const maxRaw = Math.max(...Object.values(byGpu).map(a => a.length));
+    const maxLen = isFinite(maxRaw) ? Math.min(20, maxRaw) : 0;
+    if (maxLen === 0) return; // no data yet, leave chart as-is
+    const labels = Array.from({length: maxLen}, (_, i) => `#${i+1}`);
+    const datasets = Object.entries(byGpu)
+      .filter(([, arr]) => arr.length > 0)
+      .map(([id, arr]) => ({
+        label: GPU_LABELS[id],
+        data: arr.slice(-maxLen).map(e => e.v),
+        borderColor: COLORS[id],
+        backgroundColor: COLORS[id] + '20',
+        borderWidth: 1.5,
+        pointRadius: 2,
+        tension: 0.3,
+        fill: false,
+      }));
+    if (perfChart.config.type !== 'line') {
+      perfChart.destroy();
+      initChart();
+    }
+    perfChart.data.labels   = labels;
+    perfChart.data.datasets = datasets;
+    perfChart.options.scales.y.title = { display: true, text: 'tok/s', font: {size:10} };
+    perfChart.update();
+  } else if (activeTab === 'vram') {
+    // Live VRAM from gpuState
+    const labels = gpuState.map(g => `GPU${g.id}`);
+    const datasets = [{
+      label: 'VRAM Used %',
+      data: gpuState.map(g => g.vram_pct),
+      backgroundColor: gpuState.map(g => COLORS[g.id] + 'aa'),
+      borderColor: gpuState.map(g => COLORS[g.id]),
+      borderWidth: 1,
+    }];
+    if (perfChart.config.type !== 'bar') {
+      perfChart.destroy();
+      initChart();
+      perfChart.config.type = 'bar';
+    }
+    perfChart.data.labels   = labels;
+    perfChart.data.datasets = datasets;
+    perfChart.options.scales.y.max = 100;
+    delete perfChart.options.scales.y.min;
+    perfChart.options.scales.y.title = { display: true, text: 'VRAM %', font:{size:10} };
+    perfChart.update();
+  } else if (activeTab === 'temp') {
+    const labels = gpuState.map(g => `GPU${g.id}`);
+    const datasets = [{
+      label: 'Temperature (°C)',
+      data: gpuState.map(g => g.temp || 0),
+      backgroundColor: gpuState.map(g => (g.temp || 0) >= 85 ? '#f8514960' : (g.temp || 0) >= 70 ? '#d2992260' : '#3fb95060'),
+      borderColor: gpuState.map(g => (g.temp || 0) >= 85 ? '#f85149' : (g.temp || 0) >= 70 ? '#d29922' : '#3fb950'),
+      borderWidth: 1,
+    }];
+    if (perfChart.config.type !== 'bar') {
+      perfChart.destroy();
+      initChart();
+      perfChart.config.type = 'bar';
+    }
+    perfChart.data.labels   = labels;
+    perfChart.data.datasets = datasets;
+    perfChart.options.scales.y.max = 110;
+    delete perfChart.options.scales.y.min;
+    perfChart.options.scales.y.title = { display: true, text: '°C', font:{size:10} };
+    perfChart.update();
+  }
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  ['speed','vram','temp'].forEach(t => {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+  });
+  fetchPerfRecent();
+}
+
+// ── SSE — live updates ────────────────────────────────────────────────
+
+function startSSE() {
+  if (sseConn) sseConn.close();
+  const dot   = document.getElementById('live-dot');
+  const label = document.getElementById('live-label');
+
+  sseConn = new EventSource('/stream');
+
+  sseConn.onopen = () => {
+    dot.classList.remove('dead');
+    label.textContent = 'live';
+  };
+
+  sseConn.onmessage = (e) => {
+    try {
+      const msg = JSON.parse(e.data);
+      if (msg.error) return;
+      if (msg.gpus) {
+        gpuState = msg.gpus;
+        renderGpuGrid();
+        updateChart(null); // refresh vram/temp tabs without re-fetching
+        lastGpuTs = Date.now();
+        // Update power panel
+        const activeGpus = msg.gpus.filter(g => g.status !== 'sleeping');
+        const sleepGpus = msg.gpus.filter(g => g.status === 'sleeping');
+        const activeCount = activeGpus.length;
+        const sleepCount = sleepGpus.length;
+        const activeW = activeGpus.reduce((s, g) => s + (g.power_watts || 0), 0);
+        const sleepW = sleepGpus.reduce((s, g) => s + (g.sleep_watts || 0), 0);
+        const totalW = activeW + sleepW;
+        const savedW = sleepGpus.reduce((s, g) => s + ((g.awake_watts || 10) - (g.sleep_watts || 0)), 0);
+        setText('hdr-power-total', sleepCount > 0 ? `~${totalW.toFixed(0)}W` : `${totalW.toFixed(0)}W`);
+        setText('hdr-power-saving', savedW > 0 ? `\u2193${savedW.toFixed(0)}W saved` : '');
+        setText('hdr-power-active', `Active: ${activeCount} GPUs ${activeW.toFixed(0)}W`);
+        setText('hdr-power-sleep', sleepCount > 0 ? `Sleep: ${sleepCount} GPUs ~${sleepW.toFixed(0)}W` : `Sleep: 0`);
+        // Auto-sleep indicator (fetch periodically)
+        if (!window._lastAutoSleepCheck || Date.now() - window._lastAutoSleepCheck > 10000) {
+          window._lastAutoSleepCheck = Date.now();
+          fetch('/api/defaults').then(r=>r.json()).then(d => {
+            const m = d.auto_sleep_minutes || 0;
+            setText('hdr-autosleep', m > 0 ? `Auto: ${m}min` : '');
+          }).catch(()=>{});
+        }
+      }
+      if (msg.state) {
+        updateHeader(msg.state);
+      }
+    } catch {}
+  };
+
+  sseConn.onerror = () => {
+    dot.classList.add('dead');
+    label.textContent = 'reconnecting…';
+    setTimeout(startSSE, 5000);
+  };
+}
+
+// ── Fetch initial data ────────────────────────────────────────────────
+
+async function fetchInitial() {
+  try {
+    const [state, models, perf, profiles] = await Promise.all([
+      apiFetch('/api/state'),
+      apiFetch('/api/models'),
+      apiFetch('/api/perf'),
+      apiFetch('/api/profiles'),
+    ]);
+    if (state)    updateHeader(state);
+    if (models)   { modelsData = models; populateModelSelect(); }
+    if (perf)     { perfData = perf; }
+    if (profiles) { profilesData = profiles; }
+    fetchPerfRecent();
+  } catch(e) {
+    console.error('Initial fetch error', e);
+  }
+}
+
+async function fetchPerfRecent() {
+  try {
+    const recent = await apiFetch('/api/perf/recent?n=200');
+    updateChart(recent);
+  } catch {}
+}
+
+async function refreshAll() {
+  try {
+    const [perf, models] = await Promise.all([
+      apiFetch('/api/perf'),
+      apiFetch('/api/models'),
+    ]);
+    if (perf) { perfData = perf; renderGpuGrid(); }
+    if (models) { modelsData = models; populateModelSelect(); }
+    fetchPerfRecent();
+    setStatus('Refreshed');
+  } catch(e) { setStatus('Refresh failed: ' + e.message, true); }
+}
+
+function populateModelSelect() {
+  const sel = document.getElementById('ctrl-model');
+  sel.innerHTML = '<option value="">— select model —</option>' +
+    modelsData.map(m => `<option value="${esc(m.path)}">${esc(m.name)} (${m.size_gb}GB)</option>`).join('');
+}
+
+// ── Controls ──────────────────────────────────────────────────────────
+
+async function loadModel() {
+  const gpu   = parseInt(document.getElementById('ctrl-gpu').value);
+  const model = document.getElementById('ctrl-model').value;
+  if (!model) { setStatus('Select a model first', true); return; }
+  setStatus(`Loading model on GPU ${gpu}…`);
+  try {
+    const r = await apiPost(`/api/gpu/${gpu}/load`, { model_path: model });
+    setStatus(r.ok ? `GPU ${gpu} starting (PID ${r.pid})` : r.message || 'Failed', !r.ok);
+  } catch(e) { setStatus('Error: ' + e.message, true); }
+}
+
+async function unloadGpu() {
+  const gpu = parseInt(document.getElementById('ctrl-gpu').value);
+  setStatus(`Unloading GPU ${gpu}…`);
+  try {
+    const r = await apiPost(`/api/gpu/${gpu}/unload`);
+    setStatus(r.ok ? `GPU ${gpu} stopped` : r.message || 'Failed', !r.ok);
+  } catch(e) { setStatus('Error: ' + e.message, true); }
+}
+
+async function rebuildNginx() {
+  setStatus('Rebuilding nginx…');
+  try {
+    const r = await apiPost('/api/nginx/rebuild');
+    setStatus(r.ok ? 'nginx rebuilt' : 'nginx rebuild failed', !r.ok);
+  } catch(e) { setStatus('Error: ' + e.message, true); }
+}
+
+async function saveState() {
+  try {
+    await apiPost('/api/state/save');
+    setStatus('State saved');
+  } catch(e) { setStatus('Error: ' + e.message, true); }
+}
+
+// ── Benchmark ─────────────────────────────────────────────────────────
+
+let benchRunning = false;
+
+async function runBench() {
+  if (benchRunning) return;
+  const gpu = parseInt(document.getElementById('ctrl-bench-gpu').value);
+  benchRunning = true;
+  const log  = document.getElementById('bench-log');
+  const wrap  = document.getElementById('bench-output');
+  wrap.style.display = '';
+  log.textContent = '';
+
+  const es = new EventSource(`/api/bench/${gpu}/stream`);
+  es.onmessage = (e) => {
+    try {
+      const msg = JSON.parse(e.data);
+      if (msg.type === 'start') {
+        log.textContent += `Benchmarking GPU ${msg.gpu_id} — ${msg.total} prompts\n`;
+      } else if (msg.type === 'result') {
+        if (msg.ok) {
+          log.textContent += `  [${msg.step}/5] OK  ${msg.tokens}tok  ${msg.speed}t/s  ${msg.elapsed}s\n`;
+        } else {
+          log.textContent += `  [${msg.step}/5] FAIL — ${msg.error}\n`;
+        }
+        log.scrollTop = log.scrollHeight;
+      } else if (msg.type === 'done') {
+        log.textContent += `\nAvg: ${msg.avg_speed} t/s (${msg.passed}/${msg.total} passed)\n`;
+        log.scrollTop = log.scrollHeight;
+        es.close();
+        benchRunning = false;
+        // refresh perf data
+        apiFetch('/api/perf').then(p => { if(p) { perfData = p; renderGpuGrid(); } });
+        fetchPerfRecent();
+      }
+    } catch {}
+  };
+  es.onerror = () => {
+    log.textContent += '\n[connection error]\n';
+    es.close();
+    benchRunning = false;
+  };
+}
+
+// ── GPU Detail Modal ──────────────────────────────────────────────────
+
+async function openModal(gpuId) {
+  const g    = gpuState.find(x => x.id === gpuId);
+  if (!g) return;
+  const ps   = perfData[String(gpuId)] || {};
+  const prof = profilesData[String(gpuId)];
+
+  const flagship = g.id === 2
+    ? `<span style="color:#ffd700; font-size:12px; margin-left:8px;">★ FLAGSHIP</span>` : '';
+  document.getElementById('modal-title').innerHTML = `GPU ${gpuId} — ${g.name}${flagship}`;
+
+  // Build profile section
+  let profileSection = '';
+  if (prof) {
+    const strengths = (prof.strengths || []).map(s =>
+      `<li style="color:var(--green); margin-bottom:2px; font-size:11px;">▸ ${esc(s)}</li>`).join('');
+    const limits = (prof.limitations || []).map(l =>
+      `<li style="color:var(--yellow); margin-bottom:2px; font-size:11px;">▸ ${esc(l)}</li>`).join('');
+    const pills = buildWorkloadPills(prof.workloads);
+    const ctx   = prof.max_context
+      ? `<span class="badge badge-blue" style="font-size:10px; margin-left:4px;">ctx ${esc(prof.max_context)}</span>` : '';
+    profileSection = `
+    <div style="border-top:1px solid var(--border); padding-top:12px; margin-bottom:12px;">
+      <div style="font-size:11px; font-weight:700; color:var(--dim); margin-bottom:8px; text-transform:uppercase; letter-spacing:.05em;">GPU Profile</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;">
+        <div style="background:var(--bg); border-radius:6px; padding:8px 10px;">
+          <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">Strengths</div>
+          <ul style="list-style:none; margin:0; padding:0;">${strengths}</ul>
+        </div>
+        <div style="background:var(--bg); border-radius:6px; padding:8px 10px;">
+          <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;">Limitations</div>
+          <ul style="list-style:none; margin:0; padding:0;">${limits}</ul>
+        </div>
+      </div>
+      <div style="background:var(--bg); border-radius:6px; padding:8px 10px; margin-bottom:8px;">
+        <div style="font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Model Compatibility ${ctx}</div>
+        <div>${pills}</div>
+      </div>
+      ${prof.notes ? `<div style="font-size:10px; color:var(--dim); font-style:italic; padding:0 2px;">${esc(prof.notes)}</div>` : ''}
+    </div>`;
+  }
+
+  const body = document.getElementById('modal-body');
+  body.innerHTML = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+      ${statRow('Status', statusBadge(g.status))}
+      ${statRow('Temperature', tempBadge(g.temp, g.temp_level))}
+      ${statRow('PCI Address', `<code>${g.pci}</code>`)}
+      ${statRow('PCIe BAR', `<code>${g.bar}</code>`)}
+      ${statRow('Port', `:${g.port}`)}
+      ${statRow('PID', g.pid || '—')}
+      ${statRow('VRAM Used', `${fmtMB(g.vram_used)} / ${fmtMB(g.vram_total)} (${g.vram_pct}%)`)}
+      ${statRow('Model Loaded', g.model ? `<span style="color:var(--teal);">${g.model}</span>` : '<span style="color:var(--dim);">none</span>')}
+      ${statRow('Avg Speed', ps.avg_speed ? `${ps.avg_speed.toFixed(1)} t/s` : '—')}
+      ${statRow('Total Requests', (ps.requests || 0).toLocaleString())}
+      ${statRow('Total Tokens', (ps.tokens || 0).toLocaleString())}
+      ${statRow('Max Context', prof ? (prof.max_context || '—') : '—')}
+    </div>
+
+    ${profileSection}
+
+    <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+      <button class="btn btn-red" onclick="killZombie(${gpuId})">Kill Process</button>
+      <button class="btn btn-yellow" onclick="document.getElementById('ctrl-bench-gpu').value=${gpuId}; document.getElementById('modal').style.display='none'; runBench();">Benchmark</button>
+      <button class="btn btn-green" onclick="document.getElementById('ctrl-gpu').value=${gpuId}; document.getElementById('modal').style.display='none';">Load Model</button>
+      <button class="btn btn-dim" onclick="loadLogs(${gpuId})">View Logs</button>
+    </div>
+
+    <div id="modal-logs-${gpuId}" style="display:none;">
+      <div style="color:var(--dim); font-size:11px; margin-bottom:4px;">STDERR (last 50 lines)</div>
+      <div class="log-area" id="modal-log-content-${gpuId}">Loading…</div>
+    </div>
+  `;
+
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function statRow(label, value) {
+  return `<div style="background:var(--bg); border-radius:6px; padding:8px 10px;">
+    <div style="color:var(--dim); font-size:10px; text-transform:uppercase; letter-spacing:.05em; margin-bottom:3px;">${label}</div>
+    <div style="font-size:12px;">${value}</div>
+  </div>`;
+}
+
+async function killZombie(gpuId) {
+  setStatus(`Killing GPU ${gpuId} process…`);
+  try {
+    const r = await apiPost(`/api/gpu/${gpuId}/kill`);
+    setStatus(r.ok ? `GPU ${gpuId} process killed` : r.message || 'Failed', !r.ok);
+  } catch(e) { setStatus('Error: ' + e.message, true); }
+}
+
+async function loadLogs(gpuId) {
+  const wrap    = document.getElementById(`modal-logs-${gpuId}`);
+  const content = document.getElementById(`modal-log-content-${gpuId}`);
+  wrap.style.display = '';
+  try {
+    const data = await apiFetch(`/api/logs/${gpuId}`);
+    content.textContent = data.stderr.join('\n') || '(empty)';
+    content.scrollTop = content.scrollHeight;
+  } catch(e) {
+    content.textContent = 'Error loading logs: ' + e.message;
+  }
+}
+
+function closeModal(e) {
+  if (e.target.id === 'modal') {
+    document.getElementById('modal').style.display = 'none';
+  }
+}
+
+// ── Utilities ─────────────────────────────────────────────────────────
+
+async function apiFetch(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function apiPost(url, body) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) {
+    let detail = `HTTP ${res.status}`;
+    try { const j = await res.json(); detail = j.detail || j.message || detail; } catch {}
+    throw new Error(detail);
+  }
+  return res.json();
+}
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+function truncate(s, n) {
+  return s && s.length > n ? s.slice(0, n-1) + '…' : (s || '');
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+}
+
+let statusTimer = null;
+function setStatus(msg, isError = false) {
+  const el = document.getElementById('status-msg');
+  el.style.display = '';
+  el.style.color = isError ? 'var(--red)' : 'var(--green)';
+  el.textContent = msg;
+  clearTimeout(statusTimer);
+  statusTimer = setTimeout(() => { el.style.display = 'none'; }, 5000);
+}
+
+// ── GPU Power Toggle ─────────────────────────────────────────────────
+
+async function toggleGpuPower(gpuId, currentLevel) {
+  const newLevel = currentLevel === 'sleep' ? 'wake' : 'sleep';
+  console.log(`toggleGpuPower: GPU ${gpuId}, current=${currentLevel}, sending=${newLevel}`);
+  try {
+    const res = await fetch(`/api/gpu/${gpuId}/power`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({level: newLevel})
+    });
+    const data = await res.json();
+    console.log(`toggleGpuPower result:`, data);
+    if (data.ok) {
+      setStatus(`GPU ${gpuId}: ${newLevel === 'sleep' ? 'sleeping' : 'awake'}`);
+    } else {
+      setStatus(`GPU ${gpuId}: power change failed`, true);
+    }
+  } catch(e) { setStatus(`Power error: ${e}`, true); }
+}
+
+async function sleepIdleGpus() {
+  // Only sleep GPUs that have no model loaded
+  const idle = gpuState.filter(g => g.status === 'stopped');
+  if (!idle.length) { setStatus('No idle GPUs to sleep'); return; }
+  let ok = 0;
+  for (const g of idle) {
+    try {
+      const res = await fetch(`/api/gpu/${g.id}/power`, {
+        method: 'POST', headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({level: 'sleep'})
+      });
+      const data = await res.json();
+      if (data.ok) ok++;
+    } catch(e) {}
+  }
+  setStatus(`${ok} idle GPU(s) put to sleep`);
+}
+
+async function setAllPower(level) {
+  try {
+    const res = await fetch('/api/power/all', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({level: level})
+    });
+    const data = await res.json();
+    if (data.ok) {
+      setStatus(`All GPUs: power → ${level === 'low' ? 'save mode (300MHz)' : 'full performance'}`);
+    } else {
+      setStatus('Power change failed', true);
+    }
+  } catch(e) { setStatus(`Power error: ${e}`, true); }
+}
+
+// ── Performance Panel Toggle ─────────────────────────────────────────
+
+let perfPanelOpen = false;
+function togglePerfPanel() {
+  perfPanelOpen = !perfPanelOpen;
+  document.getElementById('perf-body').style.display = perfPanelOpen ? 'block' : 'none';
+  document.getElementById('perf-arrow').style.transform = perfPanelOpen ? 'rotate(90deg)' : '';
+}
+
+let ctrlPanelOpen = false;
+function toggleCtrlPanel() {
+  ctrlPanelOpen = !ctrlPanelOpen;
+  document.getElementById('ctrl-body').style.display = ctrlPanelOpen ? 'block' : 'none';
+  document.getElementById('ctrl-arrow').style.transform = ctrlPanelOpen ? 'rotate(90deg)' : '';
+}
+
+// ── Testing Panel ────────────────────────────────────────────────────
+
+let testES = null;
+let testTimerInterval = null;
+let testStartTime = null;
+let testResults = [];
+let testPanelOpen = false;
+let testActiveTab = 'models';
+let modelConfigs = {};  // populated from /api/model-configs
+
+function toggleTestPanel() {
+  testPanelOpen = !testPanelOpen;
+  document.getElementById('test-body').style.display = testPanelOpen ? 'block' : 'none';
+  document.getElementById('test-arrow').style.transform = testPanelOpen ? 'rotate(90deg)' : '';
+  if (testPanelOpen && !Object.keys(modelConfigs).length) loadModelConfigs();
+}
+
+function switchTestTab(tab) {
+  testActiveTab = tab;
+  ['models','gpus','custom'].forEach(t => {
+    document.getElementById('test-tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('test-ctrl-' + t).style.display = t === tab ? '' : 'none';
+  });
+}
+
+async function loadModelConfigs() {
+  try {
+    modelConfigs = await apiFetch('/api/model-configs');
+    populateCustomDropdowns();
+  } catch(e) { console.error('Failed to load model configs', e); }
+}
+
+function populateCustomDropdowns() {
+  const gpuSel = document.getElementById('custom-gpu');
+  const gpu = gpuSel.value;
+  const is12gb = gpu === '2';
+  const isAll = gpu === 'all';
+  const modelSel = document.getElementById('custom-model');
+  const prev = modelSel.value;
+  modelSel.innerHTML = '';
+  for (const [name, cfg] of Object.entries(modelConfigs)) {
+    if (!isAll && !is12gb && !cfg.fits_8gb) continue;
+    const opt = document.createElement('option');
+    opt.value = name; opt.textContent = `${name} (${cfg.size_gb}G)`;
+    modelSel.appendChild(opt);
+  }
+  if (prev && modelSel.querySelector(`option[value="${prev}"]`)) modelSel.value = prev;
+  customModelChanged();
+}
+
+function customGpuChanged() { populateCustomDropdowns(); }
+
+function customModelChanged() {
+  const model = document.getElementById('custom-model').value;
+  const cfg = modelConfigs[model];
+  const modeSel = document.getElementById('custom-mode');
+  modeSel.innerHTML = '';
+  if (cfg) {
+    for (const [mname, mcfg] of Object.entries(cfg.modes)) {
+      const opt = document.createElement('option');
+      opt.value = mname;
+      opt.textContent = `${mname} (${mcfg.speed}, ${mcfg.context} ctx)`;
+      if (mname === cfg.default_mode) opt.selected = true;
+      modeSel.appendChild(opt);
+    }
+  }
+}
+
+function testLog(msg, color) {
+  const el = document.getElementById('test-log');
+  const line = document.createElement('div');
+  line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+  if (color) line.style.color = `var(--${color})`;
+  el.appendChild(line);
+  el.scrollTop = el.scrollHeight;
+}
+
+function testSetUI(running) {
+  document.querySelectorAll('#test-panel .btn-green').forEach(b => b.disabled = running);
+  document.querySelectorAll('#test-panel .btn-red').forEach(b => b.disabled = !running);
+  document.getElementById('test-progress').style.display = running ? 'block' : 'none';
+}
+
+function testBuildRow(i, r) {
+  const pills = (r.tests || []).map(t =>
+    `<span style="font-size:10px;padding:1px 5px;border-radius:8px;font-weight:600;${t.passed ? 'background:rgba(63,185,80,.1);color:var(--green)' : 'background:rgba(248,81,73,.1);color:var(--red)'}">${esc(t.name)} ${t.passed ? '\u2713' : '\u2717'}</span>`
+  ).join(' ');
+
+  let badge = '';
+  if (r.status === 'pass')       badge = '<span class="badge badge-green">PASS</span>';
+  else if (r.status === 'partial')badge = '<span class="badge badge-yellow">PARTIAL</span>';
+  else if (r.status === 'loading')badge = '<span class="badge badge-blue" style="font-size:10px;"><span style="display:inline-block;width:8px;height:8px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:3px;"></span>LOADING</span>';
+  else badge = `<span class="badge badge-red">${esc((r.status||'?').toUpperCase())}</span>`;
+
+  // Verbose detail (expandable)
+  let detail = '';
+  if (r.tests && r.tests.length) {
+    detail = r.tests.map(t => {
+      const icon = t.passed ? '<span style="color:var(--green);">\u2713 PASS</span>' : '<span style="color:var(--red);">\u2717 FAIL</span>';
+      const prompt = esc(t.prompt_text || '').substring(0, 120);
+      const sys = t.system_text ? `<div style="color:var(--dim);">System: ${esc(t.system_text).substring(0,100)}</div>` : '';
+      const expected = (t.expected || []).map(k => `"${esc(k)}"`).join(', ');
+      const resp = esc(t.response || t.error || '').substring(0, 250);
+      const reasoning = t.reasoning ? `<div style="color:var(--dim);margin-top:2px;">Thinking: ${esc(t.reasoning).substring(0,150)}...</div>` : '';
+      const missing = t.missing && t.missing.length ? `<div style="color:var(--red);">Missing: ${t.missing.map(m => '"'+esc(m)+'"').join(', ')}</div>` : '';
+      return `<div style="margin-bottom:8px;padding:6px 8px;background:rgba(0,0,0,.2);border-radius:4px;">
+        <div style="display:flex;justify-content:space-between;"><strong>${esc(t.name)}</strong> ${icon} <span style="color:var(--dim);">${t.speed} t/s, ${t.tokens} tok, ${t.elapsed}s</span></div>
+        ${sys}
+        <div style="color:var(--dim);margin-top:2px;">Prompt: ${prompt}</div>
+        <div style="color:var(--dim);margin-top:2px;">Expected: ALL of [${expected}]</div>
+        <div style="margin-top:2px;">Response: <span style="color:var(--teal);">${resp}</span></div>
+        ${reasoning}${missing}
+      </div>`;
+    }).join('');
+  }
+  if (r.error) detail += `<div style="color:var(--red);padding:4px 8px;">Error: ${esc(r.error)}</div>`;
+
+  const td = 'style="padding:5px 8px;border-bottom:1px solid var(--border);"';
+  return `<tr onclick="document.getElementById('expand-${i}').classList.toggle('open')" style="cursor:pointer;">
+    <td ${td}>${i+1}</td>
+    <td ${td}><span style="font-weight:600;">${esc(r.label || r.name || '?')}</span></td>
+    <td ${td}>${r.load_time ? r.load_time + 's' : '\u2014'}</td>
+    <td ${td}>${r.speed > 0 ? r.speed + ' t/s' : '\u2014'}</td>
+    <td ${td}>${pills || '\u2014'}</td>
+    <td ${td}>${badge}</td>
+  </tr>
+  <tr id="expand-${i}" class="expand-row"><td colspan="6" style="padding:8px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.15);">${detail || 'No detail'}</td></tr>`;
+}
+
+function isVerbose() {
+  // Check any visible verbose checkbox (they're synced)
+  const checks = document.querySelectorAll('.verbose-check, #test-verbose');
+  for (const c of checks) if (c.checked) return true;
+  return false;
+}
+
+function testRender() {
+  const body = document.getElementById('test-results-body');
+  if (!testResults.length) {
+    body.innerHTML = '<tr><td colspan="6" style="color:var(--dim);text-align:center;padding:20px;">Select a test mode and click Run</td></tr>';
+    return;
+  }
+  body.innerHTML = testResults.map((r, i) => testBuildRow(i, r)).join('');
+  // Auto-expand all detail rows in verbose mode
+  if (isVerbose()) {
+    document.querySelectorAll('.expand-row').forEach(el => el.classList.add('open'));
+  }
+  // Sync all verbose checkboxes
+  const v = isVerbose();
+  document.querySelectorAll('.verbose-check, #test-verbose').forEach(c => c.checked = v);
+}
+
+function runTests(url) {
+  testResults = [];
+  testRender();
+  testSetUI(true);
+  document.getElementById('test-log').textContent = '';
+  testStartTime = Date.now();
+  testTimerInterval = setInterval(() => {
+    const s = Math.floor((Date.now() - testStartTime) / 1000);
+    document.getElementById('test-timer').textContent = s >= 60 ? `${Math.floor(s/60)}m ${s%60}s` : `${s}s`;
+  }, 1000);
+  testLog('Starting tests...', 'blue');
+  document.getElementById('test-summary-badge').className = 'badge badge-blue';
+  document.getElementById('test-summary-badge').textContent = 'running';
+
+  testES = new EventSource(url);
+  testES.onmessage = function(e) {
+    const msg = JSON.parse(e.data);
+    if (msg.type === 'start') {
+      testLog(`Testing ${msg.total} configurations (5 verify prompts each)`, 'blue');
+    } else if (msg.type === 'loading') {
+      document.getElementById('test-progress-label').textContent = `Loading ${msg.label}...`;
+      document.getElementById('test-progress-count').textContent = `${msg.step} / ${msg.total}`;
+      document.getElementById('test-progress-fill').style.width = `${((msg.step - 0.5) / msg.total) * 100}%`;
+      testLog(`[${msg.step}/${msg.total}] Loading ${msg.label}...`, 'yellow');
+      testResults.push({name: msg.model, mode: msg.mode, gpu: msg.gpu, label: msg.label, status: 'loading', load_time: 0, speed: 0, tests: []});
+      testRender();
+    } else if (msg.type === 'ready') {
+      testLog(`  Loaded in ${msg.load_time}s \u2014 running 5 verify tests...`, 'blue');
+    } else if (msg.type === 'subtest') {
+      // Live sub-test result: update the placeholder row's tests array
+      const idx = msg.step - 1;
+      if (testResults[idx]) {
+        if (!testResults[idx].tests) testResults[idx].tests = [];
+        testResults[idx].tests.push(msg.subtest);
+        testRender();
+      }
+      const s = msg.subtest;
+      const icon = s.passed ? '\u2713' : '\u2717';
+      const color = s.passed ? 'green' : 'red';
+      let line = `  ${icon} ${s.name}: ${s.passed ? 'PASS' : 'FAIL'} | ${s.speed} t/s | ${s.tokens} tok | ${s.elapsed}s`;
+      if (isVerbose()) {
+        line += `\n    Prompt: ${(s.prompt_text || '').substring(0, 100)}`;
+        line += `\n    Expected: [${(s.expected || []).join(', ')}]`;
+        line += `\n    Response: ${(s.response || s.error || '').substring(0, 150)}`;
+        if (s.reasoning) line += `\n    Thinking: ${s.reasoning.substring(0, 100)}...`;
+        if (s.missing && s.missing.length) line += `\n    Missing: ${s.missing.join(', ')}`;
+      }
+      testLog(line, color);
+    } else if (msg.type === 'result') {
+      testResults[msg.step - 1] = msg;
+      testRender();
+      document.getElementById('test-progress-fill').style.width = `${(msg.step / msg.total) * 100}%`;
+      document.getElementById('test-progress-count').textContent = `${msg.step} / ${msg.total}`;
+      const tp = (msg.tests || []).filter(t => t.passed).length;
+      const tt = (msg.tests || []).length;
+      testLog(`${msg.status === 'pass' ? '\u2705' : '\u26a0\ufe0f'} ${msg.label}: ${msg.status.toUpperCase()} | ${msg.load_time}s load | ${msg.speed} t/s | ${tp}/${tt}`, msg.status === 'pass' ? 'green' : 'yellow');
+    } else if (msg.type === 'done') {
+      clearInterval(testTimerInterval); testSetUI(false);
+      testES.close(); testES = null;
+      const elapsed = Math.floor((Date.now() - testStartTime) / 1000);
+      const sum = `${msg.passed} pass, ${msg.partial} partial, ${msg.failed} fail`;
+      testLog(`Done in ${Math.floor(elapsed/60)}m ${elapsed%60}s: ${sum}`, msg.failed === 0 ? 'green' : 'red');
+      document.getElementById('test-status').textContent = `Done: ${sum} (${Math.floor(elapsed/60)}m ${elapsed%60}s)`;
+      document.getElementById('test-summary-badge').className = msg.failed === 0 ? 'badge badge-green' : 'badge badge-yellow';
+      document.getElementById('test-summary-badge').textContent = msg.failed === 0 ? 'all pass' : sum;
+    }
+  };
+  testES.onerror = function() {
+    clearInterval(testTimerInterval); testSetUI(false);
+    testLog('Connection lost or test stopped.', 'red');
+    document.getElementById('test-summary-badge').className = 'badge badge-red';
+    document.getElementById('test-summary-badge').textContent = 'error';
+    if (testES) { testES.close(); testES = null; }
+  };
+}
+
+function runCustomTest() {
+  const gpu = document.getElementById('custom-gpu').value;
+  const model = document.getElementById('custom-model').value;
+  const mode = document.getElementById('custom-mode').value;
+  const temp = document.getElementById('custom-temp').value;
+  let url = `/api/test/custom/run?gpu=${gpu}&model=${encodeURIComponent(model)}&mode=${encodeURIComponent(mode)}`;
+  if (temp !== '') url += `&temp=${temp}`;
+  runTests(url);
+}
+
+function stopTests() {
+  if (testES) { testES.close(); testES = null; }
+  clearInterval(testTimerInterval); testSetUI(false);
+  testLog('Tests stopped by user.', 'red');
+  document.getElementById('test-summary-badge').className = 'badge badge-red';
+  document.getElementById('test-summary-badge').textContent = 'stopped';
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  initChart();
+  fetchInitial();
+  startSSE();
+
+  // Keyboard: Escape closes modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.getElementById('modal').style.display = 'none';
+  });
+
+  // Periodically refresh perf chart and summary (not GPU cards — those come via SSE)
+  setInterval(() => {
+    apiFetch('/api/perf').then(p => { if(p) { perfData = p; if(gpuState.length) renderGpuGrid(); } });
+    fetchPerfRecent();
+  }, 30000);
+});
+</script>
+</body>
+</html>

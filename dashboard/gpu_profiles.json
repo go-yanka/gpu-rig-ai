@@ -1,0 +1,139 @@
+{
+  "0": {
+    "strengths": [
+      "Fast parallel inference for small 7B models",
+      "Low latency for structured outputs (JSON extraction)",
+      "Stable under sustained load"
+    ],
+    "limitations": [
+      "256MB PCIe BAR — model loading is 3-4× slower",
+      "8GB VRAM caps usable context to ~16K tokens",
+      "Cannot run quantized 13B+ models"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "7B", "quant": "Q8_0",   "fits": false, "note": "tight"},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": "Above 4G Decoding disabled in BIOS — 256MB BAR is hardware-fixed"
+  },
+  "1": {
+    "strengths": [
+      "Fast parallel inference for small 7B models",
+      "Low latency for structured outputs",
+      "Good for batch document processing"
+    ],
+    "limitations": [
+      "256MB PCIe BAR — slow model loading",
+      "8GB VRAM, same constraints as GPU0"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": "Dell OEM card — identical performance to other 5700 XTs"
+  },
+  "2": {
+    "strengths": [
+      "FLAGSHIP — largest VRAM in the rig (12GB, 8GB BAR)",
+      "Full PCIe BAR: model loads 3-4× faster than 256MB GPUs",
+      "Can run 13B Q4 models comfortably",
+      "Best choice for complex reasoning and long context",
+      "Supports 32K token context window",
+      "Best single-GPU option for Ritu Job Agent backend"
+    ],
+    "limitations": [
+      "Only one of these in the rig — don't waste it on simple tasks",
+      "12GB still limits 70B models"
+    ],
+    "workloads": [
+      {"size": "7B",  "quant": "Q6_K",   "fits": true},
+      {"size": "7B",  "quant": "Q8_0",   "fits": true},
+      {"size": "13B", "quant": "Q4_K_M", "fits": true},
+      {"size": "13B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B", "quant": "Q8_0",   "fits": false, "note": "tight"},
+      {"size": "34B", "quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "32K tokens",
+    "notes": "Reserve this GPU for the biggest/most important models. Full 8GB BAR = fast loads."
+  },
+  "3": {
+    "strengths": [
+      "Reliable workhorse for 7B inference",
+      "Sapphire Nitro+ — good thermal design"
+    ],
+    "limitations": [
+      "256MB PCIe BAR — slow model loading",
+      "8GB VRAM cap"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": "Sapphire Nitro+ variant — typically runs slightly cooler"
+  },
+  "4": {
+    "strengths": [
+      "PowerColor Red Devil — higher TDP allows slight clock boost",
+      "Fast 7B inference"
+    ],
+    "limitations": [
+      "256MB PCIe BAR",
+      "Runs slightly hotter than reference"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": "Watch thermals under sustained load"
+  },
+  "5": {
+    "strengths": [
+      "Solid 7B inference GPU",
+      "Identical performance to other ASRock 5700 XTs"
+    ],
+    "limitations": [
+      "256MB PCIe BAR",
+      "8GB VRAM"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": ""
+  },
+  "6": {
+    "strengths": [
+      "Solid 7B inference GPU",
+      "Good aggregate throughput when all 7 GPUs run in parallel"
+    ],
+    "limitations": [
+      "256MB PCIe BAR",
+      "8GB VRAM",
+      "Last PCIe slot on H110 Pro BTC+ — verify lane count"
+    ],
+    "workloads": [
+      {"size": "3B", "quant": "Q8_0", "fits": true},
+      {"size": "7B", "quant": "Q4_K_M", "fits": true},
+      {"size": "7B", "quant": "Q6_K",   "fits": true},
+      {"size": "13B","quant": "Q4_K_M", "fits": false}
+    ],
+    "max_context": "16K tokens",
+    "notes": "Check PCIe lane assignment — some BTC+ slots share bandwidth"
+  }
+}
