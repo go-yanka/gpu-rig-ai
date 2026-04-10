@@ -278,21 +278,35 @@
         <span id="hdr-power-sleep" style="color:var(--teal);">Sleep: —</span>
       </div>
       <div style="display:flex; gap:6px; margin-top:6px; align-items:center;">
-        <button class="btn btn-green" style="padding:3px 10px; font-size:11px;" onclick="sleepIdleGpus()">Sleep Idle</button>
-        <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;" onclick="setAllPower('wake')">Wake All</button>
-        <div style="margin-left:auto; display:flex; align-items:center; gap:4px;">
-          <span style="font-size:10px; color:var(--dim);">Auto:</span>
-          <select id="hdr-autosleep-select" onchange="setAutoSleep(this.value)"
-            style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:2px 6px; border-radius:4px; font-family:inherit; font-size:10px;">
-            <option value="0">Off</option>
-            <option value="1">1m</option>
-            <option value="2">2m</option>
-            <option value="5" selected>5m</option>
-            <option value="10">10m</option>
-            <option value="15">15m</option>
-            <option value="30">30m</option>
-          </select>
+        <div style="position:relative; display:inline-block;">
+          <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
+            onclick="document.getElementById('hdr-power-menu').style.display = document.getElementById('hdr-power-menu').style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
+          <div id="hdr-power-menu" style="display:none; position:absolute; left:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:180px; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green);"
+              onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; sleepIdleGpus()">Sleep All Idle</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green); border-top:1px solid #3d444d;"
+              onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; setAllPower('sleep')">Sleep All GPUs</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--text); border-top:1px solid #3d444d;"
+              onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; setAllPower('wake')">Wake All</div>
+            <div style="padding:5px 14px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Auto-sleep</div>
+            <div style="padding:6px 14px; display:flex; align-items:center; gap:6px;">
+              <select id="hdr-autosleep-select" onchange="setAutoSleep(this.value)"
+                style="background:var(--bg); border:1px solid var(--border); color:var(--text); padding:3px 8px; border-radius:4px; font-family:inherit; font-size:11px; flex:1;">
+                <option value="0">Off</option>
+                <option value="1">1 min</option>
+                <option value="2">2 min</option>
+                <option value="5" selected>5 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="30">30 min</option>
+              </select>
+            </div>
+          </div>
         </div>
+        <span id="hdr-autosleep-label" style="font-size:10px; color:var(--dim);"></span>
       </div>
     </div>
   </div>
@@ -613,7 +627,6 @@ function buildGpuCard(g) {
 }
 
 function buildSleepingCard(g) {
-  // Compact single-row: GPU ID · sleeping · ~0W cal (↓10W) · [Wake]
   const sw = g.sleep_watts || 0;
   const aw = g.awake_watts || 10;
   const saving = (aw - sw).toFixed(0);
@@ -626,42 +639,15 @@ function buildSleepingCard(g) {
       <span style="color:var(--green); font-size:11px;">~${sw}W ${tag}</span>
       <span style="color:var(--dim); font-size:10px;">\u2193${saving}W saved</span>
       <div style="flex:1;"></div>
-      <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
-        <button class="btn btn-wake" style="padding:3px 12px; font-size:11px;"
-          onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Wake \u25bc</button>
-        <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:130px; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
-          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--text);"
-            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-            onclick="event.stopPropagation(); this.parentElement.style.display='none'; toggleGpuPower(${g.id}, 'sleep')">Wake</div>
-          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid #3d444d;"
-            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-            onclick="event.stopPropagation(); this.parentElement.style.display='none'; wakeAndLoad(${g.id})">Wake &amp; Load</div>
-        </div>
-      </div>
+      ${buildActionsBtn(g)}
     </div>
   </div>`;
 }
 
 function buildIdleCard(g) {
-  // Idle: GPU name, power + temp, action buttons
   const pwr = g.power_watts ? g.power_watts + 'W' : '';
   const tmp = g.temp ? g.temp + '\u00b0C' : '';
   const info = [pwr, tmp].filter(Boolean).join(' \u00b7 ');
-  const defModel = g.default_model;
-  // Load button: if default model set, show "Load [model]"; otherwise show dropdown to pick model
-  let loadBtn;
-  if (defModel) {
-    loadBtn = `<button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
-      onclick="event.stopPropagation(); loadGpuDefault(${g.id})" title="Load ${defModel} ${g.default_mode || ''}">Load ${truncate(defModel, 12)}</button>`;
-  } else {
-    // No default — show model picker dropdown
-    loadBtn = `<div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
-      <button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
-        onclick="populateLoadMenu(${g.id}); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Load \u25bc</button>
-      <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:160px; box-shadow:0 -4px 16px rgba(0,0,0,.7);"
-        id="load-menu-${g.id}"></div>
-    </div>`;
-  }
   return `
   <div class="gpu-card idle" id="card-${g.id}" onclick="openModal(${g.id})">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
@@ -673,11 +659,51 @@ function buildIdleCard(g) {
     </div>
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <span style="color:var(--dim); font-size:11px;">${info}</span>
-      <div style="display:flex; gap:5px;">
-        ${loadBtn}
-        <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
-          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'on')">\ud83d\udca4 Sleep</button>
-      </div>
+      ${buildActionsBtn(g)}
+    </div>
+  </div>`;
+}
+
+function buildActionsBtn(g) {
+  const menuId = `actions-menu-${g.id}`;
+  const mi = (label, color, fn) =>
+    `<div style="padding:7px 14px; cursor:pointer; font-size:11px; color:var(--${color}); border-top:1px solid #3d444d;"
+      onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+      onclick="event.stopPropagation(); document.getElementById('${menuId}').style.display='none'; ${fn}">${label}</div>`;
+
+  let items = '';
+  if (g.status === 'sleeping') {
+    // Sleeping: Wake, Wake & Load, Load Model (pick)
+    items += mi('Wake', 'text', `toggleGpuPower(${g.id}, 'sleep')`);
+    if (g.default_model) {
+      items += mi(`Wake &amp; Load ${truncate(g.default_model,10)}`, 'teal', `wakeAndLoad(${g.id})`);
+    }
+    items += `<div style="padding:5px 12px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Load Model</div>`;
+  } else if (g.status === 'stopped') {
+    // Idle: Load default, Load model (pick), Sleep
+    if (g.default_model) {
+      items += mi(`Load ${truncate(g.default_model,12)} (default)`, 'teal', `loadGpuDefault(${g.id})`);
+    }
+    items += `<div style="padding:5px 12px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Load Model</div>`;
+  } else {
+    // Active: Switch model, Unload, Unload & Sleep
+    items += `<div style="padding:5px 12px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em;">Switch Model</div>`;
+  }
+  // Model list placeholder (populated on click)
+  items += `<div id="${menuId}-models"></div>`;
+  // Bottom actions for active/idle
+  if (g.status === 'ready' || g.status === 'loading') {
+    items += mi('Unload', 'yellow', `gpuUnload(${g.id})`);
+    items += mi('Unload &amp; Sleep', 'green', `unloadAndSleep(${g.id})`);
+  } else if (g.status === 'stopped') {
+    items += mi('\ud83d\udca4 Sleep', 'green', `toggleGpuPower(${g.id}, 'on')`);
+  }
+
+  return `<div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
+    <button class="btn btn-dim" style="padding:2px 10px; font-size:10px;"
+      onclick="populateActionsModels(${g.id}, '${menuId}-models', ${g.id === 2}); document.getElementById('${menuId}').style.display = document.getElementById('${menuId}').style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
+    <div id="${menuId}" style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:170px; max-height:320px; overflow-y:auto; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
+      ${items}
     </div>
   </div>`;
 }
@@ -719,20 +745,7 @@ function buildActiveCard(g) {
     </div>
     <div style="margin-top:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
       <span style="color:var(--dim);">${g.power_watts ? g.power_watts + 'W' : ''} \u00b7 Port :${g.port}</span>
-      <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
-        <button class="btn btn-dim" style="padding:2px 10px; font-size:10px;"
-          onclick="populateActiveMenu(${g.id}); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
-        <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:160px; box-shadow:0 -4px 16px rgba(0,0,0,.7);" id="active-menu-${g.id}">
-          <div style="padding:6px 12px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em;">Switch Model</div>
-          <!-- model list populated dynamically -->
-          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--yellow); border-top:1px solid #3d444d;"
-            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-            onclick="event.stopPropagation(); this.closest('[id^=active-menu]').style.display='none'; gpuUnload(${g.id})">Unload</div>
-          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green); border-top:1px solid #3d444d;"
-            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
-            onclick="event.stopPropagation(); this.closest('[id^=active-menu]').style.display='none'; unloadAndSleep(${g.id})">Unload &amp; Sleep</div>
-        </div>
-      </div>
+      ${buildActionsBtn(g)}
     </div>
     ${hasProf ? `
     <div class="profile-toggle ${isOpen}" id="ptoggle-${g.id}" onclick="toggleProfile(event, ${g.id})">
@@ -922,8 +935,10 @@ function startSSE() {
         if (!window._lastAutoSleepCheck || Date.now() - window._lastAutoSleepCheck > 10000) {
           window._lastAutoSleepCheck = Date.now();
           fetch('/api/defaults').then(r=>r.json()).then(d => {
+            const m = d.auto_sleep_minutes || 0;
             const sel = document.getElementById('hdr-autosleep-select');
-            if (sel) sel.value = String(d.auto_sleep_minutes || 0);
+            if (sel) sel.value = String(m);
+            setText('hdr-autosleep-label', m > 0 ? `Auto: ${m}m` : '');
           }).catch(()=>{});
         }
       }
@@ -1279,6 +1294,45 @@ async function wakeAndLoad(gpuId) {
   } catch(e) { setStatus(`Error: ${e}`, true); }
 }
 
+async function populateActionsModels(gpuId, containerId, is12gb) {
+  const container = document.getElementById(containerId);
+  if (!container || container.children.length > 0) return;
+  try {
+    const cfgs = await apiFetch('/api/model-configs');
+    for (const [name, cfg] of Object.entries(cfgs)) {
+      if (!is12gb && !cfg.fits_8gb) continue;
+      for (const [mode, mcfg] of Object.entries(cfg.modes)) {
+        const item = document.createElement('div');
+        item.style.cssText = 'padding:7px 14px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid #3d444d;';
+        item.textContent = `${name} ${mode}`;
+        item.title = mcfg.desc;
+        item.onmouseover = () => item.style.background = '#2d333b';
+        item.onmouseout = () => item.style.background = '';
+        // Determine action based on current GPU state
+        const gpu = gpuState.find(g => g.id === gpuId);
+        if (gpu && gpu.status === 'sleeping') {
+          item.onclick = (e) => { e.stopPropagation(); container.closest('[id^=actions-menu]').style.display='none'; wakeAndLoadModel(gpuId, name, mode, cfg.file); };
+        } else if (gpu && (gpu.status === 'ready' || gpu.status === 'loading')) {
+          item.onclick = (e) => { e.stopPropagation(); container.closest('[id^=actions-menu]').style.display='none'; switchModel(gpuId, name, mode, cfg.file); };
+        } else {
+          item.onclick = (e) => { e.stopPropagation(); container.closest('[id^=actions-menu]').style.display='none'; quickLoadModel(gpuId, name, mode, cfg.file); };
+        }
+        container.appendChild(item);
+      }
+    }
+  } catch(e) {}
+}
+
+async function wakeAndLoadModel(gpuId, modelName, modeName, fileName) {
+  try {
+    setStatus(`GPU ${gpuId}: waking + loading ${modelName} ${modeName}...`);
+    await fetch(`/api/gpu/${gpuId}/power`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({level:'wake'}) });
+    await new Promise(r => setTimeout(r, 2000));
+    await quickLoadModel(gpuId, modelName, modeName, fileName);
+  } catch(e) { setStatus(`Error: ${e}`, true); }
+}
+
+// Legacy — kept for compatibility
 async function populateActiveMenu(gpuId) {
   const menu = document.getElementById(`active-menu-${gpuId}`);
   if (!menu || menu.querySelector('.model-item')) return; // already populated
