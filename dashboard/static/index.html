@@ -629,13 +629,13 @@ function buildSleepingCard(g) {
       <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
         <button class="btn btn-wake" style="padding:3px 12px; font-size:11px;"
           onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Wake \u25bc</button>
-        <div style="display:none; position:absolute; right:0; top:100%; z-index:50; background:var(--panel); border:1px solid var(--border); border-radius:6px; overflow:hidden; min-width:120px; box-shadow:0 4px 12px rgba(0,0,0,.4);">
-          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--text);"
-            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
-            onclick="this.parentElement.style.display='none'; toggleGpuPower(${g.id}, 'sleep')">Wake</div>
-          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid var(--border);"
-            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
-            onclick="this.parentElement.style.display='none'; wakeAndLoad(${g.id})">Wake &amp; Load</div>
+        <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:130px; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
+          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--text);"
+            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+            onclick="event.stopPropagation(); this.parentElement.style.display='none'; toggleGpuPower(${g.id}, 'sleep')">Wake</div>
+          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid #3d444d;"
+            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+            onclick="event.stopPropagation(); this.parentElement.style.display='none'; wakeAndLoad(${g.id})">Wake &amp; Load</div>
         </div>
       </div>
     </div>
@@ -643,15 +643,25 @@ function buildSleepingCard(g) {
 }
 
 function buildIdleCard(g) {
-  // Idle: GPU name, power + temp, [Load Default] [Sleep] buttons
+  // Idle: GPU name, power + temp, action buttons
   const pwr = g.power_watts ? g.power_watts + 'W' : '';
   const tmp = g.temp ? g.temp + '\u00b0C' : '';
   const info = [pwr, tmp].filter(Boolean).join(' \u00b7 ');
   const defModel = g.default_model;
-  const defBtn = defModel
-    ? `<button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
-        onclick="event.stopPropagation(); loadGpuDefault(${g.id})" title="Load ${defModel} ${g.default_mode || ''}">Load ${truncate(defModel, 12)}</button>`
-    : '';
+  // Load button: if default model set, show "Load [model]"; otherwise show dropdown to pick model
+  let loadBtn;
+  if (defModel) {
+    loadBtn = `<button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
+      onclick="event.stopPropagation(); loadGpuDefault(${g.id})" title="Load ${defModel} ${g.default_mode || ''}">Load ${truncate(defModel, 12)}</button>`;
+  } else {
+    // No default — show model picker dropdown
+    loadBtn = `<div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
+      <button class="btn btn-blue" style="padding:3px 10px; font-size:11px;"
+        onclick="populateLoadMenu(${g.id}); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Load \u25bc</button>
+      <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:160px; box-shadow:0 -4px 16px rgba(0,0,0,.7);"
+        id="load-menu-${g.id}"></div>
+    </div>`;
+  }
   return `
   <div class="gpu-card idle" id="card-${g.id}" onclick="openModal(${g.id})">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
@@ -664,9 +674,9 @@ function buildIdleCard(g) {
     <div style="display:flex; justify-content:space-between; align-items:center;">
       <span style="color:var(--dim); font-size:11px;">${info}</span>
       <div style="display:flex; gap:5px;">
-        ${defBtn}
+        ${loadBtn}
         <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
-          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'on')">Sleep</button>
+          onclick="event.stopPropagation(); toggleGpuPower(${g.id}, 'on')">\ud83d\udca4 Sleep</button>
       </div>
     </div>
   </div>`;
@@ -710,15 +720,17 @@ function buildActiveCard(g) {
     <div style="margin-top:4px; font-size:11px; display:flex; justify-content:space-between; align-items:center;">
       <span style="color:var(--dim);">${g.power_watts ? g.power_watts + 'W' : ''} \u00b7 Port :${g.port}</span>
       <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
-        <button class="btn btn-red" style="padding:2px 10px; font-size:10px;"
-          onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Unload \u25bc</button>
-        <div style="display:none; position:absolute; right:0; top:100%; z-index:50; background:var(--panel); border:1px solid var(--border); border-radius:6px; overflow:hidden; min-width:130px; box-shadow:0 4px 12px rgba(0,0,0,.4);">
-          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--text);"
-            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
-            onclick="this.parentElement.style.display='none'; gpuUnload(${g.id})">Unload</div>
-          <div style="padding:6px 12px; cursor:pointer; font-size:11px; color:var(--green); border-top:1px solid var(--border);"
-            onmouseover="this.style.background='rgba(255,255,255,.06)'" onmouseout="this.style.background=''"
-            onclick="this.parentElement.style.display='none'; unloadAndSleep(${g.id})">Unload &amp; Sleep</div>
+        <button class="btn btn-dim" style="padding:2px 10px; font-size:10px;"
+          onclick="populateActiveMenu(${g.id}); this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'block' ? 'none' : 'block'">Actions \u25bc</button>
+        <div style="display:none; position:absolute; right:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:160px; box-shadow:0 -4px 16px rgba(0,0,0,.7);" id="active-menu-${g.id}">
+          <div style="padding:6px 12px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em;">Switch Model</div>
+          <!-- model list populated dynamically -->
+          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--yellow); border-top:1px solid #3d444d;"
+            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+            onclick="event.stopPropagation(); this.closest('[id^=active-menu]').style.display='none'; gpuUnload(${g.id})">Unload</div>
+          <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green); border-top:1px solid #3d444d;"
+            onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+            onclick="event.stopPropagation(); this.closest('[id^=active-menu]').style.display='none'; unloadAndSleep(${g.id})">Unload &amp; Sleep</div>
         </div>
       </div>
     </div>
@@ -732,6 +744,8 @@ function buildActiveCard(g) {
 }
 
 function renderGpuGrid() {
+  // Skip re-render if a dropdown menu is open (SSE would destroy it)
+  if (document.querySelector('#gpu-grid [style*="display: block"]')) return;
   const grid = document.getElementById('gpu-grid');
   grid.innerHTML = gpuState.map(buildGpuCard).join('');
 }
@@ -1263,6 +1277,87 @@ async function wakeAndLoad(gpuId) {
     // Load default model from file
     loadGpuDefault(gpuId);
   } catch(e) { setStatus(`Error: ${e}`, true); }
+}
+
+async function populateActiveMenu(gpuId) {
+  const menu = document.getElementById(`active-menu-${gpuId}`);
+  if (!menu || menu.querySelector('.model-item')) return; // already populated
+  const header = menu.querySelector('div'); // "Switch Model" header
+  try {
+    const cfgs = await apiFetch('/api/model-configs');
+    const is12gb = gpuId === 2;
+    for (const [name, cfg] of Object.entries(cfgs)) {
+      if (!is12gb && !cfg.fits_8gb) continue;
+      for (const [mode, mcfg] of Object.entries(cfg.modes)) {
+        const item = document.createElement('div');
+        item.className = 'model-item';
+        item.style.cssText = 'padding:7px 14px; cursor:pointer; font-size:11px; color:var(--teal); border-top:1px solid #3d444d;';
+        item.textContent = `${name} ${mode}`;
+        item.title = mcfg.desc;
+        item.onmouseover = () => item.style.background = '#2d333b';
+        item.onmouseout = () => item.style.background = '';
+        item.onclick = (e) => { e.stopPropagation(); menu.style.display = 'none'; switchModel(gpuId, name, mode, cfg.file); };
+        header.after(item);
+      }
+    }
+  } catch(e) {}
+}
+
+async function switchModel(gpuId, modelName, modeName, fileName) {
+  try {
+    setStatus(`GPU ${gpuId}: switching to ${modelName} ${modeName}...`);
+    // Unload current, then load new
+    await fetch(`/api/gpu/${gpuId}/unload`, {method:'POST'});
+    await new Promise(r => setTimeout(r, 2000));
+    await fetch(`/api/gpu/${gpuId}/default`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model: modelName, mode: modeName})
+    });
+    await fetch(`/api/gpu/${gpuId}/load`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model_path: `/opt/ai-models/${fileName}`})
+    });
+    setStatus(`GPU ${gpuId}: loading ${modelName} ${modeName}...`);
+  } catch(e) { setStatus(`Switch failed: ${e}`, true); }
+}
+
+async function populateLoadMenu(gpuId) {
+  const menu = document.getElementById(`load-menu-${gpuId}`);
+  if (!menu || menu.children.length > 0) return; // already populated
+  try {
+    const cfgs = await apiFetch('/api/model-configs');
+    const is12gb = gpuId === 2;
+    for (const [name, cfg] of Object.entries(cfgs)) {
+      if (!is12gb && !cfg.fits_8gb) continue;
+      for (const [mode, mcfg] of Object.entries(cfg.modes)) {
+        const item = document.createElement('div');
+        item.style.cssText = 'padding:7px 12px; cursor:pointer; font-size:11px; color:var(--text); border-top:1px solid #3d444d;';
+        item.textContent = `${name} ${mode}`;
+        item.title = mcfg.desc;
+        item.onmouseover = () => item.style.background = '#2d333b';
+        item.onmouseout = () => item.style.background = '';
+        item.onclick = (e) => { e.stopPropagation(); menu.style.display = 'none'; quickLoadModel(gpuId, name, mode, cfg.file); };
+        menu.appendChild(item);
+      }
+    }
+    if (!menu.children.length) menu.innerHTML = '<div style="padding:8px 12px; color:var(--dim); font-size:11px;">No models available</div>';
+  } catch(e) { menu.innerHTML = '<div style="padding:8px 12px; color:var(--red); font-size:11px;">Failed to load models</div>'; }
+}
+
+async function quickLoadModel(gpuId, modelName, modeName, fileName) {
+  try {
+    setStatus(`GPU ${gpuId}: loading ${modelName} ${modeName}...`);
+    // Set as default + load
+    await fetch(`/api/gpu/${gpuId}/default`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model: modelName, mode: modeName})
+    });
+    await fetch(`/api/gpu/${gpuId}/load`, {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({model_path: `/opt/ai-models/${fileName}`})
+    });
+    setStatus(`GPU ${gpuId}: loading ${modelName} ${modeName}...`);
+  } catch(e) { setStatus(`Load failed: ${e}`, true); }
 }
 
 async function loadGpuDefault(gpuId) {
