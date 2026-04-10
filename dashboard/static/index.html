@@ -297,9 +297,9 @@
         <span id="hdr-power-sleep" style="color:var(--teal);">Sleep: —</span>
       </div>
       <div style="display:flex; gap:6px; margin-top:6px; align-items:center;">
-        <div style="position:relative; display:inline-block;">
+        <div style="position:relative; display:inline-block;" onclick="event.stopPropagation();">
           <button class="btn btn-dim" style="padding:3px 10px; font-size:11px;"
-            onclick="document.getElementById('hdr-power-menu').style.display = document.getElementById('hdr-power-menu').style.display === 'block' ? 'none' : 'block'">Actions ▼</button>
+            onclick="var m=document.getElementById('hdr-power-menu'); document.querySelectorAll('.actions-dropdown').forEach(d=>d.style.display='none'); m.style.display = m.style.display === 'block' ? 'none' : 'block'">Actions ▼</button>
           <div id="hdr-power-menu" style="display:none; position:absolute; left:0; bottom:100%; z-index:999; background:#1c2128; border:1px solid #3d444d; border-radius:6px; overflow:hidden; min-width:180px; box-shadow:0 -4px 16px rgba(0,0,0,.7);">
             <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--green);"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
@@ -310,6 +310,13 @@
             <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--text); border-top:1px solid #3d444d;"
               onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
               onclick="this.closest('#hdr-power-menu').style.display='none'; setAllPower('wake')">Wake All</div>
+            <div style="padding:5px 14px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Rig</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--yellow);"
+              onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('reboot')">Reboot Rig</div>
+            <div style="padding:8px 14px; cursor:pointer; font-size:11px; color:var(--red); border-top:1px solid #3d444d;"
+              onmouseover="this.style.background='#2d333b'" onmouseout="this.style.background=''"
+              onclick="this.closest('#hdr-power-menu').style.display='none'; rigAction('shutdown')">Shutdown Rig</div>
             <div style="padding:5px 14px; font-size:10px; color:var(--dim); text-transform:uppercase; letter-spacing:.05em; border-top:1px solid #3d444d;">Auto-sleep</div>
             <div style="padding:6px 14px; display:flex; align-items:center; gap:6px;">
               <select id="hdr-autosleep-select" onchange="setAutoSleep(this.value)"
@@ -914,6 +921,8 @@ function startSSE() {
   sseConn.onopen = () => {
     dot.classList.remove('dead');
     label.textContent = 'live';
+    const banner = document.getElementById('wake-banner');
+    if (banner) banner.style.display = 'none';
   };
 
   sseConn.onmessage = (e) => {
@@ -957,7 +966,22 @@ function startSSE() {
 
   sseConn.onerror = () => {
     dot.classList.add('dead');
-    label.textContent = 'reconnecting…';
+    label.textContent = 'offline';
+    // Show wake banner when rig is unreachable
+    let banner = document.getElementById('wake-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'wake-banner';
+      banner.style.cssText = 'background:rgba(248,81,73,.1); border:1px solid rgba(248,81,73,.3); border-radius:8px; padding:10px 16px; margin:0 20px 12px; display:flex; align-items:center; gap:12px; justify-content:center;';
+      banner.innerHTML = `
+        <span style="color:var(--red); font-weight:600;">Rig Offline</span>
+        <span style="color:var(--dim); font-size:11px;">Run from your PC:</span>
+        <code style="background:var(--bg); padding:3px 8px; border-radius:4px; font-size:11px; color:var(--teal);">python rig_client.py wake</code>
+        <span style="color:var(--dim); font-size:11px;">or</span>
+        <code style="background:var(--bg); padding:3px 8px; border-radius:4px; font-size:11px; color:var(--teal);">wolcmd MAC 192.168.1.255</code>`;
+      document.getElementById('gpu-grid').before(banner);
+    }
+    banner.style.display = 'flex';
     setTimeout(startSSE, 5000);
   };
 }
@@ -1598,6 +1622,16 @@ async function sleepIdleGpus() {
     } catch(e) {}
   }
   setStatus(`${ok} idle GPU(s) put to sleep`);
+}
+
+async function rigAction(action) {
+  const msg = action === 'reboot' ? 'Reboot the rig? All GPUs will stop.' : 'Shutdown the rig? It will need physical power-on to restart.';
+  if (!confirm(msg)) return;
+  try {
+    setStatus(`Rig ${action}ing...`);
+    await fetch(`/api/rig/${action}`, {method: 'POST'});
+    setStatus(`Rig ${action} initiated`);
+  } catch(e) { setStatus(`Failed: ${e}`, true); }
 }
 
 async function setAutoSleep(minutes) {

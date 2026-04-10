@@ -449,6 +449,22 @@ async def api_autosleep(req: AutoSleepRequest):
     await loop.run_in_executor(None, lambda: _call("save_defaults_file", defaults))
     return {"ok": True, "minutes": defaults["auto_sleep_minutes"]}
 
+# ── Rig control ───────────────────────────────────────────────────────────
+
+@app.post("/api/rig/reboot")
+async def api_rig_reboot():
+    """Reboot the rig."""
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "reboot"], timeout=5))
+    return {"ok": True}
+
+@app.post("/api/rig/shutdown")
+async def api_rig_shutdown():
+    """Shutdown the rig."""
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, lambda: subprocess.run(["sudo", "shutdown", "-h", "now"], timeout=5))
+    return {"ok": True}
+
 @app.get("/api/profiles")
 async def api_profiles():
     """Return GPU hardware profiles from gpu_profiles.json."""
