@@ -176,10 +176,30 @@ _PCI_RE = re.compile(r'^[0-9a-f]{2}:[0-9a-f]{2}\.[0-9a-f]$')
 # DATABASE — Single Source of Truth
 # ══════════════════════════════════════════════════════════════════════════
 
-DB_PATH = "/opt/ai-rig.db"  # Persistent — survives reboot (was /dev/shm, now on USB)
+DB_PATH = "/dev/shm/ai-rig.db"       # Runtime — fast writes, no USB wear
+DB_PERSIST_PATH = "/opt/ai-rig.db"   # Persistent — synced periodically to USB
+
+def _restore_db_from_persist():
+    """On boot: copy persistent DB from USB to RAM if it exists."""
+    if os.path.exists(DB_PERSIST_PATH) and not os.path.exists(DB_PATH):
+        import shutil
+        shutil.copy2(DB_PERSIST_PATH, DB_PATH)
+        try: os.chmod(DB_PATH, 0o666)
+        except: pass
+
+def sync_db_to_persist():
+    """Sync RAM DB to USB periodically (call every 5 min or on config changes)."""
+    try:
+        import shutil
+        shutil.copy2(DB_PATH, DB_PERSIST_PATH + ".tmp")
+        os.rename(DB_PERSIST_PATH + ".tmp", DB_PERSIST_PATH)
+    except Exception:
+        pass
 
 def init_db():
-    """Create SQLite database and tables if they don't exist."""
+    """Create SQLite database and tables if they don't exist.
+    On boot: restores from persistent USB copy first."""
+    _restore_db_from_persist()
     conn = sqlite3.connect(DB_PATH)
     # Ensure file is readable/writable by all (shell runs as root, dashboard as user)
     try: os.chmod(DB_PATH, 0o666)
@@ -938,13 +958,14 @@ def _read_gpu_power_avg(gpu_idx, samples=20, interval=0.5):
     return sum(readings) / len(readings) if readings else 0
 
 def set_default(gpu_idx, model, mode, temp=None):
-    """Set the default model for a GPU. Saved to SQLite."""
+    """Set the default model for a GPU. Saved to SQLite + synced to USB."""
     try:
         conn = _db()
         conn.execute("UPDATE gpu_state SET default_model=?, default_mode=?, default_temp=? WHERE gpu_id=?",
             (model, mode, temp, gpu_idx))
         conn.commit()
         conn.close()
+        sync_db_to_persist()
     except Exception as e:
         print(f"  set_default error: {e}")
 

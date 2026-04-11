@@ -79,7 +79,7 @@ GPU_MAP = {
 
 # ── Helpers ────────────────────────────────────────────────────────────────
 
-DB_PATH = "/opt/ai-rig.db"  # Persistent — same as shell
+DB_PATH = "/dev/shm/ai-rig.db"  # Runtime — same as shell (fast, no USB wear)
 
 def _load_defaults():
     """Read defaults from SQLite (single source of truth)."""
