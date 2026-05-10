@@ -1,0 +1,28 @@
+{
+  "probe": "V17",
+  "n_samples": 3,
+  "runs_per_sample": 3,
+  "scores": [
+    [
+      5
+    ],
+    [],
+    [
+      5
+    ]
+  ],
+  "per_sample_stdev": [
+    0,
+    0,
+    0
+  ],
+  "per_sample_mean": [
+    5,
+    0,
+    5
+  ],
+  "max_stdev": 0,
+  "all_samples_complete": false,
+  "pass_gate": false,
+  "note": "extend SAMPLES to 20 real (query,answer,reasoning) triples from logs"
+}

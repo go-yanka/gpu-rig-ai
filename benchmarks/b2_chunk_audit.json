@@ -1,0 +1,81 @@
+{
+  "collection": "cbic_v1",
+  "total_points": 108802,
+  "sampled": 5000,
+  "fields_present_in_any": {
+    "doc_id": 5000,
+    "source_file": 5000,
+    "source_url": 5000,
+    "category": 5000,
+    "subcategory": 5000,
+    "doc_type": 5000,
+    "doc_number": 5000,
+    "doc_date": 5000,
+    "parent_act": 5000,
+    "page_number": 5000,
+    "chunk_idx": 5000,
+    "chunk_type": 5000,
+    "is_table": 5000,
+    "section_ref": 5000,
+    "hierarchy": 5000,
+    "title": 5000,
+    "text": 5000
+  },
+  "field_fill_rate": {
+    "doc_id": 1.0,
+    "source_file": 1.0,
+    "source_url": 0.965,
+    "category": 1.0,
+    "subcategory": 1.0,
+    "doc_type": 1.0,
+    "doc_number": 0.816,
+    "doc_date": 0.801,
+    "parent_act": 0.965,
+    "page_number": 1.0,
+    "chunk_idx": 1.0,
+    "chunk_type": 1.0,
+    "is_table": 1.0,
+    "section_ref": 0.173,
+    "hierarchy": 1.0,
+    "title": 1.0,
+    "text": 1.0
+  },
+  "category_dist": {
+    "customs": 2421,
+    "gst": 1917,
+    "central_excise": 394,
+    "others": 144,
+    "service_tax": 124
+  },
+  "lang_dist": {
+    "?": 5000
+  },
+  "doc_type_dist": {
+    "notification": 3959,
+    "circular": 406,
+    "act": 315,
+    "rule": 143,
+    "order": 104,
+    "instruction": 65,
+    "unknown": 8
+  },
+  "source_dist": {
+    "?": 5000
+  },
+  "text_len_stats": {
+    "min": 65,
+    "p10": 298,
+    "p50": 1324,
+    "p90": 3198,
+    "p99": 4156,
+    "max": 5462,
+    "mean": 1522.0
+  },
+  "anomalies": {
+    "empty_text_chunks": 0,
+    "very_short_<50_chars": 0,
+    "unique_docs_sampled": 2102,
+    "docs_with_>20_chunks": 42,
+    "max_chunks_per_doc": 54
+  }
+}

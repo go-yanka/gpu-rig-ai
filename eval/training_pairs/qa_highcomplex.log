@@ -1,0 +1,11 @@
+D:\_gpu_rig_ai\training\qa_pairs_claude.py:1: SyntaxWarning: invalid escape sequence '\_'
+  """
+[load] 224 chunk records
+[flat] 448 (chunk, question) pairs
+[sample] stratified to 400 pairs across 5 categories
+[1/400] ok=1 parse_err=0 call_err=0  rate=0.14/s  eta=47.9m
+[2/400] ok=2 parse_err=0 call_err=0  rate=0.25/s  eta=26.5m
+[3/400] ok=3 parse_err=0 call_err=0  rate=0.34/s  eta=19.5m
+[4/400] ok=4 parse_err=0 call_err=0  rate=0.28/s  eta=23.3m
+[5/400] ok=5 parse_err=0 call_err=0  rate=0.35/s  eta=18.7m
+[10/400] ok=10 parse_err=0 call_err=0  rate=0.39/s  eta=16.7m

@@ -1,0 +1,56 @@
+{
+  "pass": true,
+  "pass_criterion_docs_per_sec": 10.0,
+  "single_docs_per_sec": 5.128,
+  "parallel_docs_per_sec": 21.466,
+  "sample_size": 100,
+  "workers": 4,
+  "cpu_count": 8,
+  "pymupdf_version": "1.27.2.2",
+  "python_version": "3.12.2",
+  "sample_buckets": {
+    "small": 50,
+    "medium": 35,
+    "large": 15
+  },
+  "sample_total_mb": 474.0,
+  "details": {
+    "single": {
+      "mode": "single",
+      "wall_s": 19.503,
+      "docs": 100,
+      "ok_docs": 99,
+      "fail_docs": 1,
+      "total_pages": 3669,
+      "total_chars": 6853274,
+      "docs_per_sec": 5.128,
+      "pages_per_sec": 188.128,
+      "mean_chars_per_doc": 69225.0,
+      "failures": [
+        {
+          "path": "D:\\_Google_Drive_Rahul\\_Rahul\\Carrier\\Solution Architecture\\TOGAF 9 Study Material\\TOGAF9-Study_3ed\\Practice-Tests\\Part2\\B093.pdf",
+          "error": "ValueError: document closed or encrypted"
+        }
+      ]
+    },
+    "parallel": {
+      "mode": "parallel_4",
+      "wall_s": 4.659,
+      "docs": 100,
+      "ok_docs": 99,
+      "fail_docs": 1,
+      "total_pages": 3669,
+      "total_chars": 6853274,
+      "docs_per_sec": 21.466,
+      "pages_per_sec": 787.575,
+      "mean_chars_per_doc": 69225.0,
+      "failures": [
+        {
+          "path": "D:\\_Google_Drive_Rahul\\_Rahul\\Carrier\\Solution Architecture\\TOGAF 9 Study Material\\TOGAF9-Study_3ed\\Practice-Tests\\Part2\\B093.pdf",
+          "error": "ValueError: document closed or encrypted"
+        }
+      ]
+    }
+  },
+  "notes": "PDF corpus source: D:/_Google_Drive_Rahul + D:/_backup_itrs + project tree. No CBIC-specific PDFs on the laptop; PyMuPDF throughput is corpus-agnostic (same code path), so these numbers are representative for the decision."
+}

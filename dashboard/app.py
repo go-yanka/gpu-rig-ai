@@ -282,6 +282,69 @@ async def api_models():
 async def api_perf_recent(n: int = 200):
     return get_perf_recent(n)
 
+@app.get("/api/traffic")
+async def api_traffic():
+    """Real-time nginx + per-GPU traffic status for the traffic flow visualization."""
+    import re, urllib.request
+
+    # ── nginx stub_status ────────────────────────────────────────────────
+    nginx = {"active": 0, "reading": 0, "writing": 0, "waiting": 0, "total_requests": 0}
+    try:
+        resp = urllib.request.urlopen("http://127.0.0.1:8099/nginx_status", timeout=1)
+        text = resp.read().decode()
+        m = re.search(r'Active connections:\s+(\d+)', text)
+        if m: nginx["active"] = int(m.group(1))
+        m = re.search(r'Reading:\s+(\d+)\s+Writing:\s+(\d+)\s+Waiting:\s+(\d+)', text)
+        if m:
+            nginx["reading"]  = int(m.group(1))
+            nginx["writing"]  = int(m.group(2))
+            nginx["waiting"]  = int(m.group(3))
+        m = re.search(r'^\s*\d+\s+\d+\s+(\d+)', text, re.MULTILINE)
+        if m: nginx["total_requests"] = int(m.group(1))
+    except Exception:
+        pass
+
+    # ── per-GPU log-based processing status ─────────────────────────────
+    gpus_traffic = []
+    conn = _db()
+    rows = conn.execute(
+        "SELECT gpu_id, status, model_name, port, vram_used, vram_total, speed FROM gpu_state ORDER BY gpu_id"
+    ).fetchall()
+    conn.close()
+
+    for row in rows:
+        gpu_id  = row["gpu_id"]
+        status  = row["status"]
+        model   = row["model_name"]
+        port    = row["port"]
+        vram_u  = row["vram_used"] or 0
+        vram_t  = row["vram_total"] or 8192
+        speed   = row["speed"] or 0
+
+        # Detect if actively processing via /slots endpoint (is_processing field)
+        processing = False
+        if status == "ready" and port:
+            try:
+                resp = urllib.request.urlopen(
+                    f"http://127.0.0.1:{port}/slots", timeout=0.5
+                )
+                slots = __import__("json").loads(resp.read())
+                processing = any(s.get("is_processing") for s in slots)
+            except Exception:
+                pass
+
+        gpus_traffic.append({
+            "id":         gpu_id,
+            "port":       port,
+            "status":     "processing" if processing else status,
+            "model":      model,
+            "vram_used":  vram_u,
+            "vram_total": vram_t,
+            "speed":      speed,
+        })
+
+    return {"nginx": nginx, "gpus": gpus_traffic}
+
 @app.get("/api/state")
 async def api_state():
     """All data from SQLite — single source of truth."""
@@ -316,7 +379,59 @@ async def api_logs(gpu_id: int):
         "gpu_id": gpu_id,
         "stderr": read_tail(err_log),
         "stdout": read_tail(out_log),
+        "activity": parse_activity(err_log),
     }
+
+def parse_activity(log_path: Path, max_requests: int = 20) -> list:
+    """Parse llama-server stderr and return structured request activity."""
+    if not log_path.exists():
+        return []
+    import re
+    lines = log_path.read_text(errors="replace").splitlines()
+
+    requests = []
+    current = {}
+
+    for line in lines:
+        # Task start — new request
+        m = re.search(r'slot launch_slot_.*task (\d+) \| processing task', line)
+        if m:
+            current = {"task": m.group(1), "time": None, "prompt_tokens": 0,
+                       "gen_tokens": 0, "total_ms": 0, "prompt_ms": 0,
+                       "eval_ms": 0, "speed": 0.0, "status": "processing"}
+
+        # Prompt token count
+        m = re.search(r'task\.n_tokens = (\d+)', line)
+        if m and current:
+            current["prompt_tokens"] = int(m.group(1))
+
+        # Timing block
+        m = re.search(r'prompt eval time\s*=\s*([\d.]+) ms\s*/\s*(\d+) tokens', line)
+        if m and current:
+            current["prompt_ms"] = float(m.group(1))
+
+        m = re.search(r'^\s+eval time\s*=\s*([\d.]+) ms\s*/\s*(\d+) tokens', line)
+        if m and current:
+            current["eval_ms"] = float(m.group(1))
+            current["gen_tokens"] = int(m.group(2))
+
+        m = re.search(r'total time\s*=\s*([\d.]+) ms\s*/\s*(\d+) tokens', line)
+        if m and current:
+            current["total_ms"] = float(m.group(1))
+            total_tokens = int(m.group(2))
+            if current["total_ms"] > 0:
+                current["speed"] = round(total_tokens / (current["total_ms"] / 1000), 1)
+
+        # Request complete
+        m = re.search(r'log_server_r.*done request: (POST|GET) (\S+) ([\d.]+) (\d+)', line)
+        if m and current:
+            current["endpoint"] = m.group(2)
+            current["status"] = m.group(4)
+            current["time"] = datetime.now().isoformat(timespec="seconds")
+            requests.append(dict(current))
+            current = {}
+
+    return requests[-max_requests:]
 
 # ── Routes — control ──────────────────────────────────────────────────────
 

@@ -1,0 +1,259 @@
+- id: cust_customs_valuation_001
+  category: customs
+  subcategory: customs_valuation
+  difficulty: advanced
+  question: "An importer brings in goods by air in 2024. The FOB value is $10,000. They paid $500 to their sourcing agent (buying commission) and $2,500 for air freight. Insurance costs are not ascertainable. Calculate the assessable value components under CVR 2007."
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 10(1)(a) CVR 2007", "Rule 10(2) CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["buying commission not added", "air freight capped at 20%", "insurance 1.125% of FOB", "no landing charges"]
+  must_not_say: ["add buying commission", "air freight $2,500", "add 1% landing charges"]
+  must_cite_verbatim: false
+  notes: "Buying commission excluded under Rule 10(1)(a)(i). Air freight capped at 20% of FOB under Rule 10(2). 1% landing charge was abolished 26-Sep-2017."
+
+- id: cust_customs_valuation_002
+  category: customs
+  subcategory: customs_valuation
+  difficulty: intermediate
+  question: "An Indian company imports raw materials. The foreign supplier dictates that the Indian company must pay a royalty to a third-party patent holder as a condition of the sale. Should this royalty be included in the transaction value?"
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 10(1)(c) CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["add to transaction value", "condition of sale", "Rule 10(1)(c)"]
+  must_not_say: ["excluded from transaction value", "only paid to seller", "post-importation expense"]
+  must_cite_verbatim: true
+  notes: "Under Rule 10(1)(c), royalties and license fees related to the imported goods must be added if paid as a condition of the sale, even if paid to a third party."
+
+- id: cust_customs_valuation_003
+  category: customs
+  subcategory: customs_valuation
+  difficulty: advanced
+  question: "An Indian subsidiary imports goods from its foreign holding company. Does the customs officer automatically reject the transaction value under Rule 3 because they are related parties?"
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 3(3) CVR 2007", "Rule 2(2) CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["transaction value accepted if relationship did not influence price", "test values", "SVB reference"]
+  must_not_say: ["automatically rejected", "Rule 4 applies immediately", "must use deductive value"]
+  must_cite_verbatim: false
+  notes: "Under Rule 3(3), transaction value is accepted if the importer demonstrates the relationship didn't influence the price, usually via Special Valuation Branch (SVB) investigation."
+
+- id: cust_customs_valuation_004
+  category: customs
+  subcategory: customs_valuation
+  difficulty: intermediate
+  question: "An importer uses an Indian design firm to create engineering drawings for a machine, which are then sent free of cost to the foreign manufacturer to produce the imported machine. Is the cost of this Indian design work added to the customs value?"
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 10(1)(b)(iv) CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["not added", "undertaken in India", "excluded from value"]
+  must_not_say: ["must be added", "apportioned value", "free issue material"]
+  must_cite_verbatim: true
+  notes: "Rule 10(1)(b)(iv) explicitly excludes the cost of engineering, development, artwork, and design work if it is undertaken in India."
+
+- id: cust_customs_valuation_005
+  category: customs
+  subcategory: customs_valuation
+  difficulty: basic
+  question: "If the proper officer rejects the declared transaction value of imported goods under Rule 12 of the Customs Valuation Rules, 2007, what is the mandatory sequence of rules to determine the value?"
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 4 CVR 2007", "Rule 5 CVR 2007", "Rule 7 CVR 2007", "Rule 8 CVR 2007", "Rule 9 CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["sequential application", "identical goods", "similar goods", "deductive value", "computed value", "residual method"]
+  must_not_say: ["importer can choose any rule", "skip Rule 4 and 5", "use MRP directly"]
+  must_cite_verbatim: false
+  notes: "Rules 4 through 9 must be applied sequentially. Only the order of deductive (Rule 7) and computed (Rule 8) values can be reversed at the importer's request."
+
+- id: cust_customs_classification_001
+  category: customs
+  subcategory: customs_classification
+  difficulty: advanced
+  question: "An importer brings in a composite retail grooming kit containing an electric hair clipper (Heading 8510), steel scissors (Heading 8213), and a plastic comb (Heading 9615). Assuming GRI 1 and 2 don't resolve the classification, how is the kit classified?"
+  expected_sections: []
+  expected_rules: ["GRI 3(b)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["essential character", "composite goods", "retail sale", "GRI 3(b)"]
+  must_not_say: ["highest rate of duty", "GRI 3(c)", "classify separately"]
+  must_cite_verbatim: true
+  notes: "Under GRI 3(b), composite goods put up in sets for retail sale are classified by the component that gives them their essential character."
+
+- id: cust_customs_classification_002
+  category: customs
+  subcategory: customs_classification
+  difficulty: intermediate
+  question: "A mixture of two chemical compounds cannot be classified by specific description (GRI 3a) or by essential character (GRI 3b). How is the classification determined under the General Rules for the Interpretation of Import Tariff?"
+  expected_sections: []
+  expected_rules: ["GRI 3(c)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["heading which occurs last in numerical order", "equally merit consideration", "GRI 3(c)"]
+  must_not_say: ["highest duty rate", "GRI 1", "essential character"]
+  must_cite_verbatim: true
+  notes: "GRI 3(c) acts as a tiebreaker when 3(a) and 3(b) fail, requiring classification under the heading that occurs last in numerical order among those equally meriting consideration."
+
+- id: cust_customs_classification_003
+  category: customs
+  subcategory: customs_classification
+  difficulty: basic
+  question: "An importer argues that the titles of Sections and Chapters in the Customs Tariff Act have legal weight for classification, overriding the actual headings. Is this correct according to GRI 1?"
+  expected_sections: []
+  expected_rules: ["GRI 1"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["for ease of reference only", "determined according to the terms of the headings", "Section or Chapter Notes"]
+  must_not_say: ["titles have legal force", "titles override headings", "titles determine classification"]
+  must_cite_verbatim: true
+  notes: "GRI 1 states that titles of Sections, Chapters, and Sub-chapters are provided for ease of reference only; legally, classification is determined by the terms of headings and relevant Section or Chapter Notes."
+
+- id: cust_customs_classification_004
+  category: customs
+  subcategory: customs_classification
+  difficulty: intermediate
+  question: "A shipment of complete bicycles is imported entirely in a completely knocked down (CKD) condition for convenience of packing. How is this classified under the Customs Tariff?"
+  expected_sections: []
+  expected_rules: ["GRI 2(a)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["presented unassembled or disassembled", "classified as the complete article", "finished article"]
+  must_not_say: ["classified as parts", "classified separately", "GRI 3(b)"]
+  must_cite_verbatim: true
+  notes: "GRI 2(a) mandates that an article presented unassembled or disassembled is classified in the same heading as the assembled/complete article."
+
+- id: cust_customs_drawback_001
+  category: customs
+  subcategory: customs_drawback
+  difficulty: intermediate
+  question: "An importer pays duty on a specialized machine, but it turns out to be incompatible with their systems. They re-export it back to the supplier 3 months later without ever putting it to use. What percentage of duty drawback can they claim, and under what section?"
+  expected_sections: ["Section 74 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 74", "98 per cent", "imported goods exported", "without use"]
+  must_not_say: ["Section 75", "100 per cent", "AIR drawback", "Brand rate"]
+  must_cite_verbatim: true
+  notes: "Section 74 allows a 98% drawback of duties paid on imported goods if re-exported within 2 years without being put to use."
+
+- id: cust_customs_drawback_002
+  category: customs
+  subcategory: customs_drawback
+  difficulty: advanced
+  question: "An Indian production house imports a high-end camera, pays BCD and IGST, uses it for a 4-month film shoot, and then re-exports it. What is the applicable drawback provision, and what rate applies under the relevant notification?"
+  expected_sections: ["Section 74 Customs Act", "Section 74(2) Customs Act"]
+  expected_rules: []
+  expected_notifications: ["19/1965-Cus"]
+  expected_conclusion_keywords: ["Section 74", "re-export after use", "95%", "reduced drawback"]
+  must_not_say: ["Section 75", "98%", "no drawback allowed", "AIR"]
+  must_cite_verbatim: false
+  notes: "Under Section 74(2) read with Notification 19/65-Cus, if imported goods are re-exported after use for a period up to 6 months, drawback is 95% of import duty paid."
+
+- id: cust_customs_drawback_003
+  category: customs
+  subcategory: customs_drawback
+  difficulty: intermediate
+  question: "An exporter manufactures garments using imported fabric and exports them. The All Industry Rate (AIR) of drawback covers only 50% of the actual customs duties paid on the inputs. How can the exporter recover the actual duties paid?"
+  expected_sections: ["Section 75 Customs Act"]
+  expected_rules: ["Rule 7 Drawback Rules 2017"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 75", "Brand Rate", "Rule 7", "less than four-fifths", "actual duty paid"]
+  must_not_say: ["Section 74", "cannot claim excess", "apply for DGFT license"]
+  must_cite_verbatim: false
+  notes: "Under Rule 7 of the Drawback Rules 2017 (Sec 75), if AIR drawback is less than 4/5ths (80%) of actual duties paid, the exporter can apply for Brand Rate fixation."
+
+- id: cust_customs_drawback_004
+  category: customs
+  subcategory: customs_drawback
+  difficulty: advanced
+  question: "An exporter ships goods and successfully claims drawback under Section 75. A year later, they fail to realize the export proceeds in foreign exchange within the time allowed by FEMA. What action will customs take regarding the drawback?"
+  expected_sections: ["Section 75 Customs Act", "Section 75A Customs Act"]
+  expected_rules: ["Rule 18 Drawback Rules 2017"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["recovery of drawback", "with interest", "failure to realize export proceeds"]
+  must_not_say: ["drawback is not impacted", "penalty but no recovery", "Section 74"]
+  must_cite_verbatim: true
+  notes: "Under Rule 18 of the Drawback Rules 2017, drawback shall be recovered with interest if sale proceeds are not realized within the time allowed under FEMA."
+
+- id: cust_customs_warehouse_001
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: basic
+  question: "An importer deposits raw materials (non-capital goods) into a public customs bonded warehouse. Under Section 61, what is the standard initial period these goods can remain warehoused, and can it be extended?"
+  expected_sections: ["Section 61 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["one year", "extended by the Principal Commissioner", "Commissioner of Customs", "sufficient cause"]
+  must_not_say: ["till clearance", "three years", "cannot be extended"]
+  must_cite_verbatim: true
+  notes: "Section 61 sets a 1-year limit for warehousing non-capital goods, extendable by the Principal Commissioner/Commissioner on sufficient cause."
+
+- id: cust_customs_warehouse_002
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: advanced
+  question: "A company wishes to import raw materials duty-free, manufacture electronics in a bonded facility, and export the finished goods. They opt for the MOOWR 2019 scheme. Is there a maximum warehousing bond period for the imported inputs under this scheme?"
+  expected_sections: ["Section 65 Customs Act"]
+  expected_rules: []
+  expected_notifications: ["MOOWR 2019"]
+  expected_conclusion_keywords: ["no time limit", "till clearance", "manufacture in bond", "interest-free"]
+  must_not_say: ["one year limit", "extension required", "interest applies after 90 days"]
+  must_cite_verbatim: false
+  notes: "MOOWR 2019 (under Section 65) removes warehousing period expiry and interest burden for inputs used in manufacturing within the bonded warehouse."
+
+- id: cust_customs_warehouse_003
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: intermediate
+  question: "A 100% Export Oriented Unit (EOU) imports capital goods and stores them in a bonded warehouse. What is the maximum permitted warehousing period for these capital goods under Section 61?"
+  expected_sections: ["Section 61 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["till they are cleared", "no one-year limit", "capital goods", "100% EOU"]
+  must_not_say: ["one year", "three years", "expires if not used"]
+  must_cite_verbatim: true
+  notes: "Under Section 61(1)(a), capital goods intended for use in an EOU can remain in warehouse till cleared (no 1-year expiry)."
+
+- id: cust_customs_adviolation_001
+  category: customs
+  subcategory: customs_adviolation
+  difficulty: intermediate
+  question: "An anti-dumping duty (ADD) was levied on a chemical import 6 years ago. The domestic industry petitions to extend it, but no review was conducted before the 5-year expiry. Under Section 9A of the Customs Tariff Act, what is the status of the ADD, and which body conducts the reviews?"
+  expected_sections: ["Section 9A Customs Tariff Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ceases to have effect", "five years", "sunset review", "Directorate General of Trade Remedies", "DGTR"]
+  must_not_say: ["valid for 10 years", "DGAD", "Board decides without review"]
+  must_cite_verbatim: true
+  notes: "Under Sec 9A(5), ADD expires after 5 years unless a sunset review is initiated by DGTR (formerly DGAD) before expiry."
+
+- id: cust_customs_adviolation_002
+  category: customs
+  subcategory: customs_adviolation
+  difficulty: advanced
+  question: "The Central Government wishes to impose a Safeguard Duty on imported steel due to a sudden surge in imports. What specific threshold of injury must the domestic industry prove under Section 8B of the Customs Tariff Act to justify this duty?"
+  expected_sections: ["Section 8B Customs Tariff Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["serious injury", "threat of serious injury", "increased quantities"]
+  must_not_say: ["material injury", "dumping margin", "subsidy"]
+  must_cite_verbatim: true
+  notes: "Unlike ADD (material injury), Safeguard Duty under Sec 8B requires proving 'serious injury' or threat thereof from increased imports."
+
+- id: cust_customs_exemption_001
+  category: customs
+  subcategory: customs_exemption
+  difficulty: intermediate
+  question: "An importer claims a concessional rate of BCD under Notification 50/2017-Cus, which is subject to an end-use condition. Under the Customs (Import of Goods at Concessional Rate of Duty) Rules, 2022 (IGCR), how must the importer report the utilization of these goods?"
+  expected_sections: []
+  expected_rules: ["IGCR Rules 2022"]
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["monthly statement", "Common Customs Electronic Portal", "ICEGATE", "Rule 6"]
+  must_not_say: ["IGCR 2017", "quarterly manual return", "no reporting required"]
+  must_cite_verbatim: false
+  notes: "IGCR Rules 2022 require monthly statement of receipt and utilization on the common customs portal (ICEGATE)."
+
+- id: cust_customs_exemption_002
+  category: customs
+  subcategory: customs_exemption
+  difficulty: advanced
+  question: "An exporter imports capital goods duty-free under the EPCG scheme via Notification 16/2015-Cus. Six years later, they completely fail to fulfill their export obligation. What must they pay to regularize the import?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["16/2015-Cus"]
+  expected_conclusion_keywords: ["customs duty saved", "15% interest", "per annum", "unfulfilled export obligation"]
+  must_not_say: ["18% interest", "forfeit the machine", "only pay BCD"]
+  must_cite_verbatim: true
+  notes: "Under EPCG scheme conditions, failure to meet export obligation requires payment of customs duties saved plus 15% interest per annum."

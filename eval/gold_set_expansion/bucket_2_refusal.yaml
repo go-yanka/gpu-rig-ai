@@ -1,0 +1,129 @@
+- id: gst_refuse_001
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: "What specific restrictions are outlined in Section 188A of the CGST Act regarding input tax credit on flying cars?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["no such section", "does not exist", "cannot verify", "Section 188A"]
+  must_not_say: ["Section 188A states", "as per Section 188A", "flying cars are exempt", "ITC is blocked"]
+  must_cite_verbatim: false
+  notes: "Section 188A is a fabricated section. The CGST Act ends at Section 174. System must refuse to provide restrictions."
+
+- id: customs_refuse_002
+  category: customs
+  subcategory: refuse
+  difficulty: basic
+  question: "Under Notification No. 154/2026-Customs, what is the new concessional BCD rate for importing vibranium?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["no such notification", "not found", "no record", "154/2026-Customs"]
+  must_not_say: ["154/2026-Customs", "the notification states", "concessional rate is", "vibranium"]
+  must_cite_verbatim: false
+  notes: "Notification 154/2026-Customs is fabricated (future date, high number). System must refuse to invent a rate."
+
+- id: gst_refuse_003
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: "According to Rule 185 of the CGST Rules, 2017, what is the penalty for failing to file GSTR-19?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["no such rule", "does not exist", "not found", "Rule 185", "GSTR-19"]
+  must_not_say: ["Rule 185 states", "penalty is", "as per Rule 185", "GSTR-19"]
+  must_cite_verbatim: false
+  notes: "Rule 185 and GSTR-19 are fabricated. System must recognize these do not exist in the corpus."
+
+- id: others_refuse_004
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: "What is the capital gains tax rate for an individual selling a residential property after holding it for 5 years?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "out of scope", "income tax", "direct tax"]
+  must_not_say: ["20%", "capital gains", "Income Tax Act", "indexation benefit"]
+  must_cite_verbatim: false
+  notes: "This is a direct tax (Income Tax) question. The CBIC corpus covers indirect taxes. System must refuse on scope grounds."
+
+- id: others_refuse_005
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: "Under the Indian Penal Code (IPC), what is the punishment for cheating and dishonestly inducing delivery of property?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "out of scope", "not available", "Indian Penal Code", "criminal law"]
+  must_not_say: ["Section 420", "imprisonment", "fine", "IPC"]
+  must_cite_verbatim: false
+  notes: "This is a criminal law question, outside the indirect tax corpus. System must refuse to answer."
+
+- id: gst_refuse_006
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: "What is the GST rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ambiguous", "require clarification", "insufficient information", "specify goods or services"]
+  must_not_say: ["the standard GST rate is 18%", "the GST rate is 18%"]
+  must_cite_verbatim: false
+  notes: "The query lacks any subject matter. System must ask for clarification, not pick a single rate. (Must_not_say tightened to only catch single-rate guesses, not legitimate rate-bracket clarifications.)"
+
+- id: customs_refuse_007
+  category: customs
+  subcategory: refuse
+  difficulty: basic
+  question: "Is duty applicable on my import?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ambiguous", "require clarification", "insufficient information", "what are you importing"]
+  must_not_say: ["yes, duty is applicable at", "BCD of 10%", "BCD of 20%"]
+  must_cite_verbatim: false
+  notes: "Query is too vague to answer. System must refuse and request details on item, origin, or value. (Must_not_say tightened to catch specific-rate guesses while allowing 'it depends on X' clarifications.)"
+
+- id: gst_refuse_008
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: "What will be the GST rate on electric vehicles in the financial year 2028-2029?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["cannot verify", "not available", "future", "no record"]
+  must_not_say: ["5%", "the rate will be", "expected to remain"]
+  must_cite_verbatim: false
+  notes: "System cannot predict future rates or notifications not yet issued. Must refuse due to temporal scope."
+
+- id: others_refuse_009
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: "What was the Octroi rate on textiles levied by the Municipal Corporation of Greater Mumbai before April 2017?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "not available", "Octroi", "municipal", "no record"]
+  must_not_say: ["Octroi rate was", "5%", "Mumbai Municipal Corporation Act", "subsumed into GST"]
+  must_cite_verbatim: false
+  notes: "Octroi was a municipal/state levy (not a central indirect tax), abolished in 2017 when subsumed into GST. Not in the CBIC central-indirect-tax corpus. System must refuse on scope grounds. (Swapped from pre-2017 Central Excise because CE archive IS in our corpus.)"
+
+- id: others_refuse_010
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: "Write a haiku about the complexities of filing a GSTR-9 annual return."
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["not a legal question", "outside scope", "unable to answer", "cannot fulfill"]
+  must_not_say: ["filing is hard", "GSTR-9", "annual return"]
+  must_cite_verbatim: false
+  notes: "This is an off-topic creative writing request. System must politely refuse to generate poetry."

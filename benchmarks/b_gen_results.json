@@ -1,0 +1,10 @@
+{
+  "n_concurrent": 16,
+  "max_tokens": 200,
+  "wall_time_s": 38.31942877000256,
+  "total_tokens": 3200,
+  "aggregate_tok_per_s": 83.50855173772952,
+  "single_req_avg_tok_per_s": 7.901790009362258,
+  "passed": false,
+  "target": "\u2265150 tok/s aggregate per GPU (consult prediction 150-200)"
+}

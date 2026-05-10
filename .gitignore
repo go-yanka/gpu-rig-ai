@@ -2,6 +2,9 @@
 RITU_AGENT_INSTRUCTIONS.md
 .rig_config
 .claude/
+.env
+.env.*
+!.env.example
 
 # Old/legacy files
 SESSION_HANDOFF.md
@@ -33,6 +36,30 @@ openclaw/
 Rufus/
 models/
 rig_scripts/
+
+# Caches / build artifacts
+__pycache__/
+*.pyc
+.preflight/
+backup/
+NUL
+nul
+/1
+
+# Scratch files
+_tmp_*
+_patch_*
+
+# Downloaded wheels / extracted libraries / model blobs (large binary)
+tmp_downloads/
+rig_mirror/
+*.whl
+*.so
+*.so.*
+fastembed_cache/
+
+# Generated reports / large data dumps
+*.pdf
 
 # Misc
 chat-ui.js

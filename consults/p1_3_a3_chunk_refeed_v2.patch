@@ -1,0 +1,44 @@
+--- /opt/indian-legal-ai/rag/cbic_rag/api.py
++++ /opt/indian-legal-ai/rag/cbic_rag/api.py
+@@ -76,6 +76,7 @@
+ TWO_PASS_ENABLED = os.environ.get('TWO_PASS_ENABLED', '0') == '1'
++TWO_PASS_CHUNK_REFEED = os.environ.get('TWO_PASS_CHUNK_REFEED', '0') == '1'
+@@ -387,7 +388,7 @@
+     return verified, suspicious
+
+
+-def _synthesize_pass2(question: str, verified: List[dict]) -> str:
++def _synthesize_pass2(question: str, verified: List[dict], chunks: Optional[List[dict]] = None) -> str:
+     """Pass 2: LLM renders prose from VALIDATED JSON only. Chunks NOT re-fed."""
+     if not verified:
+         return ("**Answer:** The retrieved sources did not yield a defensible "
+@@ -399,9 +400,26 @@
+         "verbatim_span": v["verbatim_span"],
+         "conclusion": v["conclusion"],
+     } for v in verified]
+     user = build_synthesis_user(question, facts)
++    # P1.3 A3: optional chunk re-feed for disambiguation (NOT for quoting).
++    # Guarded by TWO_PASS_CHUNK_REFEED env var (default 0).
++    if TWO_PASS_CHUNK_REFEED and chunks:
++        ctx_blocks = []
++        for i, c in enumerate(chunks[:5], start=1):
++            t = (c.get('text_full') or c.get('text') or '').strip()
++            if len(t) > 400:
++                t = t[:400] + ' …'
++            ctx_blocks.append(f"[S{i}] {t}")
++        if ctx_blocks:
++            user = (
++                user
++                + "\n\nCONTEXT CHUNKS (for disambiguation only, do NOT quote or cite):\n\n"
++                + "\n\n".join(ctx_blocks)
++            )
+     try:
+         return _call_llm(SYNTHESIS_SYS, user, temperature=0.0, max_tokens=3072)
+     except Exception as e:
+@@ -438,7 +456,7 @@
+     timings["two_pass_n_suspicious"] = len(suspicious)
+
+     t_p2 = time.perf_counter()
+-    prose = _synthesize_pass2(question, verified)
++    prose = _synthesize_pass2(question, verified, chunks)
+     timings["two_pass_synth_ms"] = _ms_since(t_p2)

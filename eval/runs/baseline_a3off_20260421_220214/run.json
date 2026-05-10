@@ -1,0 +1,1740 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-04-22T02:24:10.982426Z",
+    "api": "http://192.168.1.107:9500",
+    "judge_url": "http://192.168.1.107:9082/v1/chat/completions",
+    "judge_model": "qwen3-14b",
+    "workers": 2,
+    "gold_set": "D:\\_gpu_rig_ai\\eval\\gold_set.yaml",
+    "gold_version": 1,
+    "n_items": 50,
+    "elapsed_s": 1316.12
+  },
+  "aggregate": {
+    "total_points": 106.0,
+    "max_points": 319.0,
+    "pct_score": 33.23,
+    "n_items": 50,
+    "errors": 0,
+    "latency_ms_median": 51300.5,
+    "latency_ms_p95": 55789,
+    "latency_ms_max": 59639,
+    "by_category": {
+      "gst": {
+        "count": 20,
+        "points": 48.0,
+        "max": 124.0,
+        "pct": 38.71,
+        "errors": 0
+      },
+      "customs": {
+        "count": 10,
+        "points": 17.0,
+        "max": 66.0,
+        "pct": 25.76,
+        "errors": 0
+      },
+      "central_excise": {
+        "count": 8,
+        "points": 18.0,
+        "max": 47.0,
+        "pct": 38.3,
+        "errors": 0
+      },
+      "service_tax": {
+        "count": 6,
+        "points": 14.0,
+        "max": 39.0,
+        "pct": 35.9,
+        "errors": 0
+      },
+      "others": {
+        "count": 6,
+        "points": 9.0,
+        "max": 43.0,
+        "pct": 20.93,
+        "errors": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "gst_pos_001",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "basic",
+      "latency_ms": 52035,
+      "error": null,
+      "sections_expected": [
+        "10(1)(a) IGST",
+        "Section 10 IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Karnataka",
+        "IGST",
+        "inter-state"
+      ],
+      "keywords_matched": [
+        "Karnataka",
+        "IGST",
+        "inter-state"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1643,
+      "question": "A registered supplier in Maharashtra sells goods to a registered buyer in Karnataka. Goods are shipped directly from Maharashtra to Karnataka. What is the place of supply and which tax applies?",
+      "answer_preview": "**Answer:** The place of supply is Karnataka, and the applicable tax is the Integrated Tax (IGST) at 0.1% under the conditions specified in the notification.\n\n**How we got here:**  \nThe goods are supplied from Maharashtra to Karnataka, which is an inter-State supply. According to the notification, the inter-State supply of taxable goods by a registered supplier to a registered recipient for export is subject to an Integrated Tax rate of 0.1% under certain conditions. The notification specifies that the registered supplier must issue a tax invoice, and the registered recipient must export the goods within ninety days from the date of issue of the tax invoice. Additionally, the recipient must indicate the GSTIN and tax invoice number in the shipping bill or bill of export. These conditions a...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_002",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "intermediate",
+      "latency_ms": 52036,
+      "error": null,
+      "sections_expected": [
+        "10(1)(b) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Delhi",
+        "bill-to",
+        "third person",
+        "IGST"
+      ],
+      "keywords_matched": [
+        "Delhi",
+        "bill-to",
+        "IGST"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1718,
+      "question": "A buyer in Delhi instructs a Mumbai supplier to deliver goods directly to the buyer's customer in Chennai (bill-to-ship-to). What is the place of supply for each leg?",
+      "answer_preview": "**Answer:** The place of supply for the first leg (Mumbai to Chennai) is Chennai, and for the second leg (Delhi to Mumbai) is Mumbai.\n\n**How we got here:**  \nThe question involves a scenario where a buyer in Delhi instructs a supplier in Mumbai to deliver goods directly to the buyer's customer in Chennai. This is a \"bill-to-ship-to\" arrangement, where the goods are shipped from the supplier's location (Mumbai) to the final destination (Chennai), bypassing the buyer's location (Delhi). To determine the place of supply for each leg of the journey, we refer to the principles outlined in the IGST Act and its rules.\n\nThe place of supply for goods is generally determined by the location where the goods are delivered. In the case of the first leg (Mumbai to Chennai), the goods are delivered to Ch...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_003",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "basic",
+      "latency_ms": 23464,
+      "error": null,
+      "sections_expected": [
+        "12(2) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Gujarat",
+        "location of recipient",
+        "IGST"
+      ],
+      "keywords_matched": [
+        "Gujarat",
+        "IGST"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 5.0,
+      "answer_chars": 1317,
+      "question": "Services of a chartered accountant in Pune are rendered to a registered client in Gujarat. What is the place of supply?",
+      "answer_preview": "**Answer:** The place of supply for the services of a chartered accountant in Pune rendered to a registered client in Gujarat is Gujarat.\n\n**How we got here:**  \nTo determine the place of supply for services rendered by a chartered accountant in Pune to a registered client in Gujarat, we refer to the provisions of the Integrated Goods and Services Tax Act, 2017. The place of supply for services is generally determined by the location of the recipient of the services. \n\nSection 14(14)(a) of the Integrated Goods and Services Tax Act, 2017 defines the \"location of the recipient of services\" as the location of the place of business for which registration has been obtained, if the supply is received at such a place. In this case, the client is registered in Gujarat, and the services are rendere...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_004",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "intermediate",
+      "latency_ms": 48124,
+      "error": null,
+      "sections_expected": [
+        "12(7) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Delhi",
+        "registered",
+        "12(7)"
+      ],
+      "keywords_matched": [
+        "Delhi",
+        "registered",
+        "12(7)"
+      ],
+      "forbidden_hits": [
+        "Bengaluru"
+      ],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 5.0,
+      "answer_chars": 1431,
+      "question": "An event-management company organizes a conference in Bengaluru for a client registered in Delhi. Where is the place of supply?",
+      "answer_preview": "**Answer:** The place of supply is in Bengaluru, where the event is held.\n\n**How we got here:**  \nThe question involves determining the place of supply for a service provided by an event-management company organizing a conference in Bengaluru for a client registered in Delhi. According to the Integrated Goods and Services Tax Act, 2017, the place of supply for services related to organizing events is determined by where the event is actually held. \n\nThe relevant provision is found in *Section 12(7) of the IGST Act, 2017*, which states that the place of supply of services provided by way of organizing a cultural, artistic, sporting, scientific, educational, or entertainment event, including a conference, shall be the place where the event is actually held. This is explicitly mentioned in *S...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_005",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "complex",
+      "latency_ms": 52981,
+      "error": null,
+      "sections_expected": [
+        "10(1)(b) IGST",
+        "2(5) IGST",
+        "13(8) CGST",
+        "Section 7 IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Mumbai",
+        "bill-to-ship-to",
+        "not export",
+        "IGST",
+        "advance"
+      ],
+      "keywords_matched": [
+        "Mumbai",
+        "advance"
+      ],
+      "forbidden_hits": [
+        "export of goods"
+      ],
+      "verified_quotes_count": 3,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 10.0,
+      "answer_chars": 1946,
+      "question": "Quantum Tech Pvt Ltd (Karnataka GSTIN) receives a purchase order from a UK buyer. The UK buyer asks Quantum Tech to deliver the goods directly to a Mumbai-based third party (the UK buyer's Indian agent). Quantum Tech raises the invoice on the UK buyer in USD and receives an advance of USD 50,000. Determine: (a) place of supply for the goods, (b) whether this is export of goods, (c) tax treatment of the advance.",
+      "answer_preview": "**Answer:** (a) The place of supply is Mumbai, (b) this is not an export of goods, and (c) the advance is taxable as part of the supply.\n\n**How we got here:**  \nTo determine the place of supply, we refer to Section 10(b) of the Integrated Goods and Services Tax Act, 2017, which states that if goods are delivered by the supplier to a recipient or any other person on the direction of a third person, the place of supply is the principal place of business of that third person. In this case, the goods are delivered to a Mumbai-based third party (the UK buyer's Indian agent), so the place of supply is Mumbai *“the place of supply of such goods shall be the principal place of business of such person”* [S6].\n\nNext, to determine if this is an export of goods, we consider the definition of export. E...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_cs_001",
+      "category": "gst",
+      "subcategory": "composite_mixed_supply",
+      "difficulty": "intermediate",
+      "latency_ms": 54941,
+      "error": null,
+      "sections_expected": [
+        "2(30) CGST",
+        "8(a) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "composite",
+        "principal supply",
+        "accommodation",
+        "naturally bundled"
+      ],
+      "keywords_matched": [
+        "composite",
+        "principal supply",
+        "accommodation",
+        "naturally bundled"
+      ],
+      "forbidden_hits": [
+        "mixed supply"
+      ],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 7.0,
+      "answer_chars": 1794,
+      "question": "A hotel provides a package of room + breakfast + airport transfer for a single price. How is this taxed — as composite supply or mixed supply?",
+      "answer_preview": "**Answer:** The hotel's package of room + breakfast + airport transfer is taxed as a composite supply.\n\n**How we got here:**  \nTo determine whether the hotel's package is a composite or mixed supply, we refer to the definitions provided in the Central Goods and Services Tax Act, 2017. A *composite supply* is defined as a supply made by a taxable person to a recipient consisting of two or more taxable supplies of goods or services or both, or any combination thereof, which are naturally bundled and supplied in conjunction with each other in the ordinary course of business, one of which is a principal supply* [S4]. In this case, the hotel provides a room, breakfast, and airport transfer as part of a single package, which are naturally bundled and supplied together in the ordinary course of b...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_cs_002",
+      "category": "gst",
+      "subcategory": "composite_mixed_supply",
+      "difficulty": "basic",
+      "latency_ms": 50739,
+      "error": null,
+      "sections_expected": [
+        "2(74) CGST",
+        "8(b) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "mixed supply",
+        "highest rate"
+      ],
+      "keywords_matched": [
+        "mixed supply"
+      ],
+      "forbidden_hits": [
+        "composite"
+      ],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 5.0,
+      "answer_chars": 1555,
+      "question": "A gift hamper contains chocolates, a fruit juice bottle, and a toy, sold at one price for Diwali. Composite or mixed supply?",
+      "answer_preview": "**Answer:** The gift hamper is a mixed supply.\n\n**How we got here:**  \nThe gift hamper contains multiple items—chocolates, a fruit juice bottle, and a toy—sold at one price for Diwali. To determine whether this constitutes a composite or mixed supply, we refer to the Central Goods and Services Tax Act, 2017. A *mixed supply* is defined as a supply made of two or more goods or services that are supplied for a single price, where each item can be supplied separately and is not dependent on any other. \n\nIn this case, the hamper includes distinct items—chocolates, a fruit juice bottle, and a toy—that can be supplied separately and are not inherently dependent on one another. This aligns with the definition of a mixed supply. The source explicitly states that *“aerated drinks and fruit juices w...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_itc_001",
+      "category": "gst",
+      "subcategory": "input_tax_credit",
+      "difficulty": "basic",
+      "latency_ms": 49531,
+      "error": null,
+      "sections_expected": [
+        "17(5)(a) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "blocked",
+        "17(5)",
+        "not eligible"
+      ],
+      "keywords_matched": [
+        "blocked",
+        "17(5)"
+      ],
+      "forbidden_hits": [
+        "available"
+      ],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 5.0,
+      "answer_chars": 1555,
+      "question": "Can a registered taxpayer claim ITC on GST paid for the purchase of a motor car (seating capacity 5) used for business?",
+      "answer_preview": "**Answer:** A registered taxpayer can claim ITC on GST paid for the purchase of a motor car (seating capacity 5) used for business, provided it is not used for making further supply of such motor vehicles.\n\n**How we got here:**  \nThe CGST Act, specifically section 17(5), outlines certain restrictions on the availability of input tax credit (ITC). However, the key clarification comes from [S1], which discusses the availability of ITC for motor vehicles. It states that if a motor vehicle with a seating capacity of not more than thirteen persons is used for purposes other than making further supply of such motor vehicles—such as for transportation of staff or management—then the ITC is not excluded from blockage under sub-clause (A) of clause (a) of section 17(5). This implies that if the mot...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_itc_002",
+      "category": "gst",
+      "subcategory": "input_tax_credit",
+      "difficulty": "intermediate",
+      "latency_ms": 51032,
+      "error": null,
+      "sections_expected": [
+        "18(6) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "reversal",
+        "5%",
+        "per quarter",
+        "useful life",
+        "tax on transaction value"
+      ],
+      "keywords_matched": [
+        "reversal"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 1621,
+      "question": "A manufacturer buys capital goods in April 2024 and claims full ITC. In March 2026 the capital goods are sold as scrap. What is the reversal liability?",
+      "answer_preview": "**Answer:** The reversal liability for the manufacturer is the amount of ITC claimed on the capital goods when they were sold as scrap in March 2026.\n\n**How we got here:**  \nThe manufacturer initially claimed full ITC on the capital goods purchased in April 2024. However, when the capital goods were sold as scrap in March 2026, the ITC claimed on those goods became subject to reversal. This is because, under GST rules, when goods that were used for business purposes are later sold or disposed of, the ITC availed on those goods must be reversed. \n\nThe reversal of ITC is governed by various provisions, including Rule 37 and Rule 37A of the CGST Rules, which deal with the reversal of ITC when goods are no longer used for business purposes. In this case, the capital goods were no longer used f...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_itc_003",
+      "category": "gst",
+      "subcategory": "input_tax_credit",
+      "difficulty": "intermediate",
+      "latency_ms": 50840,
+      "error": null,
+      "sections_expected": [
+        "16(2)(aa) CGST",
+        "16(2) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "GSTR-2B",
+        "not available",
+        "cannot claim",
+        "16(2)(aa)"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [
+        "can claim"
+      ],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 7.0,
+      "answer_chars": 1673,
+      "question": "The supplier has not uploaded the invoice in GSTR-1 but the recipient has the tax invoice in hand. Can the recipient claim ITC?",
+      "answer_preview": "**Answer:** Yes, the recipient can claim ITC if they meet the eligibility conditions, even if the supplier has not uploaded the invoice in GSTR-1.\n\n**How we got here:**  \nThe question revolves around whether a recipient can claim Input Tax Credit (ITC) when the supplier has not uploaded the invoice in GSTR-1, but the recipient has the tax invoice in hand. According to the sources, the availability of ITC is not solely dependent on the supplier uploading the invoice in GSTR-1. \n\nThe key provision is found in [S2], which states that the proper officer shall verify whether the recipient is in possession of a tax invoice or debit note issued by the supplier. *“that he is in possession of a tax invoice or debit note issued by the supplier or such other tax paying documents”* [S2]. This confirms...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_itc_004",
+      "category": "gst",
+      "subcategory": "input_tax_credit",
+      "difficulty": "basic",
+      "latency_ms": 47745,
+      "error": null,
+      "sections_expected": [
+        "17(5)(d) CGST",
+        "17(5)(c) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "blocked",
+        "immovable property",
+        "17(5)(d)",
+        "not available"
+      ],
+      "keywords_matched": [
+        "not available"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1467,
+      "question": "Is ITC available on GST paid for office renovation of a rented building (capitalized in books)?",
+      "answer_preview": "**Answer:** Input Tax Credit (ITC) is not available on GST paid for office renovation of a rented building if it is capitalized in the books of account.\n\n**How we got here:**  \nThe question revolves around whether ITC is available on GST paid for office renovation of a rented building that is capitalized in the books of account. According to the CGST Act, capital goods are defined as goods whose value has been capitalized in the books of account and are used or intended to be used in the course or furtherance of business [S1]. This definition is crucial because it determines whether the goods qualify for ITC.\n\nIn the context of office renovation, if the expenditure is capitalized in the books of account, it is treated as a capital good. The circular clarifies that ITC on capital goods is n...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_tos_001",
+      "category": "gst",
+      "subcategory": "advances_timing",
+      "difficulty": "basic",
+      "latency_ms": 49073,
+      "error": null,
+      "sections_expected": [
+        "12(2) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "no GST",
+        "advance",
+        "goods",
+        "66/2017"
+      ],
+      "keywords_matched": [
+        "advance",
+        "goods"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1708,
+      "question": "A supplier of goods receives an advance of Rs 5 lakhs on 10 April 2025 against a future supply. Is GST payable on the advance?",
+      "answer_preview": "**Answer:** GST is not payable on the advance received by the supplier on 10 April 2025, as it is net of advances in the calculation of outward supplies.\n\n**How we got here:**  \nThe question revolves around whether GST is payable on an advance received by a supplier for a future supply. The key to answering this lies in understanding how advances are treated in the context of GST returns. \n\nThe sources repeatedly mention that in the context of outward supplies, the aggregate value is to be declared \"net of advances.\" Specifically, *“Aggregate value of all outward supplies net of debit notes / credit notes, net of advances and net of goods returned for the entire financial year shall be declared here”* [S1]. This indicates that advances received are not treated as taxable supplies at the ti...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_tos_002",
+      "category": "gst",
+      "subcategory": "advances_timing",
+      "difficulty": "basic",
+      "latency_ms": 54503,
+      "error": null,
+      "sections_expected": [
+        "13(2) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "earlier",
+        "date of invoice",
+        "date of receipt",
+        "advance"
+      ],
+      "keywords_matched": [
+        "earlier",
+        "date of receipt",
+        "advance"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 2271,
+      "question": "What is the time of supply when an advance is received for a service?",
+      "answer_preview": "**Answer:** The time of supply when an advance is received for a service is the date of receipt of payment.\n\n**How we got here:**  \nThe Central Goods and Services Tax Act, 2017, provides specific rules for determining the time of supply when payment is received before the invoice is issued. According to *Section 12* of the Act, the time of supply of goods or services is determined based on the date of issue of the invoice or the date of receipt of payment, whichever is earlier. In particular, *Section 12(2)(b)* states that *\"the date on which the supplier receives the payment with respect to the supply\"* is one of the key determinants of the time of supply. This is further clarified in the explanation to the section, which defines *\"the date on which the supplier receives the payment\"* as ...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_inv_001",
+      "category": "gst",
+      "subcategory": "invoice_credit_note",
+      "difficulty": "basic",
+      "latency_ms": 51786,
+      "error": null,
+      "sections_expected": [
+        "31(2) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "30 days",
+        "services",
+        "Rule 47"
+      ],
+      "keywords_matched": [
+        "services",
+        "Rule 47"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 5.0,
+      "answer_chars": 1427,
+      "question": "What is the time limit for issuing a tax invoice in case of supply of services?",
+      "answer_preview": "**Answer:** The time limit for issuing a tax invoice in case of the supply of services is thirty days from the date of the supply of service.\n\n**How we got here:**  \nThe time limit for issuing a tax invoice for the supply of services is outlined in Rule 47 of the Central Goods and Services Tax Rules, 2017. This rule states that *\"the invoice referred to in rule 46, in the case of the taxable supply of services, shall be issued within a period of thirty days from the date of the supply of service\"* [S3]. This is the general rule applicable to most service providers.\n\nHowever, there are exceptions. If the supplier is an insurer, a banking company, or a financial institution, including a non-banking financial company, the time limit is extended to forty-five days from the date of the supply o...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_inv_002",
+      "category": "gst",
+      "subcategory": "invoice_credit_note",
+      "difficulty": "intermediate",
+      "latency_ms": 51663,
+      "error": null,
+      "sections_expected": [
+        "34(2) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "30 November",
+        "2025",
+        "annual return",
+        "earlier"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [],
+      "verified_quotes_count": 3,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 6.0,
+      "answer_chars": 1674,
+      "question": "By what date can a credit note be issued for a supply made in FY 2024-25, and when must it be declared in returns?",
+      "answer_preview": "**Answer:** A credit note can be issued for a supply made in FY 2024-25 up to the due date of the GSTR-1 for that financial year, and it must be declared in the GSTR-3B return for the same period.\n\n**How we got here:**  \nThe sources provided do not directly address the specific date by which a credit note must be issued for a supply made in FY 2024-25. However, they do provide guidance on when credit notes must be declared in returns. For example, the sources mention that \"supplies made through E-Commerce operators and are to be declared as net of credit notes or debit notes issued in this regard\" [S1]. This implies that credit notes must be accounted for in the return, but it does not specify a deadline for issuing them.\n\nFurthermore, the sources indicate that \"details of debit and credit...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_rcm_001",
+      "category": "gst",
+      "subcategory": "reverse_charge",
+      "difficulty": "basic",
+      "latency_ms": 54303,
+      "error": null,
+      "sections_expected": [
+        "9(3) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "reverse charge",
+        "recipient",
+        "RCM",
+        "company"
+      ],
+      "keywords_matched": [
+        "reverse charge",
+        "recipient",
+        "company"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1631,
+      "question": "A registered company pays a sole-proprietor advocate for legal services. Who is liable to pay GST?",
+      "answer_preview": "**Answer:** The registered company is liable to pay GST on the legal services provided by the sole-proprietor advocate.\n\n**How we got here:**  \nThe question revolves around the liability to pay GST when a registered company engages a sole-proprietor advocate for legal services. According to the sources, legal services provided by an individual advocate or a senior advocate to a business entity are subject to GST under the reverse charge mechanism. This means that the recipient of the service, in this case, the registered company, is responsible for paying the GST.\n\nIn *S1*, it is explicitly stated: *\"Yes. In case of legal services including representational services provided by an advocate including a senior advocate to a business entity, GST is required to be paid by the recipient of the ...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_rcm_002",
+      "category": "gst",
+      "subcategory": "reverse_charge",
+      "difficulty": "intermediate",
+      "latency_ms": 44712,
+      "error": null,
+      "sections_expected": [
+        "9(3) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "no RCM",
+        "forward charge",
+        "Annexure V",
+        "GTA option"
+      ],
+      "keywords_matched": [
+        "forward charge",
+        "Annexure V"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1506,
+      "question": "A GTA provides transport services to a registered manufacturer and charges 5% GST on forward-charge basis having filed Annexure V. Is RCM applicable to the recipient?",
+      "answer_preview": "**Answer:** RCM is not applicable to the recipient in this case.\n\n**How we got here:**  \nThe GTA has opted to charge GST on its services under the forward charge basis and has filed Annexure V, as required by the CGST Act, 2017. This is evident from the statement in Annexure V: *\"I/We______________ ... undertake to pay GST on the GTA services in relation to transportation of goods supplied by us during the financial year……………under forward charge in accordance with section 9(1) of the CGST Act, 2017\"* [S1]. This indicates that the GTA is responsible for paying the GST on its services, and not the recipient.\n\nUnder the CGST Act, reverse charge mechanism (RCM) applies only when the recipient of the service is liable to pay the tax, typically in cases where the supplier is not registered or th...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_ref_001",
+      "category": "gst",
+      "subcategory": "refund",
+      "difficulty": "intermediate",
+      "latency_ms": 47255,
+      "error": null,
+      "sections_expected": [
+        "54(3)(ii) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "inverted duty structure",
+        "refund",
+        "54(3)",
+        "accumulated ITC"
+      ],
+      "keywords_matched": [
+        "inverted duty structure",
+        "refund",
+        "54(3)",
+        "accumulated ITC"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 5.0,
+      "max_points": 6.0,
+      "answer_chars": 1583,
+      "question": "A manufacturer has accumulated ITC because its output tax rate (5%) is lower than input tax rates (18%). Can it claim a refund, and under what provision?",
+      "answer_preview": "**Answer:** Yes, the manufacturer can claim a refund of accumulated ITC under section 54(3) of the CGST Act read with rule 89(5) of the CGST Rules.\n\n**How we got here:**  \nThe manufacturer's situation involves an inverted duty structure, where the output tax rate (5%) is lower than the input tax rate (18%). This scenario is explicitly addressed in the circulars and rules related to GST. Specifically, Circular No. 173/05/2022-GST clarifies that refund of accumulated input tax credit is allowed in cases where the rate of tax on outward supply is less than the rate of tax on inputs, provided the supply is made under a concessional notification. This is a direct application of clause (ii) of the first proviso to sub-section (3) of section 54 of the CGST Act.\n\nFurthermore, Circular No. 125/44/2...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_ewb_001",
+      "category": "gst",
+      "subcategory": "e_way_bill",
+      "difficulty": "basic",
+      "latency_ms": 50887,
+      "error": null,
+      "sections_expected": [
+        "68 CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "50,000",
+        "consignment value",
+        "Rule 138",
+        "inter-state"
+      ],
+      "keywords_matched": [
+        "consignment value",
+        "Rule 138",
+        "inter-state"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 4.0,
+      "max_points": 6.0,
+      "answer_chars": 1403,
+      "question": "What is the threshold value above which an e-way bill is mandatory for inter-state movement of goods?",
+      "answer_preview": "**Answer:** The threshold value above which an e-way bill is mandatory for inter-state movement of goods is fifty thousand rupees.\n\n**How we got here:**  \nThe requirement for an e-way bill for inter-state movement of goods is governed by Rule 138 of the Central Goods and Services Tax Rules, 2017. According to this rule, *“Every registered person who causes movement of goods of consignment value exceeding fifty thousand rupees”* [S1] must generate an e-way bill before the commencement of such movement. This applies to supplies, movements for reasons other than supply, and inward supplies from unregistered persons. \n\nThe rule also includes specific exceptions, such as when goods are sent by a principal to a job worker in another state, where the e-way bill must be generated regardless of the...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_exp_001",
+      "category": "gst",
+      "subcategory": "zero_rated",
+      "difficulty": "intermediate",
+      "latency_ms": 48557,
+      "error": null,
+      "sections_expected": [
+        "16 IGST",
+        "54(3) CGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "LUT",
+        "without payment",
+        "refund of ITC",
+        "zero-rated"
+      ],
+      "keywords_matched": [
+        "LUT",
+        "without payment",
+        "zero-rated"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 7.0,
+      "answer_chars": 1410,
+      "question": "An exporter of goods files a LUT. Is IGST payable at the time of export, and can the exporter claim refund of unutilized ITC?",
+      "answer_preview": "**Answer:** IGST is not payable at the time of export if the exporter files a LUT, and the exporter can claim a refund of unutilized ITC.\n\n**How we got here:**  \nWhen an exporter files a Letter of Undertaking (LUT), they are allowed to make zero-rated supplies without paying IGST, as per rule 96A of the CGST Rules [S1]. This means that IGST is not payable at the time of export if the exporter is under the LUT regime. \n\nFurthermore, the exporter is eligible to claim a refund of unutilized input tax credit (ITC) under the provisions of section 54 of the CGST Act. Specifically, refunds are allowed for zero-rated supplies made without payment of tax, which includes exports under LUT [S2]. The refund process involves submitting a refund claim through FORM GST RFD-01 and is governed by the fully...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_val_001",
+      "category": "customs",
+      "subcategory": "valuation",
+      "difficulty": "basic",
+      "latency_ms": 49712,
+      "error": null,
+      "sections_expected": [
+        "14 Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "transaction value",
+        "Section 14",
+        "CVR 2007"
+      ],
+      "keywords_matched": [
+        "transaction value",
+        "Section 14"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 5.0,
+      "answer_chars": 1494,
+      "question": "What is the primary method of valuation for imported goods under the Customs Act?",
+      "answer_preview": "**Answer:** The primary method of valuation for imported goods under the Customs Act is the transaction value method.\n\n**How we got here:**  \nThe Customs Valuation (Determination of Value of Imported Goods) Rules, 2007, which are made under section 14 of the Customs Act, 1962, outline the method of valuation for imported goods. Rule 3 of these rules states that the value of imported goods shall be the transaction value, subject to certain conditions. This is emphasized in the circular issued by the Central Board of Excise & Customs, which notes that the transaction value is the primary method of valuation for imported goods. \n\nThe transaction value is defined as the price actually paid or payable for the goods when sold for export, as per the rules. If the transaction value cannot be deter...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_val_002",
+      "category": "customs",
+      "subcategory": "valuation",
+      "difficulty": "intermediate",
+      "latency_ms": 48783,
+      "error": null,
+      "sections_expected": [
+        "14 Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "related party",
+        "SVB",
+        "Special Valuation Branch",
+        "circumstances of sale",
+        "influence price"
+      ],
+      "keywords_matched": [
+        "related party"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1996,
+      "question": "An Indian importer buys from a foreign parent company (related party). What valuation scrutiny applies?",
+      "answer_preview": "**Answer:** The valuation of imports from a foreign related party is subject to specific scrutiny under GST rules, particularly when the recipient is eligible for full input tax credit.\n\n**How we got here:**  \nThe import of services by a person from a related person or from any of his other establishments outside India is treated as a supply under Schedule I of the CGST Act, even if made without consideration [S1]. This means that such transactions are subject to GST valuation rules, and the recipient may be liable to pay tax on reverse charge basis. However, the valuation of such supplies is scrutinized to ensure that the price is not artificially manipulated to avoid tax obligations.\n\nIn cases involving foreign related parties, the valuation is further scrutinized to ensure compliance wi...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_cls_001",
+      "category": "customs",
+      "subcategory": "classification",
+      "difficulty": "basic",
+      "latency_ms": 54551,
+      "error": null,
+      "sections_expected": [
+        "Section XV GIR",
+        "Customs Tariff Act 1975"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Harmonized System",
+        "HSN",
+        "General Rules of Interpretation",
+        "GIR"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [
+        "SAC"
+      ],
+      "verified_quotes_count": 2,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 7.0,
+      "answer_chars": 2102,
+      "question": "What is the basis for classification of imported goods under the Customs Tariff?",
+      "answer_preview": "**Answer:** The basis for classification of imported goods under the Customs Tariff is determined by the provisions of the Customs Tariff Act, 1975, particularly section 3, which states that imported goods are charged to additional duty of customs in the same manner as the relevant provisions for levy and collection of the duty of Excise on such goods apply in terms of the Central Excise Act, 1944.\n\n**How we got here:**  \nThe classification of imported goods under the Customs Tariff is governed by the Customs Tariff Act, 1975. This is explicitly stated in the circular issued by the Central Board of Excise & Customs, which clarifies the levy of National Calamity Contingent Duty (NCCD) on cellular/mobile phones. The circular notes that *“imported goods are charged to NCCD in the same manner ...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_wh_001",
+      "category": "customs",
+      "subcategory": "warehousing",
+      "difficulty": "intermediate",
+      "latency_ms": 52708,
+      "error": null,
+      "sections_expected": [
+        "61 Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "capital goods",
+        "till clearance",
+        "EOU",
+        "no interest",
+        "Section 61"
+      ],
+      "keywords_matched": [
+        "capital goods"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1384,
+      "question": "Imported capital goods are warehoused under Section 59. What is the maximum period they can remain warehoused without interest?",
+      "answer_preview": "**Answer:** The maximum period that imported capital goods can remain warehoused under Section 59 without incurring interest is not explicitly stated in the provided sources.\n\n**How we got here:**  \nThe question pertains to the maximum period that imported capital goods can remain warehoused under Section 59 without incurring interest. However, none of the provided sources directly address the duration for which capital goods can be warehoused without interest. \n\nSection 59 of the CGST Act is not explicitly referenced in any of the provided documents. The sources provided focus on refund processes, input tax credit calculations, and procedural clarifications, but none mention the warehousing period or interest implications for capital goods under Section 59. \n\nFor instance, [S1] discusses ...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_db_001",
+      "category": "customs",
+      "subcategory": "drawback",
+      "difficulty": "basic",
+      "latency_ms": 48504,
+      "error": null,
+      "sections_expected": [
+        "74 Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "re-export",
+        "duty paid",
+        "drawback",
+        "identity"
+      ],
+      "keywords_matched": [
+        "re-export",
+        "duty paid",
+        "drawback"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1759,
+      "question": "What is duty drawback under Section 74 of the Customs Act?",
+      "answer_preview": "**Answer:** Duty drawback under Section 74 of the Customs Act refers to the refund of customs duties paid on imported goods when those goods are re-exported, provided certain conditions are met.\n\n**How we got here:**  \nSection 74 of the Customs Act outlines the conditions under which drawback is allowable on re-exported goods. It specifies that if goods imported into India, on which duty has been paid, are re-exported within two years of the duty payment, then 98% of the duty paid is refundable as drawback, provided the goods are identified and meet the procedural requirements [S1]. This provision is intended to encourage the re-export of goods that have already been subjected to import duties, thereby reducing the financial burden on exporters.\n\nCircular No. 72/2002-Cus clarifies that the...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_db_002",
+      "category": "customs",
+      "subcategory": "drawback",
+      "difficulty": "intermediate",
+      "latency_ms": 54215,
+      "error": null,
+      "sections_expected": [
+        "74 Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "24 months",
+        "time limit",
+        "not eligible"
+      ],
+      "keywords_matched": [
+        "24 months"
+      ],
+      "forbidden_hits": [
+        "98%"
+      ],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 5.0,
+      "answer_chars": 1673,
+      "question": "Goods imported and duty paid on 1 March 2024 are re-exported on 1 March 2026 without use. What percentage of drawback is allowed?",
+      "answer_preview": "**Answer:** 100% drawback is not allowed; the percentage of drawback allowed is 85% for goods re-exported within 6 months.\n\n**How we got here:**  \nThe question involves goods imported on 1 March 2024 and re-exported on 1 March 2026, which means the period between the date of clearance for home consumption and the date of re-export is 24 months. According to *Notification No. 19/65-Customs*, the drawback rates are determined based on the length of this period. For periods not more than 6 months, the drawback rate is 85%. For periods more than 6 months but not more than 12 months, it is 70%, and so on. Since the goods were re-exported after 24 months, the rate would be 50% if the period was between 18 and 24 months, but the table in [S1] shows that for periods more than 24 months, the drawba...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_svb_001",
+      "category": "customs",
+      "subcategory": "svb",
+      "difficulty": "intermediate",
+      "latency_ms": 50668,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "related party",
+        "transfer pricing",
+        "valuation",
+        "SVB",
+        "investigation"
+      ],
+      "keywords_matched": [
+        "valuation",
+        "SVB",
+        "investigation"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": false,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 5.0,
+      "answer_chars": 1508,
+      "question": "What is the role of the Special Valuation Branch (SVB) in customs?",
+      "answer_preview": "**Answer:** The Special Valuation Branch (SVB) is responsible for investigating import transactions involving special relationships or circumstances that may affect the assessable value of goods.\n\n**How we got here:**  \nThe SVB is an institution specializing in the investigation of transactions involving special relationships between buyers and sellers or other special circumstances that affect the value of imported goods [S5]. It is located only at four major Custom Houses: Chennai, Calcutta, Delhi, and Mumbai, and its decisions are binding on all other Custom Houses [S1]. When an importer declares that transactions involve related parties or when such a relationship is discovered during an investigation, the case is referred to the SVB for further examination [S1]. The SVB is also involv...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_ar_001",
+      "category": "customs",
+      "subcategory": "advance_ruling",
+      "difficulty": "basic",
+      "latency_ms": 45378,
+      "error": null,
+      "sections_expected": [
+        "28H Customs Act",
+        "28E Customs Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "classification",
+        "valuation",
+        "applicability of notification",
+        "CAAR",
+        "advance ruling"
+      ],
+      "keywords_matched": [
+        "classification",
+        "applicability of notification",
+        "advance ruling"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 4.0,
+      "max_points": 8.0,
+      "answer_chars": 1549,
+      "question": "Who can seek an advance ruling under the Customs Act and on what matters?",
+      "answer_preview": "**Answer:** Any person registered or desirous of obtaining registration under the CGST Act can seek an advance ruling on matters related to the classification of goods and services, applicability of notifications, and other specified issues.\n\n**How we got here:**  \nThe Central Goods and Services Tax Act, 2017 defines an \"applicant\" as \"any person registered or desirous of obtaining registration under this Act\" [S3]. This means that both registered persons and those seeking registration are eligible to apply for an advance ruling. The application form for advance ruling, GST ARA-01, includes fields for the applicant's GSTIN, legal name, and nature of activity, indicating that the applicant must provide detailed information about their business [S5]. \n\nThe matters on which an advance ruling ...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_cls_002",
+      "category": "customs",
+      "subcategory": "classification",
+      "difficulty": "complex",
+      "latency_ms": 47153,
+      "error": null,
+      "sections_expected": [
+        "Section XVI Note 4",
+        "GIR 1",
+        "GIR 3"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "functional unit",
+        "Section XVI Note 4",
+        "principal function",
+        "consumables separately"
+      ],
+      "keywords_matched": [
+        "functional unit"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 8.0,
+      "answer_chars": 1609,
+      "question": "A composite machine imports a set containing: (a) a CNC lathe, (b) a robotic arm loader, (c) a tool-pre-setter, and (d) a set of wear consumables, invoiced separately but shipped together for the buyer's production line. How should these be classified — individually, or as one functional unit under Note 4 to Section XVI?",
+      "answer_preview": "**Answer:** The items should be classified individually, not as one functional unit under Note 4 to Section XVI.\n\n**How we got here:**  \nThe classification of goods under GST depends on whether they are considered as a single functional unit or separate items. Note 4 to Section XVI of the CGST Act deals with the classification of goods as a composite or complete set, but it is not directly applicable here. The key is whether the items are invoiced separately, as in this case. The items — a CNC lathe, a robotic arm loader, a tool-pre-setter, and wear consumables — are invoiced separately, even though they are shipped together. This suggests that they are treated as distinct items for GST purposes.\n\nThe sources do not directly address the classification of composite machines or sets under No...",
+      "raw_error": null
+    },
+    {
+      "id": "cus_ig_001",
+      "category": "customs",
+      "subcategory": "igst_import",
+      "difficulty": "basic",
+      "latency_ms": 51430,
+      "error": null,
+      "sections_expected": [
+        "3 CTA",
+        "12 Customs Act",
+        "5(1) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Basic Customs Duty",
+        "IGST",
+        "Social Welfare Surcharge",
+        "BCD"
+      ],
+      "keywords_matched": [
+        "Basic Customs Duty",
+        "Social Welfare Surcharge"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 8.0,
+      "answer_chars": 1585,
+      "question": "On import of goods into India, what are the components of customs duty levied?",
+      "answer_preview": "**Answer:** On import of goods into India, customs duty includes basic customs duty, additional duty, and social welfare surcharge (SWS), as specified in the Customs Tariff Act, 1975 and related notifications.\n\n**How we got here:**\n\nThe Customs Act, 1962 provides the legal framework for the levy of customs duties on goods imported into India. Specifically, Section 12 of the Customs Act, 1962 states that duties of customs shall be levied at rates specified under the Customs Tariff Act, 1975 or any other law in force [S2]. This means that the Customs Tariff Act, 1975 is the primary source for determining the rates of customs duties.\n\nThe Customs Tariff Act, 1975 further specifies that imported goods are subject to basic customs duty, additional duty, and other levies. For instance, Section 5...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_val_001",
+      "category": "central_excise",
+      "subcategory": "valuation",
+      "difficulty": "basic",
+      "latency_ms": 53471,
+      "error": null,
+      "sections_expected": [
+        "4 Central Excise Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "transaction value",
+        "price actually paid",
+        "sole consideration",
+        "place of removal"
+      ],
+      "keywords_matched": [
+        "transaction value",
+        "sole consideration"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 3.0,
+      "max_points": 6.0,
+      "answer_chars": 1686,
+      "question": "What is transaction value under Section 4 of the Central Excise Act?",
+      "answer_preview": "**Answer:** Transaction value under Section 4 of the Central Excise Act refers to the price paid or payable for the sale of goods when the seller and buyer are not related, and the price is the sole consideration for the sale.\n\n**How we got here:**  \nSection 4 of the Central Excise Act, as substituted by the Finance Act, 2000, defines the transaction value as the price paid or payable for the sale of goods when the seller and buyer are not related and the price is the sole consideration for the sale. This is explicitly stated in the substituted section 4, which reads: *\"in a case where the goods are sold by the assessee, for delivery at the time and place of the removal, the assessee and the buyer of the goods are not related and the price is the sold consideration for the sale, be the tra...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_val_002",
+      "category": "central_excise",
+      "subcategory": "valuation",
+      "difficulty": "intermediate",
+      "latency_ms": 51171,
+      "error": null,
+      "sections_expected": [
+        "4A Central Excise Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "4A",
+        "MRP",
+        "retail sale price",
+        "abatement"
+      ],
+      "keywords_matched": [
+        "MRP"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 6.0,
+      "answer_chars": 1567,
+      "question": "For certain notified goods, valuation is based on MRP rather than transaction value. Which provision governs this?",
+      "answer_preview": "**Answer:** The provision that governs the valuation of certain notified goods based on MRP rather than transaction value is Rule 31A of the Central Goods and Services Tax Rules, 2017.\n\n**How we got here:**  \nThe question concerns the valuation of certain notified goods based on Maximum Retail Price (MRP) instead of transaction value. This is a specific rule that applies to certain goods, such as lottery tickets, betting, gambling, and horse racing. The valuation methodology for such goods is outlined in Rule 31A of the Central Goods and Services Tax Rules, 2017. \n\nRule 31A specifies that the value of supply for lottery, betting, gambling, and horse racing is determined in a particular manner. Specifically, *“the value of supply of lottery shall be deemed to be 100/128 of the face value of...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_cen_001",
+      "category": "central_excise",
+      "subcategory": "cenvat",
+      "difficulty": "basic",
+      "latency_ms": 54394,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Rule 6",
+        "not available",
+        "exempted",
+        "reversal",
+        "separate accounts"
+      ],
+      "keywords_matched": [
+        "Rule 6",
+        "not available",
+        "exempted"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 4.0,
+      "max_points": 6.0,
+      "answer_chars": 1704,
+      "question": "Under the erstwhile CENVAT Credit Rules 2004, was credit available on inputs used in manufacture of exempted final products?",
+      "answer_preview": "**Answer:** Under the erstwhile CENVAT Credit Rules 2004, credit was not available on inputs used in the manufacture of exempted final products.\n\n**How we got here:**  \nThe CENVAT Credit Rules 2004 explicitly state that no credit can be availed on inputs used in the manufacture of exempted goods or for the provision of exempted services. This is clearly outlined in Rule 6(1) of the CENVAT Credit Rules, 2004, which states: *\"The CENVAT credit shall not be allowed on such quantity of input as is used in or in relation to the manufacture of exempted goods or for provision of exempted services\"* [S5]. This rule is reinforced by the explanation provided in the same rule, which clarifies that the term \"exempted goods\" includes non-excisable goods cleared for a consideration from the factory.\n\nFu...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_cen_002",
+      "category": "central_excise",
+      "subcategory": "cenvat",
+      "difficulty": "intermediate",
+      "latency_ms": 54804,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "CVD",
+        "CENVAT",
+        "available",
+        "Rule 3",
+        "input"
+      ],
+      "keywords_matched": [
+        "CVD",
+        "CENVAT",
+        "available",
+        "Rule 3",
+        "input"
+      ],
+      "forbidden_hits": [
+        "not available"
+      ],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 5.0,
+      "max_points": 6.0,
+      "answer_chars": 1185,
+      "question": "A manufacturer paid CVD on imported inputs prior to July 2017. Was CENVAT credit of CVD available?",
+      "answer_preview": "**Answer:** CENVAT credit of CVD was not available for inputs paid prior to July 2017.\n\n**How we got here:**  \nThe CENVAT Credit Rules, 2017, specify that CENVAT credit is available only for duties paid on inputs received on or after July 1, 2017. This is clearly stated in Rule 3(1) of the CENVAT Credit Rules, 2017, which says: *\"paid on any input received in the factory of manufacture of final product on or after the 1st day of July, 2017\"* [S4]. This rule applies to all duties, including CVD.\n\nFurthermore, the circular dated September 15, 2010, discusses the availability of CENVAT credit for 4% Special CVD, but it does not extend this benefit to inputs paid before July 2017. The 2017 rules explicitly limit the availability of CENVAT credit to inputs received on or after July 1, 2017, whi...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_man_001",
+      "category": "central_excise",
+      "subcategory": "manufacture",
+      "difficulty": "basic",
+      "latency_ms": 51492,
+      "error": null,
+      "sections_expected": [
+        "2(f) Central Excise Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "2(f)",
+        "incidental or ancillary",
+        "new product",
+        "name, character, use"
+      ],
+      "keywords_matched": [
+        "2(f)"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 6.0,
+      "answer_chars": 1414,
+      "question": "What is the definition of 'manufacture' under the Central Excise Act?",
+      "answer_preview": "**Answer:** The definition of 'manufacture' under the Central Excise Act is the same as defined in clause (f) of section 2 of the Central Excise Act, 1944.\n\n**How we got here:**  \nThe definition of 'manufacture' is referenced in multiple notifications and acts. For instance, in [S1], it is stated that \"Manufacture\" has the same meaning as defined in clause (f) of section 2 of the Central Excise Act, 1944 (1 of 1944). Similarly, [S2] also refers to the same definition, stating, \"Manufacture\" has the same meaning as defined in clause (f) of section 2 of the Central Excise Act, 1944 (1 of 1944). This indicates that the term 'manufacture' is not uniquely defined in these notifications but is instead derived from the Central Excise Act itself.\n\nTo find the actual definition, we refer to the Cen...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_man_002",
+      "category": "central_excise",
+      "subcategory": "manufacture",
+      "difficulty": "intermediate",
+      "latency_ms": 50903,
+      "error": null,
+      "sections_expected": [
+        "2(f)(iii) Central Excise Act",
+        "Third Schedule"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "deemed manufacture",
+        "labeling",
+        "Third Schedule",
+        "specified goods"
+      ],
+      "keywords_matched": [
+        "deemed manufacture",
+        "labeling"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 1647,
+      "question": "Is mere labeling or re-labeling of goods covered under 'deemed manufacture'?",
+      "answer_preview": "**Answer:** Mere labeling or re-labeling of goods can be considered as \"deemed manufacture\" under certain conditions.\n\n**How we got here:**  \nThe concept of \"deemed manufacture\" is addressed in several circulars and acts. In [S1], the Central Board of Excise & Customs discusses whether labeling or re-labeling of containers for compliance with the Drug and Cosmetics Act would amount to manufacture under Chapter Note 5 of the Central Excise Tariff Act. The circular acknowledges that such activities may be considered as manufacturing if they make the product marketable.\n\nIn [S2], the Central Board of Central Excise & Customs provides a clarification regarding labeling and repacking. It states that labeling or re-labeling of containers, or repacking from bulk packs to retail packs, or any othe...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_ssi_001",
+      "category": "central_excise",
+      "subcategory": "ssi_exemption",
+      "difficulty": "basic",
+      "latency_ms": 48048,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "1.5 crore",
+        "150 lakh",
+        "SSI exemption",
+        "clearances"
+      ],
+      "keywords_matched": [
+        "SSI exemption"
+      ],
+      "forbidden_hits": [
+        "20 lakh"
+      ],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 5.0,
+      "answer_chars": 1321,
+      "question": "Under the SSI exemption notification 8/2003-CE, what was the turnover-based threshold for full exemption?",
+      "answer_preview": "**Answer:** The turnover-based threshold for full exemption under the SSI exemption notification 8/2003-CE was Rs. 10 lakhs for special category states and Rs. 20 lakhs for other states.\n\n**How we got here:**  \nThe question pertains to the turnover-based threshold for full exemption under the SSI exemption notification 8/2003-CE. However, the provided sources do not directly reference this specific notification. Instead, they discuss other notifications and circulars related to GST, such as Circular No. 88/07/2019-GST, which mentions the threshold for job workers to obtain registration. This circular states that the aggregate turnover for registration purposes is Rs. 20 lakhs or Rs. 10 lakhs in special category states (excluding Jammu & Kashmir) [S1]. While this is not the SSI exemption no...",
+      "raw_error": null
+    },
+    {
+      "id": "exc_ssi_002",
+      "category": "central_excise",
+      "subcategory": "ssi_exemption",
+      "difficulty": "complex",
+      "latency_ms": 53371,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "brand name",
+        "not eligible",
+        "others' brand",
+        "exception"
+      ],
+      "keywords_matched": [
+        "brand name"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 5.0,
+      "answer_chars": 2050,
+      "question": "An SSI unit used another's brand name. Could it still claim the SSI exemption under 8/2003-CE?",
+      "answer_preview": "**Answer:** No, an SSI unit using another's brand name cannot claim the SSI exemption under 8/2003-CE unless the brand name owner has voluntarily foregone their actionable claim or enforceable right.\n\n**How we got here:**  \nThe question revolves around whether an SSI unit can claim the exemption under 8/2003-CE if it uses another's brand name. The key to this lies in the conditions set forth in the GST notifications, particularly regarding the use of brand names and the voluntary relinquishment of rights. \n\nThe relevant provisions state that if a brand name is used on goods, and the owner of that brand name has not voluntarily foregone their actionable claim or enforceable right, then the exemption under 8/2003-CE does not apply. Specifically, the notification mentions that goods \"bearing ...",
+      "raw_error": null
+    },
+    {
+      "id": "st_val_001",
+      "category": "service_tax",
+      "subcategory": "valuation",
+      "difficulty": "basic",
+      "latency_ms": 59639,
+      "error": null,
+      "sections_expected": [
+        "67 Finance Act 1994"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "gross amount charged",
+        "Section 67",
+        "pre-GST",
+        "Finance Act 1994"
+      ],
+      "keywords_matched": [
+        "gross amount charged",
+        "Section 67",
+        "Finance Act 1994"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 2,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 4.0,
+      "max_points": 6.0,
+      "answer_chars": 1883,
+      "question": "Under the Service Tax regime (Finance Act 1994), what was the valuation principle for taxable services?",
+      "answer_preview": "**Answer:** Under the Service Tax regime (Finance Act 1994), the valuation principle for taxable services was based on the Service Tax (Determination of Value) Rules, 2006, which specified that the value of a taxable service is determined by the gross amount charged by the service provider for similar services in the ordinary course of trade.\n\n**How we got here:**  \nThe Service Tax (Determination of Value) Rules, 2006, explicitly outline the valuation principle for taxable services. Rule 3 of these rules states that the value of a taxable service, where the consideration received is not wholly or partly consisting of money, shall be determined by the service provider in the following manner: *\"the value of such taxable service shall be equivalent to the gross amount charged by the service ...",
+      "raw_error": null
+    },
+    {
+      "id": "st_nl_001",
+      "category": "service_tax",
+      "subcategory": "negative_list",
+      "difficulty": "basic",
+      "latency_ms": 57285,
+      "error": null,
+      "sections_expected": [
+        "65B(44) Finance Act 1994",
+        "66D Finance Act 1994"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "negative list",
+        "Section 66D",
+        "all services taxable except",
+        "pre-GST",
+        "2012"
+      ],
+      "keywords_matched": [
+        "negative list",
+        "Section 66D",
+        "2012"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 4.0,
+      "max_points": 8.0,
+      "answer_chars": 1839,
+      "question": "Explain the 'negative list' regime under service tax introduced in 2012.",
+      "answer_preview": "**Answer:** The 'negative list' regime under service tax, introduced in 2012, taxes all services except those explicitly listed in the negative list.\n\n**How we got here:**\n\nThe introduction of the negative list regime marked a significant shift in the service tax framework in India. Prior to July 1, 2012, the positive list approach was followed, where only specified services were taxed. However, with the implementation of the negative list, the tax was applied to all services, except those explicitly excluded in the negative list. This change was formalized in Section 66B of the Finance Act, 1994, which states that service tax is levied on all services, \"other than those services specified in the negative list, provided or agreed to be provided in the taxable territory by one person to ano...",
+      "raw_error": null
+    },
+    {
+      "id": "st_exp_001",
+      "category": "service_tax",
+      "subcategory": "export_of_services",
+      "difficulty": "complex",
+      "latency_ms": 55680,
+      "error": null,
+      "sections_expected": [
+        "66B Finance Act 1994"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Rule 6A",
+        "provided from India",
+        "received outside India",
+        "convertible foreign exchange",
+        "pre-GST"
+      ],
+      "keywords_matched": [
+        "convertible foreign exchange"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 2,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 2121,
+      "question": "Under the erstwhile Service Tax regime, what were the conditions for a service to qualify as 'export of services'?",
+      "answer_preview": "**Answer:** Under the erstwhile Service Tax regime, a service qualified as 'export of services' if it met five conditions: the supplier was located in India, the recipient was located outside India, the place of supply was outside India, payment was received in convertible foreign exchange, and the supplier and recipient were not merely establishments of a distinct person.\n\n**How we got here:**  \nThe conditions for a service to qualify as 'export of services' under the erstwhile Service Tax regime are outlined in various sources. Specifically, *“the following 5 conditions have been prescribed as necessary for a supply to qualify as export of service: (i) the supplier of service is located in India; (ii) the recipient of service is located outside India; (iii) the place of supply of service...",
+      "raw_error": null
+    },
+    {
+      "id": "st_pos_001",
+      "category": "service_tax",
+      "subcategory": "place_of_provision",
+      "difficulty": "basic",
+      "latency_ms": 53079,
+      "error": null,
+      "sections_expected": [],
+      "sections_matched": [],
+      "keywords_expected": [
+        "location of recipient",
+        "Rule 3",
+        "pre-GST"
+      ],
+      "keywords_matched": [
+        "Rule 3"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 4.0,
+      "answer_chars": 1877,
+      "question": "Under the Place of Provision of Services Rules 2012, what was the default rule for determining place of provision?",
+      "answer_preview": "**Answer:** The default rule for determining the place of provision of services under the Place of Provision of Services Rules 2012 is that the place of supply shall be the location of the recipient of the services if it is ascertainable in the ordinary course of business, otherwise the location of the service provider.\n\n**How we got here:**  \nThe default rule for determining the place of provision of services is outlined in the context of services not falling under specific exceptions. In [S1], it is stated that \"the place of provision will be determined under the default rule i.e. the Main Rule 3. Thus, it will be the location of the service receiver where it is known (ascertainable in the ordinary course of business), and the location of the service provider otherwise.\" This indicates t...",
+      "raw_error": null
+    },
+    {
+      "id": "st_rcm_001",
+      "category": "service_tax",
+      "subcategory": "reverse_charge",
+      "difficulty": "intermediate",
+      "latency_ms": 49179,
+      "error": null,
+      "sections_expected": [
+        "68(2) Finance Act 1994"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "GTA",
+        "reverse charge",
+        "100%",
+        "30/2012-ST",
+        "pre-GST"
+      ],
+      "keywords_matched": [
+        "GTA",
+        "reverse charge"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 1680,
+      "question": "Under service tax, was reverse charge applicable to services received by a business from a goods transport agency?",
+      "answer_preview": "**Answer:** Reverse charge was not applicable to services received by a business from a goods transport agency under service tax.\n\n**How we got here:**  \nThe question revolves around whether reverse charge applied to services received by a business from a goods transport agency (GTA) under service tax. The sources provided do not directly address service tax but instead focus on GST provisions. However, the key point is that under GST, services of a GTA are subject to specific tax rates and conditions. \n\nIn [S3], it is stated that services of a GTA in relation to the transportation of goods are taxed at 2.5%, with a condition that \"credit of input tax charged on goods and services used in supplying the service has not been taken.\" This implies that the GTA itself cannot claim input tax cre...",
+      "raw_error": null
+    },
+    {
+      "id": "st_lev_001",
+      "category": "service_tax",
+      "subcategory": "levy",
+      "difficulty": "basic",
+      "latency_ms": 47704,
+      "error": null,
+      "sections_expected": [
+        "174 CGST Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "1 July 2017",
+        "GST",
+        "Section 174",
+        "saved",
+        "pending proceedings"
+      ],
+      "keywords_matched": [
+        "GST"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1608,
+      "question": "When was service tax replaced by GST, and what happens to pending service tax liabilities?",
+      "answer_preview": "**Answer:** Service tax was replaced by GST on 1st July 2017, and pending service tax liabilities are settled under the GST regime.\n\n**How we got here:**  \nThe transition from service tax to GST occurred on 1st July 2017, as per the implementation of the Central Goods and Services Tax Act, 2017. This is a well-documented date in Indian tax history, marking the unification of multiple indirect taxes into a single, comprehensive system. The sources provided do not directly mention the date of the transition, but they do reference the CGST Act, 2017, which is the legal framework under which GST operates.\n\nRegarding pending service tax liabilities, the sources do not explicitly address what happens to them post-GST. However, based on general GST principles, any outstanding service tax liabilit...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_ap_001",
+      "category": "others",
+      "subcategory": "anti_profiteering",
+      "difficulty": "basic",
+      "latency_ms": 55789,
+      "error": null,
+      "sections_expected": [
+        "171 CGST Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "171",
+        "benefit of rate reduction",
+        "ITC benefit",
+        "Competition Commission",
+        "CCI"
+      ],
+      "keywords_matched": [
+        "171"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 1,
+      "verbatim_required": true,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 2422,
+      "question": "What is the anti-profiteering clause under GST and which body examines complaints now?",
+      "answer_preview": "**Answer:** The anti-profiteering clause under GST is found in Section 171 of the CGST Act, which mandates that registered persons pass on the benefit of reduced tax rates or input tax credit to recipients through commensurate price reductions. The Director General of Anti-profiteering examines complaints related to this clause.\n\n**How we got here:**  \nThe anti-profiteering provisions are outlined in Section 171 of the CGST Act, which requires registered persons to pass on the benefits of tax rate reductions or input tax credit to recipients by reducing prices. This is enforced through the process described in Rule 133 of the CGST Rules, 2017, which states that the Authority must determine whether a registered person has passed on the benefit of tax reduction or input tax credit to the rec...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_ap_002",
+      "category": "others",
+      "subcategory": "appeals",
+      "difficulty": "basic",
+      "latency_ms": 55248,
+      "error": null,
+      "sections_expected": [
+        "107 CGST Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "three months",
+        "107",
+        "First Appellate Authority",
+        "condonation",
+        "one month"
+      ],
+      "keywords_matched": [
+        "three months",
+        "First Appellate Authority"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 7.0,
+      "answer_chars": 1481,
+      "question": "What is the time limit for filing an appeal to the First Appellate Authority under the CGST Act?",
+      "answer_preview": "**Answer:** The time limit for filing an appeal to the First Appellate Authority under the CGST Act is three months from the date the order is communicated to the person preferring the appeal.\n\n**How we got here:**  \nThe CGST Act provides that any person aggrieved by a decision or order passed by an adjudicating authority may appeal to the Appellate Authority within *three months from the date on which the said decision or order is communicated to such person* [S5]. This provision is clear and directly addresses the time limit for filing an appeal to the First Appellate Authority.\n\nIn some cases, the Appellate Tribunal may not be constituted, which creates a challenge for taxpayers wishing to appeal. However, the time limit for filing an appeal to the First Appellate Authority remains unaf...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_ap_003",
+      "category": "others",
+      "subcategory": "appeals",
+      "difficulty": "intermediate",
+      "latency_ms": 46844,
+      "error": null,
+      "sections_expected": [
+        "107(6) CGST Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "10%",
+        "disputed tax",
+        "pre-deposit",
+        "107(6)",
+        "maximum"
+      ],
+      "keywords_matched": [
+        "pre-deposit"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1521,
+      "question": "What is the mandatory pre-deposit required to file an appeal with the Appellate Authority under GST?",
+      "answer_preview": "**Answer:** There is no specific mandatory pre-deposit required to file an appeal with the Appellate Authority under GST, as per the provided sources.\n\n**How we got here:**  \nThe question asks about the mandatory pre-deposit required to file an appeal with the Appellate Authority under GST. The sources provided do not explicitly mention a mandatory pre-deposit for filing an appeal with the Appellate Authority. \n\nIn [S5], it is mentioned that the appellant shall not be required to deposit a pre-deposit, which implies that no such requirement exists for appeals filed under the special procedure outlined in the notification. This is a direct statement from the source, indicating that the pre-deposit is not mandatory in this context. \n\nOther sources, such as [S1] and [S2], mention the \"Amount ...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_gaar_001",
+      "category": "others",
+      "subcategory": "gaar",
+      "difficulty": "basic",
+      "latency_ms": 49962,
+      "error": null,
+      "sections_expected": [
+        "Chapter X-A Income Tax Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Income Tax Act",
+        "not GST",
+        "95 to 102",
+        "impermissible avoidance arrangement"
+      ],
+      "keywords_matched": [
+        "Income Tax Act"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": false,
+      "verbatim_gate_pass": true,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 5.0,
+      "answer_chars": 1461,
+      "question": "Does GAAR (General Anti-Avoidance Rule) apply under GST law, or is it only under the Income Tax Act?",
+      "answer_preview": "**Answer:** GAAR does not apply under GST law; it is a provision specific to the Income Tax Act.\n\n**How we got here:**  \nThe question of whether GAAR (General Anti-Avoidance Rule) applies under GST law or only under the Income Tax Act requires a review of the relevant legal frameworks. GAAR is a well-known provision under the Income Tax Act, 1961, designed to counter tax avoidance schemes. However, the GST regime, governed by the Central Goods and Services Tax Act, 2017 (CGST Act), and its associated rules and notifications, does not explicitly mention GAAR in any of the provided sources.\n\nLooking at the sources, none of them reference GAAR in the context of GST. For instance, [S1] discusses the cancellation of GST registrations due to non-compliance but does not mention GAAR. Similarly, [...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_pen_001",
+      "category": "others",
+      "subcategory": "penalties",
+      "difficulty": "complex",
+      "latency_ms": 55263,
+      "error": null,
+      "sections_expected": [
+        "122(1) CGST Act",
+        "73 CGST Act",
+        "74 CGST Act",
+        "73(5) CGST Act"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Section 73",
+        "no fraud",
+        "pay before SCN",
+        "penalty 10% or Rs 10,000",
+        "higher"
+      ],
+      "keywords_matched": [
+        "Section 73",
+        "higher"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 2.0,
+      "max_points": 10.0,
+      "answer_chars": 1885,
+      "question": "A taxpayer fails to furnish a tax invoice for a supply of Rs 10 lakh (tax Rs 1.8 lakh) and the officer finds this during an inspection. The taxpayer claims there was no intent to evade. Determine: (a) applicable penalty provision, (b) quantum, (c) whether Sec 73 or Sec 74 applies, (d) remedy to avoid penalty before SCN.",
+      "answer_preview": "**Answer:** (a) The applicable penalty provision is Section 73 of the CGST Act, (b) the quantum of penalty is 10% of the tax evaded, (c) Section 73 applies as there is no evidence of willful attempt to evade tax, and (d) the taxpayer may avoid the penalty by furnishing the missing tax invoice before the SCN is issued.\n\n**How we got here:**  \nThe taxpayer failed to furnish a tax invoice for a supply of Rs 10 lakh, with a tax of Rs 1.8 lakh. Under the CGST Act, failure to furnish a tax invoice may lead to penalties. Section 73 of the CGST Act deals with penalties for failure to comply with the provisions of the Act, including the failure to issue or furnish a tax invoice. The provision states that if a taxpayer fails to comply with any of the provisions of the Act, the penalty shall be 10% o...",
+      "raw_error": null
+    },
+    {
+      "id": "oth_cls_001",
+      "category": "others",
+      "subcategory": "hsn_classification",
+      "difficulty": "intermediate",
+      "latency_ms": 51682,
+      "error": null,
+      "sections_expected": [
+        "Customs Tariff Act 1975"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "GIR",
+        "advance ruling",
+        "AAR",
+        "binding",
+        "Section 95 CGST"
+      ],
+      "keywords_matched": [
+        "binding"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 1.0,
+      "max_points": 7.0,
+      "answer_chars": 1729,
+      "question": "A taxpayer is confused between two HSN codes for its product. What is the principle of classification under GST, and what remedy is available for binding clarity?",
+      "answer_preview": "**Answer:** The principle of classification under GST is based on the Harmonized System of Nomenclature (HSN) code, and for binding clarity, a taxpayer may seek a classification order from the proper authority.\n\n**How we got here:**  \nThe principle of classification under GST is rooted in the HSN code, which is a standardized system for classifying goods. When a taxpayer is confused between two HSN codes for its product, the classification must be determined based on the description and nature of the goods, as outlined in the HSN and relevant notifications. For example, in [S2], it is stated that \"the dispute is in classification of Animal Feed Supplements/feed additives from drugs between tariff heading 2309 and 2936,\" highlighting the need for precise classification based on the product'...",
+      "raw_error": null
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+- id: gst_complex_001
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A company paid for marketing services on 1st March. The supplier issued the invoice on 5th March but filed their GSTR-1 for March on 15th May (late). The company wants to claim ITC in their GSTR-3B for March filed on 20th April. Explain the eligibility considering the interaction of Section 16(2)(aa) and Rule 36(4)."
+  expected_sections: ["Section 16(2)(aa) CGST Act"]
+  expected_rules: ["Rule 36(4) CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["cannot claim in March", "auto-populated in GSTR-2B", "must reflect in GSTR-2B"]
+  must_not_say: ["can claim in March", "invoice date governs", "provisional ITC allowed"]
+  must_cite_verbatim: true
+  notes: "Tests the strict linkage between supplier filing (GSTR-1), auto-population (GSTR-2B), and recipient ITC eligibility introduced by 16(2)(aa)."
+
+- id: gst_complex_002
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A manufacturer (not an MSME) purchases raw materials on 10th January. The invoice is dated 10th January, goods received 12th January. Payment to the supplier is delayed and finally made on 20th August. They claimed ITC in January. What are the consequences under Section 16(2) second proviso and Rule 37?"
+  expected_sections: ["Section 16(2) CGST Act", "Section 50(1) CGST Act"]
+  expected_rules: ["Rule 37 CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["reverse ITC", "pay interest", "180 days", "re-avail upon payment"]
+  must_not_say: ["no consequence", "ITC permanently lost", "penalty applies automatically"]
+  must_cite_verbatim: true
+  notes: "Requires combining the 180-day payment rule (Sec 16(2) proviso), the mechanism for reversal (Rule 37), and the interest liability (Sec 50)."
+
+- id: gst_complex_003
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A registered person in Delhi provides architectural design services for an immovable property located in Dubai to a client registered in Mumbai. Determine the Place of Supply and the type of tax applicable, citing relevant IGST sections."
+  expected_sections: ["Section 12(3) IGST Act", "Section 12(1) IGST Act", "Section 8 IGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Mumbai", "location of recipient", "IGST", "inter-state"]
+  must_not_say: ["Dubai", "Delhi", "CGST/SGST", "export of service"]
+  must_cite_verbatim: true
+  notes: "Tests POS for immovable property when property is outside India but both supplier and recipient are in India (Sec 12(3) proviso shifting POS to recipient location)."
+
+- id: gst_complex_004
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A corporate entity receives legal advisory services from an individual advocate. They also receive services from an arbitral tribunal. Contrast the GST liability mechanism (forward vs reverse charge) citing the relevant section and notification entries."
+  expected_sections: ["Section 9(3) CGST Act"]
+  expected_rules: []
+  expected_notifications: ["13/2017-CT(R)"]
+  expected_conclusion_keywords: ["reverse charge", "RCM", "business entity", "both under RCM"]
+  must_not_say: ["forward charge", "advocate pays", "arbitral tribunal pays", "exempt"]
+  must_cite_verbatim: true
+  notes: "Requires linking Sec 9(3) with specific entries in Notification 13/2017-CT(R) for legal and arbitral services provided to business entities."
+
+- id: gst_complex_005
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "An exporter of goods wants to claim a refund of unutilized ITC under LUT without payment of IGST. They have accumulated ITC on inputs, capital goods, and input services. Based on Section 54(3) and the formula in Rule 89(4), which components of ITC are eligible for the refund calculation?"
+  expected_sections: ["Section 54(3) CGST Act"]
+  expected_rules: ["Rule 89(4) CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["inputs", "input services", "excludes capital goods", "Net ITC definition"]
+  must_not_say: ["capital goods", "all ITC", "only inputs"]
+  must_cite_verbatim: true
+  notes: "Tests the definition of 'Net ITC' in Rule 89(4) for zero-rated supply refunds, which explicitly excludes capital goods but includes input services (unlike inverted duty structure)."
+
+- id: gst_complex_006
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A principal sends inputs to a job worker on 1st April 2022. The job worker processes them but fails to return the goods or supply them from their premises by 1st April 2023. What is the deemed supply trigger under Section 143, and what are the invoicing and interest implications per Rule 45?"
+  expected_sections: ["Section 143(3) CGST Act"]
+  expected_rules: ["Rule 45 CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["deemed supply", "principal to job worker", "effective from original date", "interest applies"]
+  must_not_say: ["no supply", "job worker pays", "penalty instead of interest"]
+  must_cite_verbatim: true
+  notes: "Combines the 1-year return requirement (Sec 143) with the consequence of it becoming a deemed supply from the date goods were originally sent, requiring invoice issuance and interest payment (Rule 45)."
+
+- id: gst_complex_007
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A company provides free meals to its employees in the factory canteen as mandated by the Factories Act. They use catering services (taxed at 5%) to provide this. Can the company claim ITC on the catering services? Analyze using Section 17(5) and its provisos."
+  expected_sections: ["Section 17(5)(b) CGST Act", "Section 17(5) proviso"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ITC allowed", "obligatory for employer", "under any law"]
+  must_not_say: ["ITC blocked", "personal consumption", "food and beverages are blocked always"]
+  must_cite_verbatim: true
+  notes: "Tests the exception to the blocked credit on food/beverages (17(5)(b)) when provision of such goods/services is obligatory for an employer under any law (e.g., Factories Act). Proviso inserted by Finance Act 2018 effective 01-Feb-2019."
+
+- id: gst_complex_008
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A transporter (GTA) opts to pay GST at 12% under forward charge. They provide transport services to an unregistered individual for personal household goods, and to a registered manufacturing company. Determine the taxability and payment mechanism for both transactions citing the relevant exemption and rate notifications."
+  expected_sections: ["Section 9(1) CGST Act"]
+  expected_rules: []
+  expected_notifications: ["11/2017-CT(R)", "12/2017-CT(R)"]
+  expected_conclusion_keywords: ["unregistered individual exempt", "registered company forward charge 12%", "option exercised"]
+  must_not_say: ["RCM applies to registered company", "unregistered individual pays RCM", "both exempt"]
+  must_cite_verbatim: true
+  notes: "Requires combining the GTA exemption for unregistered persons (12/2017) with the GTA rate options (11/2017) where exercising the 12% option overrides the default RCM for registered recipients."
+
+- id: gst_complex_009
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A company in Karnataka has a branch in Maharashtra. The Karnataka head office centrally procures IT software licenses and distributes the credit to the Maharashtra branch. Does the head office need to register as an Input Service Distributor (ISD)? Contrast the ISD mechanism under Section 20 with the cross-charge mechanism."
+  expected_sections: ["Section 20 CGST Act", "Section 24 CGST Act", "Schedule I CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["mandatory ISD registration", "distinct persons", "third-party services", "cross-charge for internal services"]
+  must_not_say: ["ISD is optional", "can use cross-charge for third party", "no registration needed"]
+  must_cite_verbatim: true
+  notes: "Tests the mandatory nature of ISD registration (Sec 24) for distributing third-party service ITC (Sec 20) vs cross-charging for internally generated services between distinct persons (Schedule I). Mandatory ISD effective 01-Apr-2025 per Finance Act 2024."
+
+- id: gst_complex_010
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A taxpayer receives a show cause notice (SCN) under Section 74 alleging fraud. The tax amount is Rs. 10 Lakhs. They want to settle the matter before the adjudication order is passed. What amount of penalty must they pay under Section 74(5) to conclude the proceedings, and how does this differ if the SCN was issued under Section 73?"
+  expected_sections: ["Section 74(5) CGST Act", "Section 73(5) CGST Act", "Section 73(8) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["25% penalty", "Section 74", "10% penalty or no penalty", "Section 73"]
+  must_not_say: ["100% penalty", "15% penalty for 74(5)", "same for both"]
+  must_cite_verbatim: true
+  notes: "Sec 74(5): 25% penalty to conclude before adjudication. Sec 73(5): no penalty if paid before SCN. Sec 73(8): 10% penalty if paid within 30 days of SCN. (Tightened keyword list to avoid conflating 73(5) pre-SCN and 73(8) post-SCN cases.)"
+
+- id: gst_complex_011
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "An e-commerce operator (ECO) facilitates the sale of plumbing services through its app. The plumber is unregistered. Who is liable to pay GST, and under what specific provision? Does the ECO need to collect TCS under Section 52?"
+  expected_sections: ["Section 9(5) CGST Act", "Section 52 CGST Act"]
+  expected_rules: []
+  expected_notifications: ["17/2017-CT(R)"]
+  expected_conclusion_keywords: ["ECO liable", "Section 9(5)", "no TCS under Section 52"]
+  must_not_say: ["plumber liable", "TCS applies", "RCM applies"]
+  must_cite_verbatim: true
+  notes: "Tests the specific liability of ECOs for notified services (housekeeping including plumbing/carpentering, inserted by Notif 23/2017-CT(R)) under Sec 9(5) and 17/2017-CT(R), which overrides standard TCS provisions under Sec 52."
+
+- id: gst_complex_012
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A supplier receives an advance payment for services on 20th June. The services are completed on 15th July, and the invoice is issued on 10th August. When is the time of supply, and how does this differ from the time of supply for goods receiving an advance? Cite relevant sections."
+  expected_sections: ["Section 13(2) CGST Act", "Section 12(2) CGST Act"]
+  expected_rules: ["Rule 47 CGST Rules"]
+  expected_notifications: ["66/2017-CT"]
+  expected_conclusion_keywords: ["time of supply is 20th June", "advance received", "invoice not within 30 days", "goods exempt from advance tax"]
+  must_not_say: ["15th July", "10th August", "advance for goods is taxable"]
+  must_cite_verbatim: true
+  notes: "Combines Sec 13 (TOS for services), Rule 47 (30-day invoice limit, which was missed), making TOS the date of advance. Contrasts with goods (Sec 12) where advance tax was removed by Notif 66/2017."
+
+- id: gst_complex_013
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A registered person's GSTR-3B shows an output liability of Rs. 100,000. They have Rs. 40,000 in their electronic credit ledger and Rs. 60,000 in their electronic cash ledger. They file the return 30 days late. Calculate the amount on which interest under Section 50(1) is payable, referring to the specific proviso."
+  expected_sections: ["Section 50(1) CGST Act"]
+  expected_rules: ["Rule 88B CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["interest on Rs. 60,000", "cash ledger portion", "proviso to Section 50(1)"]
+  must_not_say: ["interest on Rs. 100,000", "gross liability", "no interest"]
+  must_cite_verbatim: true
+  notes: "Tests the proviso to Sec 50(1) (and Rule 88B) which restricts interest to the net tax liability paid via the electronic cash ledger when returns are filed late."
+
+- id: gst_complex_014
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "A company transfers capital goods (computers) to its branch in another state. ITC was availed on these computers 2 years ago. How is the value of this supply determined under Section 15 and Rule 28, and does the proviso to Rule 28 apply if the branch is eligible for full ITC?"
+  expected_sections: ["Section 15 CGST Act", "Schedule I CGST Act"]
+  expected_rules: ["Rule 28 CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["distinct persons", "open market value", "invoice value accepted", "proviso to Rule 28"]
+  must_not_say: ["no supply", "book value", "proviso doesn't apply"]
+  must_cite_verbatim: true
+  notes: "Combines Schedule I (supply between distinct persons), Sec 15, and Rule 28 valuation. Crucially, tests the proviso to Rule 28 allowing invoice value to be accepted as open market value if recipient branch can claim full ITC."
+
+- id: gst_complex_015
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: "What is the order of utilization of Input Tax Credit (ITC) available in the IGST ledger? Can IGST credit be used to pay SGST before exhausting it against CGST? Cite the relevant section and rule governing this new mechanism."
+  expected_sections: ["Section 49A CGST Act", "Section 49B CGST Act"]
+  expected_rules: ["Rule 88A CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["first against IGST", "then CGST or SGST in any order", "must exhaust IGST first"]
+  must_not_say: ["only CGST then SGST", "cannot pay SGST", "proportional utilization"]
+  must_cite_verbatim: true
+  notes: "Tests the specific ITC utilization hierarchy introduced by Sec 49A/49B and Rule 88A, allowing IGST to be used for CGST or SGST in any order/proportion after IGST liability is met."
+
+- id: customs_complex_016
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: "An importer brings in goods from a related party supplier in Germany. The customs authorities suspect undervaluation. Explain the procedure under the Customs Valuation Rules, 2007, specifically referring to Rule 3(3) regarding related party transactions and the role of the Special Valuation Branch (SVB) as per Circular 5/2016-Cus."
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 3(3) Customs Valuation Rules"]
+  expected_notifications: ["Circular 5/2016-Cus"]
+  expected_conclusion_keywords: ["related party", "transaction value accepted if relationship didn't influence price", "SVB investigation", "extra duty deposit"]
+  must_not_say: ["transaction value always rejected", "SVB not required", "rule 4 applies immediately"]
+  must_cite_verbatim: true
+  notes: "Requires combining Sec 14 valuation, the specific related-party test in Rule 3(3) (circumstances of sale), and the procedural mandate for SVB referral under the specific circular."
+
+- id: customs_complex_017
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: "An exporter imports raw materials duty-free under an Advance Authorisation scheme. They manufacture finished goods and export them. Later, they realize they exported less than required to fulfill their export obligation. What are the consequences regarding the BCD and IGST initially exempted, citing relevant Customs notifications and Section 28?"
+  expected_sections: ["Section 28 Customs Act"]
+  expected_rules: []
+  expected_notifications: ["Advance Authorisation Notification (e.g., 18/2015-Cus)"]
+  expected_conclusion_keywords: ["pay proportionate duty", "interest applies", "BCD and IGST recovered"]
+  must_not_say: ["no penalty", "only BCD recovered", "IGST is permanently exempt"]
+  must_cite_verbatim: true
+  notes: "Tests the conditions of Advance Authorisation (exemption notifications) and the recovery mechanism (Sec 28) for unfulfilled export obligations, including both basic duty and IGST."
+
+- id: customs_complex_018
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: "A company imports machinery under 'Project Imports' (Heading 9801) for a new power plant. The BCD is concessional. However, one specific machine would have been fully exempt from BCD under a separate notification if imported individually. Can the importer claim that specific exemption for that one machine while keeping the rest under 9801? Cite the Project Import Regulations."
+  expected_sections: ["Heading 9801 Customs Tariff"]
+  expected_rules: ["Project Import Regulations, 1986"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["no", "classified together", "single rate applies", "cannot cherry-pick"]
+  must_not_say: ["yes", "can claim exemption", "merit rate applies"]
+  must_cite_verbatim: true
+  notes: "Tests the fundamental principle of Project Imports (Heading 9801 and PIR 1986): all items imported under registered contracts are assessed together at the project rate; individual merit rates/exemptions are disregarded."
+
+- id: customs_complex_019
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: "An importer pays IGST on imported goods and then immediately re-exports them without putting them to use. Can they claim duty drawback under Section 74 of the Customs Act for the IGST paid? Contrast this with the availability of ITC under the CGST Act."
+  expected_sections: ["Section 74 Customs Act", "Section 16 CGST Act"]
+  expected_rules: ["Re-export of Imported Goods (Drawback of Customs Duties) Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["no drawback for IGST", "drawback only for BCD", "claim ITC under GST"]
+  must_not_say: ["drawback includes IGST", "98% drawback on IGST", "cannot claim ITC"]
+  must_cite_verbatim: true
+  notes: "Combines Customs Sec 74 (which allows drawback for basic duties) with the principle that IGST paid on imports is creditable as ITC under GST (Sec 16), hence excluded from Customs drawback."
+
+- id: customs_complex_020
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: "Determine the assessable value for customs duty if an importer brings in goods by air. The FOB value is $10,000, but the actual air freight incurred is $3,000. Insurance is unknown. Cite Section 14 and the specific provisions in Rule 10 of the Customs Valuation Rules."
+  expected_sections: ["Section 14 Customs Act"]
+  expected_rules: ["Rule 10(2) Customs Valuation Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["freight restricted to 20% of FOB", "insurance 1.125% of FOB", "assessable value calculation"]
+  must_not_say: ["actual freight $3,000", "insurance zero", "CIF is assessable value directly"]
+  must_cite_verbatim: true
+  notes: "Requires applying the specific restrictions in Rule 10(2): air freight is capped at 20% of FOB, and unknown insurance is deemed 1.125% of FOB."
+
+- id: central_excise_complex_021
+  category: central_excise
+  subcategory: complex
+  difficulty: complex
+  question: "A manufacturer had unutilized CENVAT credit relating to Education Cess and Secondary & Higher Education Cess as of June 30, 2017. Can this credit be transitioned to the GST regime under Section 140 of the CGST Act? Cite relevant provisions and key judicial rulings if applicable."
+  expected_sections: ["Section 140 CGST Act"]
+  expected_rules: ["Rule 117 CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["cannot transition", "eligible duties only", "cesses excluded"]
+  must_not_say: ["can transition", "carry forward allowed", "treated as GST credit"]
+  must_cite_verbatim: true
+  notes: "Tests the transition provisions (Sec 140) which explicitly defined 'eligible duties', omitting specific cesses from the pre-GST regime, blocking their transition."
+
+- id: central_excise_complex_022
+  category: central_excise
+  subcategory: complex
+  difficulty: complex
+  question: "A manufacturer cleared excisable goods in May 2017 but the buyer rejected and returned them in August 2017 (post-GST implementation). Under Section 142 of the CGST Act, how is this return treated for duty/tax purposes, and can the manufacturer claim a refund of the excise duty originally paid?"
+  expected_sections: ["Section 142(1) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["treated as fresh supply", "buyer pays GST", "manufacturer claims excise refund", "returned within 6 months"]
+  must_not_say: ["no refund", "adjust against GST", "treated as pre-GST return"]
+  must_cite_verbatim: true
+  notes: "Tests the specific transitional mechanism in Sec 142(1) for goods returned post-appointed day, involving a deemed fresh GST supply and a separate excise refund process."
+
+- id: service_tax_complex_023
+  category: service_tax
+  subcategory: complex
+  difficulty: complex
+  question: "Under the pre-GST Service Tax regime, an IT company in Bangalore provided software development services to a client in the USA. However, the software was tested on servers physically located in Bangalore. Did this qualify as an 'export of service' under the Place of Provision of Services Rules (POPS), 2012? Cite relevant rules."
+  expected_sections: ["Section 66B Finance Act 1994"]
+  expected_rules: ["Rule 3 POPS Rules 2012", "Rule 4 POPS Rules 2012", "Rule 6A Service Tax Rules 1994"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["export of service", "location of recipient", "Rule 3 applies", "Rule 4 does not override"]
+  must_not_say: ["taxable in India", "performance based", "location of server"]
+  must_cite_verbatim: true
+  notes: "Requires analyzing POPS Rules. While Rule 4 is performance-based (where goods/servers are), IT services typically fell under the default Rule 3 (location of recipient), satisfying export criteria under Rule 6A."
+
+- id: service_tax_complex_024
+  category: service_tax
+  subcategory: complex
+  difficulty: complex
+  question: "A real estate developer received an advance payment for an under-construction apartment in June 2017 (Service Tax era) but issued the invoice and handed over possession in September 2017 (GST era). How is the Point of Taxation Rules, 2011 reconciled with Section 142(11) of the CGST Act to prevent double taxation?"
+  expected_sections: ["Section 142(11) CGST Act"]
+  expected_rules: ["Rule 3 Point of Taxation Rules 2011"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["taxed under Service Tax", "extent of advance", "no GST on that portion", "prevent double taxation"]
+  must_not_say: ["fully taxable under GST", "Service Tax refunded", "GST applies to total value"]
+  must_cite_verbatim: true
+  notes: "Combines pre-GST POT Rules (tax triggers on advance) with the specific GST transitional provision Sec 142(11) ensuring GST isn't levied on amounts already subjected to Service Tax."
+
+- id: others_complex_025
+  category: others
+  subcategory: complex
+  difficulty: complex
+  question: "A taxpayer receives an unfavorable order from the Appellate Authority (first appeal) under Section 107. They wish to appeal to the GST Appellate Tribunal (GSTAT) under Section 112. What is the mandatory pre-deposit requirement for filing this second appeal, and how is it calculated relative to the disputed tax amount?"
+  expected_sections: ["Section 107(6) CGST Act", "Section 112(8) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["10% of remaining disputed tax", "in addition to Section 107 deposit", "maximum 20 crores"]
+  must_not_say: ["20%", "50 crores", "100%", "no pre-deposit"]
+  must_cite_verbatim: true
+  notes: "Sec 112(8) pre-deposit for GSTAT appeal: 10% of remaining disputed tax (in addition to 10% already deposited under Sec 107 for first appeal), capped at Rs 20 crores per CGST+Rs 20 crores SGST. (UPDATED: Pre-Nov-2024 it was 20%/Rs 50 crores, reduced to 10%/Rs 20 crores by Finance (No.2) Act 2024 / CGST Amendment Act 2024 effective 01-Nov-2024.)"

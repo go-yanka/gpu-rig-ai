@@ -1,0 +1,18 @@
+[exclude] added 538 chunk_ids from eval/training_pairs/pairs_2000_20260422.jsonl
+[sample] collection has 108802 points
+[sample] 3945 cand, returning 2538
+[queue] 76 new chunks to process (model=opus, workers=2)
+[1/76] ok=1 skip=0 err=0  rate=0.13/s  eta=9.9m
+[2/76] ok=2 skip=0 err=0  rate=0.24/s  eta=5.2m
+[3/76] ok=3 skip=0 err=0  rate=0.21/s  eta=5.9m
+[4/76] ok=4 skip=0 err=0  rate=0.25/s  eta=4.9m
+[5/76] ok=5 skip=0 err=0  rate=0.21/s  eta=5.7m
+[10/76] ok=10 skip=0 err=0  rate=0.23/s  eta=4.8m
+[20/76] ok=20 skip=0 err=0  rate=0.24/s  eta=4.0m
+[30/76] ok=30 skip=0 err=0  rate=0.24/s  eta=3.2m
+[40/76] ok=40 skip=0 err=0  rate=0.24/s  eta=2.5m
+[50/76] ok=50 skip=0 err=0  rate=0.25/s  eta=1.8m
+[60/76] ok=60 skip=0 err=0  rate=0.25/s  eta=1.1m
+[70/76] ok=70 skip=0 err=0  rate=0.25/s  eta=0.4m
+
+DONE: ok=76 skip=0 err=0  elapsed=304s  out=eval\training_pairs\pairs_claude_opus.jsonl

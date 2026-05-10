@@ -1,0 +1,15 @@
+[Unit]
+Description=AI Rig - Start all 7 GPUs on boot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/bin/bash -c 'for d in /sys/class/drm/card*/device/power/control; do echo on > $d 2>/dev/null; done'
+ExecStartPre=/sbin/ethtool -s eth0 wol g
+ExecStart=/opt/start_all_gpus.sh
+ExecStop=/usr/bin/killall llama-server-rocm
+
+[Install]
+WantedBy=multi-user.target

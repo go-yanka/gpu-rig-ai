@@ -1,0 +1,259 @@
+- id: st_service_tax_001
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "An IT consulting firm located in Bangalore provided general software testing services in February 2017 to a client registered and located in Germany. Under the default rule of POPS, where is the place of provision of this service?"
+  expected_sections: []
+  expected_rules: ["Rule 3 POPS Rules 2012"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["location of the service receiver", "Germany", "Rule 3"]
+  must_not_say: ["location of the service provider", "Bangalore", "Rule 4"]
+  must_cite_verbatim: true
+  notes: "Under Rule 3 of Place of Provision of Services Rules 2012, the default place of provision was the location of the service receiver."
+
+- id: st_service_tax_002
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: "A technician from a UK-based company travelled to Chennai in May 2017 to repair a specialized manufacturing machine located at an Indian factory. According to the Place of Provision of Services Rules, what is the place of provision?"
+  expected_sections: []
+  expected_rules: ["Rule 4 POPS Rules 2012"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["location where the services are actually performed", "Chennai", "Rule 4"]
+  must_not_say: ["location of the service provider", "United Kingdom", "Rule 3"]
+  must_cite_verbatim: true
+  notes: "Under Rule 4 of POPS Rules 2012, for services in respect of goods required to be made physically available, the POS is where the services are actually performed."
+
+- id: st_service_tax_003
+  category: service_tax
+  subcategory: service_tax
+  difficulty: advanced
+  question: "In January 2017, a travel agent in Mumbai acted as an intermediary to book hotel accommodations in London for a US-based tourist. What was the place of provision for this intermediary service?"
+  expected_sections: []
+  expected_rules: ["Rule 9 POPS Rules 2012"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["location of the service provider", "Mumbai", "Rule 9"]
+  must_not_say: ["location of the service receiver", "United States", "London", "Rule 3"]
+  must_cite_verbatim: true
+  notes: "Under Rule 9(c) of POPS Rules 2012, the place of provision of intermediary services was the location of the service provider."
+
+- id: st_service_tax_004
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "An audit firm completed a statutory audit on 10-Aug-2016, issued its invoice on 25-Aug-2016, and received payment on 05-Sep-2016. What is the point of taxation for this service?"
+  expected_sections: []
+  expected_rules: ["Rule 3 POT Rules 2011"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["25-Aug-2016", "date of invoice", "earlier of invoice or payment"]
+  must_not_say: ["10-Aug-2016", "date of completion", "05-Sep-2016"]
+  must_cite_verbatim: true
+  notes: "Under Rule 3 of Point of Taxation Rules 2011, since the invoice was issued within 30 days of completion, the POT is the earlier of the invoice date or payment date."
+
+- id: st_service_tax_005
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: "A company received legal advisory services from an advocate on 01-Jan-2017. The invoice was issued on 05-Jan-2017. The company, liable to pay Service Tax under reverse charge, finally made the payment to the advocate on 10-May-2017. Determine the point of taxation."
+  expected_sections: []
+  expected_rules: ["Rule 7 POT Rules 2011"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["date immediately following three months", "06-Apr-2017"]
+  must_not_say: ["10-May-2017", "05-Jan-2017", "date of payment"]
+  must_cite_verbatim: true
+  notes: "Under Rule 7 of POT Rules, for reverse charge, if payment is not made within 3 months of the invoice date, the POT is the date immediately following the end of 3 months from the date of invoice."
+
+- id: st_service_tax_006
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: "In March 2017, a business engaged in both the 'trading of goods' and the provision of 'health care services'. Which of these two activities was strictly covered under the Negative List of services in the Finance Act, 1994?"
+  expected_sections: ["Section 66D Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: ["25/2012-ST"]
+  expected_conclusion_keywords: ["trading of goods", "Negative List", "health care services are exempted", "Mega Exemption"]
+  must_not_say: ["health care is in the negative list", "both are in the negative list"]
+  must_cite_verbatim: true
+  notes: "Trading of goods is under the Negative List (Sec 66D). Health care services were exempt via Mega Exemption Notification 25/2012-ST, not the Negative List."
+
+- id: st_service_tax_007
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "An executive received a non-compete fee in November 2016 for agreeing to the obligation to refrain from an act. Was this transaction treated as a service under the Finance Act 1994?"
+  expected_sections: ["Section 66E Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["declared service", "agreeing to the obligation to refrain from an act", "yes"]
+  must_not_say: ["not a service", "negative list"]
+  must_cite_verbatim: true
+  notes: "Section 66E of the Finance Act 1994 explicitly listed 'agreeing to the obligation to refrain from an act' as a Declared Service."
+
+- id: st_service_tax_008
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "A registered manufacturing company utilized the services of a Goods Transport Agency (GTA) for road transport in December 2016. Under the Service Tax reverse charge notification, what percentage of the Service Tax liability was the manufacturing company required to pay?"
+  expected_sections: ["Section 68(2) Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: ["30/2012-ST"]
+  expected_conclusion_keywords: ["100%", "service receiver", "full reverse charge"]
+  must_not_say: ["50%", "partial reverse charge", "GTA pays the tax"]
+  must_cite_verbatim: true
+  notes: "Under Notification 30/2012-ST, the service receiver (a specified corporate/registered entity) was liable to pay 100% of the Service Tax under reverse charge for GTA services."
+
+- id: st_service_tax_009
+  category: service_tax
+  subcategory: service_tax
+  difficulty: advanced
+  question: "An individual provided manpower supply services to a corporate entity in October 2016. What portion of the Service Tax liability did the corporate service receiver pay under reverse charge, and what was the applicable total Service Tax rate in effect at that time?"
+  expected_sections: ["Section 68(2) Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: ["30/2012-ST", "7/2015-ST"]
+  expected_conclusion_keywords: ["100%", "full reverse charge", "service receiver pays the entire tax", "15%"]
+  must_not_say: ["75%", "25%", "partial reverse charge", "18%", "12.36%", "14%"]
+  must_cite_verbatim: true
+  notes: "Manpower supply and security services were shifted from partial RCM (75/25) to 100% FULL RCM on the service receiver by Notification 7/2015-ST effective 01-Apr-2015 (amending Notif 30/2012-ST). By October 2016, it was full RCM. Effective ST rate was 15% (14% ST + 0.5% SBC + 0.5% KKC) from 01-Jun-2016 to 30-Jun-2017. Corrected from Gemini's 75/25 error."
+
+- id: st_service_tax_010
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "What was the abatement percentage allowed for Goods Transport Agency (GTA) services under the relevant 2012 notification, and what was the primary condition regarding CENVAT credit?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["26/2012-ST"]
+  expected_conclusion_keywords: ["70% abatement", "taxable value is 30%", "no CENVAT credit", "inputs or capital goods"]
+  must_not_say: ["100% abatement", "CENVAT credit allowed", "30% abatement"]
+  must_cite_verbatim: true
+  notes: "Notification 26/2012-ST provided an abatement of 70% (taxable on 30%) for GTA services, subject to the condition that no CENVAT credit was taken on inputs, capital goods, and input services."
+
+- id: st_service_tax_011
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: "For the service of renting of a motor cab designed to carry passengers in early 2017, what was the abatement percentage allowed, and what portion of the value was subject to Service Tax?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["26/2012-ST"]
+  expected_conclusion_keywords: ["60% abatement", "taxable portion 40%", "renting of motor cab"]
+  must_not_say: ["70% abatement", "taxable portion 30%", "CENVAT fully allowed"]
+  must_cite_verbatim: true
+  notes: "Under Notification 26/2012-ST, renting of a motor cab enjoyed a 60% abatement, meaning Service Tax was levied on 40% of the value, with restrictions on CENVAT credit."
+
+- id: st_service_tax_012
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: "In March 2016, a service provider purchased capital goods for providing taxable services. Under the CENVAT Credit Rules, what was the maximum percentage of CENVAT credit on these capital goods that could be availed in the same financial year?"
+  expected_sections: []
+  expected_rules: ["Rule 4 CENVAT Credit Rules 2004"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["50%", "in the same financial year", "first year"]
+  must_not_say: ["100%", "no credit allowed", "20%"]
+  must_cite_verbatim: true
+  notes: "Under Rule 4(2)(a) of the CENVAT Credit Rules 2004, a maximum of 50% of the CENVAT credit on capital goods could be taken in the financial year of receipt."
+
+- id: st_transition_001
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: intermediate
+  question: "A taxpayer missed the original deadline to file Form GST TRAN-1 to carry forward pre-GST CENVAT credit. In 2022, the Supreme Court in the Filco Trade Centre case directed a special window to reopen the portal. What were the specific dates for this reopened window?"
+  expected_sections: ["Section 140 CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Filco Trade Centre", "01-Oct-2022", "30-Nov-2022", "Supreme Court"]
+  must_not_say: ["31-Dec-2017", "portal permanently closed", "no extension"]
+  must_cite_verbatim: true
+  notes: "The SC directed the reopening of the common portal for filing TRAN-1/TRAN-2 for two months: from October 1, 2022, to November 30, 2022."
+
+- id: st_transition_002
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: advanced
+  question: "An architect received an advance of Rs 1,00,000 in June 2017 and paid 15% Service Tax on it. The architectural service was completed and the final invoice was issued in September 2017. Under the CGST Act transitional provisions, how is the advance portion protected from GST levy?"
+  expected_sections: ["Section 142(11)(b) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 142(11)(b)", "no tax shall be payable under CGST Act", "tax was leviable under the Chapter V of the Finance Act"]
+  must_not_say: ["Section 142(11)(c)", "GST is payable on the full amount", "Service tax is refunded"]
+  must_cite_verbatim: true
+  notes: "Section 142(11)(b) ensures no GST is payable on services to the extent the tax was leviable under the Finance Act 1994 (Service Tax) due to POT rules on advances."
+
+- id: st_transition_003
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: intermediate
+  question: "In August 2017, a taxpayer filed a refund claim for unutilized CENVAT credit related to Service Tax for the quarter ending March 2017. According to the CGST Act, how will this claim be disposed of, and how will the refund be paid if sanctioned?"
+  expected_sections: ["Section 142(3) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 142(3)", "disposed of in accordance with the provisions of existing law", "paid in cash"]
+  must_not_say: ["credited to electronic credit ledger", "rejected as pre-GST", "adjusted against CGST"]
+  must_cite_verbatim: true
+  notes: "Section 142(3) of the CGST Act states that refund claims filed post-appointed day for CENVAT credit under existing law must be disposed of under existing law and paid in cash."
+
+- id: st_transition_004
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: basic
+  question: "A company entered into a continuous supply of service contract that spanned from April 2017 to September 2017. For the portion of services provided prior to July 1, 2017, what tax applied according to the CGST Act transitional provisions?"
+  expected_sections: ["Section 142(11)(b) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 142(11)(b)", "Service Tax", "Chapter V of the Finance Act 1994", "no tax under CGST Act to the extent leviable under existing law"]
+  must_not_say: ["Section 142(10)", "GST applies to pre-July portion", "exempt from all tax"]
+  must_cite_verbatim: true
+  notes: "Corrected from Gemini's Sec 142(10) citation. Sec 142(10) actually states post-appointed-day supplies under pre-GST contracts are liable to GST. The correct citation for the pre-01-Jul-2017 portion remaining under Service Tax is Sec 142(11)(b) — no GST to the extent ST was leviable under Chapter V of Finance Act 1994."
+
+- id: st_transition_005
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: advanced
+  question: "An Input Service Distributor (ISD) received an invoice for services rendered in June 2017, but the physical invoice only reached them in August 2017. Under which sub-section of the CGST transitional provisions can the ISD distribute this credit as CGST?"
+  expected_sections: ["Section 140(7) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 140(7)", "Input Service Distributor shall be eligible", "even if the invoices are received on or after the appointed day"]
+  must_not_say: ["Section 140(1)", "credit lapses", "cannot be distributed"]
+  must_cite_verbatim: true
+  notes: "Section 140(7) specifically addresses the transition of CENVAT credit for an ISD when services were received pre-GST but the invoice is received post-GST."
+
+- id: st_refuse_001
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: basic
+  question: "I paid Rs 50,000 to a consultant for professional fees in 2023. I know GST applies at 18%, but what is the exact TDS rate I need to deduct under Section 194J of the Income Tax Act before making the payment?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "direct tax", "Income Tax Act", "indirect tax corpus"]
+  must_not_say: ["10%", "2%", "Section 194J states"]
+  must_cite_verbatim: false
+  notes: "This is a direct-tax question embedded with a GST reference. The system must refuse to provide Income Tax (TDS) rates as the corpus is restricted to indirect tax."
+
+- id: st_refuse_002
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: basic
+  question: "A freelance software developer has gross receipts of Rs 40 Lakhs. They want to opt for presumptive taxation. Under Section 44ADA of the Income-tax Act, 1961, what percentage of gross receipts is considered as presumed profit?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "direct tax", "Income Tax Act", "cannot answer"]
+  must_not_say: ["50%", "presumptive taxation", "Section 44ADA allows"]
+  must_cite_verbatim: false
+  notes: "Pure Income Tax Act query regarding presumptive taxation. The system must refuse on scope grounds."
+
+- id: st_refuse_003
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: intermediate
+  question: "A company sold the goodwill of its business in the financial year 2022-23. According to the recent amendments to the Income Tax Act, is depreciation allowed on goodwill, and how are the capital gains calculated on its sale?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["outside scope", "direct tax", "Income Tax Act", "capital gains"]
+  must_not_say: ["depreciation is not allowed", "Finance Act 2021", "short term capital asset"]
+  must_cite_verbatim: false
+  notes: "Capital gains and depreciation on goodwill are purely matters of the Income-tax Act 1961. The system must refuse to answer."

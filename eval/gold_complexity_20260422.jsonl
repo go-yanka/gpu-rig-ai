@@ -1,0 +1,170 @@
+{"id": "gst_pos_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 31, "score": 2, "reasons": ["n_entities=2", "states=2", "scenario_words=2", "diff=basic"]}
+{"id": "gst_pos_002", "category": "gst", "complexity": "HIGH", "n_entities": 1, "q_len": 28, "score": 4, "reasons": ["n_entities=1", "states=3", "multi_step_phrase", "scenario_words=2"]}
+{"id": "gst_pos_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 21, "score": 1, "reasons": ["n_entities=1", "states=2", "scenario_words=1", "diff=basic"]}
+{"id": "gst_pos_004", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 20, "score": 2, "reasons": ["n_entities=1", "states=2", "scenario_words=1"]}
+{"id": "gst_pos_005", "category": "gst", "complexity": "HIGH", "n_entities": 4, "q_len": 74, "score": 8, "reasons": ["n_entities=4>=4", "states=2", "scenario_words=4", "q_len=74", "diff=complex"]}
+{"id": "gst_cs_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 27, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "gst_cs_002", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 22, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_itc_001", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 22, "score": -1, "reasons": ["n_entities=1", "scenario_words=2", "diff=basic"]}
+{"id": "gst_itc_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 27, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "gst_itc_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 23, "score": 1, "reasons": ["n_entities=3", "scenario_words=2"]}
+{"id": "gst_itc_004", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_tos_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 25, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_tos_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 14, "score": -1, "reasons": ["n_entities=1", "scenario_words=1", "diff=basic"]}
+{"id": "gst_inv_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_inv_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 24, "score": 0, "reasons": ["n_entities=1", "scenario_words=2"]}
+{"id": "gst_rcm_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_rcm_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 26, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "gst_ref_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 27, "score": 1, "reasons": ["n_entities=2", "scenario_words=2"]}
+{"id": "gst_ewb_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 17, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_exp_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 24, "score": 1, "reasons": ["n_entities=3", "scenario_words=2"]}
+{"id": "cus_val_001", "category": "customs", "complexity": "LOW", "n_entities": 2, "q_len": 14, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "cus_val_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 15, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "cus_cls_001", "category": "customs", "complexity": "LOW", "n_entities": 3, "q_len": 13, "score": 0, "reasons": ["n_entities=3", "diff=basic"]}
+{"id": "cus_wh_001", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 19, "score": 0, "reasons": ["n_entities=1", "scenario_words=1"]}
+{"id": "cus_db_001", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 11, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "cus_db_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 23, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "cus_svb_001", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 12, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "cus_ar_001", "category": "customs", "complexity": "LOW", "n_entities": 2, "q_len": 14, "score": 0, "reasons": ["n_entities=2", "scenario_words=1", "diff=basic"]}
+{"id": "cus_cls_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 54, "score": 3, "reasons": ["n_entities=3", "scenario_words=1", "q_len=54", "diff=complex"]}
+{"id": "cus_ig_001", "category": "customs", "complexity": "LOW", "n_entities": 3, "q_len": 14, "score": 0, "reasons": ["n_entities=3", "diff=basic"]}
+{"id": "exc_val_001", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 12, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "exc_val_002", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 17, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "exc_cen_001", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 19, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "exc_cen_002", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 17, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "exc_man_001", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 11, "score": -3, "reasons": ["n_entities=1", "lookup_pattern", "diff=basic"]}
+{"id": "exc_man_002", "category": "central_excise", "complexity": "MEDIUM", "n_entities": 2, "q_len": 11, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "exc_ssi_001", "category": "central_excise", "complexity": "LOW", "n_entities": 1, "q_len": 14, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "exc_ssi_002", "category": "central_excise", "complexity": "MEDIUM", "n_entities": 1, "q_len": 16, "score": 1, "reasons": ["n_entities=1", "scenario_words=1", "diff=complex"]}
+{"id": "st_val_001", "category": "service_tax", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "st_nl_001", "category": "service_tax", "complexity": "LOW", "n_entities": 2, "q_len": 11, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "st_exp_001", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 2, "q_len": 19, "score": 2, "reasons": ["n_entities=2", "diff=complex"]}
+{"id": "st_pos_001", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 19, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_rcm_001", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 2, "q_len": 18, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "st_lev_001", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 15, "score": -3, "reasons": ["n_entities=1", "scenario_words=1", "lookup_pattern", "diff=basic"]}
+{"id": "oth_ap_001", "category": "others", "complexity": "LOW", "n_entities": 2, "q_len": 13, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "oth_ap_002", "category": "others", "complexity": "LOW", "n_entities": 1, "q_len": 18, "score": -3, "reasons": ["n_entities=1", "lookup_pattern", "diff=basic"]}
+{"id": "oth_ap_003", "category": "others", "complexity": "LOW", "n_entities": 1, "q_len": 16, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "oth_gaar_001", "category": "others", "complexity": "LOW", "n_entities": 1, "q_len": 18, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "oth_pen_001", "category": "others", "complexity": "HIGH", "n_entities": 4, "q_len": 58, "score": 5, "reasons": ["n_entities=4>=4", "scenario_words=1", "q_len=58", "diff=complex"]}
+{"id": "oth_cls_001", "category": "others", "complexity": "MEDIUM", "n_entities": 2, "q_len": 27, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "gst_rate_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 11, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_sac_001", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 18, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "gst_exempt_001", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 11, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "gst_cess_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 11, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "customs_rate_001", "category": "customs", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "gst_rate_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 11, "score": -3, "reasons": ["n_entities=1", "lookup_pattern", "diff=basic"]}
+{"id": "gst_hsn_001", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 11, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "gst_sac_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 17, "score": -3, "reasons": ["n_entities=1", "lookup_pattern", "diff=basic"]}
+{"id": "gst_notif_001", "category": "gst", "complexity": "LOW", "n_entities": 2, "q_len": 16, "score": 0, "reasons": ["n_entities=2", "diff=basic"]}
+{"id": "customs_rate_002", "category": "customs", "complexity": "LOW", "n_entities": 3, "q_len": 16, "score": 0, "reasons": ["n_entities=3", "diff=basic"]}
+{"id": "gst_rate_003", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 13, "score": -3, "reasons": ["n_entities=1", "lookup_pattern", "diff=basic"]}
+{"id": "gst_cess_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 13, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "gst_ccy_supply_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 32, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "customs_notif_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 19, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "gst_notif_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 26, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "gst_inverted_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 40, "score": 2, "reasons": ["n_entities=2", "scenario_words=2", "q_len=40"]}
+{"id": "gst_sac_003", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 17, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "gst_exempt_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 33, "score": 0, "reasons": ["n_entities=1", "scenario_words=2"]}
+{"id": "customs_rate_003", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 20, "score": 1, "reasons": ["n_entities=2", "scenario_words=1"]}
+{"id": "gst_hsn_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 25, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "gst_rate_004", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 24, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "gst_inverted_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 49, "score": 3, "reasons": ["n_entities=2", "q_len=49", "diff=complex"]}
+{"id": "gst_ccy_supply_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 42, "score": 3, "reasons": ["n_entities=2", "q_len=42", "diff=complex"]}
+{"id": "customs_rate_004", "category": "customs", "complexity": "HIGH", "n_entities": 4, "q_len": 44, "score": 8, "reasons": ["n_entities=4>=4", "state=1", "multi_step_phrase", "q_len=44", "diff=complex"]}
+{"id": "gst_notif_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 44, "score": 3, "reasons": ["n_entities=2", "q_len=44", "diff=complex"]}
+{"id": "gst_refuse_001", "category": "gst", "complexity": "LOW", "n_entities": 0, "q_len": 19, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "customs_refuse_002", "category": "customs", "complexity": "LOW", "n_entities": 0, "q_len": 14, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "gst_refuse_003", "category": "gst", "complexity": "LOW", "n_entities": 0, "q_len": 18, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "others_refuse_004", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 20, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "others_refuse_005", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 18, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "gst_refuse_006", "category": "gst", "complexity": "LOW", "n_entities": 0, "q_len": 5, "score": -3, "reasons": ["n_entities=0", "lookup_pattern", "diff=basic"]}
+{"id": "customs_refuse_007", "category": "customs", "complexity": "LOW", "n_entities": 0, "q_len": 6, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "gst_refuse_008", "category": "gst", "complexity": "LOW", "n_entities": 0, "q_len": 14, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "others_refuse_009", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 18, "score": 0, "reasons": ["n_entities=0", "state=1", "diff=basic"]}
+{"id": "others_refuse_010", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 12, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "gst_complex_001", "category": "gst", "complexity": "HIGH", "n_entities": 2, "q_len": 54, "score": 5, "reasons": ["n_entities=2", "multi_step_phrase", "scenario_words=1", "q_len=54", "diff=complex"]}
+{"id": "gst_complex_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 50, "score": 3, "reasons": ["n_entities=3", "q_len=50", "diff=complex"]}
+{"id": "gst_complex_003", "category": "gst", "complexity": "HIGH", "n_entities": 3, "q_len": 37, "score": 4, "reasons": ["n_entities=3", "states=2", "scenario_words=1", "diff=complex"]}
+{"id": "gst_complex_004", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 35, "score": 2, "reasons": ["n_entities=2", "diff=complex"]}
+{"id": "gst_complex_005", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 49, "score": 3, "reasons": ["n_entities=2", "scenario_words=1", "q_len=49", "diff=complex"]}
+{"id": "gst_complex_006", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 53, "score": 3, "reasons": ["n_entities=2", "q_len=53", "diff=complex"]}
+{"id": "gst_complex_007", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 44, "score": 3, "reasons": ["n_entities=2", "scenario_words=2", "q_len=44", "diff=complex"]}
+{"id": "gst_complex_008", "category": "gst", "complexity": "HIGH", "n_entities": 3, "q_len": 46, "score": 5, "reasons": ["n_entities=3", "multi_step_phrase", "q_len=46", "diff=complex"]}
+{"id": "gst_complex_009", "category": "gst", "complexity": "HIGH", "n_entities": 3, "q_len": 50, "score": 7, "reasons": ["n_entities=3", "states=2", "multi_step_phrase", "q_len=50", "diff=complex"]}
+{"id": "gst_complex_010", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 59, "score": 3, "reasons": ["n_entities=3", "scenario_words=1", "q_len=59", "diff=complex"]}
+{"id": "gst_complex_011", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 38, "score": 2, "reasons": ["n_entities=3", "diff=complex"]}
+{"id": "gst_complex_012", "category": "gst", "complexity": "HIGH", "n_entities": 4, "q_len": 50, "score": 5, "reasons": ["n_entities=4>=4", "scenario_words=1", "q_len=50", "diff=complex"]}
+{"id": "gst_complex_013", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 51, "score": 3, "reasons": ["n_entities=2", "q_len=51", "diff=complex"]}
+{"id": "gst_complex_014", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 51, "score": 3, "reasons": ["n_entities=3", "scenario_words=1", "q_len=51", "diff=complex"]}
+{"id": "gst_complex_015", "category": "gst", "complexity": "MEDIUM", "n_entities": 3, "q_len": 39, "score": 2, "reasons": ["n_entities=3", "scenario_words=1", "diff=complex"]}
+{"id": "customs_complex_016", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 48, "score": 3, "reasons": ["n_entities=3", "scenario_words=1", "q_len=48", "diff=complex"]}
+{"id": "customs_complex_017", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 49, "score": 3, "reasons": ["n_entities=2", "q_len=49", "diff=complex"]}
+{"id": "customs_complex_018", "category": "customs", "complexity": "HIGH", "n_entities": 2, "q_len": 58, "score": 4, "reasons": ["n_entities=2", "scenario_words=3", "q_len=58", "diff=complex"]}
+{"id": "customs_complex_019", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 44, "score": 3, "reasons": ["n_entities=3", "scenario_words=2", "q_len=44", "diff=complex"]}
+{"id": "customs_complex_020", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 46, "score": 3, "reasons": ["n_entities=2", "scenario_words=1", "q_len=46", "diff=complex"]}
+{"id": "central_excise_complex_021", "category": "central_excise", "complexity": "MEDIUM", "n_entities": 2, "q_len": 46, "score": 3, "reasons": ["n_entities=2", "scenario_words=2", "q_len=46", "diff=complex"]}
+{"id": "central_excise_complex_022", "category": "central_excise", "complexity": "MEDIUM", "n_entities": 1, "q_len": 48, "score": 2, "reasons": ["n_entities=1", "scenario_words=2", "q_len=48", "diff=complex"]}
+{"id": "service_tax_complex_023", "category": "service_tax", "complexity": "HIGH", "n_entities": 4, "q_len": 53, "score": 6, "reasons": ["n_entities=4>=4", "state=1", "scenario_words=1", "q_len=53", "diff=complex"]}
+{"id": "service_tax_complex_024", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 2, "q_len": 51, "score": 3, "reasons": ["n_entities=2", "q_len=51", "diff=complex"]}
+{"id": "others_complex_025", "category": "others", "complexity": "MEDIUM", "n_entities": 2, "q_len": 50, "score": 3, "reasons": ["n_entities=2", "q_len=50", "diff=complex"]}
+{"id": "st_service_tax_001", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 38, "score": 0, "reasons": ["n_entities=1", "state=1", "diff=basic"]}
+{"id": "st_service_tax_002", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 1, "q_len": 38, "score": 1, "reasons": ["n_entities=1", "state=1"]}
+{"id": "st_service_tax_003", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 1, "q_len": 32, "score": 1, "reasons": ["n_entities=1", "state=1"]}
+{"id": "st_service_tax_004", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 28, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_service_tax_005", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 1, "q_len": 41, "score": 1, "reasons": ["n_entities=1", "q_len=41"]}
+{"id": "st_service_tax_006", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 2, "q_len": 38, "score": 3, "reasons": ["n_entities=2", "multi_step_phrase"]}
+{"id": "st_service_tax_007", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 31, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_service_tax_008", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 2, "q_len": 40, "score": 1, "reasons": ["n_entities=2", "q_len=40", "diff=basic"]}
+{"id": "st_service_tax_009", "category": "service_tax", "complexity": "MEDIUM", "n_entities": 3, "q_len": 43, "score": 2, "reasons": ["n_entities=3", "q_len=43"]}
+{"id": "st_service_tax_010", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 26, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_service_tax_011", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 33, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "st_service_tax_012", "category": "service_tax", "complexity": "LOW", "n_entities": 1, "q_len": 39, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_transition_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 45, "score": 1, "reasons": ["n_entities=1", "q_len=45"]}
+{"id": "st_transition_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 47, "score": 1, "reasons": ["n_entities=1", "q_len=47"]}
+{"id": "st_transition_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 44, "score": 2, "reasons": ["n_entities=1", "scenario_words=3", "q_len=44"]}
+{"id": "st_transition_004", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 39, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "st_transition_005", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 40, "score": 1, "reasons": ["n_entities=1", "scenario_words=1", "q_len=40"]}
+{"id": "st_refuse_001", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 41, "score": 0, "reasons": ["n_entities=0", "q_len=41", "diff=basic"]}
+{"id": "st_refuse_002", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 36, "score": -1, "reasons": ["n_entities=0", "diff=basic"]}
+{"id": "st_refuse_003", "category": "others", "complexity": "LOW", "n_entities": 0, "q_len": 38, "score": 0, "reasons": ["n_entities=0"]}
+{"id": "cust_customs_valuation_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 41, "score": 2, "reasons": ["n_entities=3", "q_len=41"]}
+{"id": "cust_customs_valuation_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 38, "score": 1, "reasons": ["n_entities=2", "scenario_words=1"]}
+{"id": "cust_customs_valuation_003", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 27, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "cust_customs_valuation_004", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 43, "score": 2, "reasons": ["n_entities=2", "q_len=43"]}
+{"id": "cust_customs_valuation_005", "category": "customs", "complexity": "MEDIUM", "n_entities": 6, "q_len": 32, "score": 2, "reasons": ["n_entities=6>=4", "scenario_words=1", "diff=basic"]}
+{"id": "cust_customs_classification_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 1, "q_len": 40, "score": 1, "reasons": ["n_entities=1", "q_len=40"]}
+{"id": "cust_customs_classification_002", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 35, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "cust_customs_classification_003", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 31, "score": -1, "reasons": ["n_entities=1", "diff=basic"]}
+{"id": "cust_customs_classification_004", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 27, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "cust_customs_drawback_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 1, "q_len": 46, "score": 1, "reasons": ["n_entities=1", "scenario_words=2", "q_len=46"]}
+{"id": "cust_customs_drawback_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 37, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "cust_customs_drawback_003", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 38, "score": 1, "reasons": ["n_entities=2", "scenario_words=1"]}
+{"id": "cust_customs_drawback_004", "category": "customs", "complexity": "MEDIUM", "n_entities": 3, "q_len": 38, "score": 1, "reasons": ["n_entities=3"]}
+{"id": "cust_customs_warehouse_001", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 32, "score": -1, "reasons": ["n_entities=1", "scenario_words=2", "diff=basic"]}
+{"id": "cust_customs_warehouse_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 40, "score": 2, "reasons": ["n_entities=2", "q_len=40"]}
+{"id": "cust_customs_warehouse_003", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 30, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "cust_customs_adviolation_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 1, "q_len": 50, "score": 1, "reasons": ["n_entities=1", "q_len=50"]}
+{"id": "cust_customs_adviolation_002", "category": "customs", "complexity": "MEDIUM", "n_entities": 1, "q_len": 41, "score": 1, "reasons": ["n_entities=1", "q_len=41"]}
+{"id": "cust_customs_exemption_001", "category": "customs", "complexity": "MEDIUM", "n_entities": 2, "q_len": 42, "score": 2, "reasons": ["n_entities=2", "q_len=42"]}
+{"id": "cust_customs_exemption_002", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 32, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "oth_appeals_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 57, "score": 1, "reasons": ["n_entities=1", "q_len=57"]}
+{"id": "oth_appeals_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 40, "score": 1, "reasons": ["n_entities=1", "q_len=40"]}
+{"id": "oth_appeals_003", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 46, "score": 0, "reasons": ["n_entities=1", "q_len=46", "diff=basic"]}
+{"id": "oth_appeals_004", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 38, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "oth_appeals_005", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 46, "score": 0, "reasons": ["n_entities=1", "q_len=46", "diff=basic"]}
+{"id": "oth_penalty_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 45, "score": 1, "reasons": ["n_entities=1", "q_len=45"]}
+{"id": "oth_penalty_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 44, "score": 0, "reasons": ["n_entities=1", "q_len=44", "diff=basic"]}
+{"id": "oth_penalty_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 45, "score": 1, "reasons": ["n_entities=1", "q_len=45"]}
+{"id": "oth_penalty_004", "category": "customs", "complexity": "LOW", "n_entities": 1, "q_len": 37, "score": 0, "reasons": ["n_entities=1"]}
+{"id": "oth_advance_ruling_001", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 50, "score": 0, "reasons": ["n_entities=1", "q_len=50", "diff=basic"]}
+{"id": "oth_advance_ruling_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 45, "score": 1, "reasons": ["n_entities=1", "scenario_words=1", "q_len=45"]}
+{"id": "oth_advance_ruling_003", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 50, "score": 2, "reasons": ["n_entities=2", "scenario_words=1", "q_len=50"]}
+{"id": "oth_advance_ruling_004", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 43, "score": 0, "reasons": ["n_entities=1", "scenario_words=1", "q_len=43", "diff=basic"]}
+{"id": "oth_anti_evasion_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 47, "score": 1, "reasons": ["n_entities=1", "scenario_words=1", "q_len=47"]}
+{"id": "oth_anti_evasion_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 51, "score": 1, "reasons": ["n_entities=1", "q_len=51"]}
+{"id": "oth_anti_evasion_003", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 42, "score": 0, "reasons": ["n_entities=1", "scenario_words=2", "q_len=42", "diff=basic"]}
+{"id": "oth_offences_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 36, "score": 1, "reasons": ["n_entities=2"]}
+{"id": "oth_offences_002", "category": "gst", "complexity": "MEDIUM", "n_entities": 1, "q_len": 41, "score": 1, "reasons": ["n_entities=1", "scenario_words=1", "q_len=41"]}
+{"id": "oth_interest_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 51, "score": 2, "reasons": ["n_entities=2", "q_len=51"]}
+{"id": "oth_interest_002", "category": "gst", "complexity": "LOW", "n_entities": 1, "q_len": 42, "score": 0, "reasons": ["n_entities=1", "scenario_words=1", "q_len=42", "diff=basic"]}

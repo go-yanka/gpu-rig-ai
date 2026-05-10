@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-04-22T01:20:50.725750Z",
+    "api": "http://192.168.1.107:9500",
+    "judge_url": null,
+    "judge_model": null,
+    "workers": 2,
+    "gold_set": "D:\\_gpu_rig_ai\\eval\\gold_set.yaml",
+    "gold_version": 1,
+    "n_items": 3,
+    "elapsed_s": 91.87
+  },
+  "aggregate": {
+    "total_points": 0.0,
+    "max_points": 17.0,
+    "pct_score": 0.0,
+    "n_items": 3,
+    "errors": 0,
+    "latency_ms_median": 61306,
+    "latency_ms_p95": 63414,
+    "latency_ms_max": 63414,
+    "by_category": {
+      "gst": {
+        "count": 3,
+        "points": 0.0,
+        "max": 17.0,
+        "pct": 0.0,
+        "errors": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "gst_pos_001",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "basic",
+      "latency_ms": 30549,
+      "error": null,
+      "sections_expected": [
+        "10(1)(a) IGST",
+        "Section 10 IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Karnataka",
+        "IGST",
+        "inter-state"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 6.0,
+      "answer_chars": 0,
+      "question": "A registered supplier in Maharashtra sells goods to a registered buyer in Karnataka. Goods are shipped directly from Maharashtra to Karnataka. What is the place of supply and which tax applies?",
+      "answer_preview": "",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_002",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "intermediate",
+      "latency_ms": 63414,
+      "error": null,
+      "sections_expected": [
+        "10(1)(b) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Delhi",
+        "bill-to",
+        "third person",
+        "IGST"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 6.0,
+      "answer_chars": 0,
+      "question": "A buyer in Delhi instructs a Mumbai supplier to deliver goods directly to the buyer's customer in Chennai (bill-to-ship-to). What is the place of supply for each leg?",
+      "answer_preview": "",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_003",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "basic",
+      "latency_ms": 61306,
+      "error": null,
+      "sections_expected": [
+        "12(2) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Gujarat",
+        "location of recipient",
+        "IGST"
+      ],
+      "keywords_matched": [],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": null,
+      "points": 0.0,
+      "max_points": 5.0,
+      "answer_chars": 0,
+      "question": "Services of a chartered accountant in Pune are rendered to a registered client in Gujarat. What is the place of supply?",
+      "answer_preview": "",
+      "raw_error": null
+    }
+  ]
+}

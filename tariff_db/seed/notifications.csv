@@ -1,0 +1,6 @@
+notif_id,series,number,year,issued_on,effective_from,superseded_by,title,source_doc_id
+01/2017-CT(R),CT(R),1,2017,2017-06-28,2017-07-01,,"CGST rate on supply of goods (Schedules I-VI)",cbic/gst/notifications/2017/01-2017-CT-Rate.pdf
+02/2017-CT(R),CT(R),2,2017,2017-06-28,2017-07-01,,"CGST exemption on supply of goods (nil-rated)",cbic/gst/notifications/2017/02-2017-CT-Rate.pdf
+50/2017-Cus,Cus,50,2017,2017-06-30,2017-07-01,,"Effective rates of Basic Customs Duty on imports (consolidated)",cbic/customs/notifications/2017/csnt50-2017.pdf
+13/2017-CT(R),CT(R),13,2017,2017-06-28,2017-07-01,,"Categories of supply under reverse charge (RCM)",cbic/gst/notifications/2017/13-2017-CT-Rate.pdf
+05/2017-CT(R),CT(R),5,2017,2017-06-28,2017-07-01,,"Inverted duty structure - refund restriction on certain goods",cbic/gst/notifications/2017/05-2017-CT-Rate.pdf

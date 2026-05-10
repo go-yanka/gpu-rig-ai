@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Tax Portal </title>
+  <meta name="description" content="Description for CBICWebPortal"/>
+  <meta name="google" content="notranslate"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <meta name="theme-color" content="#000000"/>
+
+  <base href="/"/>
+  <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="manifest" href="manifest.webapp"/>
+  <link rel="stylesheet" href="content/css/loading.css"/>
+  <link href="content/css/suneditor.min.css" rel="stylesheet">
+  <script type="text/javascript" src="https://anuvadak-wms.reverieinc.com/js/v1/anuvadak.min.js"></script>
+  <script type="text/javascript"> anuvadak({ project: { key: "026c41596ed1acc331a4a166b21943c5878e440e" } }); </script>
+<link rel="stylesheet" href="styles.css"></head>
+
+<body>
+  <!-- <div id="menuLanguages" class="NALOC">
+    <b class="NALOC">Select Language: </b>
+    <button class="NALOC" 
+    onclick="translateWebPage('English');">English</button>
+    <button class="NALOC" 
+    onclick="translateWebPage('Hindi');">Hindi</button>
+    <button class="NALOC" 
+    onclick="translateWebPage('Marathi');">Marathi</button>
+    <button class="NALOC" 
+    onclick="translateWebPage('Telugu');">Telugu</button>
+     </div> -->
+
+  <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+  <!--[if lt IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve
+        your experience.
+      </p>
+    <![endif]-->
+  <cbic-main>
+    <div class="app-loading">
+      <div class="load-9">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    <div class="app-loading">
+
+    </div>
+    </div>
+  </cbic-main>
+  <noscript>
+    <h1>You must enable JavaScript to view this page.</h1>
+  </noscript>
+  <!-- <script type="text/javascript" 
+  src="https://gistlangserver.in/Content/WSLToolbar/Scripts/GoTranslateWebLocalizer/latest/static/gotwl.min.js"></script>
+
+  <script type="text/javascript">
+     window.onload=function(){showSnippetBar();}
+
+  </script> -->
+  <script type="text/javascript">
+    //Navbar Collapse on Mobile View
+    const navLinks = document.querySelectorAll('.sm-hide')
+    const menuToggle = document.getElementById('navbarSupportedContent')
+    const bsCollapse = new bootstrap.Collapse(menuToggle, { toggle: false })
+    navLinks.forEach((l) => {
+      l.addEventListener('click', () => { bsCollapse.toggle() })
+    });
+  </script>
+<script src="runtime.js" defer></script><script src="polyfills.js" defer></script><script src="scripts.js" defer></script><script src="vendor.js" defer></script><script src="main.js" defer></script></body>
+
+</html>

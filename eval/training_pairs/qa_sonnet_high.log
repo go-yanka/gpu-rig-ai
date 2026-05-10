@@ -1,0 +1,79 @@
+D:\_gpu_rig_ai\training\qa_pairs_claude.py:1: SyntaxWarning: invalid escape sequence '\_'
+  """
+[load] 213 chunk records
+[flat] 426 (chunk, question) pairs
+[1/426] ok=1 parse_err=0 call_err=0  rate=0.09/s  eta=82.8m
+[2/426] ok=2 parse_err=0 call_err=0  rate=0.17/s  eta=42.7m
+[3/426] ok=3 parse_err=0 call_err=0  rate=0.25/s  eta=28.5m
+[4/426] ok=4 parse_err=0 call_err=0  rate=0.28/s  eta=25.3m
+[5/426] ok=5 parse_err=0 call_err=0  rate=0.21/s  eta=33.2m
+[10/426] ok=10 parse_err=0 call_err=0  rate=0.26/s  eta=26.8m
+[20/426] ok=20 parse_err=0 call_err=0  rate=0.27/s  eta=24.7m
+[30/426] ok=30 parse_err=0 call_err=0  rate=0.28/s  eta=23.4m
+[40/426] ok=40 parse_err=0 call_err=0  rate=0.29/s  eta=21.8m
+[50/426] ok=50 parse_err=0 call_err=0  rate=0.29/s  eta=21.7m
+[60/426] ok=60 parse_err=0 call_err=0  rate=0.29/s  eta=21.0m
+[70/426] ok=70 parse_err=0 call_err=0  rate=0.29/s  eta=20.4m
+[80/426] ok=80 parse_err=0 call_err=0  rate=0.29/s  eta=20.1m
+[90/426] ok=90 parse_err=0 call_err=0  rate=0.28/s  eta=20.3m
+[100/426] ok=100 parse_err=0 call_err=0  rate=0.27/s  eta=20.1m
+[110/426] ok=110 parse_err=0 call_err=0  rate=0.26/s  eta=20.6m
+[120/426] ok=120 parse_err=0 call_err=0  rate=0.26/s  eta=19.9m
+[130/426] ok=130 parse_err=0 call_err=0  rate=0.25/s  eta=19.4m
+[140/426] ok=140 parse_err=0 call_err=0  rate=0.26/s  eta=18.6m
+[150/426] ok=150 parse_err=0 call_err=0  rate=0.25/s  eta=18.3m
+[160/426] ok=160 parse_err=0 call_err=0  rate=0.25/s  eta=17.7m
+[170/426] ok=170 parse_err=0 call_err=0  rate=0.25/s  eta=17.1m
+[180/426] ok=180 parse_err=0 call_err=0  rate=0.25/s  eta=16.7m
+[190/426] ok=190 parse_err=0 call_err=0  rate=0.24/s  eta=16.1m
+[200/426] ok=200 parse_err=0 call_err=0  rate=0.25/s  eta=15.4m
+[210/426] ok=210 parse_err=0 call_err=0  rate=0.25/s  eta=14.6m
+[220/426] ok=220 parse_err=0 call_err=0  rate=0.25/s  eta=13.9m
+[230/426] ok=230 parse_err=0 call_err=0  rate=0.25/s  eta=13.2m
+[240/426] ok=240 parse_err=0 call_err=0  rate=0.25/s  eta=12.5m
+[250/426] ok=250 parse_err=0 call_err=0  rate=0.25/s  eta=11.7m
+[260/426] ok=260 parse_err=0 call_err=0  rate=0.25/s  eta=11.0m
+[270/426] ok=270 parse_err=0 call_err=0  rate=0.25/s  eta=10.2m
+[280/426] ok=280 parse_err=0 call_err=0  rate=0.25/s  eta=9.6m
+[290/426] ok=290 parse_err=0 call_err=0  rate=0.26/s  eta=8.9m
+[300/426] ok=300 parse_err=0 call_err=0  rate=0.26/s  eta=8.1m
+[310/426] ok=310 parse_err=0 call_err=0  rate=0.26/s  eta=7.4m
+[320/426] ok=320 parse_err=0 call_err=0  rate=0.26/s  eta=6.7m
+[330/426] ok=330 parse_err=0 call_err=0  rate=0.26/s  eta=6.0m
+[340/426] ok=340 parse_err=0 call_err=0  rate=0.27/s  eta=5.4m
+[350/426] ok=350 parse_err=0 call_err=0  rate=0.27/s  eta=4.7m
+[360/426] ok=360 parse_err=0 call_err=0  rate=0.27/s  eta=4.1m
+[370/426] ok=370 parse_err=0 call_err=0  rate=0.27/s  eta=3.5m
+[380/426] ok=380 parse_err=0 call_err=0  rate=0.27/s  eta=2.9m
+[390/426] ok=390 parse_err=0 call_err=0  rate=0.27/s  eta=2.2m
+[400/426] ok=400 parse_err=0 call_err=0  rate=0.27/s  eta=1.6m
+[410/426] ok=410 parse_err=0 call_err=0  rate=0.27/s  eta=1.0m
+[420/426] ok=420 parse_err=0 call_err=0  rate=0.27/s  eta=0.4m
+
+DONE: ok=426 parse_err=0 call_err=0  elapsed=1578s
+
+=== SUMMARY ===
+{
+  "n_total": 426,
+  "n_graded": 426,
+  "n_parse_fail": 0,
+  "answerable_pct": 77.7,
+  "realistic_pct": 98.4,
+  "specific_pct": 89.9,
+  "all_three_pct": 76.1,
+  "complexity": {
+    "medium": 18,
+    "high": 408
+  },
+  "complexity_pct": {
+    "medium": 4.2,
+    "high": 95.8
+  },
+  "by_category": {
+    "customs": 178,
+    "gst": 124,
+    "central_excise": 80,
+    "others": 22,
+    "service_tax": 22
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "n_total": 426,
+  "n_graded": 426,
+  "n_parse_fail": 0,
+  "answerable_pct": 77.7,
+  "realistic_pct": 98.4,
+  "specific_pct": 89.9,
+  "all_three_pct": 76.1,
+  "complexity": {
+    "medium": 18,
+    "high": 408
+  },
+  "complexity_pct": {
+    "medium": 4.2,
+    "high": 95.8
+  },
+  "by_category": {
+    "customs": 178,
+    "gst": 124,
+    "central_excise": 80,
+    "others": 22,
+    "service_tax": 22
+  }
+}

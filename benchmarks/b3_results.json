@@ -1,0 +1,8 @@
+{
+  "pass": false,
+  "model_path": null,
+  "load_succeeded": false,
+  "tok_per_sec": null,
+  "vram_used_gb": null,
+  "notes": "BLOCKER: No qwen3-8B GGUF present on rig. /opt/ai-models/ contains qwen3-14b-q4_k_m.gguf (8.4G, in use on GPU 2 port 9082), qwen3.5-4b-q4_k_m.gguf (2.6G), qwen3.5-9b-q4_k_m.gguf (5.3G), plus non-qwen3 models. No qwen3-8b* file exists. Per task instructions, large models are NOT auto-downloaded; reporting blocker. Benchmark not executed. Proposed downloads (user must authorize): (A) huggingface-cli download bartowski/Qwen3-8B-GGUF Qwen3-8B-Q4_K_M.gguf --local-dir /opt/ai-models/ --local-dir-use-symlinks False  (~4.7G); or (B) skip qwen3-8B and test the already-present qwen3.5-9b-q4_k_m.gguf (5.3G, tight for 8GB VRAM at -ngl 99 -c 8192 — may need -ngl partial) or fallback qwen3.5-4b-q4_k_m.gguf (2.6G, safe fit). Recommendation: try qwen3.5-9b first on GPU 3 with -ngl 99 -c 4096 before downloading; if OOM, drop to qwen3.5-4b. GPU 3 idle-check and Vulkan load attempt NOT performed pending user decision on which model to bench."
+}

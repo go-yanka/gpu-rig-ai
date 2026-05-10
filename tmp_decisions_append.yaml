@@ -1,0 +1,45 @@
+
+# ---------------------------------------------------------------------------
+# 2026-04-25 (later 3) — pre-flight gates for full 14,925-doc re-ingest
+# ---------------------------------------------------------------------------
+preflight_full_reingest:
+  blockers_must_resolve_before_kickoff: 7
+  status: NOT_READY  # Set 5 panel showed G1 raw 0.84 / G2 broken / G3 broken / G4 24% refusal
+
+  defect_D_shared_pdf:
+    description: "CGST-Rules-2017-Part-B-Forms.pdf referenced by ~50 form doc_ids; chunker re-reads whole PDF per doc_id, dedup zeros all but first. Drags raw G1 from ~0.96 to ~0.84."
+    fix: "patch chunker_v2 to scope offsets per doc_id; pre-flight count of shared-PDF docs in 14925 corpus mandatory"
+
+  reranker_integration:
+    model: "/opt/indian-legal-ai/models/bge-reranker-v2-m3-Q4_K_M.gguf"
+    motivation: "G4 separability: gold band [0.51-0.82] overlaps adversarial [0.42-0.74]. Dense-only retrieve cannot distinguish."
+    decision: "wire into /retrieve, re-tune theta_v2.json post-rerank scoring"
+    blocking: ["gate_G4", "theta_v2_feasibility"]
+
+  embed_pool_validation:
+    current_codified: "EMBED_GPUS=4,5,6"
+    observed_2026_04_25: "under gate load GPU 4=99%, GPU 5/6=0% — pool not concurrency-balanced"
+    required_benches:
+      - "solo Vulkan BGE-M3 throughput on GPUs 0, 1, 3 individually (post-reset)"
+      - "4-card pools {0,4,5,6} {1,4,5,6} {3,4,5,6}"
+      - "verify embedder_direct.py worker fan-out actually round-robins under burst"
+    accept_if: "throughput >= 22 ch/s stable, zero VK_DEVICE_LOST in 30-min under-load run"
+
+  gate_concurrency:
+    codified_lesson: "4 gates parallel against single API → /retrieve degrades 2.4s → 9s, /query times out at 60s"
+    mitigation_required_before_production: "EITHER serialize gate panel OR stand up second API instance bound to separate embed pool"
+
+  phase6_patches_required:
+    summary_writer: "summary.json didn't fire on last 200-doc test — fix"
+    hard_cap_per_chunk: 12
+    observed_outliers:
+      - "cbic-allied-act-dtls:1000201 emitted 48 qwen3 pairs"
+      - "cbic-others-document-msts:1000038 emitted 49 qwen3 pairs"
+
+  gate_code_patches_2026_04_25:
+    g3_levenshtein:
+      change: "accept singular gold keys (expected_chunk_id/expected_doc_id/expected_section) in addition to plural"
+      reason: "Set 5 hand-authored gold uses singular; full pipeline gold uses plural"
+    g4_adversarial:
+      change: "API endpoint flipped /query -> /retrieve"
+      reason: "/query overloaded under concurrent gate load; G4 only needs top retrieve score vs theta"

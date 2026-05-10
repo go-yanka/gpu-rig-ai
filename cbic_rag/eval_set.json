@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "notes": "CBIC RAG eval set. Each item: query + expected doc_id anchors. A retrieval is considered a hit if any expected_doc_id appears in top-k retrieved. Keep this list growing.",
+  "queries": [
+    {"id": "q001", "query": "What is the GST rate on cement?", "category": "gst", "expected_terms": ["cement", "28%", "Schedule IV"]},
+    {"id": "q002", "query": "HSN code for pharmaceutical products", "category": "gst", "expected_terms": ["3004", "pharmaceutical", "HSN"]},
+    {"id": "q003", "query": "Input tax credit on motor vehicles used for business", "category": "gst", "expected_terms": ["section 17(5)", "motor vehicle", "blocked credit"]},
+    {"id": "q004", "query": "Reverse charge mechanism for GTA services", "category": "gst", "expected_terms": ["GTA", "goods transport agency", "reverse charge"]},
+    {"id": "q005", "query": "E-way bill threshold for inter-state movement", "category": "gst", "expected_terms": ["e-way", "50,000", "inter-state"]},
+    {"id": "q006", "query": "GST registration limit for service providers", "category": "gst", "expected_terms": ["20 lakh", "registration", "aggregate turnover"]},
+    {"id": "q007", "query": "Time of supply for continuous supply of services", "category": "gst", "expected_terms": ["time of supply", "continuous supply", "section 13"]},
+    {"id": "q008", "query": "Place of supply for online information and database access services OIDAR", "category": "gst", "expected_terms": ["OIDAR", "place of supply", "online information"]},
+    {"id": "q009", "query": "Refund of unutilised ITC on account of inverted duty structure", "category": "gst", "expected_terms": ["inverted duty", "refund", "unutilised ITC"]},
+    {"id": "q010", "query": "Composition scheme eligibility and tax rate for restaurants", "category": "gst", "expected_terms": ["composition", "restaurant", "5%"]},
+    {"id": "q011", "query": "TDS under GST Section 51", "category": "gst", "expected_terms": ["TDS", "section 51", "deduction"]},
+    {"id": "q012", "query": "TCS by e-commerce operator", "category": "gst", "expected_terms": ["TCS", "section 52", "e-commerce"]},
+    {"id": "q013", "query": "Value of supply when consideration not wholly in money", "category": "gst", "expected_terms": ["value of supply", "section 15", "consideration"]},
+    {"id": "q014", "query": "Penalty for non-issuance of invoice under GST", "category": "gst", "expected_terms": ["penalty", "invoice", "section 122"]},
+    {"id": "q015", "query": "ITC claim time limit under GST", "category": "gst", "expected_terms": ["time limit", "ITC", "section 16(4)"]},
+
+    {"id": "q016", "query": "Basic customs duty on crude petroleum oil", "category": "customs", "expected_terms": ["BCD", "crude", "petroleum"]},
+    {"id": "q017", "query": "Anti-dumping duty on Chinese solar cells", "category": "customs", "expected_terms": ["anti-dumping", "solar", "China"]},
+    {"id": "q018", "query": "Duty drawback scheme for exporters", "category": "customs", "expected_terms": ["drawback", "exporter", "AIR"]},
+    {"id": "q019", "query": "Import duty exemption for life-saving drugs", "category": "customs", "expected_terms": ["life-saving", "drug", "exemption"]},
+    {"id": "q020", "query": "Customs duty on gold imports by passenger", "category": "customs", "expected_terms": ["gold", "passenger", "baggage"]},
+    {"id": "q021", "query": "Advance authorisation scheme under FTP", "category": "customs", "expected_terms": ["advance authorisation", "FTP", "duty-free"]},
+    {"id": "q022", "query": "EPCG scheme for capital goods import", "category": "customs", "expected_terms": ["EPCG", "capital goods", "export obligation"]},
+    {"id": "q023", "query": "Customs valuation rules for related parties", "category": "customs", "expected_terms": ["related party", "valuation", "rule 3"]},
+    {"id": "q024", "query": "Section 111 confiscation of improperly imported goods", "category": "customs", "expected_terms": ["section 111", "confiscation", "improperly"]},
+    {"id": "q025", "query": "ICEGATE registration for customs filings", "category": "customs", "expected_terms": ["ICEGATE", "registration", "digital"]},
+
+    {"id": "q026", "query": "CENVAT credit on input services", "category": "central-excise", "expected_terms": ["CENVAT", "input service", "credit"]},
+    {"id": "q027", "query": "Excise duty on tobacco products", "category": "central-excise", "expected_terms": ["tobacco", "excise", "specific duty"]},
+    {"id": "q028", "query": "Central excise transition credit under GST", "category": "central-excise", "expected_terms": ["transition", "TRAN-1", "credit"]},
+
+    {"id": "q029", "query": "Service tax on works contract composition scheme", "category": "service-tax", "expected_terms": ["works contract", "composition", "service tax"]},
+    {"id": "q030", "query": "Point of taxation rules for service tax", "category": "service-tax", "expected_terms": ["point of taxation", "rules", "service tax"]}
+  ]
+}

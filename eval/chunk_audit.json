@@ -1,0 +1,255 @@
+{
+  "collection": "cbic_v1",
+  "total_points": 108802,
+  "elapsed_sec": 36.9,
+  "length": {
+    "median_chars": 1298,
+    "mean_chars": 1495.9,
+    "buckets": {
+      "300-600": 13762,
+      "1200-2400": 37452,
+      "2400+": 21039,
+      "100-300": 11510,
+      "600-1200": 25014,
+      "0-100": 25
+    },
+    "buckets_pct": {
+      "300-600": 12.65,
+      "1200-2400": 34.42,
+      "2400+": 19.34,
+      "100-300": 10.58,
+      "600-1200": 22.99,
+      "0-100": 0.02
+    },
+    "approx_tokens_median": 324
+  },
+  "categories": {
+    "customs": {
+      "count": 53044,
+      "median_len": 1501,
+      "mean_len": 1640.5
+    },
+    "central_excise": {
+      "count": 8940,
+      "median_len": 1658,
+      "mean_len": 1792.4
+    },
+    "others": {
+      "count": 2952,
+      "median_len": 2872,
+      "mean_len": 2556.2
+    },
+    "gst": {
+      "count": 41356,
+      "median_len": 932,
+      "mean_len": 1158.0
+    },
+    "service_tax": {
+      "count": 2510,
+      "median_len": 1483,
+      "mean_len": 1704.2
+    }
+  },
+  "orphan_headings": {
+    "count": 0,
+    "pct": 0.0,
+    "examples": []
+  },
+  "tables": {
+    "count": 43654,
+    "median_len": 636,
+    "mean_len": 1018.2
+  },
+  "empty": {
+    "zero_len": 0,
+    "under_20_chars": 2
+  },
+  "near_duplicates_top10_100_500_chars": [
+    {
+      "hash": "349c27bdc220ef9faef7843563ee5103",
+      "count": 273,
+      "sample_text": "| 1. | GSTIN |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| 2. | (a) | Legal name of ",
+      "sample_doc_numbers": [
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra"
+      ]
+    },
+    {
+      "hash": "da6c13b1a70fe0b244412df797c5ef1c",
+      "count": 188,
+      "sample_text": "| Tariff Item | Description of goods | Unit | Drawback Rate | Drawback cap per unit in Rs. (₹) |\n| --- | --- | --- | --- | --- |\n| (1) | (2) | (3) | (4) | (5) |",
+      "sample_doc_numbers": [
+        "07/2020-CUSTOM",
+        "07/2020-CUSTOM",
+        "07/2020-CUSTOM",
+        "07/2020-CUSTOM",
+        "07/2020-CUSTOM"
+      ]
+    },
+    {
+      "hash": "f49166ab751e17f24677845c5d0cbd00",
+      "count": 170,
+      "sample_text": "| Description | Central tax | State/ UT tax | Integrated tax | Cess |\n| --- | --- | --- | --- | --- |\n| a) Tax/ Cess |  |  |  |  |\n| b) Interest |  |  |  |  |\n| c) Penalty |  |  |  |  |\n| d) Fees |  |",
+      "sample_doc_numbers": [
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "10/2017–Centra",
+        "3/2017-Centra"
+      ]
+    },
+    {
+      "hash": "fe87ca5c91de0bb7b9c2ed4492fa45a9",
+      "count": 139,
+      "sample_text": "| Turnover of zero rated supply of goods and services | Net input tax credit | Adjusted total turnover | Refund amount (1×2÷3) |\n| --- | --- | --- | --- |\n| 1 | 2 | 3 | 4 |\n|  |  |  |  |",
+      "sample_doc_numbers": [
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra"
+      ]
+    },
+    {
+      "hash": "9aa8c9f82047bf757e2bd47dd6b884f9",
+      "count": 115,
+      "sample_text": "| 12119019- |\n| --- |\n| Seeds, Kernel, |\n| Aril, Fruit, |\n| Pericarp, |\n| Fruit rind, |\n| Endosperm, |\n| Mesocarp, |\n| Endocarp of |\n| column(1) |",
+      "sample_doc_numbers": [
+        "15/2023-Custom",
+        "15/2023-Custom",
+        "15/2023-Custom",
+        "15/2023-Custom",
+        "15/2023-Custom"
+      ]
+    },
+    {
+      "hash": "8d7758d66e66c2d4472419c7a2746314",
+      "count": 104,
+      "sample_text": "| Description | Tax | Interest | Penalty | Fee | Other | Debit Entry Nos. |\n| --- | --- | --- | --- | --- | --- | --- |\n| 1 | 2 | 3 | 4 | 5 | 6 | 7 |\n| (a) Integrated tax |  |  |  |  |  |  |\n| (b) Cen",
+      "sample_doc_numbers": [
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "10/2017–Centra",
+        "3/2017-Centra",
+        "3/2017-Centra"
+      ]
+    },
+    {
+      "hash": "ab570cbfed537e175949d6f052b9f1da",
+      "count": 102,
+      "sample_text": "| Account Number |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n| Type of Account |  |  |  |  |  |  | ",
+      "sample_doc_numbers": [
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra",
+        "3/2017-Centra"
+      ]
+    },
+    {
+      "hash": "0438d381a6c3c3a0200dac6cdb072956",
+      "count": 95,
+      "sample_text": "| Sl. No. | Foreign Currency | Rate of exchange of 100 units of foreign currency equivalent to Indian rupees |  |\n| --- | --- | --- | --- |\n| (1) | (2) | (3) |  |\n|  |  | (a) | (b) |\n|  |  | (For Impo",
+      "sample_doc_numbers": [
+        "40/2024-Custom",
+        "26/2023-Custom",
+        "66/2022-Custom",
+        "02/2023-Custom",
+        "10/2024-Custom"
+      ]
+    },
+    {
+      "hash": "e60384f18a1e2646bedc473cdbb97647",
+      "count": 82,
+      "sample_text": "| Sl.No. | Foreign Currency | Rate of exchange of 100 units of foreign currency equivalent to Indian rupees |  |\n| --- | --- | --- | --- |\n| (1) | (2) | (3) |  |\n|  |  | (a) | (b) |\n|  |  | (For Impor",
+      "sample_doc_numbers": [
+        "97/2015-Custom",
+        "81/2017-Custom",
+        "37/2019-Custom",
+        "56/2019-Custom",
+        "02/2016-Custom"
+      ]
+    },
+    {
+      "hash": "f79af00fa22a3aeb31256361960c784f",
+      "count": 73,
+      "sample_text": "| HS Code 2022 | Description of product | Working or processing, carried out on non-originating materials, which confers originating status |\n| --- | --- | --- |\n| (1) | (2) | (3) |",
+      "sample_doc_numbers": [
+        "59/2025-Custom",
+        "59/2025-Custom",
+        "59/2025-Custom",
+        "59/2025-Custom",
+        "59/2025-Custom"
+      ]
+    }
+  ],
+  "missing_metadata": {
+    "section_ref": 90491,
+    "section_ref_pct": 83.17,
+    "parent_act": 3753,
+    "parent_act_pct": 3.45,
+    "category": 0,
+    "category_pct": 0.0
+  },
+  "top_parent_acts": [
+    {
+      "parent_act": "GST",
+      "count": 34065
+    },
+    {
+      "parent_act": "Customs Act 1962",
+      "count": 18884
+    },
+    {
+      "parent_act": "CUSTOMS",
+      "count": 14120
+    },
+    {
+      "parent_act": "Customs Tariff Act 1975",
+      "count": 13955
+    },
+    {
+      "parent_act": "Finance Act",
+      "count": 5568
+    },
+    {
+      "parent_act": "Service Tax",
+      "count": 4523
+    },
+    {
+      "parent_act": "Central Excise Act 1944",
+      "count": 4244
+    },
+    {
+      "parent_act": "CGST Act 2017",
+      "count": 3845
+    },
+    {
+      "parent_act": "CENTRAL_EXCISE",
+      "count": 2434
+    },
+    {
+      "parent_act": "IGST Act 2017",
+      "count": 1278
+    },
+    {
+      "parent_act": "CGST Rules 2017",
+      "count": 991
+    },
+    {
+      "parent_act": "UTGST Act 2017",
+      "count": 833
+    },
+    {
+      "parent_act": "OTHERS",
+      "count": 250
+    },
+    {
+      "parent_act": "SERVICE_TAX",
+      "count": 59
+    }
+  ]
+}

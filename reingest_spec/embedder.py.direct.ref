@@ -1,0 +1,89 @@
+"""Hybrid embedder for CBIC RAG — DIRECT in-process multi-GPU (Vulkan via llama-cpp-python).
+
+Dense: BGE-M3 (1024-d) loaded once per GPU subprocess, round-robin scatter.
+Sparse: BM25 via fastembed (CPU). Unchanged.
+
+=== REGRESSION GUARD (added 2026-04-23) ===
+`_FACADE_VERSION = "direct-v1"` is a sentinel that ingest_v2.py run_preflight()
+greps for. If this module is replaced with an Ollama HTTP version (as happened
+on 2026-04-23, burning 12h) the sentinel is absent and preflight aborts loudly
+BEFORE any phase runs. DO NOT remove or rename the sentinel.
+
+History of this file:
+  2026-04-23 regressed to Ollama HTTP round-robin (CPU-only fallback,
+               returned zero vectors silently). Caught only after user called
+               it out. Restored from /opt/indian-legal-ai/scripts/cbic_ingest/
+               embedder.py.direct.ref.
+  2026-04-23 added _FACADE_VERSION sentinel + removed the zero-vector fallback
+               from embed_dense_batch (it was hiding the Ollama regression).
+"""
+from __future__ import annotations
+import os
+from typing import List, Dict
+from embedder_direct import get_pool, DENSE_DIM
+
+# Regression sentinel — see docstring. DO NOT REMOVE.
+_FACADE_VERSION = "direct-v1"
+
+MAX_CHARS = 8000  # safety cap
+
+_bm25 = None
+import threading as _threading
+_bm25_lock = _threading.Lock()
+def get_bm25():
+    global _bm25
+    if _bm25 is None:
+        with _bm25_lock:
+            if _bm25 is None:
+                from fastembed import SparseTextEmbedding
+                _bm25 = SparseTextEmbedding('Qdrant/bm25')
+    return _bm25
+
+def _sanitize(texts: List[str]) -> List[str]:
+    out = []
+    for t in texts:
+        if not isinstance(t, str):
+            t = str(t) if t is not None else ''
+        t = t.replace('\x00', ' ').strip()
+        if not t:
+            t = ' '
+        if len(t) > MAX_CHARS:
+            t = t[:MAX_CHARS]
+        out.append(t)
+    return out
+
+def embed_dense_batch(texts: List[str], retries: int = 3) -> List[List[float]]:
+    """Dense embed via multi-GPU Vulkan pool.
+
+    IMPORTANT (2026-04-23): this function NO LONGER swallows exceptions and
+    returns zero vectors. Previous behaviour hid the Ollama-CPU-fallback bug
+    (pool returned zeros, upstream happily upserted zero-vectors into Qdrant,
+    recall@10 was garbage with no error signal). Any failure now RAISES so the
+    caller sees it. `retries` is kept for API compatibility but is not used
+    here — the pool retries internally.
+    """
+    if not texts:
+        return []
+    return get_pool().embed(_sanitize(texts))
+
+def embed_dense_bulk(texts: List[str]) -> List[List[float]]:
+    # pool already shards internally across all GPUs; just one call
+    return embed_dense_batch(texts)
+
+def embed_sparse_batch(texts: List[str]) -> List[Dict[int, float]]:
+    m = get_bm25()
+    out = []
+    for emb in m.embed(_sanitize(texts)):
+        d = {}
+        for idx, val in zip(emb.indices.tolist(), emb.values.tolist()):
+            d[int(idx)] = float(val)
+        out.append(d)
+    return out
+
+def embed_query(text: str) -> dict:
+    dense = embed_dense_batch([text])[0]
+    m = get_bm25()
+    q_embs = list(m.query_embed([text]))
+    qe = q_embs[0]
+    sparse = {int(i): float(v) for i, v in zip(qe.indices.tolist(), qe.values.tolist())}
+    return {'dense': dense, 'sparse': sparse}

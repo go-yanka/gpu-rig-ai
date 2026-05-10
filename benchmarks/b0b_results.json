@@ -1,0 +1,11 @@
+{
+  "pass": false,
+  "skipped": true,
+  "reason": "B0 failed: torch on rig is CUDA build (2.11.0+cu130), not ROCm. No HIP, no visible GPUs. B0b requires torch-ROCm; not attempted per instructions (do not install multi-GB packages without user approval).",
+  "torch_version": "2.11.0+cu130",
+  "hip_version": null,
+  "gpu_used": null,
+  "chunks_per_sec": null,
+  "errors": "Blocked by B0.",
+  "raw_log": ""
+}

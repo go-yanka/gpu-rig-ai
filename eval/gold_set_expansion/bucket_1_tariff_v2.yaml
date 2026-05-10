@@ -1,0 +1,300 @@
+- id: gst_rate_001
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: "What is the GST rate for medicaments (excluding those for retail sale) under HSN 3004?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule II"]
+  expected_conclusion_keywords: ["12%", "HSN 3004", "medicaments"]
+  must_not_say: ["18%", "5%", "exempt"]
+  must_cite_verbatim: true
+  notes: "Standard pharmaceutical products under HSN 3004 fall under the 12% bracket."
+- id: gst_sac_002
+  category: gst
+  subcategory: sac
+  difficulty: basic
+  question: "What SAC covers standalone restaurant services and what is the applicable GST rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["11/2017-CT(R)"]
+  expected_conclusion_keywords: ["SAC 9963", "5%", "without ITC"]
+  must_not_say: ["18%", "12%", "with ITC"]
+  must_cite_verbatim: true
+  notes: "Standalone restaurants charge 5% GST without input tax credit."
+- id: gst_exempt_003
+  category: gst
+  subcategory: exempt
+  difficulty: basic
+  question: "Is fresh pasteurized milk (HSN 0401) sold without pre-packaging exempt from GST?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["02/2017-CT(R)"]
+  expected_conclusion_keywords: ["exempt", "nil rated", "HSN 0401"]
+  must_not_say: ["5%", "12%", "taxable"]
+  must_cite_verbatim: true
+  notes: "Fresh milk is exempt under notification 02/2017-CT(R)."
+- id: gst_cess_004
+  category: gst
+  subcategory: cess
+  difficulty: basic
+  question: "What is the rate of GST compensation cess on SUVs (engine capacity > 1500cc, length > 4000mm, ground clearance >= 170mm) under HSN 8703?"
+  expected_sections: ["Section 8 of GST (Compensation to States) Act"]
+  expected_rules: []
+  expected_notifications: ["01/2017-Compensation Cess (Rate)"]
+  expected_conclusion_keywords: ["22%", "compensation cess", "SUV"]
+  must_not_say: ["15%", "exempt", "1%"]
+  must_cite_verbatim: true
+  notes: "SUVs meeting all three criteria attract the maximum 22% cess rate."
+- id: customs_rate_005
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: "What is the applicable IGST rate on the import of laptop computers (HSN 8471) into India?"
+  expected_sections: ["Section 3(7) of Customs Tariff Act"]
+  expected_rules: []
+  expected_notifications: ["01/2017-IT(R)"]
+  expected_conclusion_keywords: ["18%", "IGST", "import"]
+  must_not_say: ["28%", "12%", "exempt"]
+  must_cite_verbatim: true
+  notes: "IGST on import of IT goods like laptops is 18%."
+- id: gst_rate_006
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: "What is the GST rate for iron and steel melting scrap under HSN 7204?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule III"]
+  expected_conclusion_keywords: ["18%", "HSN 7204", "scrap"]
+  must_not_say: ["12%", "28%", "5%"]
+  must_cite_verbatim: true
+  notes: "Iron and steel scrap falls under the 18% bracket."
+- id: gst_hsn_007
+  category: gst
+  subcategory: hsn
+  difficulty: basic
+  question: "Does GST apply to the sale of motor spirit (petrol) under HSN 2710?"
+  expected_sections: ["Section 9(2) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["not leviable", "outside GST", "Section 9(2)"]
+  must_not_say: ["18%", "28%", "exempt notification"]
+  must_cite_verbatim: true
+  notes: "Petrol is a non-GST supply by virtue of the Act itself, not an exemption notification."
+- id: gst_sac_008
+  category: gst
+  subcategory: sac
+  difficulty: basic
+  question: "What is the GST rate on education services provided by a pre-school under SAC 9992?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["12/2017-CT(R)"]
+  expected_conclusion_keywords: ["exempt", "SAC 9992", "nil"]
+  must_not_say: ["18%", "5%", "taxable"]
+  must_cite_verbatim: true
+  notes: "Education by pre-schools and higher secondary schools is fully exempt."
+- id: gst_notif_009
+  category: gst
+  subcategory: notif
+  difficulty: basic
+  question: "What did notification 14/2021-CT(R) change regarding the GST rate on woven readymade garments (HSN 6203) priced below Rs. 1000?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["14/2021-CT(R)", "01/2017-CT(R)"]
+  expected_conclusion_keywords: ["12%", "increased from 5%", "uniform rate"]
+  must_not_say: ["reduced to 5%", "exempt", "18%"]
+  must_cite_verbatim: true
+  notes: "The notification removed the 5% slab for garments < Rs. 1000, making all garments 12%."
+- id: customs_rate_010
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: "What is the Basic Customs Duty (BCD) rate on the import of fully built smartphones (HSN 8517.13)?"
+  expected_sections: ["First Schedule to Customs Tariff Act"]
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["20%", "BCD", "smartphones"]
+  must_not_say: ["exempt", "10%", "15%"]
+  must_cite_verbatim: true
+  notes: "BCD on fully assembled smartphones is generally 20%."
+- id: gst_rate_011
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: "What is the special GST rate applicable to gold jewellery under HSN 7113?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule V"]
+  expected_conclusion_keywords: ["3%", "HSN 7113", "gold"]
+  must_not_say: ["5%", "1.5%", "18%"]
+  must_cite_verbatim: true
+  notes: "Gold and gold jewellery have a special 3% rate slab."
+- id: gst_cess_012
+  category: gst
+  subcategory: cess
+  difficulty: basic
+  question: "Are filter cigarettes of length exceeding 75 mm (HSN 2402) subject to compensation cess, and if so, how is it calculated?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-Compensation Cess (Rate)"]
+  expected_conclusion_keywords: ["yes", "ad valorem", "specific rate per thousand"]
+  must_not_say: ["exempt from cess", "only GST applies", "no cess"]
+  must_cite_verbatim: true
+  notes: "Cigarettes attract a mixed cess structure (ad valorem + specific per stick)."
+- id: gst_ccy_supply_013
+  category: gst
+  subcategory: ccy_supply
+  difficulty: intermediate
+  question: "A retailer sells a laptop (HSN 8471, 18% GST) pre-packed in a standard laptop bag (HSN 4202, 28% GST) for a single bundled price. What is the applicable GST rate for the transaction?"
+  expected_sections: ["Section 2(30) CGST Act", "Section 8(a) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["composite supply", "18%", "principal supply"]
+  must_not_say: ["mixed supply", "28%", "highest rate"]
+  must_cite_verbatim: true
+  notes: "Naturally bundled. Laptop is the principal supply, so the 18% rate applies to the whole bundle."
+- id: customs_notif_014
+  category: customs
+  subcategory: notif
+  difficulty: intermediate
+  question: "What is the concessional IGST and BCD treatment for life-saving medical equipment imported by a government hospital under Notification 50/2017-Cus?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus", "GST rate schedule notification"]
+  expected_conclusion_keywords: ["exempt", "nil BCD", "conditions apply"]
+  must_not_say: ["18%", "standard rate", "no exemption available"]
+  must_cite_verbatim: true
+  notes: "Specific life-saving drugs and equipment imported by gov/specified hospitals are exempt from BCD and IGST subject to conditions."
+- id: gst_notif_015
+  category: gst
+  subcategory: notif
+  difficulty: intermediate
+  question: "Under Notification 03/2019-CT(R), what is the GST rate for the construction of affordable residential apartments by a promoter in a new project?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["03/2019-CT(R)"]
+  expected_conclusion_keywords: ["1%", "without ITC", "affordable housing"]
+  must_not_say: ["5%", "12%", "18%", "with ITC"]
+  must_cite_verbatim: true
+  notes: "Affordable housing projects commencing after April 2019 attract 1% GST without ITC."
+- id: gst_inverted_016
+  category: gst
+  subcategory: inverted
+  difficulty: intermediate
+  question: "A manufacturer makes footwear priced at Rs. 400 per pair (HSN 6403, 5% GST). Their primary raw materials are synthetic fabrics and chemicals attracting 18% GST. Can they claim a refund of the accumulated ITC?"
+  expected_sections: ["Section 54(3) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["yes", "inverted duty structure", "refund of unutilized ITC"]
+  must_not_say: ["no refund", "cannot claim", "only on exports"]
+  must_cite_verbatim: true
+  notes: "Since the rate on inputs (18%) is higher than the rate on output (5%), refund under inverted duty structure is permissible."
+- id: gst_sac_017
+  category: gst
+  subcategory: sac
+  difficulty: intermediate
+  question: "Is a clinical establishment liable to pay GST on cosmetic surgery procedures (SAC 9993) performed solely for aesthetic enhancement?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["12/2017-CT(R)"]
+  expected_conclusion_keywords: ["yes", "18%", "taxable", "not exempt"]
+  must_not_say: ["exempt", "nil rated", "healthcare service exemption"]
+  must_cite_verbatim: true
+  notes: "Healthcare exemption specifically excludes cosmetic or plastic surgery unless done for reconstruction after trauma/disease."
+- id: gst_exempt_018
+  category: gst
+  subcategory: exempt
+  difficulty: intermediate
+  question: "A dairy farm exports fresh unpasteurized milk (HSN 0401) to UAE. Since milk is exempt under GST domestically, what is the tax treatment for this export?"
+  expected_sections: ["Section 16 IGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["zero-rated supply", "LUT", "can claim refund"]
+  must_not_say: ["exempt supply", "cannot claim ITC", "no refund"]
+  must_cite_verbatim: true
+  notes: "Exports are zero-rated supplies, even if the goods are domestically exempt, allowing for ITC refund."
+- id: customs_rate_019
+  category: customs
+  subcategory: rate
+  difficulty: intermediate
+  question: "How is the IGST amount calculated on an imported good? Specify the base value components including BCD and Social Welfare Surcharge (SWS)."
+  expected_sections: ["Section 3(7) Customs Tariff Act", "Section 3(8) Customs Tariff Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["assessable value", "CIF", "plus BCD", "plus SWS"]
+  must_not_say: ["only on assessable value", "excluding BCD", "excluding SWS"]
+  must_cite_verbatim: true
+  notes: "IGST is levied on the value of imported goods plus Basic Customs Duty plus Social Welfare Surcharge."
+- id: gst_hsn_020
+  category: gst
+  subcategory: hsn
+  difficulty: intermediate
+  question: "Distinguish the GST rate treatment of namkeen/savory snacks (HSN 2106) sold loose in a local sweet shop versus those sold in pre-packaged and labelled containers."
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)", "02/2017-CT(R)"]
+  expected_conclusion_keywords: ["12% pre-packaged and labelled", "5% loose", "unbranded"]
+  must_not_say: ["both 12%", "both 5%", "18%"]
+  must_cite_verbatim: true
+  notes: "Namkeen sold loose is 5%, while pre-packaged and labelled namkeen attracts 12%."
+- id: gst_rate_021
+  category: gst
+  subcategory: rate
+  difficulty: intermediate
+  question: "What did notification 12/2019-CT(R) change regarding the GST rate on electrically operated vehicles (EVs) under HSN 8703?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["12/2019-CT(R)", "01/2017-CT(R)"]
+  expected_conclusion_keywords: ["reduced to 5%", "from 12%"]
+  must_not_say: ["increased to 12%", "28%", "exempt"]
+  must_cite_verbatim: true
+  notes: "The notification reduced the GST rate on EVs from 12% to a concessional rate of 5%."
+- id: gst_inverted_022
+  category: gst
+  subcategory: inverted
+  difficulty: complex
+  question: "A manufacturer operates under an inverted duty structure (inputs at 18%, output at 5%). They also incur heavy input service expenses (SAC 9983) taxed at 18%. Based on Rule 89(5), can they include the ITC on input services when calculating the maximum refund amount?"
+  expected_sections: ["Section 54(3) CGST Act"]
+  expected_rules: ["Rule 89(5) CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["no", "excludes input services", "only inputs", "goods only"]
+  must_not_say: ["yes", "includes input services", "can claim refund on services"]
+  must_cite_verbatim: true
+  notes: "Rule 89(5) formula specifically calculates refund based on 'Net ITC' which is defined to include only inputs (goods), explicitly excluding input services and capital goods."
+- id: gst_ccy_supply_023
+  category: gst
+  subcategory: ccy_supply
+  difficulty: complex
+  question: "A residential boarding school charges a consolidated annual fee covering education (SAC 9992), accommodation (SAC 9963), and catering services (SAC 9963). While catering and accommodation are normally taxable, what is the GST treatment for this consolidated fee?"
+  expected_sections: ["Section 8(a) CGST Act", "Section 2(30) CGST Act"]
+  expected_rules: []
+  expected_notifications: ["12/2017-CT(R)"]
+  expected_conclusion_keywords: ["composite supply", "education is principal supply", "exempt entirely"]
+  must_not_say: ["mixed supply", "taxable at 5%", "apportioned"]
+  must_cite_verbatim: true
+  notes: "This is a classic composite supply where education is the principal supply. Since education up to higher secondary is exempt, the entire bundled fee is exempt."
+- id: customs_rate_024
+  category: customs
+  subcategory: rate
+  difficulty: complex
+  question: "A company registers an industrial plant import under 'Project Imports' (Heading 9801). While the BCD is at a concessional flat rate, how is the applicable IGST rate determined for the various machineries imported under this single heading?"
+  expected_sections: ["Heading 9801 Customs Tariff"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["18% IGST", "standard rate", "does not apply per machinery"]
+  must_not_say: ["exempt", "merit rate of individual machine", "5%"]
+  must_cite_verbatim: true
+  notes: "Under Project Import (9801), all items are classified under the single heading. While BCD is concessional, IGST is applied at a flat rate of 18% for the entire project import heading, regardless of individual machine merit rates."
+- id: gst_notif_025
+  category: gst
+  subcategory: notif
+  difficulty: complex
+  question: "A hotel provides room accommodation at Rs. 800 per night (SAC 9963). Historically this was exempt. What change did Notification 03/2022-CT(R) introduce for rooms priced below Rs. 1000, and what is the current applicable GST rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["03/2022-CT(R)", "12/2017-CT(R)"]
+  expected_conclusion_keywords: ["exemption withdrawn", "omitted entry", "12%"]
+  must_not_say: ["remains exempt", "5%", "18%"]
+  must_cite_verbatim: true
+  notes: "Notification 03/2022-CT(R) withdrew the exemption for hotel rooms < Rs. 1000/day. They are now taxable at 12%."

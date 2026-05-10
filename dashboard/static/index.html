@@ -350,20 +350,17 @@
     <!-- GPU cards injected by JS -->
   </div>
 
-  <!-- Performance History (collapsible) -->
+  <!-- Traffic Flow Panel -->
   <div class="panel" style="padding:0; overflow:hidden; margin-bottom:12px;">
-    <div onclick="togglePerfPanel()" style="padding:12px 16px; cursor:pointer; display:flex; align-items:center; gap:10px; user-select:none;">
-      <span id="perf-arrow" style="color:var(--dim); font-size:10px; transition:transform .2s;">&#9654;</span>
-      <span style="font-weight:700; font-size:13px;">Performance History</span>
+    <div style="padding:12px 16px; display:flex; align-items:center; gap:10px;">
+      <span style="font-weight:700; font-size:13px;">Traffic Flow</span>
+      <span id="traffic-live-dot" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse-ring 2s infinite;"></span>
+      <span style="font-size:11px;color:var(--dim);">LIVE</span>
       <div style="flex:1;"></div>
-      <span class="tab active" id="tab-speed" onclick="event.stopPropagation(); switchTab('speed')">Tok/s</span>
-      <span class="tab" id="tab-vram" onclick="event.stopPropagation(); switchTab('vram')">VRAM</span>
-      <span class="tab" id="tab-temp" onclick="event.stopPropagation(); switchTab('temp')">Temp</span>
+      <span id="traffic-nginx-stat" style="font-size:11px;color:var(--dim);"></span>
     </div>
-    <div id="perf-body" style="display:none; padding:0 16px 16px 16px;">
-      <div style="height:220px; position:relative;">
-        <canvas id="perf-chart"></canvas>
-      </div>
+    <div style="padding:0 12px 16px;">
+      <canvas id="traffic-canvas" style="width:100%;display:block;border-radius:8px;"></canvas>
     </div>
   </div>
 
@@ -532,7 +529,7 @@ let perfData   = {};
 let modelsData = [];
 let profilesData = {};        // gpu_profiles.json data keyed by gpu id string
 let expandedProfiles = {};    // { gpuId: true/false }
-let activeTab = 'speed';
+let activeTab = 'speed';   // kept for compat — chart replaced by TF
 let perfChart = null;
 let sseConn   = null;
 let lastGpuTs = 0;
@@ -798,118 +795,261 @@ function updateHeader(state) {
 const COLORS = ['#58a6ff','#3fb950','#e3b341','#f085c4','#bc8cff','#39c5cf','#ff7b72'];
 const GPU_LABELS = ['GPU0 5700XT','GPU1 5700XT','GPU2 6700XT','GPU3 5700XT','GPU4 5700XT','GPU5 5700XT','GPU6 5700XT'];
 
-function initChart() {
-  const ctx = document.getElementById('perf-chart').getContext('2d');
-  Chart.defaults.color = '#7d8590';
-  Chart.defaults.borderColor = '#21262d';
-  perfChart = new Chart(ctx, {
-    type: 'line',
-    data: { labels: [], datasets: [] },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      animation: { duration: 300 },
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
-        tooltip: { bodyFont: { family: 'monospace', size: 11 } }
-      },
-      scales: {
-        x: { ticks: { maxTicksLimit: 8, font: { size: 10 } }, grid: { color: '#21262d' } },
-        y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { font: { size: 10 } } }
+// ── Traffic Flow Canvas Animation ────────────────────────────────────────
+// All animation is driven purely by real data from /api/traffic:
+//   - nginx.writing   = actual connections nginx is currently writing to client
+//   - gpu.status      = "processing" when llama-server log shows active slot
+//   - Particles reflect real load, no randomness or timers
+
+const TF = {
+  canvas: null, ctx: null,
+  data: { nginx: {active:0,writing:0}, gpus: [] },
+
+  // Per-GPU request particle state — persistent while processing
+  // gpuPhase[id] = 0..1 progress along the nginx→GPU path, or null if not processing
+  gpuPhase: {},
+
+  // Agent→nginx particles: one per nginx.writing connection, evenly spaced
+  // agentPhases[i] = phase 0..1 for connection i
+  agentPhases: [],
+
+  raf: null,
+  lastFetch: 0,
+  FETCH_INTERVAL: 1200,
+
+  COLORS: ['#58a6ff','#3fb950','#f78166','#e3b341','#bc8cff','#39d353','#ffa657'],
+
+  init() {
+    this.canvas = document.getElementById('traffic-canvas');
+    if (!this.canvas) return;
+    this.ctx = this.canvas.getContext('2d');
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+    this.loop();
+  },
+
+  resize() {
+    const el = this.canvas;
+    const w = el.parentElement.clientWidth - 24;
+    const h = Math.max(260, Math.min(320, w * 0.38));
+    el.width  = w * devicePixelRatio;
+    el.height = h * devicePixelRatio;
+    el.style.width  = w + 'px';
+    el.style.height = h + 'px';
+    this.ctx.scale(devicePixelRatio, devicePixelRatio);
+    this._w = w; this._h = h;
+  },
+
+  async fetch() {
+    try {
+      const d = await apiFetch('/api/traffic');
+      this.data = d;
+
+      // Sync agentPhases count to nginx.writing (real active connections)
+      const writing = d.nginx.writing || 0;
+      while (this.agentPhases.length < writing) {
+        // New connection: start at evenly distributed phase so dots don't bunch
+        this.agentPhases.push(this.agentPhases.length / Math.max(writing, 1));
       }
-    }
-  });
-}
+      if (this.agentPhases.length > writing) {
+        this.agentPhases.length = writing; // drop excess
+      }
 
-function updateChart(recent) {
-  if (!perfChart || !recent || !recent.length) return;
+      // Remove gpuPhase for GPUs no longer processing
+      d.gpus.forEach(g => {
+        if (g.status !== 'processing' && this.gpuPhase[g.id] !== undefined) {
+          delete this.gpuPhase[g.id];
+        }
+        // Start phase at 0 for newly processing GPUs
+        if (g.status === 'processing' && this.gpuPhase[g.id] === undefined) {
+          this.gpuPhase[g.id] = 0;
+        }
+      });
 
-  if (activeTab === 'speed') {
-    // Build timeseries per GPU from recent perf log entries
-    const byGpu = {};
-    for (let i = 0; i < 7; i++) byGpu[i] = [];
-    recent.forEach(e => {
-      if (e.gpu != null && byGpu[e.gpu] !== undefined) {
-        byGpu[e.gpu].push({ t: e.ts, v: e.speed });
+      const stat = document.getElementById('traffic-nginx-stat');
+      if (stat) stat.textContent =
+        `nginx  active: ${d.nginx.active}  writing: ${d.nginx.writing}  total: ${d.nginx.total_requests}`;
+    } catch(e) {}
+  },
+
+  layout() {
+    const W = this._w, H = this._h;
+    const agent = { x: 14, y: H/2 - 24, w: 78, h: 48 };
+    const nginx  = { x: W/2 - 52, y: H/2 - 32, w: 104, h: 64 };
+    const gpuW = 130, gpuH = 30, gpuX = W - gpuW - 10;
+    const nGpu = 7, spacing = (H - 16) / nGpu;
+    const gpus = Array.from({length: nGpu}, (_, i) => ({
+      x: gpuX, y: 8 + i * spacing, w: gpuW, h: gpuH
+    }));
+    return { agent, nginx, gpus };
+  },
+
+  // Bezier point at t along agent→GPU path
+  bezier(x1,y1,x2,y2,t) {
+    const cx1=x1+40, cy1=y1, cx2=x2-40, cy2=y2;
+    return {
+      x: (1-t)**3*x1 + 3*(1-t)**2*t*cx1 + 3*(1-t)*t**2*cx2 + t**3*x2,
+      y: (1-t)**3*y1 + 3*(1-t)**2*t*cy1 + 3*(1-t)*t**2*cy2 + t**3*y2,
+    };
+  },
+
+  drawDot(c, x, y, r, color) {
+    c.beginPath();
+    c.arc(x, y, r, 0, Math.PI*2);
+    c.fillStyle = color;
+    c.shadowColor = color;
+    c.shadowBlur = 8;
+    c.fill();
+    c.shadowBlur = 0;
+  },
+
+  draw() {
+    const c = this.ctx, W = this._w, H = this._h;
+    if (!W || !H) return;
+    c.clearRect(0, 0, W, H);
+
+    const { agent, nginx, gpus } = this.layout();
+    const writing = this.data.nginx.writing || 0;
+    const anyActive = Object.keys(this.gpuPhase).length > 0;
+
+    const rr = (x,y,w,h,r,fill,stroke,lw=1) => {
+      c.beginPath(); c.roundRect(x,y,w,h,r);
+      if (fill)   { c.fillStyle=fill; c.fill(); }
+      if (stroke) { c.strokeStyle=stroke; c.lineWidth=lw; c.stroke(); }
+    };
+
+    // ── nginx→GPU lines ──────────────────────────────────────────────────
+    this.data.gpus.forEach((g, i) => {
+      if (i >= gpus.length) return;
+      const box = gpus[i];
+      const x1=nginx.x+nginx.w, y1=nginx.y+nginx.h/2;
+      const x2=box.x,           y2=box.y+box.h/2;
+      const active = g.status === 'processing';
+      c.beginPath();
+      c.moveTo(x1,y1);
+      c.bezierCurveTo(x1+40,y1, x2-40,y2, x2,y2);
+      c.strokeStyle = active ? this.COLORS[i]+'44' : '#21262d';
+      c.lineWidth   = active ? 1.5 : 1;
+      c.stroke();
+    });
+
+    // ── agent→nginx line ─────────────────────────────────────────────────
+    const ax=agent.x+agent.w, ay=agent.y+agent.h/2;
+    const nx=nginx.x,         ny=nginx.y+nginx.h/2;
+    c.beginPath(); c.moveTo(ax,ay); c.lineTo(nx,ny);
+    c.strokeStyle = writing > 0 ? '#58a6ff44' : '#21262d';
+    c.lineWidth   = writing > 0 ? 1.5 : 1;
+    c.stroke();
+
+    // ── agent→nginx dots: one per real nginx.writing connection ──────────
+    // Each dot represents a real in-flight connection tracked by nginx.
+    // Spacing is evenly distributed so they don't all appear together.
+    this.agentPhases.forEach((t, i) => {
+      const x = ax + (nx - ax) * t;
+      this.drawDot(c, x, ay, 3.5, '#58a6ff');
+    });
+
+    // ── nginx→GPU dots: one per GPU that has an active request ───────────
+    // Phase cycles 0→1 while the GPU is processing (real log state).
+    // When GPU goes idle the phase is removed — dot disappears.
+    this.data.gpus.forEach((g, i) => {
+      const t = this.gpuPhase[g.id];
+      if (t === undefined || i >= gpus.length) return;
+      const box = gpus[i];
+      const x1=nginx.x+nginx.w, y1=nginx.y+nginx.h/2;
+      const x2=box.x,           y2=box.y+box.h/2;
+      const pt = this.bezier(x1,y1,x2,y2,t);
+      this.drawDot(c, pt.x, pt.y, 4, this.COLORS[i]);
+    });
+
+    // ── AGENT box ────────────────────────────────────────────────────────
+    rr(agent.x,agent.y,agent.w,agent.h,6,'#161b22',writing>0?'#58a6ff88':'#30363d');
+    c.fillStyle = writing>0 ? '#58a6ff' : '#7d8590';
+    c.font='bold 10px monospace'; c.textAlign='center';
+    c.fillText('AGENT', agent.x+agent.w/2, agent.y+20);
+    c.font='9px monospace'; c.fillStyle='#7d8590';
+    c.fillText(':4002', agent.x+agent.w/2, agent.y+34);
+
+    // ── NGINX box ─────────────────────────────────────────────────────────
+    rr(nginx.x,nginx.y,nginx.w,nginx.h,8,'#161b22',anyActive?'#58a6ff':'#30363d',anyActive?1.5:1);
+    c.fillStyle='#e6edf3'; c.font='bold 11px monospace'; c.textAlign='center';
+    c.fillText('nginx', nginx.x+nginx.w/2, nginx.y+20);
+    c.font='9px monospace'; c.fillStyle='#7d8590';
+    c.fillText(':4002  least_conn', nginx.x+nginx.w/2, nginx.y+34);
+    c.fillStyle = writing>0 ? '#3fb950' : '#7d8590';
+    c.fillText(`active:${this.data.nginx.active||0}  writing:${writing}`, nginx.x+nginx.w/2, nginx.y+50);
+
+    // ── GPU boxes ─────────────────────────────────────────────────────────
+    this.data.gpus.forEach((g, i) => {
+      if (i >= gpus.length) return;
+      const box = gpus[i];
+      const processing = g.status === 'processing';
+      const ready   = g.status === 'ready' || processing;
+      const loading = g.status === 'loading';
+      const stopped = !ready && !loading;
+
+      const borderCol = processing ? this.COLORS[i] : loading ? '#d29922' : ready ? '#30363d' : '#21262d';
+      const bgCol     = processing ? '#0d2016'       : loading ? '#1a1500' : '#161b22';
+      rr(box.x,box.y,box.w,box.h,5,bgCol,borderCol,processing?1.5:1);
+
+      // Status dot
+      c.beginPath(); c.arc(box.x+10, box.y+box.h/2, 4, 0, Math.PI*2);
+      c.fillStyle = processing ? this.COLORS[i] : loading ? '#d29922' : ready ? '#58a6ff' : '#30363d';
+      if (processing) { c.shadowColor=this.COLORS[i]; c.shadowBlur=6; }
+      c.fill(); c.shadowBlur=0;
+
+      c.textAlign='left';
+      c.font='bold 9px monospace';
+      c.fillStyle = processing ? this.COLORS[i] : ready ? '#e6edf3' : '#7d8590';
+      c.fillText(`GPU ${g.id}`, box.x+20, box.y+11);
+
+      c.font='8px monospace'; c.fillStyle='#7d8590';
+      const ms=(g.model||(stopped?'stopped':loading?'loading…':'idle'))
+        .replace('mistral-nemo-12b-instruct','mistral').replace('-instruct','').slice(0,16);
+      c.fillText(ms, box.x+20, box.y+22);
+
+      if (processing && g.speed>0) {
+        c.textAlign='right'; c.font='8px monospace';
+        c.fillStyle=this.COLORS[i];
+        c.fillText(`${g.speed}t/s`, box.x+box.w-6, box.y+box.h/2+3);
       }
     });
-    // Guard against all-empty arrays (Math.max() with no args returns -Infinity)
-    const maxRaw = Math.max(...Object.values(byGpu).map(a => a.length));
-    const maxLen = isFinite(maxRaw) ? Math.min(20, maxRaw) : 0;
-    if (maxLen === 0) return; // no data yet, leave chart as-is
-    const labels = Array.from({length: maxLen}, (_, i) => `#${i+1}`);
-    const datasets = Object.entries(byGpu)
-      .filter(([, arr]) => arr.length > 0)
-      .map(([id, arr]) => ({
-        label: GPU_LABELS[id],
-        data: arr.slice(-maxLen).map(e => e.v),
-        borderColor: COLORS[id],
-        backgroundColor: COLORS[id] + '20',
-        borderWidth: 1.5,
-        pointRadius: 2,
-        tension: 0.3,
-        fill: false,
-      }));
-    if (perfChart.config.type !== 'line') {
-      perfChart.destroy();
-      initChart();
-    }
-    perfChart.data.labels   = labels;
-    perfChart.data.datasets = datasets;
-    perfChart.options.scales.y.title = { display: true, text: 'tok/s', font: {size:10} };
-    perfChart.update();
-  } else if (activeTab === 'vram') {
-    // Live VRAM from gpuState
-    const labels = gpuState.map(g => `GPU${g.id}`);
-    const datasets = [{
-      label: 'VRAM Used %',
-      data: gpuState.map(g => g.vram_pct),
-      backgroundColor: gpuState.map(g => COLORS[g.id] + 'aa'),
-      borderColor: gpuState.map(g => COLORS[g.id]),
-      borderWidth: 1,
-    }];
-    if (perfChart.config.type !== 'bar') {
-      perfChart.destroy();
-      initChart();
-      perfChart.config.type = 'bar';
-    }
-    perfChart.data.labels   = labels;
-    perfChart.data.datasets = datasets;
-    perfChart.options.scales.y.max = 100;
-    delete perfChart.options.scales.y.min;
-    perfChart.options.scales.y.title = { display: true, text: 'VRAM %', font:{size:10} };
-    perfChart.update();
-  } else if (activeTab === 'temp') {
-    const labels = gpuState.map(g => `GPU${g.id}`);
-    const datasets = [{
-      label: 'Temperature (°C)',
-      data: gpuState.map(g => g.temp || 0),
-      backgroundColor: gpuState.map(g => (g.temp || 0) >= 85 ? '#f8514960' : (g.temp || 0) >= 70 ? '#d2992260' : '#3fb95060'),
-      borderColor: gpuState.map(g => (g.temp || 0) >= 85 ? '#f85149' : (g.temp || 0) >= 70 ? '#d29922' : '#3fb950'),
-      borderWidth: 1,
-    }];
-    if (perfChart.config.type !== 'bar') {
-      perfChart.destroy();
-      initChart();
-      perfChart.config.type = 'bar';
-    }
-    perfChart.data.labels   = labels;
-    perfChart.data.datasets = datasets;
-    perfChart.options.scales.y.max = 110;
-    delete perfChart.options.scales.y.min;
-    perfChart.options.scales.y.title = { display: true, text: '°C', font:{size:10} };
-    perfChart.update();
-  }
-}
+    c.textAlign='left';
+  },
 
-function switchTab(tab) {
-  activeTab = tab;
-  ['speed','vram','temp'].forEach(t => {
-    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
-  });
-  fetchPerfRecent();
-}
+  update(dt) {
+    // Advance agent→nginx dots: each wraps at 1 (connection still open → loop)
+    const speed_agent = 0.0005; // t/ms — roughly 2s to cross
+    this.agentPhases = this.agentPhases.map(t => (t + speed_agent * dt) % 1);
+
+    // Advance GPU dots: cycle 0→1 while processing; removed when idle
+    const speed_gpu = 0.0006; // t/ms — roughly 1.7s to reach GPU
+    Object.keys(this.gpuPhase).forEach(id => {
+      this.gpuPhase[id] = (this.gpuPhase[id] + speed_gpu * dt) % 1;
+    });
+  },
+
+  loop() {
+    let last = performance.now();
+    const tick = (now) => {
+      const dt = now - last; last = now;
+      if (now - this.lastFetch > this.FETCH_INTERVAL) {
+        this.lastFetch = now;
+        this.fetch();
+      }
+      this.update(dt);
+      this.draw();
+      this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+};
+
+// stub out old chart functions — no longer needed
+function initChart() {}
+function updateChart() {}
+function switchTab(tab) {}
+function fetchPerfRecent() {}
 
 // ── SSE — live updates ────────────────────────────────────────────────
 
@@ -934,7 +1074,7 @@ function startSSE() {
       if (msg.gpus) {
         gpuState = msg.gpus;
         renderGpuGrid();
-        updateChart(null); // refresh vram/temp tabs without re-fetching
+        refreshDefaultsTable();  // keep defaults table in sync with cards
         lastGpuTs = Date.now();
         // Update power panel
         const activeGpus = msg.gpus.filter(g => g.status !== 'sleeping');
@@ -1220,7 +1360,32 @@ async function openModal(gpuId) {
     ${profileSection}
 
     <div id="modal-logs-${gpuId}" style="display:none;">
-      <div style="color:var(--dim); font-size:11px; margin-bottom:4px;">STDERR (last 50 lines)</div>
+      <div style="color:var(--accent); font-size:12px; font-weight:600; margin-bottom:8px; margin-top:4px; letter-spacing:0.05em;">ACTIVITY LOG</div>
+      <div id="modal-activity-${gpuId}" style="margin-bottom:12px;">
+        <table style="width:100%; border-collapse:collapse; font-size:11px;">
+          <thead>
+            <tr style="color:var(--dim); border-bottom:1px solid var(--border);">
+              <th style="text-align:left; padding:3px 6px;">Time</th>
+              <th style="text-align:left; padding:3px 6px;">Endpoint</th>
+              <th style="text-align:right; padding:3px 6px;">Prompt</th>
+              <th style="text-align:right; padding:3px 6px;">Gen</th>
+              <th style="text-align:right; padding:3px 6px;">Total ms</th>
+              <th style="text-align:right; padding:3px 6px;">Speed</th>
+              <th style="text-align:center; padding:3px 6px;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="modal-activity-body-${gpuId}">
+            <tr><td colspan="7" style="color:var(--dim); padding:6px; text-align:center;">No requests yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+        <div style="color:var(--dim); font-size:11px;">RAW LOG (last 50 lines)</div>
+        <div style="font-size:10px; color:var(--green); display:flex; align-items:center; gap:4px;">
+          <span style="display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse-ring 2s infinite;"></span>
+          LIVE
+        </div>
+      </div>
       <div class="log-area" id="modal-log-content-${gpuId}">Loading…</div>
     </div>
   `;
@@ -1321,22 +1486,62 @@ async function killZombie(gpuId) {
   } catch(e) { setStatus('Error: ' + e.message, true); }
 }
 
+let _logInterval = null;
+
 async function loadLogs(gpuId) {
   const wrap    = document.getElementById(`modal-logs-${gpuId}`);
   const content = document.getElementById(`modal-log-content-${gpuId}`);
   wrap.style.display = '';
-  try {
-    const data = await apiFetch(`/api/logs/${gpuId}`);
-    content.textContent = data.stderr.join('\n') || '(empty)';
-    content.scrollTop = content.scrollHeight;
-  } catch(e) {
-    content.textContent = 'Error loading logs: ' + e.message;
+
+  // Stop any previous log poll
+  if (_logInterval) { clearInterval(_logInterval); _logInterval = null; }
+
+  async function fetchLogs() {
+    try {
+      const data = await apiFetch(`/api/logs/${gpuId}`);
+
+      // ── Activity table ──────────────────────────────────────────────
+      const tbody = document.getElementById(`modal-activity-body-${gpuId}`);
+      if (tbody && data.activity && data.activity.length > 0) {
+        const rows = [...data.activity].reverse().map(r => {
+          const t = r.time ? r.time.split('T')[1] : '—';
+          const ok = r.status == 200;
+          const statusColor = ok ? 'var(--green)' : 'var(--red)';
+          return `<tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:4px 6px; color:var(--dim);">${t}</td>
+            <td style="padding:4px 6px;">${r.endpoint || '/v1/chat/completions'}</td>
+            <td style="padding:4px 6px; text-align:right;">${r.prompt_tokens}t</td>
+            <td style="padding:4px 6px; text-align:right;">${r.gen_tokens}t</td>
+            <td style="padding:4px 6px; text-align:right;">${Math.round(r.total_ms)}ms</td>
+            <td style="padding:4px 6px; text-align:right; color:var(--green);">${r.speed}t/s</td>
+            <td style="padding:4px 6px; text-align:center; color:${statusColor};">${r.status}</td>
+          </tr>`;
+        }).join('');
+        tbody.innerHTML = rows;
+      } else if (tbody && (!data.activity || data.activity.length === 0)) {
+        tbody.innerHTML = '<tr><td colspan="7" style="color:var(--dim); padding:6px; text-align:center;">No requests yet</td></tr>';
+      }
+
+      // ── Raw log ─────────────────────────────────────────────────────
+      const text = data.stderr.join('\n') || '(empty)';
+      if (content.textContent !== text) {
+        content.textContent = text;
+        content.scrollTop = content.scrollHeight;
+      }
+    } catch(e) {
+      content.textContent = 'Error loading logs: ' + e.message;
+    }
   }
+
+  await fetchLogs();
+  // Auto-refresh every 2 seconds while modal is open
+  _logInterval = setInterval(fetchLogs, 2000);
 }
 
 function closeModal(e) {
   if (e.target.id === 'modal') {
     document.getElementById('modal').style.display = 'none';
+    if (_logInterval) { clearInterval(_logInterval); _logInterval = null; }
   }
 }
 
@@ -1667,12 +1872,7 @@ async function setAllPower(level) {
 
 // ── Performance Panel Toggle ─────────────────────────────────────────
 
-let perfPanelOpen = false;
-function togglePerfPanel() {
-  perfPanelOpen = !perfPanelOpen;
-  document.getElementById('perf-body').style.display = perfPanelOpen ? 'block' : 'none';
-  document.getElementById('perf-arrow').style.transform = perfPanelOpen ? 'rotate(90deg)' : '';
-}
+function togglePerfPanel() {} // replaced by TF traffic canvas
 
 let ctrlPanelOpen = false;
 function toggleCtrlPanel() {
@@ -2001,7 +2201,7 @@ function stopTests() {
 // ── Boot ──────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-  initChart();
+  TF.init();
   fetchInitial();
   startSSE();
 

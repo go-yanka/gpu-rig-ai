@@ -1,0 +1,11 @@
+sno,code,description,std_rate,igst_rate,condition_no,effective_from,effective_to
+1,0202,"Meat of bovine animals frozen","30%","","",2017-07-01,
+51,1006,"Rice","70%","","",2017-07-01,
+164,2710,"Motor spirit (petrol)","2.5%","","",2017-07-01,
+180,3003,"Medicaments","10%","12%","",2017-07-01,
+404,7208,"Flat-rolled products of iron, hot-rolled","7.5%","18%","5",2017-07-01,
+515,8471,"Automatic data processing machines","Nil","18%","","2017-07-01",
+526,8517,"Cellular mobile phones","20%","12%","","2017-07-01",
+531,8528,"Monitors / television receivers","20%","28%","","2017-07-01",
+535,8703,"Motor cars","100%","28%","","2017-07-01",
+540,8711,"Motorcycles","50%","28%","","2017-07-01",

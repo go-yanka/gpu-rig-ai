@@ -69,6 +69,13 @@ MODEL_CONFIGS = {
                 "flags": "-ngl 99 -c 16384 --parallel 1 --cache-ram 0 --mmap -b 2048 -ub 512 -t 4 --flash-attn off --reasoning off",
                 "why": "Thinking disabled. Answers directly in content, no reasoning_content. Faster for simple Q&A, tool calls, Ritu's agent.",
             },
+            "agent": {
+                "desc": "Thinking ON, 16K ctx, aliased as mistral-nemo for Ritu's job agent",
+                "speed": "~48 tok/s",
+                "context": 16384,
+                "flags": "-ngl 99 -c 16384 --parallel 1 --cache-ram 0 --mmap -b 2048 -ub 512 -t 4 --flash-attn off --reasoning-format deepseek --alias mistral-nemo",
+                "why": "Thinking ON, reasoning in reasoning_content so agent's JSON parsing is clean. --alias mistral-nemo so /v1/models health check passes.",
+            },
             "nothink-fast": {
                 "desc": "Thinking OFF, 8K ctx, small batch",
                 "speed": "~47 tok/s",
@@ -1510,28 +1517,84 @@ def get_perf():
 # ══════════════════════════════════════════════════════════════════════════
 
 def rebuild_nginx():
-    """Rebuild nginx config from ready instances only (not loading)."""
+    """Rebuild nginx config with per-model upstreams and URL-prefix routing.
+
+    Routing scheme (port 4000):
+      GET /v1/...             → any ready GPU (least_conn)
+      GET /<model>/v1/...     → GPUs running that model (least_conn)
+
+    'loading' instances are excluded — they reject connections.
+    Auto-called after every load / unload.
+    """
     instances = get_instances()
-    # Only include "ready" backends — "loading" ones reject requests
-    servers = [f"    server 127.0.0.1:{inst['port']};" for gpu, inst in instances.items()
-               if inst["status"] == "ready"]
-    if not servers:
-        print(co(R, "  No ready instances for nginx"))
-        return False
-    config = f"""upstream ai_rig_gpus {{
-    least_conn;
-{chr(10).join(servers)}
-}}
+    ready = {gpu: inst for gpu, inst in instances.items() if inst["status"] == "ready"}
+
+    if not ready:
+        # Write a minimal config with a dummy upstream so nginx stays valid
+        config = f"""# No ready GPU instances
 server {{
     listen {LB_PORT};
-    location / {{
-        proxy_pass http://ai_rig_gpus;
+    return 503 "No GPU instances ready";
+}}"""
+        Path("/tmp/nginx_lb.conf").write_text(config)
+        subprocess.run("sudo cp /tmp/nginx_lb.conf /etc/nginx/sites-available/ai-rig-lb.conf",
+                       shell=True, timeout=10)
+        subprocess.run("sudo nginx -t && sudo systemctl reload nginx",
+                       shell=True, capture_output=True, text=True, timeout=30)
+        print(co(Y, "  nginx: no ready backends — returning 503"))
+        return False
+
+    # Group GPUs by model name (strip whitespace, lowercase slug)
+    model_groups: dict[str, list[int]] = {}
+    for gpu, inst in ready.items():
+        model = (inst.get("model") or "").strip().lower().replace(" ", "-") or "unknown"
+        model_groups.setdefault(model, []).append(inst["port"])
+
+    # Build upstream blocks — one per model + one catch-all
+    upstream_blocks = []
+    location_blocks = []
+    all_servers = [f"        server 127.0.0.1:{inst['port']};" for inst in ready.values()]
+
+    # Catch-all upstream (any ready GPU)
+    upstream_blocks.append(
+        f"upstream all_ready {{\n    least_conn;\n" +
+        "\n".join(f"    server 127.0.0.1:{inst['port']};" for inst in ready.values()) +
+        "\n}"
+    )
+
+    # Per-model upstreams + location blocks
+    for model, ports in model_groups.items():
+        safe = model.replace("-", "_").replace(".", "_")
+        servers_str = "\n".join(f"    server 127.0.0.1:{p};" for p in ports)
+        upstream_blocks.append(f"upstream model_{safe} {{\n    least_conn;\n{servers_str}\n}}")
+        # URL-prefix route: /modelname/v1/... → strips prefix, proxies to model upstream
+        location_blocks.append(f"""    location /{model}/ {{
+        rewrite ^/{model}/(.*) /$1 break;
+        proxy_pass http://model_{safe};
         proxy_set_header Host $host;
         proxy_read_timeout 300s;
         proxy_send_timeout 300s;
-        client_max_body_size 10m;
-    }}
+        client_max_body_size 50m;
+        proxy_buffering off;
+    }}""")
+
+    # Default location → all_ready
+    location_blocks.append(f"""    location / {{
+        proxy_pass http://all_ready;
+        proxy_set_header Host $host;
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
+        client_max_body_size 50m;
+        proxy_buffering off;
+    }}""")
+
+    config = "\n\n".join(upstream_blocks) + f"""
+
+server {{
+    listen {LB_PORT};
+{chr(10).join(location_blocks)}
 }}"""
+
     Path("/tmp/nginx_lb.conf").write_text(config)
     subprocess.run("sudo cp /tmp/nginx_lb.conf /etc/nginx/sites-available/ai-rig-lb.conf",
                    shell=True, timeout=10)
@@ -1540,7 +1603,16 @@ server {{
     r = subprocess.run("sudo nginx -t && sudo systemctl reload nginx",
                        shell=True, capture_output=True, text=True, timeout=30)
     ok = r.returncode == 0
-    print(co(G if ok else R, f"  nginx: {len(servers)} backends {'active' if ok else 'FAILED'}"))
+
+    if ok:
+        routes = ["  /v1/... → any ready GPU"] + [
+            f"  /{m}/v1/... → {len(p)} GPU(s) {p}" for m, p in model_groups.items()
+        ]
+        print(co(G, f"  nginx: {len(ready)} backend(s) active"))
+        for r_line in routes:
+            print(co(DIM, r_line))
+    else:
+        print(co(R, f"  nginx reload FAILED:\n{r.stderr}"))
     return ok
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -2346,6 +2418,19 @@ def cmd_load(args):
     # Show one-shot status snapshot, no auto-refresh (return prompt immediately)
     cmd_gpus(auto_refresh=False)
     print(co(DIM, "  Run 'gpus' to watch loading progress"))
+    # Update nginx routing to include newly started GPUs once they're ready
+    # (non-blocking: runs in background so prompt returns immediately)
+    import threading
+    def _nginx_after_load():
+        # Wait up to 5 min for at least one GPU to become ready, then rebuild
+        for _ in range(60):
+            time.sleep(5)
+            insts = get_instances()
+            if any(i["status"] == "ready" for i in insts.values()):
+                rebuild_nginx()
+                return
+        rebuild_nginx()  # rebuild even if none ready (clears stale config)
+    threading.Thread(target=_nginx_after_load, daemon=True).start()
 
 def cmd_unload(args):
     if not args:
@@ -2360,6 +2445,7 @@ def cmd_unload(args):
         kill_port(BASE_PORT + gpu)
         print(f"  GPU {gpu}: {co(DIM, 'stopped')}")
     save_state()
+    rebuild_nginx()
     print()
 
 def cmd_verify(verbose=False):
@@ -2791,13 +2877,50 @@ def cmd_perf():
 
 def cmd_logs(args):
     if not args:
-        print(co(Y, "  Usage: logs <gpu>")); return
+        print(co(Y, "  Usage: logs <gpu> [-f]  (use -f to follow live)"))
+        return
+    parts = args.strip().split()
+    follow = "-f" in parts or "follow" in parts
+    parts = [p for p in parts if p not in ("-f", "follow")]
     try:
-        gpu = int(args.strip())
+        gpu = int(parts[0])
     except Exception:
         print(co(R, "Invalid GPU")); return
     err = Path(f"/tmp/gpu{gpu}_err.log")
-    if err.exists():
+    if not err.exists():
+        print(co(DIM, f"  No log for GPU {gpu}"))
+        return
+    if follow:
+        print(co(BOLD, f"\n  === GPU {gpu} live log — type q + Enter, or Ctrl+C to stop ===\n"))
+        import threading
+        stop = threading.Event()
+        def _watch_quit():
+            try:
+                while not stop.is_set():
+                    ch = sys.stdin.readline().strip().lower()
+                    if ch in ('q', 'quit', 'exit'):
+                        stop.set()
+            except Exception:
+                stop.set()
+        t = threading.Thread(target=_watch_quit, daemon=True)
+        t.start()
+        try:
+            with open(err, "r", errors="replace") as f:
+                for line in f.readlines()[-30:]:
+                    print(f"  {line}", end="")
+                print()
+                while not stop.is_set():
+                    line = f.readline()
+                    if line:
+                        print(f"  {line}", end="", flush=True)
+                    else:
+                        time.sleep(0.2)
+        except KeyboardInterrupt:
+            pass
+        finally:
+            stop.set()
+        print(co(DIM, "\n  [stopped]"))
+    else:
         print(co(BOLD, f"\n  === GPU {gpu} stderr (last 30 lines) ==="))
         try:
             lines = err.read_text(errors="replace").splitlines()
@@ -2805,8 +2928,6 @@ def cmd_logs(args):
                 print(f"  {line}")
         except Exception as e:
             print(co(R, f"  Error reading log: {e}"))
-    else:
-        print(co(DIM, f"  No log for GPU {gpu}"))
     print()
 
 def cmd_chat(args):
@@ -3248,12 +3369,14 @@ HELP_DETAIL["perf"] = f"""
 """
 
 HELP_DETAIL["logs"] = f"""
-  {co(BOLD, 'logs')} <gpu>
+  {co(BOLD, 'logs')} <gpu> [-f]
 
   Show last 30 lines of a GPU's stderr log (/tmp/gpu<N>_err.log).
-  Useful for finding crash messages like "double free or corruption".
+  Use -f to follow live — streams new lines in real-time (q+Enter or Ctrl+C to stop).
+  Useful for watching requests come in, timing, and crash messages.
 
-    logs 0       Show GPU 0 error log
+    logs 2       Show GPU 2 last 30 lines
+    logs 2 -f    Follow GPU 2 log live (like tail -f)
 """
 
 HELP_DETAIL["diagnose"] = f"""

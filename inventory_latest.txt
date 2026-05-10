@@ -1,0 +1,1716 @@
+# Inventory of D:/_gpu_rig_ai — generated Thu Apr 23 12:48:50 EDT 2026
+
+## *.jsonl
+  ./benchmarks/b2_test/parsed_rig.jsonl                                              1000 lines  | {"host": "rig", "i": 0, "ts": 1776900706.1117043, "pad": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+  ./benchmarks/b2_test/parsed_win.jsonl                                              1000 lines  | {"host": "win", "i": 0, "ts": 1776900706.411946, "pad": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  ./eval/failure_modes_20260422.jsonl                                                 149 lines  | {"id": "gst_pos_001", "category": "gst", "question_short": "A registered supplier in Maharashtra sells goods to a regist
+  ./eval/gold_complexity_20260422.jsonl                                               170 lines  | {"id": "gst_pos_001", "category": "gst", "complexity": "MEDIUM", "n_entities": 2, "q_len": 31, "score": 2, "reasons": ["
+  ./eval/recall_audit_20260422.jsonl                                                  170 lines  | {"id": "gst_pos_001", "category": "gst", "question": "A registered supplier in Maharashtra sells goods to a registered b
+  ./eval/recall_audit_fixed_matcher_20260422.jsonl                                    170 lines  | {"id": "gst_pos_001", "category": "gst", "question": "A registered supplier in Maharashtra sells goods to a registered b
+  ./eval/runs/a3on_20260421_222520/results.jsonl                                       49 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 29223, "
+  ./eval/runs/baseline_20260421_211827/results.jsonl                                   49 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 33, "err
+  ./eval/runs/baseline_20260421_211918/results.jsonl                                    2 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 30549, "
+  ./eval/runs/baseline_a3off_20260421_220214/results.jsonl                             49 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 52035, "
+  ./eval/runs/claude_judge_smoke2_20260422_104342/per_item.jsonl                        2 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "question": "A registe
+  ./eval/runs/claude_judge_smoke3_20260422_104608/per_item.jsonl                        2 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "question": "A registe
+  ./eval/runs/claude_judge_smoke_20260422_104308/per_item.jsonl                         2 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "question": "A registe
+  ./eval/runs/p1_2_baseline170_20260422_050751/results.jsonl                          169 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 25109, "
+  ./eval/runs/p1_2_claude_judge_20260422_104728/per_item.jsonl                        170 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "question": "A registe
+  ./eval/runs/p1_2_postdeploy_20260422_003323/results.jsonl                            49 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 17624, "
+  ./eval/runs/p1_3_evalA_20260422_023102/results.jsonl                                169 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 30252, "
+  ./eval/runs/p1_3_evalB_20260422_041318/results.jsonl                                169 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 31972, "
+  ./eval/runs/p2_1_evalA_20260422_081545/results.jsonl                                169 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 34604, "
+  ./eval/runs/smoke_judgefix_20260422_050647/results.jsonl                              1 lines  | {"id": "gst_pos_001", "category": "gst", "subcategory": "place_of_supply", "difficulty": "basic", "latency_ms": 26019, "
+  ./eval/training_pairs/claude_smoke.jsonl                                              3 lines  | {"chunk_id": 5956478946887, "doc_id": "cbic-form-msts:1000053", "category": "gst", "subcategory": "forms", "doc_type": "
+  ./eval/training_pairs/high_complex_smoke.jsonl                                        3 lines  | {"chunk_id": 15170799264442, "doc_id": "cbic-act-msts:1000006", "category": "gst", "subcategory": "acts", "doc_type": "a
+  ./eval/training_pairs/pairs_2000_20260422.jsonl                                    1909 lines  | {"chunk_id": 4888934001797, "doc_id": "cbic-circular-msts:1001274", "category": "customs", "subcategory": "circulars", "
+  ./eval/training_pairs/pairs_claude_opus.jsonl                                        76 lines  | {"chunk_id": 4540331629108, "doc_id": "cbic-circular-msts:1001000", "category": "customs", "subcategory": "circulars", "
+  ./eval/training_pairs/pairs_opus_highcomplex.jsonl                                  213 lines  | {"chunk_id": 80415272464931, "doc_id": "cbic-notification-msts:1000777", "category": "gst", "subcategory": "notification
+  ./eval/training_pairs/pairs_opus_highcomplex_BAD_argv.jsonl                         224 lines  | {"chunk_id": 18342506120244, "doc_id": "cbic-notification-msts:1002706", "category": "customs", "subcategory": "notifica
+  ./eval/training_pairs/pairs_sonnet_lowcomplex.jsonl                                 197 lines  | {"chunk_id": 45951493631207, "doc_id": "cbic-notification-msts:1002528", "category": "customs", "subcategory": "notifica
+  ./eval/training_pairs/qa_claude_opus.jsonl                                          152 lines  | {"chunk_id": 4540331629108, "category": "customs", "question": "You have a 4-core CPU server running multiple GPU-accele
+  ./eval/training_pairs/qa_gemini.jsonl                                              2559 lines  | {"chunk_id": 4836651377130, "category": "central_excise", "question": "What is the official document prepared by tax aut
+  ./eval/training_pairs/qa_opus_highcomplex_BAD.jsonl                                  19 lines  | {"chunk_id": 31678310070221, "category": "others", "question": "A closely-held Indian company receives a loan from its 1
+  ./eval/training_pairs/qa_sonnet_high.jsonl                                          426 lines  | {"chunk_id": 58626915352694, "category": "customs", "question": "Meridian Imports LLP, based in Mumbai, is importing ind
+  ./eval/variants_results.jsonl                                                       510 lines  | {"id": "gst_cs_001", "variant": "baseline", "category": "gst", "question": "A hotel provides a package of room + breakfa
+  ./openclaw/vendor/a2ui/specification/0.9/json/contact_form_example.jsonl              3 lines  | {"createSurface":{"surfaceId":"contact_form_1","catalogId":"https://a2ui.dev/specification/0.9/standard_catalog_definiti
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/audit/results.jsonl                        11 lines  | {"tag": "Q1_itc_timelimit", "question": "What is the time limit for claiming ITC under Section 16(4)?", "latency_s": 35.
+  ./training/curated_pairs.jsonl                                                      701 lines  | {"question": "I'm reviewing an older anti-dumping duty notification, specifically Notification 15/2011-Customs (N.T.). W
+  ./training/hard_negatives.jsonl                                                    4258 lines  | {"question": "What is the primary document Customs will accept for logging our DEEC book for an export made through an I
+  ./training/train.jsonl                                                               20 lines  | {"query": "We are setting up a new dairy processing unit for exporting cheese. What are the specific material and finish
+  ./training/val.jsonl                                                                  2 lines  | {"query": "What is the primary document Customs will accept for logging our DEEC book for an export made through an ICD?
+  ./training_pairs/smoke_test.jsonl                                                     2 lines  | {"chunk_id": 1573322496932, "doc_id": "cbic-circular-msts:1002598", "category": "central_excise", "subcategory": "circul
+
+## *.json
+  ./_corpus_files.json                                                                  1 lines  | {"t1_income_tax": [["income_tax_act_2025.pdf", 1441], ["income_tax_act_1961.pdf", 1237]], "t1_other_bare_acts": [["stamp
+  ./benchmarks/b0_results.json                                                         13 lines  | {
+  ./benchmarks/b0b_results.json                                                        11 lines  | {
+  ./benchmarks/b1_results.json                                                         55 lines  | {
+  ./benchmarks/b2_chunk_audit.json                                                     80 lines  | {
+  ./benchmarks/b2_results.json                                                         15 lines  | {
+  ./benchmarks/b3_results.json                                                          8 lines  | {
+  ./benchmarks/b5_results.json                                                         18 lines  | {
+  ./benchmarks/b6_results.json                                                         17 lines  | {
+  ./benchmarks/b7_results.json                                                         51 lines  | {
+  ./benchmarks/b8_results.json                                                         33 lines  | {
+  ./benchmarks/b_gen_results.json                                                       9 lines  | {
+  ./benchmarks/b_lora_results.json                                                     21 lines  | {
+  ./benchmarks/b_ocr_api_results.json                                                 107 lines  | {
+  ./benchmarks/b_ocr_parallel_results.json                                             82 lines  | {
+  ./benchmarks/b_ocr_results.json                                                      80 lines  | {
+  ./benchmarks/b_rerank_results.json                                                   12 lines  | {
+  ./cbic_rag/eval_set.json                                                             39 lines  | {
+  ./dashboard/gpu_profiles.json                                                       139 lines  | {
+  ./eval/chunk_audit.json                                                             254 lines  | {
+  ./eval/eval_set_rig_v2.json                                                        5500 lines  | {
+  ./eval/runs/a3on_20260421_222520/run.json                                          1643 lines  | {
+  ./eval/runs/baseline_20260421_211827/run.json                                      1576 lines  | {
+  ./eval/runs/baseline_20260421_211918/run.json                                       122 lines  | {
+  ./eval/runs/baseline_a3off_20260421_220214/run.json                                1739 lines  | {
+  ./eval/runs/p1_2_baseline170_20260422_050751/run.json                              5488 lines  | {
+  ./eval/runs/p1_2_postdeploy_20260422_003323/run.json                               1736 lines  | {
+  ./eval/runs/p1_3_evalA_20260422_023102/run.json                                    5278 lines  | {
+  ./eval/runs/p1_3_evalB_20260422_041318/run.json                                    5270 lines  | {
+  ./eval/runs/p2_1_evalA_20260422_081545/run.json                                    5477 lines  | {
+  ./eval/runs/smoke_judgefix_20260422_050647/run.json                                 101 lines  | {
+  ./eval/training_pairs/qa_claude_opus_summary.json                                    25 lines  | {
+  ./eval/training_pairs/qa_sonnet_high_summary.json                                    23 lines  | {
+  ./gemma4_final_evidence.json                                                        919 lines  | {
+  ./gemma4_test_results.json                                                          272 lines  | [
+  ./openclaw/apps/ios/ActivityWidget/Assets.xcassets/Contents.json                      6 lines  | {
+  ./openclaw/apps/ios/Sources/Assets.xcassets/AppIcon.appiconset/Contents.json          0 lines  | {"images":[{"size":"60x60","expected-size":"180","filename":"180.png","folder":"Assets.xcassets/AppIcon.appiconset/","id
+  ./openclaw/apps/ios/WatchApp/Assets.xcassets/AppIcon.appiconset/Contents.json       116 lines  | {
+  ./openclaw/apps/ios/WatchApp/Assets.xcassets/Contents.json                            6 lines  | {
+  ./openclaw/apps/macos/Icon.icon/icon.json                                            36 lines  | {
+  ./openclaw/apps/macos/Sources/OpenClaw/Resources/DeviceModels/ios-device-identifiers.json    176 lines  | {
+  ./openclaw/apps/macos/Sources/OpenClaw/Resources/DeviceModels/mac-device-identifiers.json    214 lines  | {
+  ./openclaw/apps/shared/OpenClawKit/Sources/OpenClawKit/Resources/tool-display.json   1110 lines  | {
+  ./openclaw/docs/docs.json                                                          1602 lines  | {
+  ./openclaw/docs/reference/secretref-user-supplied-credentials-matrix.json           607 lines  | {
+  ./openclaw/docs/snippets/plugin-publish/minimal-openclaw.plugin.json                  9 lines  | {
+  ./openclaw/docs/snippets/plugin-publish/minimal-package.json                         16 lines  | {
+  ./openclaw/extensions/acpx/openclaw.plugin.json                                     145 lines  | {
+  ./openclaw/extensions/acpx/package.json                                              14 lines  | {
+  ./openclaw/extensions/alibaba/openclaw.plugin.json                                   30 lines  | {
+  ./openclaw/extensions/alibaba/package.json                                           12 lines  | {
+  ./openclaw/extensions/amazon-bedrock-mantle/openclaw.plugin.json                     10 lines  | {
+  ./openclaw/extensions/amazon-bedrock-mantle/package.json                             18 lines  | {
+  ./openclaw/extensions/amazon-bedrock/openclaw.plugin.json                            71 lines  | {
+  ./openclaw/extensions/amazon-bedrock/package.json                                    23 lines  | {
+  ./openclaw/extensions/anthropic-vertex/openclaw.plugin.json                          10 lines  | {
+  ./openclaw/extensions/anthropic-vertex/package.json                                  12 lines  | {
+  ./openclaw/extensions/anthropic/openclaw.plugin.json                                 47 lines  | {
+  ./openclaw/extensions/anthropic/package.json                                         12 lines  | {
+  ./openclaw/extensions/arcee/openclaw.plugin.json                                     43 lines  | {
+  ./openclaw/extensions/arcee/package.json                                             12 lines  | {
+  ./openclaw/extensions/bluebubbles/openclaw.plugin.json                                9 lines  | {
+  ./openclaw/extensions/bluebubbles/package.json                                       55 lines  | {
+  ./openclaw/extensions/brave/openclaw.plugin.json                                     40 lines  | {
+  ./openclaw/extensions/brave/package.json                                             12 lines  | {
+  ./openclaw/extensions/browser/openclaw.plugin.json                                    9 lines  | {
+  ./openclaw/extensions/browser/package.json                                           12 lines  | {
+  ./openclaw/extensions/byteplus/openclaw.plugin.json                                  31 lines  | {
+  ./openclaw/extensions/byteplus/package.json                                          12 lines  | {
+  ./openclaw/extensions/chutes/openclaw.plugin.json                                    39 lines  | {
+  ./openclaw/extensions/chutes/package.json                                            12 lines  | {
+  ./openclaw/extensions/cloudflare-ai-gateway/openclaw.plugin.json                     29 lines  | {
+  ./openclaw/extensions/cloudflare-ai-gateway/package.json                             12 lines  | {
+  ./openclaw/extensions/comfy/openclaw.plugin.json                                    104 lines  | {
+  ./openclaw/extensions/comfy/package.json                                             12 lines  | {
+  ./openclaw/extensions/copilot-proxy/openclaw.plugin.json                             23 lines  | {
+  ./openclaw/extensions/copilot-proxy/package.json                                     12 lines  | {
+  ./openclaw/extensions/deepgram/openclaw.plugin.json                                  15 lines  | {
+  ./openclaw/extensions/deepgram/package.json                                          12 lines  | {
+  ./openclaw/extensions/deepseek/openclaw.plugin.json                                  28 lines  | {
+  ./openclaw/extensions/deepseek/package.json                                          12 lines  | {
+  ./openclaw/extensions/device-pair/openclaw.plugin.json                               21 lines  | {
+  ./openclaw/extensions/diagnostics-otel/openclaw.plugin.json                           8 lines  | {
+  ./openclaw/extensions/diagnostics-otel/package.json                                  34 lines  | {
+  ./openclaw/extensions/diffs/openclaw.plugin.json                                    192 lines  | {
+  ./openclaw/extensions/diffs/package.json                                             24 lines  | {
+  ./openclaw/extensions/discord/openclaw.plugin.json                                   12 lines  | {
+  ./openclaw/extensions/discord/package.json                                           67 lines  | {
+  ./openclaw/extensions/duckduckgo/openclaw.plugin.json                                35 lines  | {
+  ./openclaw/extensions/duckduckgo/package.json                                        12 lines  | {
+  ./openclaw/extensions/elevenlabs/openclaw.plugin.json                                11 lines  | {
+  ./openclaw/extensions/elevenlabs/package.json                                        12 lines  | {
+  ./openclaw/extensions/exa/openclaw.plugin.json                                       32 lines  | {
+  ./openclaw/extensions/exa/package.json                                               12 lines  | {
+  ./openclaw/extensions/fal/openclaw.plugin.json                                       33 lines  | {
+  ./openclaw/extensions/fal/package.json                                               12 lines  | {
+  ./openclaw/extensions/feishu/openclaw.plugin.json                                    18 lines  | {
+  ./openclaw/extensions/feishu/package.json                                            58 lines  | {
+  ./openclaw/extensions/firecrawl/openclaw.plugin.json                                 72 lines  | {
+  ./openclaw/extensions/firecrawl/package.json                                         12 lines  | {
+  ./openclaw/extensions/fireworks/openclaw.plugin.json                                 28 lines  | {
+  ./openclaw/extensions/fireworks/package.json                                         12 lines  | {
+  ./openclaw/extensions/github-copilot/openclaw.plugin.json                            43 lines  | {
+  ./openclaw/extensions/github-copilot/package.json                                    12 lines  | {
+  ./openclaw/extensions/google/openclaw.plugin.json                                    72 lines  | {
+  ./openclaw/extensions/google/package.json                                            15 lines  | {
+  ./openclaw/extensions/googlechat/openclaw.plugin.json                                12 lines  | {
+  ./openclaw/extensions/googlechat/package.json                                        48 lines  | {
+  ./openclaw/extensions/groq/openclaw.plugin.json                                      15 lines  | {
+  ./openclaw/extensions/groq/package.json                                              12 lines  | {
+  ./openclaw/extensions/huggingface/openclaw.plugin.json                               47 lines  | {
+  ./openclaw/extensions/huggingface/package.json                                       12 lines  | {
+  ./openclaw/extensions/image-generation-core/package.json                              7 lines  | {
+  ./openclaw/extensions/imessage/openclaw.plugin.json                                   9 lines  | {
+  ./openclaw/extensions/imessage/package.json                                          26 lines  | {
+  ./openclaw/extensions/irc/openclaw.plugin.json                                       23 lines  | {
+  ./openclaw/extensions/irc/package.json                                               32 lines  | {
+  ./openclaw/extensions/kilocode/openclaw.plugin.json                                  29 lines  | {
+  ./openclaw/extensions/kilocode/package.json                                          12 lines  | {
+  ./openclaw/extensions/kimi-coding/openclaw.plugin.json                               29 lines  | {
+  ./openclaw/extensions/kimi-coding/package.json                                       12 lines  | {
+  ./openclaw/extensions/line/openclaw.plugin.json                                      12 lines  | {
+  ./openclaw/extensions/line/package.json                                              41 lines  | {
+  ./openclaw/extensions/litellm/openclaw.plugin.json                                   29 lines  | {
+  ./openclaw/extensions/litellm/package.json                                           12 lines  | {
+  ./openclaw/extensions/llm-task/openclaw.plugin.json                                  21 lines  | {
+  ./openclaw/extensions/llm-task/package.json                                          16 lines  | {
+  ./openclaw/extensions/lobster/openclaw.plugin.json                                   10 lines  | {
+  ./openclaw/extensions/lobster/package.json                                           25 lines  | {
+  ./openclaw/extensions/matrix/openclaw.plugin.json                                    23 lines  | {
+  ./openclaw/extensions/matrix/package.json                                            58 lines  | {
+  ./openclaw/extensions/mattermost/openclaw.plugin.json                                12 lines  | {
+  ./openclaw/extensions/mattermost/package.json                                        41 lines  | {
+  ./openclaw/extensions/media-understanding-core/package.json                           7 lines  | {
+  ./openclaw/extensions/memory-core/openclaw.plugin.json                               29 lines  | {
+  ./openclaw/extensions/memory-core/package.json                                       23 lines  | {
+  ./openclaw/extensions/memory-lancedb/openclaw.plugin.json                            88 lines  | {
+  ./openclaw/extensions/memory-lancedb/package.json                                    31 lines  | {
+  ./openclaw/extensions/memory-wiki/openclaw.plugin.json                              157 lines  | {
+  ./openclaw/extensions/memory-wiki/package.json                                       26 lines  | {
+  ./openclaw/extensions/microsoft-foundry/openclaw.plugin.json                         35 lines  | {
+  ./openclaw/extensions/microsoft-foundry/package.json                                 12 lines  | {
+  ./openclaw/extensions/microsoft/openclaw.plugin.json                                 11 lines  | {
+  ./openclaw/extensions/microsoft/package.json                                         15 lines  | {
+  ./openclaw/extensions/minimax/openclaw.plugin.json                                  102 lines  | {
+  ./openclaw/extensions/minimax/package.json                                           12 lines  | {
+  ./openclaw/extensions/mistral/openclaw.plugin.json                                   31 lines  | {
+  ./openclaw/extensions/mistral/package.json                                           12 lines  | {
+  ./openclaw/extensions/moonshot/openclaw.plugin.json                                  76 lines  | {
+  ./openclaw/extensions/moonshot/package.json                                          12 lines  | {
+  ./openclaw/extensions/msteams/openclaw.plugin.json                                   12 lines  | {
+  ./openclaw/extensions/msteams/package.json                                           55 lines  | {
+  ./openclaw/extensions/nextcloud-talk/openclaw.plugin.json                            12 lines  | {
+  ./openclaw/extensions/nextcloud-talk/package.json                                    52 lines  | {
+  ./openclaw/extensions/nostr/openclaw.plugin.json                                     12 lines  | {
+  ./openclaw/extensions/nostr/package.json                                             51 lines  | {
+  ./openclaw/extensions/nvidia/openclaw.plugin.json                                    13 lines  | {
+  ./openclaw/extensions/nvidia/package.json                                            12 lines  | {
+  ./openclaw/extensions/ollama/openclaw.plugin.json                                    47 lines  | {
+  ./openclaw/extensions/ollama/package.json                                            12 lines  | {
+  ./openclaw/extensions/open-prose/openclaw.plugin.json                                11 lines  | {
+  ./openclaw/extensions/open-prose/package.json                                        12 lines  | {
+  ./openclaw/extensions/openai/openclaw.plugin.json                                    58 lines  | {
+  ./openclaw/extensions/openai/package.json                                            15 lines  | {
+  ./openclaw/extensions/opencode-go/openclaw.plugin.json                               28 lines  | {
+  ./openclaw/extensions/opencode-go/package.json                                       12 lines  | {
+  ./openclaw/extensions/opencode/openclaw.plugin.json                                  28 lines  | {
+  ./openclaw/extensions/opencode/package.json                                          12 lines  | {
+  ./openclaw/extensions/openrouter/openclaw.plugin.json                                31 lines  | {
+  ./openclaw/extensions/openrouter/package.json                                        12 lines  | {
+  ./openclaw/extensions/openshell/openclaw.plugin.json                                115 lines  | {
+  ./openclaw/extensions/openshell/package.json                                         12 lines  | {
+  ./openclaw/extensions/perplexity/openclaw.plugin.json                                46 lines  | {
+  ./openclaw/extensions/perplexity/package.json                                        12 lines  | {
+  ./openclaw/extensions/phone-control/openclaw.plugin.json                             11 lines  | {
+  ./openclaw/extensions/qa-channel/openclaw.plugin.json                                 9 lines  | {
+  ./openclaw/extensions/qa-channel/package.json                                        45 lines  | {
+  ./openclaw/extensions/qa-lab/openclaw.plugin.json                                     8 lines  | {
+  ./openclaw/extensions/qa-lab/package.json                                            31 lines  | {
+  ./openclaw/extensions/qianfan/openclaw.plugin.json                                   28 lines  | {
+  ./openclaw/extensions/qianfan/package.json                                           12 lines  | {
+  ./openclaw/extensions/qqbot/openclaw.plugin.json                                    141 lines  | {
+  ./openclaw/extensions/qqbot/package.json                                             59 lines  | {
+  ./openclaw/extensions/qwen/openclaw.plugin.json                                      79 lines  | {
+  ./openclaw/extensions/qwen/package.json                                              12 lines  | {
+  ./openclaw/extensions/runway/openclaw.plugin.json                                    30 lines  | {
+  ./openclaw/extensions/runway/package.json                                            12 lines  | {
+  ./openclaw/extensions/searxng/openclaw.plugin.json                                   41 lines  | {
+  ./openclaw/extensions/searxng/package.json                                           12 lines  | {
+  ./openclaw/extensions/sglang/openclaw.plugin.json                                    25 lines  | {
+  ./openclaw/extensions/sglang/package.json                                            12 lines  | {
+  ./openclaw/extensions/signal/openclaw.plugin.json                                     9 lines  | {
+  ./openclaw/extensions/signal/package.json                                            24 lines  | {
+  ./openclaw/extensions/slack/openclaw.plugin.json                                     12 lines  | {
+  ./openclaw/extensions/slack/package.json                                             35 lines  | {
+  ./openclaw/extensions/speech-core/package.json                                        7 lines  | {
+  ./openclaw/extensions/stepfun/openclaw.plugin.json                                   73 lines  | {
+  ./openclaw/extensions/stepfun/package.json                                           12 lines  | {
+  ./openclaw/extensions/synology-chat/openclaw.plugin.json                             19 lines  | {
+  ./openclaw/extensions/synology-chat/package.json                                     26 lines  | {
+  ./openclaw/extensions/synthetic/openclaw.plugin.json                                 28 lines  | {
+  ./openclaw/extensions/synthetic/package.json                                         12 lines  | {
+  ./openclaw/extensions/talk-voice/openclaw.plugin.json                                11 lines  | {
+  ./openclaw/extensions/tavily/openclaw.plugin.json                                    41 lines  | {
+  ./openclaw/extensions/tavily/package.json                                            12 lines  | {
+  ./openclaw/extensions/telegram/openclaw.plugin.json                                  12 lines  | {
+  ./openclaw/extensions/telegram/package.json                                          41 lines  | {
+  ./openclaw/extensions/thread-ownership/openclaw.plugin.json                          28 lines  | {
+  ./openclaw/extensions/tlon/openclaw.plugin.json                                      10 lines  | {
+  ./openclaw/extensions/tlon/package.json                                              44 lines  | {
+  ./openclaw/extensions/together/openclaw.plugin.json                                  31 lines  | {
+  ./openclaw/extensions/together/package.json                                          12 lines  | {
+  ./openclaw/extensions/tsconfig.package-boundary.base.json                             6 lines  | {
+  ./openclaw/extensions/tsconfig.package-boundary.paths.json                           13 lines  | {
+  ./openclaw/extensions/twitch/openclaw.plugin.json                                    12 lines  | {
+  ./openclaw/extensions/twitch/package.json                                            29 lines  | {
+  ./openclaw/extensions/venice/openclaw.plugin.json                                    28 lines  | {
+  ./openclaw/extensions/venice/package.json                                            12 lines  | {
+  ./openclaw/extensions/vercel-ai-gateway/openclaw.plugin.json                         28 lines  | {
+  ./openclaw/extensions/vercel-ai-gateway/package.json                                 12 lines  | {
+  ./openclaw/extensions/video-generation-core/package.json                              7 lines  | {
+  ./openclaw/extensions/vllm/openclaw.plugin.json                                      25 lines  | {
+  ./openclaw/extensions/vllm/package.json                                              12 lines  | {
+  ./openclaw/extensions/voice-call/openclaw.plugin.json                               715 lines  | {
+  ./openclaw/extensions/voice-call/package.json                                        40 lines  | {
+  ./openclaw/extensions/volcengine/openclaw.plugin.json                                28 lines  | {
+  ./openclaw/extensions/volcengine/package.json                                        12 lines  | {
+  ./openclaw/extensions/vydra/openclaw.plugin.json                                     34 lines  | {
+  ./openclaw/extensions/vydra/package.json                                             12 lines  | {
+  ./openclaw/extensions/webhooks/openclaw.plugin.json                                  48 lines  | {
+  ./openclaw/extensions/webhooks/package.json                                          18 lines  | {
+  ./openclaw/extensions/whatsapp/openclaw.plugin.json                                   9 lines  | {
+  ./openclaw/extensions/whatsapp/package.json                                          56 lines  | {
+  ./openclaw/extensions/xai/openclaw.plugin.json                                      146 lines  | {
+  ./openclaw/extensions/xai/package.json                                               15 lines  | {
+  ./openclaw/extensions/xai/tsconfig.json                                              23 lines  | {
+  ./openclaw/extensions/xiaomi/openclaw.plugin.json                                    28 lines  | {
+  ./openclaw/extensions/xiaomi/package.json                                            12 lines  | {
+  ./openclaw/extensions/zai/openclaw.plugin.json                                       87 lines  | {
+  ./openclaw/extensions/zai/package.json                                               12 lines  | {
+  ./openclaw/extensions/zalo/openclaw.plugin.json                                      12 lines  | {
+  ./openclaw/extensions/zalo/package.json                                              54 lines  | {
+  ./openclaw/extensions/zalouser/openclaw.plugin.json                                  12 lines  | {
+  ./openclaw/extensions/zalouser/package.json                                          55 lines  | {
+  ./openclaw/package.json                                                            1378 lines  | {
+  ./openclaw/packages/clawdbot/package.json                                            16 lines  | {
+  ./openclaw/packages/memory-host-sdk/package.json                                     21 lines  | {
+  ./openclaw/packages/moltbot/package.json                                             16 lines  | {
+  ./openclaw/packages/plugin-package-contract/package.json                              9 lines  | {
+  ./openclaw/packages/plugin-sdk/package.json                                          68 lines  | {
+  ./openclaw/packages/plugin-sdk/tsconfig.json                                         46 lines  | {
+  ./openclaw/qa/seed-scenarios.json                                                   292 lines  | [
+  ./openclaw/scripts/clawtributors-map.json                                            40 lines  | {
+  ./openclaw/scripts/lib/bundled-runtime-sidecar-paths.json                            40 lines  | [
+  ./openclaw/scripts/lib/plugin-sdk-entrypoints.json                                  245 lines  | [
+  ./openclaw/src/infra/host-env-security-policy.json                                  153 lines  | {
+  ./openclaw/test-fixtures/talk-config-contract.json                                  147 lines  | {
+  ./openclaw/test/fixtures/cli-startup-bench.json                                     729 lines  | {
+  ./openclaw/test/fixtures/exec-allowlist-shell-parser-parity.json                     82 lines  | {
+  ./openclaw/test/fixtures/exec-wrapper-resolution-parity.json                         39 lines  | {
+  ./openclaw/test/fixtures/extension-relative-outside-package-inventory.json          202 lines  | [
+  ./openclaw/test/fixtures/plugin-extension-import-boundary-inventory.json              1 lines  | []
+  ./openclaw/test/fixtures/system-run-approval-binding-contract.json                  139 lines  | {
+  ./openclaw/test/fixtures/system-run-approval-mismatch-contract.json                  67 lines  | {
+  ./openclaw/test/fixtures/system-run-command-contract.json                            84 lines  | {
+  ./openclaw/test/fixtures/ts-topology/basic/tsconfig.json                             14 lines  | {
+  ./openclaw/tsconfig.json                                                             32 lines  | {
+  ./openclaw/tsconfig.oxlint.json                                                       5 lines  | {
+  ./openclaw/tsconfig.plugin-sdk.dts.json                                              19 lines  | {
+  ./openclaw/ui/package.json                                                           25 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/angular.json                                35 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/ng-package.json                              8 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/package-lock.json                        14264 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/package.json                                59 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/tsconfig.json                               23 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/tsconfig.lib.json                           16 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/tsconfig.lib.prod.json                       9 lines  | {
+  ./openclaw/vendor/a2ui/renderers/angular/tsconfig.spec.json                          12 lines  | {
+  ./openclaw/vendor/a2ui/renderers/lit/package-lock.json                             1196 lines  | {
+  ./openclaw/vendor/a2ui/renderers/lit/package.json                                   108 lines  | {
+  ./openclaw/vendor/a2ui/renderers/lit/src/0.8/schemas/server_to_client_with_standard_catalog.json    826 lines  | {
+  ./openclaw/vendor/a2ui/renderers/lit/tsconfig.json                                   36 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/eval/package.json                           36 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/eval/tsconfig.json                          11 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/a2ui_client_capabilities_schema.json     23 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/catalog_description_schema.json        34 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/client_to_server.json                  53 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/server_to_client.json                 147 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/server_to_client_with_standard_catalog.json    826 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.8/json/standard_catalog_definition.json      684 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/eval/package.json                           47 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/eval/tsconfig.json                          11 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/json/client_to_server.json                  97 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/json/common_types.json                     120 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/json/server_to_client.json                 114 lines  | {
+  ./openclaw/vendor/a2ui/specification/0.9/json/standard_catalog_definition.json      638 lines  | {
+  ./paddler/package-lock.json                                                        7773 lines  | {
+  ./paddler/package.json                                                               50 lines  | {
+  ./paddler/tsconfig.json                                                              45 lines  | {
+  ./qwen_test_results.json                                                            486 lines  | {
+  ./reingest_spec/v17_result.json                                                      27 lines  | {
+  ./rig_backup/opt/ai-rig-verify.json                                                 112 lines  | {
+  ./rig_backup/opt/dashboard/gpu_profiles.json                                        139 lines  | {
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_b13.json                                   0 lines  | {"query_id":71,"question":"Explain Section 16 ITC framework including conditions Rule 37 and blocked credits 17(5)","ans
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_ocr_candidates_raw.json                    0 lines  | [["cbic-form-msts:1000237", "customs", "forms", "/opt/indian-legal-ai/data/scraped/cbic/customs/forms/unknown/SCMTR_Form
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_query_out.json                             0 lines  | {"detail":"LLM gateway error: timed out"}
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b11_test.json                               0 lines  | {"query_id":69,"question":"Explain the complete ITC framework under Section 16 including all conditions, Rule 37, 180-da
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b12_1.json                                  0 lines  | {"query_id":67,"question":"When is GSTR-3B due?","answer_markdown":"**Answer:** GSTR-3B is due on the 15th of the follow
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b12_2.json                                  0 lines  | {"query_id":68,"question":"When is GSTR-3B due?","answer_markdown":"**Answer:** GSTR-3B is due on the 15th of the follow
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b22_resp.json                               0 lines  | {"query_id":93,"question":"Quantum Tech Pvt Ltd (registered in Karnataka) purchases laptops worth Rs 50 lakhs from Apex 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b22b_query.json                             1 lines  | {"question":"Quantum Tech Pvt Ltd (registered in Karnataka) purchases laptops worth Rs 50 lakhs from Apex Electronics (M
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/c1.json                                     0 lines  | {"query_id":48,"question":"What is the time limit for claiming ITC under Section 16(4)?","answer_markdown":"**Answer:** 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/c2.json                                     0 lines  | {"query_id":49,"question":"What is the time limit for claiming ITC under Section 16(4)?","answer_markdown":"**Answer:** 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/cbic_ingested_doc_ids.json                  0 lines  | ["cbic-act-msts:1000001", "cbic-act-msts:1000006", "cbic-act-msts:1000007", "cbic-act-msts:1000009", "cbic-act-msts:1000
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--Qdrant--bm25/files_metadata.json      0 lines  | {"snapshots/e499a1f8d6bec960aab5533a0941bf914e70faf9/english.txt": {"size": 936, "blob_id": "1280aa3b08d64b846272b2d2331
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--Qdrant--bm25/snapshots/e499a1f8d6bec960aab5533a0941bf914e70faf9/config.json      0 lines  | {}
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--colbert-ir--colbertv2.0/files_metadata.json      0 lines  | {"snapshots/c1e84128e85ef755c096a95bdb06b47793b13acf/config.json": {"size": 743, "blob_id": "829c0590211926bc770985bcf82
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--colbert-ir--colbertv2.0/snapshots/c1e84128e85ef755c096a95bdb06b47793b13acf/config.json     26 lines  | {
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--colbert-ir--colbertv2.0/snapshots/c1e84128e85ef755c096a95bdb06b47793b13acf/special_tokens_map.json      0 lines  | {"unk_token": "[UNK]", "sep_token": "[SEP]", "pad_token": "[PAD]", "cls_token": "[CLS]", "mask_token": "[MASK]"}
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--colbert-ir--colbertv2.0/snapshots/c1e84128e85ef755c096a95bdb06b47793b13acf/tokenizer.json      0 lines  | {"version":"1.0","truncation":null,"padding":null,"added_tokens":[{"id":0,"special":true,"content":"[PAD]","single_word"
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fastembed_cache/models--colbert-ir--colbertv2.0/snapshots/c1e84128e85ef755c096a95bdb06b47793b13acf/tokenizer_config.json      0 lines  | {"do_lower_case": true, "unk_token": "[UNK]", "sep_token": "[SEP]", "pad_token": "[PAD]", "cls_token": "[CLS]", "mask_to
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/ocr_poc_results.json                       26 lines  | [
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/q.json                                      0 lines  | {"query_id":54,"question":"Explain the complete ITC framework under Section 16 including all conditions, Rule 37, 180-da
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/q_itc.json                                  0 lines  | {"question":"Based on current compliance rules, does this vendors invoice, which shows a mismatch in GSTIN, qualify for 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/q_result.json                               0 lines  | {"detail":"LLM gateway error: timed out"}
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qr.json                                     0 lines  | {"detail":[{"type":"missing","loc":["body","question"],"msg":"Field required","input":{"query":"what is the rate of gst 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qr1.json                                    0 lines  | {"question":"what is the gst rate on branded rice","answer_markdown":"**Answer:** The GST rate on branded rice is not di
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qts.json                                    1 lines  | {"question":"Quantum Tech Solutions (Maharashtra) contracts with Global Bank (Karnataka) to provide a consolidated Digit
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qts_full.json                               0 lines  | {"query_id":89,"question":"The Case of \"Quantum Tech Solutions\"\n\nQuantum Tech Solutions (QTS), registered in Maharas
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qts_post_b17_21.json                        0 lines  | {"query_id":90,"question":"Quantum Tech Solutions (Maharashtra) contracts with Global Bank (Karnataka) to provide a cons
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qts_query.json                              1 lines  | {"question": "The Case of \"Quantum Tech Solutions\"\n\nQuantum Tech Solutions (QTS), registered in Maharashtra, enters 
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/v1.json                                     0 lines  | {"query_id":47,"question":"Explain in full detail the conditions, time limits, and reversals under Section 16 of CGST Ac
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/v4.json                                     0 lines  | {"query_id":50,"question":"Quantum Tech is a GST-registered IT services company in Mumbai that also sells pre-installed 
+  ./stress_test_results.json                                                          505 lines  | {
+  ./training/stats.json                                                                44 lines  | {
+
+## *.yaml
+  ./eval/gold_set.yaml                                                               3375 lines  | version: 2
+  ./eval/gold_set_expansion/bucket_1_tariff.yaml                                      300 lines  | - id: gst_rate_001
+  ./eval/gold_set_expansion/bucket_1_tariff_v2.yaml                                   300 lines  | - id: gst_rate_001
+  ./eval/gold_set_expansion/bucket_1_tariff_v3.yaml                                   300 lines  | - id: gst_rate_001
+  ./eval/gold_set_expansion/bucket_1_tariff_v3_llm2.yaml                              300 lines  | - id: gst_rate_001
+  ./eval/gold_set_expansion/bucket_2_refusal.yaml                                     129 lines  | - id: gst_refuse_001
+  ./eval/gold_set_expansion/bucket_3_multi_section.yaml                               324 lines  | - id: gst_complex_001
+  ./eval/gold_set_expansion/bucket_4_st_it_crossover.yaml                             259 lines  | - id: st_service_tax_001
+  ./eval/gold_set_expansion/bucket_5_customs_advanced.yaml                            259 lines  | - id: cust_customs_valuation_001
+  ./eval/gold_set_expansion/bucket_6_others.yaml                                      259 lines  | - id: oth_appeals_001
+  ./openclaw/pnpm-lock.yaml                                                         13650 lines  | lockfileVersion: '9.0'
+  ./openclaw/pnpm-workspace.yaml                                                       36 lines  | packages:
+  ./openclaw/render.yaml                                                               19 lines  | services:
+  ./openclaw/scripts/k8s/manifests/configmap.yaml                                      38 lines  | apiVersion: v1
+  ./openclaw/scripts/k8s/manifests/deployment.yaml                                    146 lines  | apiVersion: apps/v1
+  ./openclaw/scripts/k8s/manifests/kustomization.yaml                                   7 lines  | apiVersion: kustomize.config.k8s.io/v1beta1
+  ./openclaw/scripts/k8s/manifests/pvc.yaml                                            12 lines  | apiVersion: v1
+  ./openclaw/scripts/k8s/manifests/service.yaml                                        15 lines  | apiVersion: v1
+  ./openclaw/vendor/a2ui/mkdocs.yaml                                                  184 lines  | # Copyright 2025 Google LLC
+  ./openclaw/vendor/a2ui/specification/0.8/eval/pnpm-lock.yaml                       4885 lines  | # Copyright 2025 Google LLC
+  ./openclaw/vendor/a2ui/specification/0.8/eval/pnpm-workspace.yaml                    18 lines  | # Copyright 2025 Google LLC
+  ./openclaw/vendor/a2ui/specification/0.9/eval/pnpm-lock.yaml                       4727 lines  | # Copyright 2025 Google LLC
+  ./openclaw/vendor/a2ui/specification/0.9/eval/pnpm-workspace.yaml                    18 lines  | # Copyright 2025 Google LLC
+  ./paddler/example/compose.yaml                                                       41 lines  | x-paddler-common: &paddler-common
+  ./patches/tariff_v1_20260421_213209/gold_set_tariff.yaml                             97 lines  | # gold_set_tariff.yaml — 10 rate-lookup gold items for A4 (tariff pipeline).
+
+## *.yml
+  ./openclaw/apps/ios/project.yml                                                     353 lines  | name: OpenClaw
+  ./openclaw/docker-compose.yml                                                        78 lines  | services:
+  ./openclaw/zizmor.yml                                                                17 lines  | # zizmor configuration
+
+## *.md
+  ./CLAUDE.md                                                                          46 lines  | # Project Instructions — GPU Rig AI (CBIC RAG v2 + related)
+  ./GEMMA4_TEST_REPORT.md                                                             147 lines  | # Gemma 4 E4B Deep Test Report
+  ./INTEGRATION_GUIDE.md                                                              179 lines  | # AI Rig Integration Guide — For Ritu's Job Agent
+  ./MODEL_COMPARISON_REPORT.md                                                        154 lines  | # AI Rig Model Comparison Report
+  ./README.md                                                                          94 lines  | # GPU Rig AI - 7-GPU AMD Inference Server
+  ./RIG_COMPLETE_DOCUMENTATION.md                                                     409 lines  | # GPU AI Rig — Complete Documentation
+  ./RIG_INFO.md                                                                        49 lines  | # AI Rig — Connection Info
+  ./RIG_SETUP.md                                                                      101 lines  | # Paddler GPU Rig — Setup & Connection Guide
+  ./RIG_TUNING_GUIDE.md                                                               349 lines  | # GPU Rig Tuning Guide for Pharma Job Agent
+  ./RITU_AGENT_INSTRUCTIONS.md                                                        228 lines  | # AI Rig — Instructions for Ritu's Job Agent
+  ./SESSION_HANDOFF.md                                                                223 lines  | # GPU Rig AI Server — Complete Session Handoff
+  ./UBUNTU_INSTALL_GUIDE.md                                                           116 lines  | # Ubuntu Server Install Guide for AI Rig
+  ./VISION_BUG_FOR_OTHER_LLM.md                                                        77 lines  | # Gemma 4 E4B Vision + Tool Calling Issue — Need Help
+  ./benchmarks/probes/README.md                                                        57 lines  | # Probes V1–V24 — Runbook
+  ./cbic_ingest_runbook.md                                                            157 lines  | # CBIC RAG Ingest Runbook — Direct Multi-GPU (Vulkan)
+  ./cbic_rag/README.md                                                                 69 lines  | # CBIC RAG — quote-grounded answers
+  ./cbic_rag/STATUS.md                                                                130 lines  | # CBIC RAG — status snapshot
+  ./cloudflare_access_setup.md                                                        109 lines  | # CBIC RAG — Public Access via Cloudflare Quick-Tunnel
+  ./consult_brief_cbic_ingest_oom.md                                                  129 lines  | # Consult Brief: CBIC RAG Ingest OOM — Review Remediation Plan
+  ./consult_brief_cbic_ingest_postrun.md                                              184 lines  | # Consult Brief: CBIC RAG Ingest — Post-Remediation Run Review
+  ./consult_brief_cbic_rag_trustability.md                                            260 lines  | # Consult Brief: CBIC RAG — Trustability Architecture
+  ./consults/cbic_e_suite_spec.md                                                     385 lines  | # CBIC RAG — E-suite + Inline Popover — Agent Spec
+  ./consults/cbic_rag_dual_plan.md                                                    409 lines  | # CBIC RAG — Dual Plan for External LLM Evaluation
+  ./consults/cbic_rag_dual_plan_v3.md                                                 450 lines  | # CBIC RAG — Dual Plan v3 (Locked Spec)
+  ./consults/cbic_rag_external_consult.md                                             251 lines  | # CBIC RAG — External Consultation Brief
+  ./consults/cbic_rag_status_and_questions_v1.md                                      186 lines  | # CBIC RAG — Consolidated Status + Open Questions for External LLM Review
+  ./consults/chunk_audit_20260422.md                                                   86 lines  | # CBIC Chunk Audit — cbic_v1
+  ./consults/claude_restriction_writeup.md                                            119 lines  | # Claude Code session-level restriction — writeup for external consultation
+  ./consults/consult_brief_v3_20260422.md                                             130 lines  | # External LLM Consultation Brief v3 — 2026-04-22
+  ./consults/consult_package_20260422.md                                              123 lines  | # CBIC RAG — External Consult Package
+  ./consults/curation_stats_20260422.md                                                46 lines  | # Curation stats — curated_pairs.jsonl
+  ./consults/embedder_alternatives_20260422.md                                        117 lines  | # Embedder Alternatives vs BGE-M3 — Research Consult
+  ./consults/failure_modes_20260422.md                                                220 lines  | # Failure-Mode Taxonomy — Recall Audit 2026-04-22
+  ./consults/gold_complexity_20260422.md                                               54 lines  | # Gold Set Complexity Audit — 2026-04-22
+  ./consults/golden_plan_v2.md                                                        216 lines  | # Golden Plan v2 — CBIC RAG Post-A3-Regression Recovery
+  ./consults/judge_audit_20260422.md                                                   60 lines  | # Judge audit: qwen3-14B vs Claude (Sonnet 4.5 via Claude CLI)
+  ./consults/night2_state_20260422.md                                                  48 lines  | # Night-2 State Snapshot (2026-04-22, resume after orchestrator crash)
+  ./consults/p1_2_validator_simplify_patch.md                                          67 lines  | # P1.2 Validator simplification patch (draft, NOT deployed)
+  ./consults/p1_3_a3_chunk_refeed_patch.md                                             71 lines  | # P1.3 A3 pass-2 chunk re-feed patch (template draft, NOT deployed)
+  ./consults/p1_3_a3_chunk_refeed_patch_v2.md                                         164 lines  | # P1.3 A3 — Pass-2 Chunk Re-feed Patch (v2, REAL against live rig)
+  ./consults/p1_3_triage_20260422.md                                                   62 lines  | # P1.3 Two-Pass Zero-Point Triage — 2026-04-22
+  ./consults/p2_1_tariff_db_schema.md                                                 164 lines  | # P2.1 tariff.db — Schema & Ingestion Plan
+  ./consults/p2_3_version_pin_design.md                                               113 lines  | # P2.3 — Version-Pinning Payload Schema (Design Only)
+  ./consults/p2_4_blocker_20260422.md                                                  41 lines  | # P2.4 NER-Filter Blocker — 2026-04-22
+  ./consults/p2_4_ner_filter_design.md                                                 93 lines  | # P2.4 — NER Hard-Filter Design
+  ./consults/p2_5_query_decomp_design.md                                              109 lines  | # P2.5 — Query Decomposition Design
+  ./consults/recall_audit_20260422.md                                                  78 lines  | # Retrieval recall@k audit — 2026-04-22
+  ./consults/recall_matcher_fix_20260422.md                                           131 lines  | # Recall Matcher Fix — 2026-04-22
+  ./consults/reingest_plan_v1_20260422.md                                            1773 lines  | # CBIC RAG — Re-Ingestion Plan v1 (Foundation Rebuild for 95% Trust)
+  ./consults/responses/gemini-2.5-pro_20260422_191715.md                               99 lines  | Excellent. This is one ofr the most thorough and self-aware RAG rebuild plans I've seen. The honesty in Part 1, the deta
+  ./consults/rocm_5700xt_consult_20260422.md                                          107 lines  | # Consult: ROCm on RX 5700 XT (gfx1010) — Alternatives If Not Viable
+  ./consults/training_data_consultation.md                                            222 lines  | # Training Data for Qwen LoRA — External Consultation
+  ./consults/training_data_generation_plan.md                                         212 lines  | # Training Data Generation Plan — Qwen LoRA for CBIC
+  ./consults/variants_20260422.md                                                      20 lines  | # Recall variants — 2026-04-22 22:29
+  ./dashboard/QA_REPORT.md                                                            158 lines  | # Dashboard QA Report
+  ./dayshift_report_20260422.md                                                       116 lines  | # Day-Shift Report — 2026-04-22
+  ./eval/README.md                                                                    133 lines  | # CBIC RAG Evaluation Harness
+  ./eval/gold_set_expansion/bucket_1_tariff_prompt.md                                 102 lines  | # External-LLM Prompt — Bucket 1: Tariff / Rate Queries (25 items)
+  ./eval/gold_set_expansion/bucket_1_tariff_prompt_v2.md                              138 lines  | # External-LLM Prompt — Bucket 1: Tariff / Rate Queries (25 items) — v2 ENHANCED
+  ./eval/runs/a3on_20260421_222520/summary.md                                          70 lines  | # CBIC RAG Eval Run
+  ./eval/runs/baseline_20260421_211827/summary.md                                      70 lines  | # CBIC RAG Eval Run
+  ./eval/runs/baseline_20260421_211918/summary.md                                      19 lines  | # CBIC RAG Eval Run
+  ./eval/runs/baseline_a3off_20260421_220214/summary.md                                70 lines  | # CBIC RAG Eval Run
+  ./eval/runs/claude_judge_smoke2_20260422_104342/summary.md                           15 lines  | # CBIC RAG eval — Claude judge
+  ./eval/runs/claude_judge_smoke3_20260422_104608/summary.md                           15 lines  | # CBIC RAG eval — Claude judge
+  ./eval/runs/claude_judge_smoke_20260422_104308/summary.md                            15 lines  | # CBIC RAG eval — Claude judge
+  ./eval/runs/p1_2_baseline170_20260422_050751/summary.md                             190 lines  | # CBIC RAG Eval Run
+  ./eval/runs/p1_2_claude_judge_20260422_104728/summary.md                             19 lines  | # CBIC RAG eval — Claude judge
+  ./eval/runs/p1_2_postdeploy_20260422_003323/summary.md                               70 lines  | # CBIC RAG Eval Run
+  ./eval/runs/p1_3_evalA_20260422_023102/summary.md                                   190 lines  | # CBIC RAG Eval Run
+  ./eval/runs/p1_3_evalB_20260422_041318/summary.md                                   190 lines  | # CBIC RAG Eval Run
+  ./eval/runs/p2_1_evalA_20260422_081545/summary.md                                   190 lines  | # CBIC RAG Eval Run
+  ./eval/runs/smoke_judgefix_20260422_050647/summary.md                                18 lines  | # CBIC RAG Eval Run
+  ./indian_legal_ai/PLAN.md                                                           144 lines  | # Indian Legal AI — Master Plan
+  ./morning_status_20260422.md                                                        119 lines  | # Morning Status — 2026-04-22 (Overnight Driver Run #4)
+  ./openclaw/AGENTS.md                                                                321 lines  | # Repository Guidelines
+  ./openclaw/CHANGELOG.md                                                            5694 lines  | # Changelog
+  ./openclaw/CLAUDE.md                                                                  0 lines  | AGENTS.md
+  ./openclaw/CONTRIBUTING.md                                                          217 lines  | # Contributing to OpenClaw
+  ./openclaw/FIX_WEB_SEARCH.md                                                        153 lines  | # OpenClaw Web Search Fix — Session Bootstrap
+  ./openclaw/README.md                                                                614 lines  | # 🦞 OpenClaw — Personal AI Assistant
+  ./openclaw/SECURITY.md                                                              323 lines  | # Security Policy
+  ./openclaw/Swabble/CHANGELOG.md                                                      11 lines  | # Changelog
+  ./openclaw/Swabble/README.md                                                        111 lines  | # 🎙️ swabble — Speech.framework wake-word hook daemon (macOS 26)
+  ./openclaw/Swabble/docs/spec.md                                                      33 lines  | # swabble — macOS 26 speech hook daemon (Swift 6.2)
+  ./openclaw/VISION.md                                                                110 lines  | ## OpenClaw Vision
+  ./openclaw/apps/android/README.md                                                   294 lines  | ## OpenClaw Android App
+  ./openclaw/apps/android/style.md                                                    113 lines  | # OpenClaw Android UI Style Guide
+  ./openclaw/apps/ios/README.md                                                       268 lines  | # OpenClaw iOS (Super Alpha)
+  ./openclaw/apps/ios/fastlane/SETUP.md                                               137 lines  | # fastlane setup (OpenClaw iOS)
+  ./openclaw/apps/ios/fastlane/metadata/README.md                                      47 lines  | # App Store metadata (Fastlane deliver)
+  ./openclaw/apps/macos/README.md                                                      64 lines  | # OpenClaw macOS app (dev + signing)
+  ./openclaw/apps/macos/Sources/OpenClaw/Resources/DeviceModels/NOTICE.md               9 lines  | # Apple device identifier mappings
+  ./openclaw/docs.acp.md                                                              244 lines  | # OpenClaw ACP Bridge
+  ./openclaw/docs/auth-credential-semantics.md                                         80 lines  | ---
+  ./openclaw/docs/automation/auth-monitoring.md                                         8 lines  | ---
+  ./openclaw/docs/automation/clawflow.md                                                8 lines  | ---
+  ./openclaw/docs/automation/cron-jobs.md                                             410 lines  | ---
+  ./openclaw/docs/automation/cron-vs-heartbeat.md                                       8 lines  | ---
+  ./openclaw/docs/automation/gmail-pubsub.md                                            8 lines  | ---
+  ./openclaw/docs/automation/hooks.md                                                 303 lines  | ---
+  ./openclaw/docs/automation/index.md                                                 115 lines  | ---
+  ./openclaw/docs/automation/poll.md                                                    8 lines  | ---
+  ./openclaw/docs/automation/standing-orders.md                                       254 lines  | ---
+  ./openclaw/docs/automation/taskflow.md                                               82 lines  | ---
+  ./openclaw/docs/automation/tasks.md                                                 328 lines  | ---
+  ./openclaw/docs/automation/troubleshooting.md                                         8 lines  | ---
+  ./openclaw/docs/automation/webhook.md                                                 8 lines  | ---
+  ./openclaw/docs/brave-search.md                                                     103 lines  | ---
+  ./openclaw/docs/channels/bluebubbles.md                                             435 lines  | ---
+  ./openclaw/docs/channels/broadcast-groups.md                                        442 lines  | ---
+  ./openclaw/docs/channels/channel-routing.md                                         139 lines  | ---
+  ./openclaw/docs/channels/discord.md                                                1260 lines  | ---
+  ./openclaw/docs/channels/feishu.md                                                  793 lines  | ---
+  ./openclaw/docs/channels/googlechat.md                                              270 lines  | ---
+  ./openclaw/docs/channels/group-messages.md                                           84 lines  | ---
+  ./openclaw/docs/channels/groups.md                                                  410 lines  | ---
+  ./openclaw/docs/channels/imessage.md                                                427 lines  | ---
+  ./openclaw/docs/channels/index.md                                                    50 lines  | ---
+  ./openclaw/docs/channels/irc.md                                                     252 lines  | ---
+  ./openclaw/docs/channels/line.md                                                    225 lines  | ---
+  ./openclaw/docs/channels/location.md                                                 56 lines  | ---
+  ./openclaw/docs/channels/matrix.md                                                 1096 lines  | ---
+  ./openclaw/docs/channels/mattermost.md                                              472 lines  | ---
+  ./openclaw/docs/channels/msteams.md                                                 805 lines  | ---
+  ./openclaw/docs/channels/nextcloud-talk.md                                          149 lines  | ---
+  ./openclaw/docs/channels/nostr.md                                                   252 lines  | ---
+  ./openclaw/docs/channels/pairing.md                                                 129 lines  | ---
+  ./openclaw/docs/channels/qa-channel.md                                              108 lines  | ---
+  ./openclaw/docs/channels/qqbot.md                                                   193 lines  | ---
+  ./openclaw/docs/channels/signal.md                                                  337 lines  | ---
+  ./openclaw/docs/channels/slack.md                                                   770 lines  | ---
+  ./openclaw/docs/channels/synology-chat.md                                           185 lines  | ---
+  ./openclaw/docs/channels/telegram.md                                               1072 lines  | ---
+  ./openclaw/docs/channels/tlon.md                                                    290 lines  | ---
+  ./openclaw/docs/channels/troubleshooting.md                                         133 lines  | ---
+  ./openclaw/docs/channels/twitch.md                                                  394 lines  | ---
+  ./openclaw/docs/channels/whatsapp.md                                                489 lines  | ---
+  ./openclaw/docs/channels/zalo.md                                                    254 lines  | ---
+  ./openclaw/docs/channels/zalouser.md                                                195 lines  | ---
+  ./openclaw/docs/ci.md                                                                66 lines  | ---
+  ./openclaw/docs/cli/acp.md                                                          316 lines  | ---
+  ./openclaw/docs/cli/agent.md                                                         57 lines  | ---
+  ./openclaw/docs/cli/agents.md                                                       220 lines  | ---
+  ./openclaw/docs/cli/approvals.md                                                    136 lines  | ---
+  ./openclaw/docs/cli/backup.md                                                        84 lines  | ---
+  ./openclaw/docs/cli/browser.md                                                      233 lines  | ---
+  ./openclaw/docs/cli/channels.md                                                     131 lines  | ---
+  ./openclaw/docs/cli/clawbot.md                                                       21 lines  | ---
+  ./openclaw/docs/cli/completion.md                                                    35 lines  | ---
+  ./openclaw/docs/cli/config.md                                                       353 lines  | ---
+  ./openclaw/docs/cli/configure.md                                                     70 lines  | ---
+  ./openclaw/docs/cli/cron.md                                                         167 lines  | ---
+  ./openclaw/docs/cli/daemon.md                                                        57 lines  | ---
+  ./openclaw/docs/cli/dashboard.md                                                     22 lines  | ---
+  ./openclaw/docs/cli/devices.md                                                      171 lines  | ---
+  ./openclaw/docs/cli/directory.md                                                     63 lines  | ---
+  ./openclaw/docs/cli/dns.md                                                           48 lines  | ---
+  ./openclaw/docs/cli/docs.md                                                          28 lines  | ---
+  ./openclaw/docs/cli/doctor.md                                                        63 lines  | ---
+  ./openclaw/docs/cli/flows.md                                                         18 lines  | ---
+  ./openclaw/docs/cli/gateway.md                                                      306 lines  | ---
+  ./openclaw/docs/cli/health.md                                                        36 lines  | ---
+  ./openclaw/docs/cli/hooks.md                                                        337 lines  | ---
+  ./openclaw/docs/cli/index.md                                                       1818 lines  | ---
+  ./openclaw/docs/cli/logs.md                                                          59 lines  | ---
+  ./openclaw/docs/cli/mcp.md                                                          505 lines  | ---
+  ./openclaw/docs/cli/memory.md                                                       168 lines  | ---
+  ./openclaw/docs/cli/message.md                                                      300 lines  | ---
+  ./openclaw/docs/cli/models.md                                                       134 lines  | ---
+  ./openclaw/docs/cli/node.md                                                         137 lines  | ---
+  ./openclaw/docs/cli/nodes.md                                                         66 lines  | ---
+  ./openclaw/docs/cli/onboard.md                                                      171 lines  | ---
+  ./openclaw/docs/cli/pairing.md                                                       65 lines  | ---
+  ./openclaw/docs/cli/plugins.md                                                      305 lines  | ---
+  ./openclaw/docs/cli/qr.md                                                            52 lines  | ---
+  ./openclaw/docs/cli/reset.md                                                         35 lines  | ---
+  ./openclaw/docs/cli/sandbox.md                                                      197 lines  | ---
+  ./openclaw/docs/cli/secrets.md                                                      197 lines  | ---
+  ./openclaw/docs/cli/security.md                                                      86 lines  | ---
+  ./openclaw/docs/cli/sessions.md                                                     113 lines  | ---
+  ./openclaw/docs/cli/setup.md                                                         45 lines  | ---
+  ./openclaw/docs/cli/skills.md                                                        59 lines  | ---
+  ./openclaw/docs/cli/status.md                                                        35 lines  | ---
+  ./openclaw/docs/cli/system.md                                                        71 lines  | ---
+  ./openclaw/docs/cli/tui.md                                                           30 lines  | ---
+  ./openclaw/docs/cli/uninstall.md                                                     39 lines  | ---
+  ./openclaw/docs/cli/update.md                                                       115 lines  | ---
+  ./openclaw/docs/cli/voicecall.md                                                     34 lines  | ---
+  ./openclaw/docs/cli/webhooks.md                                                      91 lines  | ---
+  ./openclaw/docs/concepts/agent-loop.md                                              168 lines  | ---
+  ./openclaw/docs/concepts/agent-workspace.md                                         246 lines  | ---
+  ./openclaw/docs/concepts/agent.md                                                   129 lines  | ---
+  ./openclaw/docs/concepts/architecture.md                                            156 lines  | ---
+  ./openclaw/docs/concepts/compaction.md                                              122 lines  | ---
+  ./openclaw/docs/concepts/context-engine.md                                          274 lines  | ---
+  ./openclaw/docs/concepts/context.md                                                 179 lines  | ---
+  ./openclaw/docs/concepts/delegate-architecture.md                                   307 lines  | ---
+  ./openclaw/docs/concepts/dreaming.md                                                212 lines  | ---
+  ./openclaw/docs/concepts/features.md                                                 76 lines  | ---
+  ./openclaw/docs/concepts/markdown-formatting.md                                     130 lines  | ---
+  ./openclaw/docs/concepts/memory-builtin.md                                          105 lines  | ---
+  ./openclaw/docs/concepts/memory-honcho.md                                           140 lines  | ---
+  ./openclaw/docs/concepts/memory-qmd.md                                              179 lines  | ---
+  ./openclaw/docs/concepts/memory-search.md                                           142 lines  | ---
+  ./openclaw/docs/concepts/memory.md                                                  125 lines  | ---
+  ./openclaw/docs/concepts/messages.md                                                161 lines  | ---
+  ./openclaw/docs/concepts/model-failover.md                                          350 lines  | ---
+  ./openclaw/docs/concepts/model-providers.md                                         817 lines  | ---
+  ./openclaw/docs/concepts/models.md                                                  259 lines  | ---
+  ./openclaw/docs/concepts/multi-agent.md                                             615 lines  | ---
+  ./openclaw/docs/concepts/oauth.md                                                   179 lines  | ---
+  ./openclaw/docs/concepts/presence.md                                                102 lines  | ---
+  ./openclaw/docs/concepts/qa-e2e-automation.md                                        74 lines  | ---
+  ./openclaw/docs/concepts/queue.md                                                    89 lines  | ---
+  ./openclaw/docs/concepts/retry.md                                                    69 lines  | ---
+  ./openclaw/docs/concepts/session-pruning.md                                          92 lines  | ---
+  ./openclaw/docs/concepts/session-tool.md                                            141 lines  | ---
+  ./openclaw/docs/concepts/session.md                                                 116 lines  | ---
+  ./openclaw/docs/concepts/soul.md                                                    110 lines  | ---
+  ./openclaw/docs/concepts/streaming.md                                               161 lines  | ---
+  ./openclaw/docs/concepts/system-prompt.md                                           182 lines  | ---
+  ./openclaw/docs/concepts/timezone.md                                                 97 lines  | ---
+  ./openclaw/docs/concepts/typebox.md                                                 307 lines  | ---
+  ./openclaw/docs/concepts/typing-indicators.md                                        69 lines  | ---
+  ./openclaw/docs/concepts/usage-tracking.md                                           59 lines  | ---
+  ./openclaw/docs/date-time.md                                                        128 lines  | ---
+  ./openclaw/docs/debug/node-issue.md                                                  85 lines  | ---
+  ./openclaw/docs/diagnostics/flags.md                                                 91 lines  | ---
+  ./openclaw/docs/gateway/authentication.md                                           186 lines  | ---
+  ./openclaw/docs/gateway/background-process.md                                       131 lines  | ---
+  ./openclaw/docs/gateway/bonjour.md                                                  179 lines  | ---
+  ./openclaw/docs/gateway/bridge-protocol.md                                           89 lines  | ---
+  ./openclaw/docs/gateway/cli-backends.md                                             287 lines  | ---
+  ./openclaw/docs/gateway/configuration-examples.md                                   631 lines  | ---
+  ./openclaw/docs/gateway/configuration-reference.md                                 3639 lines  | ---
+  ./openclaw/docs/gateway/configuration.md                                            698 lines  | ---
+  ./openclaw/docs/gateway/discovery.md                                                141 lines  | ---
+  ./openclaw/docs/gateway/doctor.md                                                   494 lines  | ---
+  ./openclaw/docs/gateway/gateway-lock.md                                              37 lines  | ---
+  ./openclaw/docs/gateway/health.md                                                    61 lines  | ---
+  ./openclaw/docs/gateway/heartbeat.md                                                443 lines  | ---
+  ./openclaw/docs/gateway/index.md                                                    367 lines  | ---
+  ./openclaw/docs/gateway/local-models.md                                             163 lines  | ---
+  ./openclaw/docs/gateway/logging.md                                                  113 lines  | ---
+  ./openclaw/docs/gateway/multiple-gateways.md                                        120 lines  | ---
+  ./openclaw/docs/gateway/network-model.md                                             25 lines  | ---
+  ./openclaw/docs/gateway/openai-http-api.md                                          280 lines  | ---
+  ./openclaw/docs/gateway/openresponses-http-api.md                                   340 lines  | ---
+  ./openclaw/docs/gateway/openshell.md                                                307 lines  | ---
+  ./openclaw/docs/gateway/pairing.md                                                  138 lines  | ---
+  ./openclaw/docs/gateway/protocol.md                                                 588 lines  | ---
+  ./openclaw/docs/gateway/remote-gateway-readme.md                                    164 lines  | ---
+  ./openclaw/docs/gateway/remote.md                                                   251 lines  | ---
+  ./openclaw/docs/gateway/sandbox-vs-tool-policy-vs-elevated.md                       141 lines  | ---
+  ./openclaw/docs/gateway/sandboxing.md                                               473 lines  | ---
+  ./openclaw/docs/gateway/secrets-plan-contract.md                                    116 lines  | ---
+  ./openclaw/docs/gateway/secrets.md                                                  541 lines  | ---
+  ./openclaw/docs/gateway/security/index.md                                          1362 lines  | ---
+  ./openclaw/docs/gateway/tailscale.md                                                136 lines  | ---
+  ./openclaw/docs/gateway/tools-invoke-http-api.md                                    161 lines  | ---
+  ./openclaw/docs/gateway/troubleshooting.md                                          451 lines  | ---
+  ./openclaw/docs/gateway/trusted-proxy-auth.md                                       399 lines  | ---
+  ./openclaw/docs/help/debugging.md                                                   169 lines  | ---
+  ./openclaw/docs/help/environment.md                                                 165 lines  | ---
+  ./openclaw/docs/help/faq.md                                                        3299 lines  | ---
+  ./openclaw/docs/help/index.md                                                        28 lines  | ---
+  ./openclaw/docs/help/scripts.md                                                      27 lines  | ---
+  ./openclaw/docs/help/testing.md                                                     727 lines  | ---
+  ./openclaw/docs/help/troubleshooting.md                                             372 lines  | ---
+  ./openclaw/docs/index.md                                                            196 lines  | ---
+  ./openclaw/docs/install/ansible.md                                                  230 lines  | ---
+  ./openclaw/docs/install/azure.md                                                    311 lines  | ---
+  ./openclaw/docs/install/bun.md                                                       55 lines  | ---
+  ./openclaw/docs/install/clawdock.md                                                 106 lines  | ---
+  ./openclaw/docs/install/development-channels.md                                     131 lines  | ---
+  ./openclaw/docs/install/digitalocean.md                                             129 lines  | ---
+  ./openclaw/docs/install/docker-vm-runtime.md                                        142 lines  | ---
+  ./openclaw/docs/install/docker.md                                                   406 lines  | ---
+  ./openclaw/docs/install/exe-dev.md                                                  133 lines  | ---
+  ./openclaw/docs/install/fly.md                                                      504 lines  | ---
+  ./openclaw/docs/install/gcp.md                                                      412 lines  | ---
+  ./openclaw/docs/install/hetzner.md                                                  259 lines  | ---
+  ./openclaw/docs/install/index.md                                                    212 lines  | ---
+  ./openclaw/docs/install/installer.md                                                443 lines  | ---
+  ./openclaw/docs/install/kubernetes.md                                               192 lines  | ---
+  ./openclaw/docs/install/macos-vm.md                                                 281 lines  | ---
+  ./openclaw/docs/install/migrating-matrix.md                                         349 lines  | ---
+  ./openclaw/docs/install/migrating.md                                                112 lines  | ---
+  ./openclaw/docs/install/nix.md                                                       89 lines  | ---
+  ./openclaw/docs/install/node.md                                                     144 lines  | ---
+  ./openclaw/docs/install/oracle.md                                                   158 lines  | ---
+  ./openclaw/docs/install/podman.md                                                   210 lines  | ---
+  ./openclaw/docs/install/raspberry-pi.md                                             159 lines  | ---
+  ./openclaw/docs/install/uninstall.md                                                128 lines  | ---
+  ./openclaw/docs/install/updating.md                                                 143 lines  | ---
+  ./openclaw/docs/logging.md                                                          389 lines  | ---
+  ./openclaw/docs/network.md                                                           69 lines  | ---
+  ./openclaw/docs/nodes/audio.md                                                      191 lines  | ---
+  ./openclaw/docs/nodes/camera.md                                                     162 lines  | ---
+  ./openclaw/docs/nodes/images.md                                                      73 lines  | ---
+  ./openclaw/docs/nodes/index.md                                                      408 lines  | ---
+  ./openclaw/docs/nodes/location-command.md                                            98 lines  | ---
+  ./openclaw/docs/nodes/media-understanding.md                                        432 lines  | ---
+  ./openclaw/docs/nodes/talk.md                                                        92 lines  | ---
+  ./openclaw/docs/nodes/troubleshooting.md                                            123 lines  | ---
+  ./openclaw/docs/nodes/voicewake.md                                                   66 lines  | ---
+  ./openclaw/docs/perplexity.md                                                       181 lines  | ---
+  ./openclaw/docs/pi-dev.md                                                            80 lines  | ---
+  ./openclaw/docs/pi.md                                                               570 lines  | ---
+  ./openclaw/docs/plans/2026-04-05-002-refactor-real-plugin-sdk-workspace-plan.md     580 lines  | ---
+  ./openclaw/docs/platforms/android.md                                                244 lines  | ---
+  ./openclaw/docs/platforms/digitalocean.md                                           266 lines  | ---
+  ./openclaw/docs/platforms/index.md                                                   55 lines  | ---
+  ./openclaw/docs/platforms/ios.md                                                    239 lines  | ---
+  ./openclaw/docs/platforms/linux.md                                                  100 lines  | ---
+  ./openclaw/docs/platforms/mac/bundled-gateway.md                                     75 lines  | ---
+  ./openclaw/docs/platforms/mac/canvas.md                                             125 lines  | ---
+  ./openclaw/docs/platforms/mac/child-process.md                                       69 lines  | ---
+  ./openclaw/docs/platforms/mac/dev-setup.md                                          107 lines  | ---
+  ./openclaw/docs/platforms/mac/health.md                                              34 lines  | ---
+  ./openclaw/docs/platforms/mac/icon.md                                                31 lines  | ---
+  ./openclaw/docs/platforms/mac/logging.md                                             57 lines  | ---
+  ./openclaw/docs/platforms/mac/menu-bar.md                                            81 lines  | ---
+  ./openclaw/docs/platforms/mac/peekaboo.md                                            65 lines  | ---
+  ./openclaw/docs/platforms/mac/permissions.md                                         50 lines  | ---
+  ./openclaw/docs/platforms/mac/remote.md                                              84 lines  | ---
+  ./openclaw/docs/platforms/mac/signing.md                                             47 lines  | ---
+  ./openclaw/docs/platforms/mac/skills.md                                              40 lines  | ---
+  ./openclaw/docs/platforms/mac/voice-overlay.md                                       60 lines  | ---
+  ./openclaw/docs/platforms/mac/voicewake.md                                           67 lines  | ---
+  ./openclaw/docs/platforms/mac/webchat.md                                             51 lines  | ---
+  ./openclaw/docs/platforms/mac/xpc.md                                                 61 lines  | ---
+  ./openclaw/docs/platforms/macos.md                                                  229 lines  | ---
+  ./openclaw/docs/platforms/oracle.md                                                 305 lines  | ---
+  ./openclaw/docs/platforms/raspberry-pi.md                                           420 lines  | ---
+  ./openclaw/docs/platforms/windows.md                                                241 lines  | ---
+  ./openclaw/docs/plugins/agent-tools.md                                               10 lines  | ---
+  ./openclaw/docs/plugins/architecture.md                                            1620 lines  | ---
+  ./openclaw/docs/plugins/building-extensions.md                                       10 lines  | ---
+  ./openclaw/docs/plugins/building-plugins.md                                         320 lines  | ---
+  ./openclaw/docs/plugins/bundles.md                                                  292 lines  | ---
+  ./openclaw/docs/plugins/community.md                                                149 lines  | ---
+  ./openclaw/docs/plugins/manifest.md                                                 465 lines  | ---
+  ./openclaw/docs/plugins/sdk-channel-plugins.md                                      516 lines  | ---
+  ./openclaw/docs/plugins/sdk-entrypoints.md                                          210 lines  | ---
+  ./openclaw/docs/plugins/sdk-migration.md                                            370 lines  | ---
+  ./openclaw/docs/plugins/sdk-overview.md                                             491 lines  | ---
+  ./openclaw/docs/plugins/sdk-provider-plugins.md                                     734 lines  | ---
+  ./openclaw/docs/plugins/sdk-runtime.md                                              381 lines  | ---
+  ./openclaw/docs/plugins/sdk-setup.md                                                530 lines  | ---
+  ./openclaw/docs/plugins/sdk-testing.md                                              263 lines  | ---
+  ./openclaw/docs/plugins/voice-call.md                                               466 lines  | ---
+  ./openclaw/docs/plugins/webhooks.md                                                 194 lines  | ---
+  ./openclaw/docs/plugins/zalouser.md                                                  78 lines  | ---
+  ./openclaw/docs/prose.md                                                            134 lines  | ---
+  ./openclaw/docs/providers/alibaba.md                                                 72 lines  | ---
+  ./openclaw/docs/providers/anthropic.md                                              246 lines  | ---
+  ./openclaw/docs/providers/arcee.md                                                   87 lines  | ---
+  ./openclaw/docs/providers/bedrock-mantle.md                                         104 lines  | ---
+  ./openclaw/docs/providers/bedrock.md                                                302 lines  | ---
+  ./openclaw/docs/providers/chutes.md                                                 103 lines  | ---
+  ./openclaw/docs/providers/claude-max-api-proxy.md                                   163 lines  | ---
+  ./openclaw/docs/providers/cloudflare-ai-gateway.md                                   71 lines  | ---
+  ./openclaw/docs/providers/comfy.md                                                  201 lines  | ---
+  ./openclaw/docs/providers/deepgram.md                                                93 lines  | ---
+  ./openclaw/docs/providers/deepseek.md                                                53 lines  | ---
+  ./openclaw/docs/providers/fal.md                                                     91 lines  | ---
+  ./openclaw/docs/providers/fireworks.md                                               69 lines  | ---
+  ./openclaw/docs/providers/github-copilot.md                                          80 lines  | ---
+  ./openclaw/docs/providers/glm.md                                                     68 lines  | ---
+  ./openclaw/docs/providers/google.md                                                 223 lines  | ---
+  ./openclaw/docs/providers/groq.md                                                   105 lines  | ---
+  ./openclaw/docs/providers/huggingface.md                                            193 lines  | ---
+  ./openclaw/docs/providers/index.md                                                   89 lines  | ---
+  ./openclaw/docs/providers/kilocode.md                                                89 lines  | ---
+  ./openclaw/docs/providers/litellm.md                                                159 lines  | ---
+  ./openclaw/docs/providers/minimax.md                                                339 lines  | ---
+  ./openclaw/docs/providers/mistral.md                                                 68 lines  | ---
+  ./openclaw/docs/providers/models.md                                                  60 lines  | ---
+  ./openclaw/docs/providers/moonshot.md                                               224 lines  | ---
+  ./openclaw/docs/providers/nvidia.md                                                  58 lines  | ---
+  ./openclaw/docs/providers/ollama.md                                                 379 lines  | ---
+  ./openclaw/docs/providers/openai.md                                                 557 lines  | ---
+  ./openclaw/docs/providers/opencode-go.md                                             45 lines  | ---
+  ./openclaw/docs/providers/opencode.md                                                68 lines  | ---
+  ./openclaw/docs/providers/openrouter.md                                              59 lines  | ---
+  ./openclaw/docs/providers/perplexity-provider.md                                     62 lines  | ---
+  ./openclaw/docs/providers/qianfan.md                                                 90 lines  | ---
+  ./openclaw/docs/providers/qwen.md                                                   199 lines  | ---
+  ./openclaw/docs/providers/qwen_modelstudio.md                                        13 lines  | ---
+  ./openclaw/docs/providers/runway.md                                                  63 lines  | ---
+  ./openclaw/docs/providers/sglang.md                                                 115 lines  | ---
+  ./openclaw/docs/providers/stepfun.md                                                152 lines  | ---
+  ./openclaw/docs/providers/synthetic.md                                              101 lines  | ---
+  ./openclaw/docs/providers/together.md                                                96 lines  | ---
+  ./openclaw/docs/providers/venice.md                                                 282 lines  | ---
+  ./openclaw/docs/providers/vercel-ai-gateway.md                                       60 lines  | ---
+  ./openclaw/docs/providers/vllm.md                                                   103 lines  | ---
+  ./openclaw/docs/providers/volcengine.md                                              94 lines  | ---
+  ./openclaw/docs/providers/vydra.md                                                  143 lines  | ---
+  ./openclaw/docs/providers/xai.md                                                    122 lines  | ---
+  ./openclaw/docs/providers/xiaomi.md                                                  89 lines  | ---
+  ./openclaw/docs/providers/zai.md                                                     75 lines  | ---
+  ./openclaw/docs/reference/AGENTS.default.md                                         126 lines  | ---
+  ./openclaw/docs/reference/RELEASING.md                                              138 lines  | ---
+  ./openclaw/docs/reference/api-usage-costs.md                                        196 lines  | ---
+  ./openclaw/docs/reference/credits.md                                                 30 lines  | ---
+  ./openclaw/docs/reference/device-models.md                                           47 lines  | ---
+  ./openclaw/docs/reference/memory-config.md                                          505 lines  | ---
+  ./openclaw/docs/reference/prompt-caching.md                                         344 lines  | ---
+  ./openclaw/docs/reference/rpc.md                                                     43 lines  | ---
+  ./openclaw/docs/reference/secretref-credential-surface.md                           147 lines  | ---
+  ./openclaw/docs/reference/session-management-compaction.md                          352 lines  | ---
+  ./openclaw/docs/reference/templates/AGENTS.dev.md                                    84 lines  | ---
+  ./openclaw/docs/reference/templates/AGENTS.md                                       219 lines  | ---
+  ./openclaw/docs/reference/templates/BOOT.md                                          12 lines  | ---
+  ./openclaw/docs/reference/templates/BOOTSTRAP.md                                     62 lines  | ---
+  ./openclaw/docs/reference/templates/CLAUDE.md                                         0 lines  | AGENTS.md
+  ./openclaw/docs/reference/templates/HEARTBEAT.md                                     14 lines  | ---
+  ./openclaw/docs/reference/templates/IDENTITY.dev.md                                  48 lines  | ---
+  ./openclaw/docs/reference/templates/IDENTITY.md                                      30 lines  | ---
+  ./openclaw/docs/reference/templates/SOUL.dev.md                                      77 lines  | ---
+  ./openclaw/docs/reference/templates/SOUL.md                                          45 lines  | ---
+  ./openclaw/docs/reference/templates/TOOLS.dev.md                                     25 lines  | ---
+  ./openclaw/docs/reference/templates/TOOLS.md                                         47 lines  | ---
+  ./openclaw/docs/reference/templates/USER.dev.md                                      19 lines  | ---
+  ./openclaw/docs/reference/templates/USER.md                                          24 lines  | ---
+  ./openclaw/docs/reference/test.md                                                   124 lines  | ---
+  ./openclaw/docs/reference/token-use.md                                              195 lines  | ---
+  ./openclaw/docs/reference/transcript-hygiene.md                                     151 lines  | ---
+  ./openclaw/docs/reference/wizard.md                                                 245 lines  | ---
+  ./openclaw/docs/security/CONTRIBUTING-THREAT-MODEL.md                                98 lines  | ---
+  ./openclaw/docs/security/THREAT-MODEL-ATLAS.md                                      608 lines  | ---
+  ./openclaw/docs/security/formal-verification.md                                     167 lines  | ---
+  ./openclaw/docs/start/bootstrapping.md                                               41 lines  | ---
+  ./openclaw/docs/start/docs-directory.md                                              67 lines  | ---
+  ./openclaw/docs/start/getting-started.md                                            148 lines  | ---
+  ./openclaw/docs/start/hubs.md                                                       199 lines  | ---
+  ./openclaw/docs/start/lore.md                                                       219 lines  | ---
+  ./openclaw/docs/start/onboarding-overview.md                                         69 lines  | ---
+  ./openclaw/docs/start/onboarding.md                                                  92 lines  | ---
+  ./openclaw/docs/start/openclaw.md                                                   225 lines  | ---
+  ./openclaw/docs/start/quickstart.md                                                  22 lines  | ---
+  ./openclaw/docs/start/setup.md                                                      172 lines  | ---
+  ./openclaw/docs/start/showcase.md                                                   418 lines  | ---
+  ./openclaw/docs/start/wizard-cli-automation.md                                      228 lines  | ---
+  ./openclaw/docs/start/wizard-cli-reference.md                                       311 lines  | ---
+  ./openclaw/docs/start/wizard.md                                                     127 lines  | ---
+  ./openclaw/docs/tools/acp-agents.md                                                 836 lines  | ---
+  ./openclaw/docs/tools/agent-send.md                                                 100 lines  | ---
+  ./openclaw/docs/tools/apply-patch.md                                                 52 lines  | ---
+  ./openclaw/docs/tools/brave-search.md                                               107 lines  | ---
+  ./openclaw/docs/tools/browser-linux-troubleshooting.md                              145 lines  | ---
+  ./openclaw/docs/tools/browser-login.md                                               73 lines  | ---
+  ./openclaw/docs/tools/browser-wsl2-windows-remote-cdp-troubleshooting.md            221 lines  | ---
+  ./openclaw/docs/tools/browser.md                                                    890 lines  | ---
+  ./openclaw/docs/tools/btw.md                                                        142 lines  | ---
+  ./openclaw/docs/tools/capability-cookbook.md                                        119 lines  | ---
+  ./openclaw/docs/tools/clawhub.md                                                    348 lines  | ---
+  ./openclaw/docs/tools/code-execution.md                                              90 lines  | ---
+  ./openclaw/docs/tools/creating-skills.md                                            119 lines  | ---
+  ./openclaw/docs/tools/diffs.md                                                      434 lines  | ---
+  ./openclaw/docs/tools/duckduckgo-search.md                                          102 lines  | ---
+  ./openclaw/docs/tools/elevated.md                                                   116 lines  | ---
+  ./openclaw/docs/tools/exa-search.md                                                 127 lines  | ---
+  ./openclaw/docs/tools/exec-approvals.md                                             635 lines  | ---
+  ./openclaw/docs/tools/exec.md                                                       237 lines  | ---
+  ./openclaw/docs/tools/firecrawl.md                                                  147 lines  | ---
+  ./openclaw/docs/tools/gemini-search.md                                               98 lines  | ---
+  ./openclaw/docs/tools/grok-search.md                                                102 lines  | ---
+  ./openclaw/docs/tools/image-generation.md                                           151 lines  | ---
+  ./openclaw/docs/tools/index.md                                                      184 lines  | ---
+  ./openclaw/docs/tools/kimi-search.md                                                 98 lines  | ---
+  ./openclaw/docs/tools/llm-task.md                                                   119 lines  | ---
+  ./openclaw/docs/tools/lobster.md                                                    350 lines  | ---
+  ./openclaw/docs/tools/loop-detection.md                                             100 lines  | ---
+  ./openclaw/docs/tools/media-overview.md                                              60 lines  | ---
+  ./openclaw/docs/tools/minimax-search.md                                              99 lines  | ---
+  ./openclaw/docs/tools/multi-agent-sandbox-tools.md                                  373 lines  | ---
+  ./openclaw/docs/tools/music-generation.md                                           292 lines  | ---
+  ./openclaw/docs/tools/ollama-search.md                                              100 lines  | ---
+  ./openclaw/docs/tools/pdf.md                                                        176 lines  | ---
+  ./openclaw/docs/tools/perplexity-search.md                                          185 lines  | ---
+  ./openclaw/docs/tools/plugin.md                                                     349 lines  | ---
+  ./openclaw/docs/tools/reactions.md                                                   78 lines  | ---
+  ./openclaw/docs/tools/searxng-search.md                                             132 lines  | ---
+  ./openclaw/docs/tools/skills-config.md                                              133 lines  | ---
+  ./openclaw/docs/tools/skills.md                                                     377 lines  | ---
+  ./openclaw/docs/tools/slash-commands.md                                             322 lines  | ---
+  ./openclaw/docs/tools/subagents.md                                                  341 lines  | ---
+  ./openclaw/docs/tools/tavily.md                                                     129 lines  | ---
+  ./openclaw/docs/tools/thinking.md                                                   102 lines  | ---
+  ./openclaw/docs/tools/tts.md                                                        452 lines  | ---
+  ./openclaw/docs/tools/video-generation.md                                           322 lines  | ---
+  ./openclaw/docs/tools/web-fetch.md                                                  159 lines  | ---
+  ./openclaw/docs/tools/web.md                                                        417 lines  | ---
+  ./openclaw/docs/tts.md                                                                6 lines  | ---
+  ./openclaw/docs/vps.md                                                              115 lines  | ---
+  ./openclaw/docs/web/control-ui.md                                                   321 lines  | ---
+  ./openclaw/docs/web/dashboard.md                                                     95 lines  | ---
+  ./openclaw/docs/web/index.md                                                        126 lines  | ---
+  ./openclaw/docs/web/tui.md                                                          176 lines  | ---
+  ./openclaw/docs/web/webchat.md                                                       77 lines  | ---
+  ./openclaw/extensions/AGENTS.md                                                      62 lines  | # Extensions Boundary
+  ./openclaw/extensions/CLAUDE.md                                                       0 lines  | AGENTS.md
+  ./openclaw/extensions/acpx/AGENTS.md                                                 54 lines  | # ACPX Extension Notes
+  ./openclaw/extensions/acpx/CLAUDE.md                                                  0 lines  | AGENTS.md
+  ./openclaw/extensions/acpx/skills/acp-router/SKILL.md                               245 lines  | ---
+  ./openclaw/extensions/bluebubbles/README.md                                          45 lines  | # BlueBubbles extension (developer reference)
+  ./openclaw/extensions/copilot-proxy/README.md                                        24 lines  | # Copilot Proxy (OpenClaw plugin)
+  ./openclaw/extensions/diffs/README.md                                               215 lines  | # @openclaw/diffs
+  ./openclaw/extensions/diffs/skills/diffs/SKILL.md                                    23 lines  | ---
+  ./openclaw/extensions/feishu/skills/feishu-doc/SKILL.md                             211 lines  | ---
+  ./openclaw/extensions/feishu/skills/feishu-doc/references/block-types.md            103 lines  | # Feishu Block Types Reference
+  ./openclaw/extensions/feishu/skills/feishu-drive/SKILL.md                            97 lines  | ---
+  ./openclaw/extensions/feishu/skills/feishu-perm/SKILL.md                            119 lines  | ---
+  ./openclaw/extensions/feishu/skills/feishu-wiki/SKILL.md                            111 lines  | ---
+  ./openclaw/extensions/llm-task/README.md                                             98 lines  | # LLM Task (plugin)
+  ./openclaw/extensions/lobster/README.md                                              75 lines  | # Lobster (plugin)
+  ./openclaw/extensions/lobster/SKILL.md                                               97 lines  | # Lobster
+  ./openclaw/extensions/matrix/CHANGELOG.md                                           146 lines  | # Changelog
+  ./openclaw/extensions/memory-wiki/README.md                                         166 lines  | # @openclaw/memory-wiki
+  ./openclaw/extensions/memory-wiki/skills/obsidian-vault-maintainer/SKILL.md          13 lines  | ---
+  ./openclaw/extensions/memory-wiki/skills/wiki-maintainer/SKILL.md                    19 lines  | ---
+  ./openclaw/extensions/minimax/README.md                                              37 lines  | # MiniMax (OpenClaw plugin)
+  ./openclaw/extensions/msteams/CHANGELOG.md                                          128 lines  | # Changelog
+  ./openclaw/extensions/nostr/CHANGELOG.md                                            158 lines  | # Changelog
+  ./openclaw/extensions/nostr/README.md                                               142 lines  | # @openclaw/nostr
+  ./openclaw/extensions/ollama/README.md                                                3 lines  | # Ollama Provider
+  ./openclaw/extensions/open-prose/README.md                                           25 lines  | # OpenProse (plugin)
+  ./openclaw/extensions/open-prose/skills/prose/SKILL.md                              323 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alt-borges.md                         141 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/arabian-nights.md                229 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/borges.md                        360 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/folk.md                          322 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/homer.md                         217 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/kafka.md                         373 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/alts/shared-appendix.md                35 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/compiler.md                          2971 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/examples/README.md                    391 lines  | # OpenProse Examples
+  ./openclaw/extensions/open-prose/skills/prose/examples/roadmap/README.md             22 lines  | # Roadmap Examples
+  ./openclaw/extensions/open-prose/skills/prose/guidance/antipatterns.md              951 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/guidance/patterns.md                  700 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/guidance/system-prompt.md             180 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/help.md                               144 lines  | # OpenProse Help
+  ./openclaw/extensions/open-prose/skills/prose/lib/README.md                         108 lines  | # OpenProse Standard Library
+  ./openclaw/extensions/open-prose/skills/prose/primitives/session.md                 593 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/prose.md                             1237 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/state/filesystem.md                   498 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/state/in-context.md                   384 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/state/postgres.md                     880 lines  | ---
+  ./openclaw/extensions/open-prose/skills/prose/state/sqlite.md                       531 lines  | ---
+  ./openclaw/extensions/qqbot/skills/qqbot-channel/SKILL.md                           262 lines  | ---
+  ./openclaw/extensions/qqbot/skills/qqbot-channel/references/api_references.md       521 lines  | # QQ 频道 API 完整参考
+  ./openclaw/extensions/qqbot/skills/qqbot-media/SKILL.md                              36 lines  | ---
+  ./openclaw/extensions/qqbot/skills/qqbot-remind/SKILL.md                            149 lines  | ---
+  ./openclaw/extensions/sglang/README.md                                                3 lines  | # SGLang Provider
+  ./openclaw/extensions/tavily/skills/tavily/SKILL.md                                  94 lines  | ---
+  ./openclaw/extensions/tlon/README.md                                                  5 lines  | # Tlon (OpenClaw plugin)
+  ./openclaw/extensions/twitch/CHANGELOG.md                                           153 lines  | # Changelog
+  ./openclaw/extensions/twitch/README.md                                               89 lines  | # @openclaw/twitch
+  ./openclaw/extensions/vllm/README.md                                                  3 lines  | # vLLM Provider
+  ./openclaw/extensions/voice-call/CHANGELOG.md                                       163 lines  | # Changelog
+  ./openclaw/extensions/voice-call/README.md                                          159 lines  | # @openclaw/voice-call
+  ./openclaw/extensions/zalo/CHANGELOG.md                                             143 lines  | # Changelog
+  ./openclaw/extensions/zalo/README.md                                                 50 lines  | # @openclaw/zalo
+  ./openclaw/extensions/zalouser/CHANGELOG.md                                         149 lines  | # Changelog
+  ./openclaw/extensions/zalouser/README.md                                            120 lines  | # @openclaw/zalouser
+  ./openclaw/qa/QA_KICKOFF_TASK.md                                                     15 lines  | QA mission:
+  ./openclaw/qa/README.md                                                              10 lines  | # QA Scenarios
+  ./openclaw/qa/new-scenarios-2026-04.md                                              151 lines  | # QA Scenario Expansion - Round 2
+  ./openclaw/scripts/clawdock/README.md                                               355 lines  | # ClawDock <!-- omit in toc -->
+  ./openclaw/skills/1password/SKILL.md                                                 70 lines  | ---
+  ./openclaw/skills/1password/references/cli-examples.md                               29 lines  | # op CLI examples (from op help)
+  ./openclaw/skills/1password/references/get-started.md                                17 lines  | # 1Password CLI get-started (summary)
+  ./openclaw/skills/apple-notes/SKILL.md                                               77 lines  | ---
+  ./openclaw/skills/apple-reminders/SKILL.md                                          118 lines  | ---
+  ./openclaw/skills/bear-notes/SKILL.md                                               107 lines  | ---
+  ./openclaw/skills/blogwatcher/SKILL.md                                               69 lines  | ---
+  ./openclaw/skills/blucli/SKILL.md                                                    47 lines  | ---
+  ./openclaw/skills/bluebubbles/SKILL.md                                              131 lines  | ---
+  ./openclaw/skills/camsnap/SKILL.md                                                   45 lines  | ---
+  ./openclaw/skills/canvas/SKILL.md                                                   199 lines  | # Canvas Skill
+  ./openclaw/skills/clawhub/SKILL.md                                                   77 lines  | ---
+  ./openclaw/skills/coding-agent/SKILL.md                                             316 lines  | ---
+  ./openclaw/skills/discord/SKILL.md                                                  197 lines  | ---
+  ./openclaw/skills/eightctl/SKILL.md                                                  50 lines  | ---
+  ./openclaw/skills/gemini/SKILL.md                                                    43 lines  | ---
+  ./openclaw/skills/gh-issues/SKILL.md                                                885 lines  | ---
+  ./openclaw/skills/gifgrep/SKILL.md                                                   79 lines  | ---
+  ./openclaw/skills/github/SKILL.md                                                   163 lines  | ---
+  ./openclaw/skills/gog/SKILL.md                                                      116 lines  | ---
+  ./openclaw/skills/goplaces/SKILL.md                                                  52 lines  | ---
+  ./openclaw/skills/healthcheck/SKILL.md                                              245 lines  | ---
+  ./openclaw/skills/himalaya/SKILL.md                                                 257 lines  | ---
+  ./openclaw/skills/himalaya/references/configuration.md                              184 lines  | # Himalaya Configuration Reference
+  ./openclaw/skills/himalaya/references/message-composition.md                        199 lines  | # Message Composition with MML (MIME Meta Language)
+  ./openclaw/skills/imsg/SKILL.md                                                     122 lines  | ---
+  ./openclaw/skills/mcporter/SKILL.md                                                  61 lines  | ---
+  ./openclaw/skills/model-usage/SKILL.md                                               69 lines  | ---
+  ./openclaw/skills/model-usage/references/codexbar-cli.md                             33 lines  | # CodexBar CLI quick ref (usage + cost)
+  ./openclaw/skills/nano-pdf/SKILL.md                                                  38 lines  | ---
+  ./openclaw/skills/node-connect/SKILL.md                                             142 lines  | ---
+  ./openclaw/skills/notion/SKILL.md                                                   174 lines  | ---
+  ./openclaw/skills/obsidian/SKILL.md                                                  81 lines  | ---
+  ./openclaw/skills/openai-whisper-api/SKILL.md                                        62 lines  | ---
+  ./openclaw/skills/openai-whisper/SKILL.md                                            38 lines  | ---
+  ./openclaw/skills/openhue/SKILL.md                                                  112 lines  | ---
+  ./openclaw/skills/oracle/SKILL.md                                                   125 lines  | ---
+  ./openclaw/skills/ordercli/SKILL.md                                                  78 lines  | ---
+  ./openclaw/skills/peekaboo/SKILL.md                                                 190 lines  | ---
+  ./openclaw/skills/sag/SKILL.md                                                       87 lines  | ---
+  ./openclaw/skills/session-logs/SKILL.md                                             151 lines  | ---
+  ./openclaw/skills/sherpa-onnx-tts/SKILL.md                                          109 lines  | ---
+  ./openclaw/skills/skill-creator/SKILL.md                                            372 lines  | ---
+  ./openclaw/skills/slack/SKILL.md                                                    144 lines  | ---
+  ./openclaw/skills/songsee/SKILL.md                                                   49 lines  | ---
+  ./openclaw/skills/sonoscli/SKILL.md                                                  65 lines  | ---
+  ./openclaw/skills/spotify-player/SKILL.md                                            64 lines  | ---
+  ./openclaw/skills/summarize/SKILL.md                                                 87 lines  | ---
+  ./openclaw/skills/taskflow-inbox-triage/SKILL.md                                    119 lines  | name: taskflow-inbox-triage
+  ./openclaw/skills/taskflow/SKILL.md                                                 149 lines  | name: taskflow
+  ./openclaw/skills/things-mac/SKILL.md                                                86 lines  | ---
+  ./openclaw/skills/tmux/SKILL.md                                                     170 lines  | ---
+  ./openclaw/skills/trello/SKILL.md                                                   108 lines  | ---
+  ./openclaw/skills/video-frames/SKILL.md                                              46 lines  | ---
+  ./openclaw/skills/voice-call/SKILL.md                                                45 lines  | ---
+  ./openclaw/skills/wacli/SKILL.md                                                     72 lines  | ---
+  ./openclaw/skills/weather/SKILL.md                                                  129 lines  | ---
+  ./openclaw/skills/xurl/SKILL.md                                                     461 lines  | ---
+  ./openclaw/src/channels/AGENTS.md                                                    43 lines  | # Channels Boundary
+  ./openclaw/src/channels/CLAUDE.md                                                     0 lines  | AGENTS.md
+  ./openclaw/src/gateway/protocol/AGENTS.md                                            28 lines  | # Gateway Protocol Boundary
+  ./openclaw/src/gateway/protocol/CLAUDE.md                                             0 lines  | AGENTS.md
+  ./openclaw/src/gateway/server-methods/AGENTS.md                                       3 lines  | # Gateway Server Methods Notes
+  ./openclaw/src/gateway/server-methods/CLAUDE.md                                       0 lines  | AGENTS.md
+  ./openclaw/src/hooks/bundled/README.md                                              223 lines  | # Bundled Hooks
+  ./openclaw/src/hooks/bundled/boot-md/HOOK.md                                         20 lines  | ---
+  ./openclaw/src/hooks/bundled/bootstrap-extra-files/HOOK.md                           53 lines  | ---
+  ./openclaw/src/hooks/bundled/command-logger/HOOK.md                                 122 lines  | ---
+  ./openclaw/src/hooks/bundled/session-memory/HOOK.md                                 108 lines  | ---
+  ./openclaw/src/plugin-sdk/AGENTS.md                                                  80 lines  | # Plugin SDK Boundary
+  ./openclaw/src/plugin-sdk/CLAUDE.md                                                   0 lines  | AGENTS.md
+  ./openclaw/src/plugins/AGENTS.md                                                     62 lines  | # Plugins Boundary
+  ./openclaw/src/plugins/CLAUDE.md                                                      0 lines  | AGENTS.md
+  ./openclaw/test/helpers/channels/AGENTS.md                                           25 lines  | # Test Helper Boundary
+  ./openclaw/test/helpers/channels/CLAUDE.md                                            0 lines  | AGENTS.md
+  ./openclaw/vendor/a2ui/CONTRIBUTING.md                                               49 lines  | # How to contribute to A2UI
+  ./openclaw/vendor/a2ui/README.md                                                    162 lines  | # A2UI: Agent-to-User Interface
+  ./openclaw/vendor/a2ui/renderers/angular/README.md                                    8 lines  | Angular implementation of A2UI.
+  ./openclaw/vendor/a2ui/renderers/lit/README.md                                        8 lines  | Lit implementation of A2UI.
+  ./openclaw/vendor/a2ui/specification/0.8/eval/GEMINI.md                              76 lines  | # A2UI Protocol Message Validation Logic
+  ./openclaw/vendor/a2ui/specification/0.8/eval/README.md                              61 lines  | # Genkit Eval Framework for UI generation
+  ./openclaw/vendor/a2ui/specification/0.8/json/README.md                              15 lines  | # A2UI JSON Schema Files
+  ./openclaw/vendor/a2ui/specification/0.9/eval/README.md                              79 lines  | # Genkit Eval Framework for UI generation
+  ./paddler/AGENTS.md                                                                   1 lines  | Read ./CLAUDE.md for instructions.
+  ./paddler/CLAUDE.md                                                                  66 lines  | # Project Context
+  ./paddler/README.md                                                                 119 lines  | # Paddler
+  ./paddler/SECURITY.md                                                                 5 lines  | ## Security Notice
+  ./paddler/example/README.md                                                          61 lines  | # Paddler Docker Compose Example
+  ./patches/p1_v1_20260421_213107/README.md                                            89 lines  | # p1_v1 — A1 retrieval-side BM25 boost for statute queries
+  ./patches/tariff_v1_20260421_213209/README.md                                       100 lines  | # tariff_v1 — A4 patch (table extraction pipeline)
+  ./patches/two_pass_v1_20260421_213026/README.md                                     111 lines  | # A3 Two-Pass Structured Extraction — Patch Bundle
+  ./reingest_spec/JOURNAL.md                                                          213 lines  | # Re-Ingestion Decision Journal
+  ./reingest_spec/PLAN_FOR_REVIEW.md                                                  292 lines  | # CBIC RAG Re-Ingestion v2 — Plan for External Review
+  ./reingest_spec/PROBES.md                                                           196 lines  | # Validation Probes V1–V24
+  ./reingest_spec/READINESS.md                                                        273 lines  | # CBIC Re-Ingestion — Readiness & Execution Playbook
+  ./reingest_spec/REVIEW.md                                                           130 lines  | # CBIC RAG — Re-Ingestion Plan for External LLM Review
+  ./reingest_spec/RUNBOOK.md                                                          238 lines  | # CBIC RAG v2 — Total Runbook (A→Z)
+  ./reingest_spec/SPEC.md                                                             220 lines  | # CBIC Re-Ingestion Spec v2 — Frozen Execution Plan
+  ./reingest_spec/chunking_plan_prompt.md                                              90 lines  | # Pass-1 Chunking Plan Prompt (Claude CLI primary, qwen3-14b fallback)
+  ./rig_backup/opt/dashboard/QA_REPORT.md                                             158 lines  | # Dashboard QA Report
+  ./rig_mirror/cbic_overnight_status_header.md                                         61 lines  | # CBIC RAG — overnight ingest status
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/qts_answer.md                              22 lines  | **Answer:** The Digital Transformation Package is a composite supply with services as the principal supply. IGST applies
+  ./tariff_db/README.md                                                               132 lines  | # tariff_db — Structured sidecar for CBIC RAG (P2.1)
+  ./training/HARNESS_AUDIT_20260422.md                                                135 lines  | # BGE-M3 Fine-tune Harness Audit — 2026-04-22
+  ./training/README.md                                                                191 lines  | # BGE-M3 Domain Adaptation for CBIC
+  ./training/runpod/deploy_to_rig.md                                                  145 lines  | # Deploy fine-tuned BGE-M3 to rig (192.168.1.107)
+  ./training/runpod/runpod_deploy.md                                                  114 lines  | # RunPod Deploy Plan — BGE-M3 Fine-Tune (CBIC v1)
+
+## *.py
+  ./_esuite_deploy.py                                                                 406 lines  | #!/usr/bin/env python3
+  ./_patch_b13b14b15b16.py                                                            317 lines  | #!/usr/bin/env python3
+  ./_patch_b8b9p5.py                                                                   93 lines  | #!/usr/bin/env python3
+  ./_tmp_validator_new.py                                                              74 lines  | """A3 two-pass span validator (sentinel: two_pass_v1).
+  ./ai_rig_shell.py                                                                  3653 lines  | #!/usr/bin/env python3
+  ./benchmarks/b1_pymupdf_win.py                                                      204 lines  | """B1 benchmark: PyMuPDF parsing throughput on Windows laptop.
+  ./benchmarks/b2_chunk_audit.py                                                      115 lines  | #!/usr/bin/env python3
+  ./benchmarks/b2_smb_write.py                                                        244 lines  | """
+  ./benchmarks/b5_embedder_pool.py                                                     63 lines  | #!/usr/bin/env python3
+  ./benchmarks/b6_dual_gen.py                                                          55 lines  | #!/usr/bin/env python3
+  ./benchmarks/b8_fleet.py                                                             49 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_gen.py                                                                59 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_lora_gpu2.py                                                         160 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_ocr.py                                                                54 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_ocr_api.py                                                           120 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_ocr_parallel.py                                                       62 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_ocr_vl.py                                                             77 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_openrouter_probe.py                                                   42 lines  | #!/usr/bin/env python3
+  ./benchmarks/b_rerank.py                                                             65 lines  | #!/usr/bin/env python3
+  ./benchmarks/list_api.py                                                              6 lines  | import urllib.request, json
+  ./benchmarks/ocr_full_gemini.py                                                     188 lines  | #!/usr/bin/env python3
+  ./benchmarks/ocr_single_pdf.py                                                      121 lines  | #!/usr/bin/env python3
+  ./benchmarks/prep_ocr_ingest.py                                                      68 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v10_route_latency.py                                       74 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v11_chunker_hierarchy.py                                   53 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v12_empty_pdfs.py                                          32 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v13_chunker_timing.py                                      48 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v14_mustcite.py                                            42 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v15_payload_update.py                                      55 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v16_theta.py                                               75 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v17_judge.py                                              100 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v18_claude_cli.py                                          68 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v19_api_stability.py                                       57 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v1_qwen_json.py                                            97 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v20_taxonomy.py                                           125 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v21_dedup.py                                              111 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v22_regex.py                                               66 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v23_api_refactor.py                                        68 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v24_validator.py                                           63 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v2_qwen_latency.py                                         74 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v2b_qwen_pass1.py                                         111 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v3_langdetect.py                                           65 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v4_bm25_hindi.py                                           83 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v5_pool_soak.py                                            72 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v6_snapshot.py                                             45 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v7_disk.py                                                 53 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v8_table_ocr.py                                            74 lines  | #!/usr/bin/env python3
+  ./benchmarks/probes/probe_v9_gemini_quota.py                                         60 lines  | #!/usr/bin/env python3
+  ./cbic_rag/api.py                                                                   425 lines  | #!/usr/bin/env python3
+  ./cbic_rag/chunker.py                                                               137 lines  | """Page-aware chunking with character offsets.
+  ./cbic_rag/colbert_rerank.py                                                         59 lines  | """ColBERT late-interaction rerank.
+  ./cbic_rag/embedder.py                                                              131 lines  | """Hybrid embedder for CBIC RAG.
+  ./cbic_rag/eval.py                                                                  108 lines  | """Eval harness for CBIC RAG.
+  ./cbic_rag/hyde.py                                                                   58 lines  | """HyDE — Hypothetical Document Embeddings.
+  ./cbic_rag/ingest.py                                                                220 lines  | #!/usr/bin/env python3
+  ./cbic_rag/ingest_monitor.py                                                        346 lines  | #!/usr/bin/env python3
+  ./cbic_rag/ingest_patch.py                                                          115 lines  | """One-shot patcher: rewrite ingest.main() to use a streaming producer+consumer
+  ./cbic_rag/ocr.py                                                                    48 lines  | """OCR fallback for image-only CBIC PDFs.
+  ./cbic_rag/query_log.py                                                             269 lines  | """Tiny SQLite-backed query-quality tracking layer for CBIC RAG.
+  ./cbic_rag/retriever.py                                                             109 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./cbic_rag/router.py                                                                 86 lines  | """Query-intent router.
+  ./cbic_rag/storyformat.py                                                           132 lines  | """Story-with-quotes answer builder.
+  ./cbic_rag/tables.py                                                                 53 lines  | """Table-aware extraction for CBIC tax PDFs.
+  ./consults/apply_p1_3_a3.py                                                          68 lines  | #!/usr/bin/env python3
+  ./consults/consult_send.py                                                          124 lines  | #!/usr/bin/env python3
+  ./dashboard/app.py                                                                 1100 lines  | #!/usr/bin/env python3
+  ./eval/_build_rig_eval_set.py                                                        78 lines  | """Convert D:/_gpu_rig_ai/eval/gold_set.yaml (v2, 170 items) to rig eval_set.json schema.
+  ./eval/_classify_complexity.py                                                      243 lines  | #!/usr/bin/env python3
+  ./eval/_classify_failures.py                                                        294 lines  | """Classify failure modes from recall audit JSONL.
+  ./eval/_recompute_recall_fixed.py                                                   366 lines  | """Recompute recall@1 and recall@5 with a smarter matcher that handles
+  ./eval/chunk_audit.py                                                               337 lines  | """Chunk-quality audit for CBIC Qdrant collection.
+  ./eval/claude_judge_eval.py                                                         338 lines  | #!/usr/bin/env python3
+  ./eval/diff_runs.py                                                                 120 lines  | #!/usr/bin/env python3
+  ./eval/recall_audit_rig.py                                                          143 lines  | #!/usr/bin/env python3
+  ./eval/recall_variants_api.py                                                       256 lines  | #!/usr/bin/env python3
+  ./eval/recall_variants_rig.py                                                       170 lines  | #!/usr/bin/env python3
+  ./eval/run_eval.py                                                                  349 lines  | #!/usr/bin/env python3
+  ./eval/summarize_recall_variants.py                                                 166 lines  | #!/usr/bin/env python3
+  ./eval/variants_and_hardneg.py                                                      223 lines  | """
+  ./find_rig.py                                                                       206 lines  | """
+  ./indian_legal_ai/_patch_rag_api.py                                                 145 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/_patch_rag_api_v2.py                                              297 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/_patch_rag_api_v3.py                                              116 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/_patch_rag_api_v4.py                                              236 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_index.py                                                770 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_index_curated.py                                        220 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_index_gpu.py                                            235 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_index_v2.py                                             196 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_worker.py                                               179 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/build_rag_worker_tiered.py                                        189 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/curate_datasets.py                                                187 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/dispatcher.py                                                     299 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/download_datasets.py                                              333 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/download_datasets_v2.py                                           148 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/fetch_gst_corpus.py                                               245 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/deep_probe.py                                   276 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/deep_probe2.py                                  301 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/deep_probe3.py                                  274 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/deep_probe4.py                                  224 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/dl_cbic_rates.py                                 67 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/dl_pib_gst.py                                    56 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/dl_state_sgst.py                                 60 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/patch_ingest_dir_mode.py                         45 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t15_final10.py                                  129 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t15_last2.py                                    114 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t15_partial.py                                  158 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t15_remaining5.py                               111 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_build_bridges.py                             156 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_cdnbbsr_scan.py                              127 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_cdnbbsr_scan_v2.py                           102 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_cleanup_and_place.py                         100 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_cleanup_and_refetch.py                       145 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_closure.py                                   112 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_complete_harvest.py                          560 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_expand_30.py                                 226 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_fill_gaps.py                                 286 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_fill_gaps_v2.py                              332 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_final3.py                                    101 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_final_4.py                                    94 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_fix_round3.py                                205 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_fix_round4.py                                202 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_gemini_final3.py                              78 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_gemini_handles.py                            179 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_grok_batch.py                                159 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_grok_final14.py                              152 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_mediation_probe.py                            59 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_parallel_probe.py                            139 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_playwright_harvest.py                        225 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_playwright_v2.py                             208 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_pw_debug.py                                   51 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_quality_audit.py                             163 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_restore_gst_and_ibc.py                        86 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/gst_stage_scripts/t1_verify_and_test.py                           121 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/poc_setup.py                                                      557 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/rag_api.py                                                        550 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/rag_api_oai.py                                                    295 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/rag_api_qdrant.py                                                 340 lines  | #!/usr/bin/env python3
+  ./indian_legal_ai/scrape_gst_faqs.py                                                883 lines  | #!/usr/bin/env python3
+  ./ingest_monitor.py                                                                 331 lines  | #!/usr/bin/env python3
+  ./make_corpus_files_pdf.py                                                          223 lines  | """Generate a PDF listing every ingested source file per category, with chunk counts."""
+  ./make_corpus_pdf.py                                                                294 lines  | """Generate a PDF report of the Indian Legal AI ingested corpus."""
+  ./manage_paddler.py                                                                 117 lines  | """Manage 7-GPU llama-server rig via paramiko SSH + systemd."""
+  ./ocr_poc.py                                                                         64 lines  | #!/usr/bin/env python3
+  ./openclaw/fix2.py                                                                   84 lines  | with open('src/infra/heartbeat-runner.ts', 'r') as f:
+  ./openclaw/scripts/check-composite-action-input-interpolation.py                     81 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/model-usage/scripts/model_usage.py                                320 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/model-usage/scripts/test_model_usage.py                            40 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/skill-creator/scripts/init_skill.py                               378 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/skill-creator/scripts/package_skill.py                            139 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/skill-creator/scripts/quick_validate.py                           159 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/skill-creator/scripts/test_package_skill.py                       160 lines  | #!/usr/bin/env python3
+  ./openclaw/skills/skill-creator/scripts/test_quick_validate.py                       72 lines  | #!/usr/bin/env python3
+  ./openclaw/tool-proxy.py                                                            402 lines  | #!/usr/bin/env python3
+  ./paddler/paddler_client_python/paddler_client/__init__.py                            4 lines  | from paddler_client.client_inference import ClientInference
+  ./paddler/paddler_client_python/paddler_client/agent_controller_pool_snapshot.py      7 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/agent_controller_snapshot.py          21 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/agent_desired_model.py                74 lines  | from typing import Any, cast
+  ./paddler/paddler_client_python/paddler_client/agent_issue.py                        38 lines  | from typing import Any, cast
+  ./paddler/paddler_client_python/paddler_client/agent_state_application_status.py      9 lines  | from enum import StrEnum
+  ./paddler/paddler_client_python/paddler_client/balancer_desired_state.py             17 lines  | from pydantic import BaseModel, Field
+  ./paddler/paddler_client_python/paddler_client/buffered_request_manager_snapshot.py      5 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/chat_template.py                       5 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/client_inference.py                  162 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/client_management.py                 161 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/continue_from_conversation_history_params.py     14 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/continue_from_raw_prompt_params.py      9 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/conversation_message.py               12 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/conversation_message_content_part.py     22 lines  | from typing import Annotated, Literal
+  ./paddler/paddler_client_python/paddler_client/embedding.py                          15 lines  | from pydantic import BaseModel, ConfigDict
+  ./paddler/paddler_client_python/paddler_client/embedding_input_document.py            6 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/embedding_normalization_method.py     60 lines  | from typing import Any, Self, cast
+  ./paddler/paddler_client_python/paddler_client/error.py                              37 lines  | class PaddlerError(Exception):
+  ./paddler/paddler_client_python/paddler_client/format_api_url.py                      6 lines  | def format_api_url(base_url: str, path: str) -> str:
+  ./paddler/paddler_client_python/paddler_client/generate_embedding_batch_params.py     11 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/grammar_constraint.py                 19 lines  | from typing import Annotated, Literal
+  ./paddler/paddler_client_python/paddler_client/huggingface_model_reference.py         7 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/image_url.py                           5 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/inference_message.py                 201 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/inference_parameters.py               20 lines  | from pydantic import BaseModel
+  ./paddler/paddler_client_python/paddler_client/inference_socket_connection.py       200 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/inference_socket_pool.py              75 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/inference_socket_url.py               28 lines  | from urllib.parse import urlparse, urlunparse
+  ./paddler/paddler_client_python/paddler_client/model_metadata.py                      5 lines  | from pydantic import BaseModel, Field
+  ./paddler/paddler_client_python/paddler_client/pooling_type.py                       10 lines  | from enum import StrEnum
+  ./paddler/paddler_client_python/paddler_client/raise_for_streaming_error.py          18 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/stream_ndjson.py                      31 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/stream_sse.py                         22 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/paddler_client/tool.py                               18 lines  | from typing import Literal
+  ./paddler/paddler_client_python/paddler_client/validated_parameters_schema.py        15 lines  | from typing import Any
+  ./paddler/paddler_client_python/tests/__init__.py                                     0 lines  | 
+  ./paddler/paddler_client_python/tests/conftest.py                                   103 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/tests/test_agent_controller_snapshot.py              55 lines  | from paddler_client.agent_controller_pool_snapshot import (
+  ./paddler/paddler_client_python/tests/test_agent_desired_model.py                    89 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_agent_issue.py                            48 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_agent_state_application_status.py         13 lines  | from paddler_client.agent_state_application_status import (
+  ./paddler/paddler_client_python/tests/test_balancer_desired_state.py                 23 lines  | from paddler_client.balancer_desired_state import BalancerDesiredState
+  ./paddler/paddler_client_python/tests/test_buffered_request_manager_snapshot.py      11 lines  | from paddler_client.buffered_request_manager_snapshot import (
+  ./paddler/paddler_client_python/tests/test_chat_template.py                           8 lines  | from paddler_client.chat_template import ChatTemplate
+  ./paddler/paddler_client_python/tests/test_client_inference.py                      209 lines  | import json
+  ./paddler/paddler_client_python/tests/test_client_management.py                     283 lines  | import json
+  ./paddler/paddler_client_python/tests/test_conversation_message.py                   39 lines  | from paddler_client.conversation_message import ConversationMessage
+  ./paddler/paddler_client_python/tests/test_embedding.py                              32 lines  | from paddler_client.embedding import Embedding
+  ./paddler/paddler_client_python/tests/test_embedding_input_document.py                8 lines  | from paddler_client.embedding_input_document import EmbeddingInputDocument
+  ./paddler/paddler_client_python/tests/test_embedding_normalization_method.py         66 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_error.py                                  52 lines  | from paddler_client.error import (
+  ./paddler/paddler_client_python/tests/test_format_api_url.py                         32 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_grammar_constraint.py                     30 lines  | from paddler_client.grammar_constraint import (
+  ./paddler/paddler_client_python/tests/test_huggingface_model_reference.py            17 lines  | from paddler_client.huggingface_model_reference import (
+  ./paddler/paddler_client_python/tests/test_inference_message.py                     322 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_inference_parameters.py                   19 lines  | from paddler_client.inference_parameters import InferenceParameters
+  ./paddler/paddler_client_python/tests/test_inference_socket_url.py                   44 lines  | import pytest
+  ./paddler/paddler_client_python/tests/test_integration_inference.py                 123 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/tests/test_integration_management.py                 79 lines  | from __future__ import annotations
+  ./paddler/paddler_client_python/tests/test_model_metadata.py                         16 lines  | from paddler_client.model_metadata import ModelMetadata
+  ./paddler/paddler_client_python/tests/test_pooling_type.py                           10 lines  | from paddler_client.pooling_type import PoolingType
+  ./paddler/paddler_client_python/tests/test_request_params.py                         98 lines  | from paddler_client.continue_from_conversation_history_params import (
+  ./paddler/paddler_client_python/tests/test_response_stream.py                        90 lines  | import asyncio
+  ./paddler/paddler_client_python/tests/test_stream_ndjson.py                          87 lines  | import json
+  ./paddler/paddler_client_python/tests/test_stream_sse.py                             75 lines  | import httpx
+  ./paddler/paddler_client_python/tests/test_tool.py                                   56 lines  | from paddler_client.tool import Function, Tool
+  ./patch_ingest.py                                                                    68 lines  | #!/usr/bin/env python3
+  ./patches/b22_1776816866/api.py                                                     955 lines  | #!/usr/bin/env python3
+  ./patches/b22_1776816866/apply_api.py                                               181 lines  | #!/usr/bin/env python3
+  ./patches/b22_1776816866/apply_retriever.py                                         102 lines  | #!/usr/bin/env python3
+  ./patches/b22_1776816866/apply_storyformat.py                                       102 lines  | #!/usr/bin/env python3
+  ./patches/b22_1776816866/retriever.py                                               196 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./patches/b22_1776816866/storyformat.py                                             304 lines  | """Story-with-quotes answer builder.
+  ./patches/b22b_1776817862/api.py                                                    955 lines  | #!/usr/bin/env python3
+  ./patches/b22b_1776817862/retriever.py                                              196 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./patches/b22b_1776817862/storyformat.py                                            293 lines  | """Story-with-quotes answer builder.
+  ./patches/p1_v1_20260421_213107/api.patched.py                                      875 lines  | #!/usr/bin/env python3
+  ./patches/p1_v1_20260421_213107/apply.py                                            133 lines  | #!/usr/bin/env python3
+  ./patches/p1_v1_20260421_213107/retriever.patched.py                                328 lines  | # p1_v1 — BM25 boost on statute queries, min-2-non-Act backfill.
+  ./patches/tariff_v1_20260421_213209/apply.py                                        108 lines  | """
+  ./patches/tariff_v1_20260421_213209/tariff_endpoint.py                               57 lines  | """
+  ./patches/tariff_v1_20260421_213209/tariff_ingest.py                                217 lines  | """
+  ./patches/tariff_v1_20260421_213209/tariff_query.py                                  91 lines  | """
+  ./patches/two_pass_v1_20260421_213026/api.patched.py                               1178 lines  | #!/usr/bin/env python3
+  ./patches/two_pass_v1_20260421_213026/apply.py                                      146 lines  | #!/usr/bin/env python3
+  ./patches/two_pass_v1_20260421_213026/storyformat.patched.py                        410 lines  | """Story-with-quotes answer builder.
+  ./patches/two_pass_v1_20260421_213026/validator.py                                   93 lines  | """A3 two-pass span validator (sentinel: two_pass_v1).
+  ./prepare_usb.py                                                                    393 lines  | """
+  ./reingest_spec/chunker_v2.py                                                       644 lines  | """
+  ./reingest_spec/dedupe_chunks.py                                                     84 lines  | #!/usr/bin/env python3
+  ./reingest_spec/topic_tagger.py                                                     137 lines  | #!/usr/bin/env python3
+  ./rig_backup/opt/ai-rig-shell.py                                                   3530 lines  | #!/usr/bin/env python3
+  ./rig_backup/opt/dashboard/app.py                                                   985 lines  | #!/usr/bin/env python3
+  ./rig_client.py                                                                     263 lines  | """
+  ./rig_cmd.py                                                                         17 lines  | """Run a command on the rig via SSH (paramiko). Usage: python rig_cmd.py 'command'"""
+  ./rig_cmd2.py                                                                        26 lines  | """Run command on rig, write output to temp file, print it."""
+  ./rig_diag.py                                                                        47 lines  | #!/usr/bin/env python3
+  ./rig_mirror/_api_pull.py                                                           772 lines  | #!/usr/bin/env python3
+  ./rig_mirror/_storyformat_pull.py                                                   256 lines  | """Story-with-quotes answer builder.
+  ./rig_mirror/b1721/api.py                                                           845 lines  | #!/usr/bin/env python3
+  ./rig_mirror/b1721/colbert_rerank.py                                                110 lines  | """ColBERT late-interaction rerank.
+  ./rig_mirror/b1721/hyde.py                                                           70 lines  | """HyDE — Hypothetical Document Embeddings.
+  ./rig_mirror/b1721/patched/api.py                                                   959 lines  | #!/usr/bin/env python3
+  ./rig_mirror/b1721/patched/retriever.py                                             197 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./rig_mirror/b1721/patched/storyformat.py                                           293 lines  | """Story-with-quotes answer builder.
+  ./rig_mirror/b1721/retriever.py                                                     130 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./rig_mirror/b1721/router.py                                                        102 lines  | """Query-intent router.
+  ./rig_mirror/b1721/storyformat.py                                                   256 lines  | """Story-with-quotes answer builder.
+  ./rig_mirror/chunker.py                                                             597 lines  | """Hierarchy-aware chunker for Indian tax law PDFs.
+  ./rig_mirror/embed-synth2.py                                                         27 lines  | import os, time, sys
+  ./rig_mirror/embedder.py                                                             67 lines  | """Hybrid embedder for CBIC RAG — DIRECT in-process multi-GPU (Vulkan via llama-cpp-python).
+  ./rig_mirror/embedder_direct.py                                                     118 lines  | """Direct in-process multi-GPU BGE-M3 embedder via llama-cpp-python + Vulkan.
+  ./rig_mirror/gpu-check.py                                                            22 lines  | import os, sys, time
+  ./rig_mirror/ingest.py                                                              522 lines  | #!/usr/bin/env python3
+  ./rig_mirror/ingest_monitor.py                                                      371 lines  | #!/usr/bin/env python3
+  ./rig_mirror/one_chunk_audit.py                                                      59 lines  | #!/usr/bin/env python3
+  ./rig_mirror/overnight_worker.py                                                    439 lines  | #!/usr/bin/env python3
+  ./rig_mirror/patch_api_static.py                                                     32 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/api.py                               845 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/chunker.py                           597 lines  | """Hierarchy-aware chunker for Indian tax law PDFs.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/colbert_rerank.py                    110 lines  | """ColBERT late-interaction rerank.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/embed_bench.py                       109 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/embedder.py                           67 lines  | """Hybrid embedder for CBIC RAG — DIRECT in-process multi-GPU (Vulkan via llama-cpp-python).
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/embedder_direct.py                   118 lines  | """Direct in-process multi-GPU BGE-M3 embedder via llama-cpp-python + Vulkan.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/eval.py                              108 lines  | """Eval harness for CBIC RAG.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/hyde.py                               70 lines  | """HyDE — Hypothetical Document Embeddings.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ingest.py                            522 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ingest_monitor.py                    371 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ingest_ocr_worker.py                 408 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ocr.py                                59 lines  | """OCR fallback for image-only CBIC PDFs.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ocr_worker.py                        215 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/ort_rocm_bench.py                    124 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/overnight_worker.py                  439 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/quality_check.py                     279 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/query_log.py                         269 lines  | """Tiny SQLite-backed query-quality tracking layer for CBIC RAG.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/recovery_worker.py                   312 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/retriever.py                         130 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/router.py                            102 lines  | """Query-intent router.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/single_worker_test.py                169 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/storyformat.py                       256 lines  | """Story-with-quotes answer builder.
+  ./rig_mirror/pre_reboot_20260421_2148/cbic_rag/tables.py                             53 lines  | """Table-aware extraction for CBIC tax PDFs.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_patch_b13b14b15b16.py                    317 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_patch_b8b9p5.py                           93 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/_stager.py                                  4 lines  | import sys, pathlib
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/audit/run.py                               38 lines  | import json, time, urllib.request, sys, os
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/audit/run2.py                              26 lines  | import json, time, urllib.request
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/audit/score.py                             59 lines  | import json, re
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/audit/score2.py                            28 lines  | import json, re
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/api.py                          845 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/colbert_rerank.py               110 lines  | """ColBERT late-interaction rerank.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/hyde.py                          70 lines  | """HyDE — Hypothetical Document Embeddings.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/retriever.py                    130 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/router.py                       102 lines  | """Query-intent router.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1721_src/storyformat.py                  256 lines  | """Story-with-quotes answer builder.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b1_probe.py                                77 lines  | """B1 probe: reproduce real RAG LLM call, dump RAW content to see what we get."""
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b2b3_patch.py                             156 lines  | """B2 + B3 patch: instrument retrieve sub-steps + add /pdf/{doc_id} proxy."""
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b3_front.py                                14 lines  | import pathlib
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/b6_patch.py                               130 lines  | """B6 fix: replace verify_quotes with a fuzzy-match version.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/debug_pipeline.py                          46 lines  | import sys, json
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/esuite_deploy.py                          406 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/f1f3_patch.py                              78 lines  | """F1 + F3 frontend patch:
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/f2_patch.py                               124 lines  | """F2 patch: PDF region snapshot endpoint /pdf/{doc_id}/page/{n}/snippet
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/fix_b5.py                                  25 lines  | p = "/opt/indian-legal-ai/rag/cbic_rag/static/index.html"
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/ocr_poc.py                                 64 lines  | #!/usr/bin/env python3
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/patch_api.py                               67 lines  | import re, pathlib, sys
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/patch_b11.py                               41 lines  | import re
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/patch_b12.py                               11 lines  | # Patch retriever.py: add embed_cache_stats to timings dict
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/patch_b6.py                               110 lines  | """Patch storyformat.py verify_quotes() with forgiving normalizer (Bug B6)."""
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/patch_hyde.py                              10 lines  | fn='/opt/indian-legal-ai/rag/cbic_rag/hyde.py'
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/phase0_patch.py                            40 lines  | import re, pathlib
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/phase1_patch.py                           170 lines  | """Apply Phase 0 async wrap + Phase 1 SSE streaming endpoint to api.py."""
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/phase4_patch.py                            71 lines  | """Apply Phase 4: FastAPI @app.on_event('startup') warmup hook.
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/profile_retrieve.py                        56 lines  | import sys, time, json
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/raw_llm.py                                 16 lines  | import httpx, json
+  ./rig_mirror/quality_check.py                                                       279 lines  | #!/usr/bin/env python3
+  ./rig_mirror/recovery_worker.py                                                     328 lines  | #!/usr/bin/env python3
+  ./rig_mirror/recovery_worker_multi.py                                               312 lines  | #!/usr/bin/env python3
+  ./rig_mirror/two_pass_v1/api.py                                                     845 lines  | #!/usr/bin/env python3
+  ./rig_mirror/two_pass_v1/retriever.py                                               130 lines  | """Hybrid retrieval (dense + sparse BM25) with optional cross-encoder rerank.
+  ./rig_mirror/two_pass_v1/storyformat.py                                             256 lines  | """Story-with-quotes answer builder.
+  ./rig_scripts_snapshot/build_rag_index_gpu.py                                       235 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/build_rag_worker_tiered.py                                   189 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/eval_v2.py                                                   353 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/ingest_t1_safe.py                                            266 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/ingest_t1_v2.py                                              493 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/parallel_ingest.py                                           181 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/rag_api_qdrant.py                                            781 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/rag_api_v2.py                                                806 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/rag_query_v2.py                                              210 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/scraper/base_scraper.py                                      365 lines  | """Base scraper framework for Indian legal/regulatory sites.
+  ./rig_scripts_snapshot/scraper/cbic_scraper.py                                      550 lines  | """CBIC Tax Information Portal scraper (taxinformation.cbic.gov.in).
+  ./rig_scripts_snapshot/scraper/qa_pdfs.py                                           279 lines  | """Quality audit for downloaded PDFs.
+  ./rig_scripts_snapshot/scraper/recovery_v2.py                                       175 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/scraper/run_scrape.py                                         90 lines  | #!/usr/bin/env python3
+  ./rig_scripts_snapshot/scraper/scraper_monitor.py                                   554 lines  | #!/usr/bin/env python3
+  ./run_gemma4_final_test.py                                                          228 lines  | """
+  ./run_model_tests.py                                                                136 lines  | """Run identical test suite on multiple models for comparison."""
+  ./scripts/gen_high_complexity_claude.py                                             235 lines  | """
+  ./scripts/gen_low_complexity_claude.py                                              243 lines  | """
+  ./scripts/gen_training_pairs.py                                                     229 lines  | """
+  ./scripts/gen_training_pairs_claude.py                                              233 lines  | """
+  ./scripts/gen_training_pairs_v2.py                                                  239 lines  | """
+  ./search_ram.py                                                                      40 lines  | import asyncio
+  ./stress_test.py                                                                    190 lines  | """
+  ./tariff_db/ingest.py                                                               337 lines  | """
+  ./tariff_db/router.py                                                               265 lines  | """
+  ./tariff_db/test_router.py                                                          174 lines  | """
+  ./training/curate_training_set.py                                                   348 lines  | #!/usr/bin/env python3
+  ./training/curation_stats.py                                                        108 lines  | #!/usr/bin/env python3
+  ./training/finetune_bge_m3.py                                                       286 lines  | """
+  ./training/mine_hard_negatives.py                                                   258 lines  | """
+  ./training/prep_pairs.py                                                            316 lines  | """
+  ./training/qa_pairs_claude.py                                                       246 lines  | """
+  ./wake_rig.py                                                                       134 lines  | """
+
+## *.sh
+  ./cbic_rag/deploy.sh                                                                156 lines  | #!/bin/bash
+  ./dashboard/deploy.sh                                                                24 lines  | #!/usr/bin/env bash
+  ./dashboard/install.sh                                                               18 lines  | #!/usr/bin/env bash
+  ./dashboard/start.sh                                                                 23 lines  | #!/usr/bin/env bash
+  ./deploy_gemma4.sh                                                                  122 lines  | #!/bin/bash
+  ./gpu_inventory.sh                                                                  397 lines  | #!/bin/bash
+  ./indian_legal_ai/overnight_run.sh                                                   42 lines  | #!/bin/bash
+  ./indian_legal_ai/overnight_setup.sh                                                192 lines  | #!/usr/bin/env bash
+  ./inventory.sh                                                                       35 lines  | #!/usr/bin/env bash
+  ./llama-server.sh                                                                    76 lines  | #!/bin/bash
+  ./openclaw/Swabble/scripts/format.sh                                                  5 lines  | #!/bin/bash
+  ./openclaw/Swabble/scripts/lint.sh                                                    9 lines  | #!/bin/bash
+  ./openclaw/apps/android/scripts/perf-online-benchmark.sh                            430 lines  | #!/usr/bin/env bash
+  ./openclaw/apps/android/scripts/perf-startup-benchmark.sh                           124 lines  | #!/usr/bin/env bash
+  ./openclaw/apps/android/scripts/perf-startup-hotspots.sh                            154 lines  | #!/usr/bin/env bash
+  ./openclaw/docker-setup.sh                                                           12 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/auth-monitor.sh                                                   89 lines  | #!/bin/bash
+  ./openclaw/scripts/build-and-run-mac.sh                                              18 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/build_icon.sh                                                     59 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/bundle-a2ui.sh                                                   104 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/changelog-to-html.sh                                              91 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/claude-auth-status.sh                                            280 lines  | #!/bin/bash
+  ./openclaw/scripts/clawdock/clawdock-helpers.sh                                     512 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/clawlog.sh                                                       321 lines  | #!/bin/bash
+  ./openclaw/scripts/codesign-mac-app.sh                                              289 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/create-dmg.sh                                                    176 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/dev/ios-pull-gateway-log.sh                                       17 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/cleanup-smoke/run.sh                                       35 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/install-sh-common/cli-verify.sh                            53 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/install-sh-common/version-parse.sh                         14 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/install-sh-e2e/run.sh                                     611 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/install-sh-nonroot/run.sh                                  49 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/install-sh-smoke/run.sh                                    67 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docker/setup.sh                                                  654 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/docs-spellcheck.sh                                                44 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/doctor-install-switch-docker.sh                              160 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/gateway-network-docker.sh                                    145 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/mcp-channels-docker.sh                                        79 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/onboard-docker.sh                                            574 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/openwebui-docker.sh                                          184 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/parallels-linux-smoke.sh                                     911 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/parallels-macos-smoke.sh                                    1503 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/parallels-npm-update-smoke.sh                                899 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/parallels-windows-smoke.sh                                  2296 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/plugins-docker.sh                                            941 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/e2e/qr-import-docker.sh                                           11 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/install.sh                                                      2556 lines  | #!/bin/bash
+  ./openclaw/scripts/ios-asc-keychain-setup.sh                                        187 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-beta-archive.sh                                               40 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-beta-prepare.sh                                              165 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-beta-release.sh                                               40 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-configure-signing.sh                                         108 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-team-id.sh                                                   207 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/ios-write-version-xcconfig.sh                                     99 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/k8s/create-kind.sh                                               209 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/k8s/deploy.sh                                                    231 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/lib/live-docker-auth.sh                                          141 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/lib/live-docker-stage.sh                                          62 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/make_appcast.sh                                                   80 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/mobile-reauth.sh                                                  84 lines  | #!/bin/bash
+  ./openclaw/scripts/notarize-mac-artifact.sh                                          65 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/openclaw-npm-publish.sh                                           54 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/package-mac-app.sh                                               302 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/package-mac-dist.sh                                              141 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/plugin-clawhub-publish.sh                                         88 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/plugin-npm-publish.sh                                            111 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/podman/setup.sh                                                  458 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/pr-lib/changelog.sh                                              335 lines  | normalize_pr_changelog_entries() {
+  ./openclaw/scripts/pr-lib/common.sh                                                 340 lines  | require_artifact() {
+  ./openclaw/scripts/pr-lib/gates.sh                                                  130 lines  | run_prepare_push_retry_gates() {
+  ./openclaw/scripts/pr-lib/merge.sh                                                  396 lines  | is_mainline_drift_critical_path_for_merge() {
+  ./openclaw/scripts/pr-lib/prepare-core.sh                                           280 lines  | checkout_prep_branch() {
+  ./openclaw/scripts/pr-lib/push.sh                                                   297 lines  | resolve_head_push_url() {
+  ./openclaw/scripts/pr-lib/review.sh                                                 527 lines  | set_review_mode() {
+  ./openclaw/scripts/pr-lib/worktree.sh                                               164 lines  | repo_root() {
+  ./openclaw/scripts/pre-commit/run-node-tool.sh                                       31 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/prepush-ci.sh                                                     95 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/recover-orphaned-processes.sh                                    191 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/restart-mac.sh                                                   269 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/run-openclaw-podman.sh                                           574 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/sandbox-browser-entrypoint.sh                                    127 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/sandbox-browser-setup.sh                                           7 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/sandbox-common-setup.sh                                           54 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/sandbox-setup.sh                                                   7 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/setup-auth-system.sh                                             119 lines  | #!/bin/bash
+  ./openclaw/scripts/termux-auth-widget.sh                                             81 lines  | #!/data/data/com.termux/files/usr/bin/bash
+  ./openclaw/scripts/termux-quick-auth.sh                                              30 lines  | #!/data/data/com.termux/files/usr/bin/bash
+  ./openclaw/scripts/termux-sync-widget.sh                                             25 lines  | #!/data/data/com.termux/files/usr/bin/bash
+  ./openclaw/scripts/test-cleanup-docker.sh                                            14 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-install-sh-docker.sh                                         82 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-install-sh-e2e-docker.sh                                     29 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-live-acp-bind-docker.sh                                     196 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-live-build-docker.sh                                         14 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-live-cli-backend-docker.sh                                  199 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-live-gateway-models-docker.sh                               140 lines  | #!/usr/bin/env bash
+  ./openclaw/scripts/test-live-models-docker.sh                                       152 lines  | #!/usr/bin/env bash
+  ./openclaw/setup-podman.sh                                                           12 lines  | #!/usr/bin/env bash
+  ./openclaw/skills/openai-whisper-api/scripts/transcribe.sh                           88 lines  | #!/usr/bin/env bash
+  ./openclaw/skills/tmux/scripts/find-sessions.sh                                     112 lines  | #!/usr/bin/env bash
+  ./openclaw/skills/tmux/scripts/wait-for-text.sh                                      83 lines  | #!/usr/bin/env bash
+  ./openclaw/skills/video-frames/scripts/frame.sh                                      81 lines  | #!/usr/bin/env bash
+  ./openclaw/vendor/a2ui/specification/0.9/validate.sh                                 38 lines  | #!/bin/bash
+  ./paddler-agents.sh                                                                  58 lines  | #!/bin/bash
+  ./paddler-all.sh                                                                     46 lines  | #!/bin/bash
+  ./paddler_start.sh                                                                  113 lines  | #!/bin/bash
+  ./rig_backup/opt/ai-rig-resume.sh                                                    76 lines  | #!/bin/bash
+  ./rig_backup/opt/ai-rig-watchdog.sh                                                  35 lines  | #!/bin/bash
+  ./rig_backup/opt/dashboard/deploy.sh                                                 24 lines  | #!/usr/bin/env bash
+  ./rig_backup/opt/dashboard/install.sh                                                18 lines  | #!/usr/bin/env bash
+  ./rig_backup/opt/dashboard/start.sh                                                  23 lines  | #!/usr/bin/env bash
+  ./rig_backup/opt/gpu-init.sh                                                         37 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-all-gemma4.sh                                     23 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-all-qwen35-4b.sh                                  21 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-gemma4-e4b.sh                                     24 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-mistral-nemo-12b.sh                               27 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-qwen25-coder-7b.sh                                18 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-qwen35-4b.sh                                      18 lines  | #!/bin/bash
+  ./rig_backup/opt/model-scripts/run-qwen35-9b.sh                                      22 lines  | #!/bin/bash
+  ./rig_backup/opt/start_all_gpus.sh                                                   46 lines  | #!/bin/bash
+  ./rig_mirror/cbic_status_updater.sh                                                  39 lines  | #!/usr/bin/env bash
+  ./rig_mirror/overnight_supervisor.sh                                                 52 lines  | #!/usr/bin/env bash
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/start_api.sh                               16 lines  | #!/bin/bash
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/start_qwen25vl.sh                           6 lines  | #!/bin/bash
+  ./rig_mirror/pre_reboot_20260421_2148/tmp/start_qwen3_14b.sh                          7 lines  | #!/bin/bash
+  ./rig_mirror/preflight.sh                                                            83 lines  | #!/bin/bash
+  ./rig_mirror/run-ingest-direct.sh                                                    50 lines  | #!/bin/bash
+  ./rig_mirror/watchdog.sh                                                             65 lines  | #!/bin/bash
+  ./rig_scripts/fix_gpu_drivers.sh                                                    181 lines  | #!/bin/bash
+  ./rig_scripts/gpu_inventory.sh                                                      397 lines  | #!/bin/bash
+  ./rig_scripts/rig_setup.sh                                                          310 lines  | #!/bin/bash
+  ./rig_scripts/ubuntu_ai_setup.sh                                                    505 lines  | #!/bin/bash
+  ./rig_scripts_snapshot/ingest_t1_corpus.sh                                           68 lines  | #!/usr/bin/env bash
+  ./rig_scripts_snapshot/scraper/pipeline_all.sh                                       32 lines  | #!/bin/bash
+  ./rig_scripts_snapshot/scraper/qa_watchdog.sh                                        30 lines  | #!/bin/bash
+  ./rig_scripts_snapshot/scraper/watchdog.sh                                           65 lines  | #!/bin/bash
+  ./setup_safe_boot.sh                                                                163 lines  | #!/bin/bash
+  ./test-models.sh                                                                    109 lines  | #!/bin/bash
+  ./test_all_models.sh                                                                167 lines  | #!/usr/bin/env bash
+  ./training/runpod/run_training.sh                                                    82 lines  | #!/usr/bin/env bash
+  ./training/runpod/setup.sh                                                           73 lines  | #!/usr/bin/env bash
+
+## Directories (top-level under D:/_gpu_rig_ai)
+  .claude
+  .env
+  .git
+  .gitignore
+  .rig_config
+  CLAUDE.md
+  GEMMA4_TEST_REPORT.md
+  INTEGRATION_GUIDE.md
+  MODEL_COMPARISON_REPORT.md
+  NUL
+  README.md
+  RIG_COMPLETE_DOCUMENTATION.md
+  RIG_INFO.md
+  RIG_SETUP.md
+  RIG_TUNING_GUIDE.md
+  RITU_AGENT_INSTRUCTIONS.md
+  Rufus
+  SESSION_HANDOFF.md
+  UBUNTU_INSTALL_GUIDE.md
+  VISION_BUG_FOR_OTHER_LLM.md
+  _corpus_files.json
+  _esuite_deploy.py
+  _patch_b13b14b15b16.py
+  _patch_b8b9p5.py
+  _rig_done.txt
+  _rig_output.txt
+  _tmp_validator_new.py
+  ai_rig_shell.py
+  benchmarks
+  cbic_ingest_runbook.md
+  cbic_rag
+  chat-ui.js
+  cloudflare_access_setup.md
+  consult_brief_cbic_ingest_oom.md
+  consult_brief_cbic_ingest_postrun.md
+  consult_brief_cbic_rag_trustability.md
+  consults
+  corpus_files_by_category.pdf
+  corpus_ingested_report.pdf
+  dashboard
+  dayshift_report_20260422.md
+  deploy_gemma4.sh
+  ebay_crucial.png
+  ebay_epyc.png
+  ebay_h12ssl.png
+  ebay_item.png
+  ebay_item.txt
+  ebay_results.txt
+  ebay_romed8.png
+  ebay_screenshot.png
+  ebay_x10drg.png
+  eval
+  find_rig.py
+  fix_share_access.bat
+  gemma4_final_evidence.json
+  gemma4_test_results.json
+  gpu_inventory.sh
+  hiveos-0.6-229-stable-jammy@241231.img.xz
+  indian_legal_ai
+  ingest_monitor.py
+  inventory.sh
+  inventory_latest.txt
+  llama-server.sh
+  make_corpus_files_pdf.py
+  make_corpus_pdf.py
+  manage_paddler.py
+  models
+  morning_status_20260422.md
+  newegg_search.png
+  ocr_poc.py
+  openclaw
+  paddler
+  paddler-agents.sh
+  paddler-all.sh
+  paddler_start.sh
+  patch_ingest.py
+  patches
+  prepare_usb.py
+  qwen2.5-coder-7b-instruct-q4_k_m.gguf
+  qwen3_models.png
+  qwen_models.png
+  qwen_test_results.json
+  reingest_spec
+  rig_backup
+  rig_client.py
+  rig_cmd.py
+  rig_cmd2.py
+  rig_diag.py
+  rig_mirror
+  rig_scripts
+  rig_scripts_snapshot
+  rufus-4.6p.exe
+  rufus.ini
+  run_gemma4_final_test.py
+  run_model_tests.py
+  schema.sql
+  scripts
+  search_ram.py
+  setup_safe_boot.sh
+  share_models_folder.bat
+  start.bat
+  stress_test.py
+  stress_test_results.json
+  tariff_db
+  test-models.sh
+  test_all_models.sh
+  training
+  training_pairs
+  wake_rig.py

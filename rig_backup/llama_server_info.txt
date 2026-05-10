@@ -1,0 +1,4 @@
+-rwxr-xr-x 1 root root 11295136 Apr  7 14:43 /opt/llama-server/llama-server-rocm
+load_backend: loaded RPC backend from /opt/llama-server/libggml-rpc.so
+load_backend: loaded Vulkan backend from /opt/llama-server/libggml-vulkan.so
+load_backend: loaded CPU backend from /opt/llama-server/libggml-cpu-haswell.so

@@ -1,0 +1,46 @@
+[2026-04-22 18:03:19] === mine_hard_negatives start ===
+[2026-04-22 18:03:19] Python 3.12.2 PID 13684
+[2026-04-22 18:03:20] Qdrant OK. dim=1024 points=108802
+[2026-04-22 18:03:20] WARN: bad JSON D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl:68 Expecting value: line 1 column 1 (char 0)
+[2026-04-22 18:03:20] Loaded 3685 unique questions from pairs_2000_20260422 (D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl)
+[2026-04-22 18:03:20] Loaded 426 unique questions from pairs_opus_highcomplex (D:/_gpu_rig_ai/eval/training_pairs/pairs_opus_highcomplex.jsonl)
+[2026-04-22 18:03:20] Loaded 147 unique questions from pairs_claude_opus (D:/_gpu_rig_ai/eval/training_pairs/pairs_claude_opus.jsonl)
+[2026-04-22 18:03:20] Total questions (pre-dedup): 4394, unique: 4258
+[2026-04-22 18:03:20] Resuming: 0 already mined, 4258 remaining
+[2026-04-22 18:03:20] Loading BGE-M3 (CPU)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/391 [00:00<?, ?it/s]Loading weights: 100%|##########| 391/391 [00:00<00:00, 16997.36it/s]
+[2026-04-22 18:03:45] Model loaded in 24.6s
+[2026-04-22 18:03:54] batch 1/134 done=32/4258 embed_dt=8.5s rate=3.55 q/s eta=19.8min pos_in_top20=13/32 (40.6%)
+[2026-04-22 18:04:34] batch 6/134 done=192/4258 embed_dt=6.8s rate=3.91 q/s eta=17.3min pos_in_top20=89/192 (46.4%)
+[2026-04-22 18:05:12] batch 11/134 done=352/4258 embed_dt=7.4s rate=4.08 q/s eta=16.0min pos_in_top20=166/352 (47.2%)
+[2026-04-22 18:05:49] batch 16/134 done=512/4258 embed_dt=6.0s rate=4.12 q/s eta=15.1min pos_in_top20=243/512 (47.5%)
+[2026-04-22 18:06:30] batch 21/134 done=672/4258 embed_dt=6.4s rate=4.07 q/s eta=14.7min pos_in_top20=333/672 (49.6%)
+[2026-04-22 18:07:09] batch 26/134 done=832/4258 embed_dt=7.3s rate=4.09 q/s eta=14.0min pos_in_top20=423/832 (50.8%)
+[2026-04-22 18:07:47] batch 31/134 done=992/4258 embed_dt=6.3s rate=4.11 q/s eta=13.2min pos_in_top20=497/992 (50.1%)
+[2026-04-22 18:08:26] batch 36/134 done=1152/4258 embed_dt=7.9s rate=4.11 q/s eta=12.6min pos_in_top20=586/1152 (50.9%)
+[2026-04-22 18:09:12] batch 41/134 done=1312/4258 embed_dt=9.5s rate=4.01 q/s eta=12.2min pos_in_top20=665/1312 (50.7%)
+[2026-04-22 18:10:51] batch 46/134 done=1472/4258 embed_dt=24.1s rate=3.46 q/s eta=13.4min pos_in_top20=750/1472 (51.0%)
+[2026-04-22 18:12:40] batch 51/134 done=1632/4258 embed_dt=18.7s rate=3.05 q/s eta=14.3min pos_in_top20=829/1632 (50.8%)
+[2026-04-22 18:14:41] batch 56/134 done=1792/4258 embed_dt=26.6s rate=2.73 q/s eta=15.0min pos_in_top20=924/1792 (51.6%)
+[2026-04-22 18:17:06] batch 61/134 done=1952/4258 embed_dt=25.3s rate=2.44 q/s eta=15.8min pos_in_top20=1003/1952 (51.4%)
+[2026-04-22 18:18:54] batch 66/134 done=2112/4258 embed_dt=20.7s rate=2.33 q/s eta=15.4min pos_in_top20=1097/2112 (51.9%)
+[2026-04-22 18:20:52] batch 71/134 done=2272/4258 embed_dt=20.5s rate=2.21 q/s eta=15.0min pos_in_top20=1177/2272 (51.8%)
+[2026-04-22 18:22:54] batch 76/134 done=2432/4258 embed_dt=18.1s rate=2.12 q/s eta=14.4min pos_in_top20=1244/2432 (51.2%)
+[2026-04-22 18:24:26] batch 81/134 done=2592/4258 embed_dt=17.3s rate=2.09 q/s eta=13.3min pos_in_top20=1333/2592 (51.4%)
+[2026-04-22 18:26:18] batch 86/134 done=2752/4258 embed_dt=25.3s rate=2.03 q/s eta=12.3min pos_in_top20=1405/2752 (51.1%)
+[2026-04-22 18:27:56] batch 91/134 done=2912/4258 embed_dt=19.7s rate=2.01 q/s eta=11.2min pos_in_top20=1491/2912 (51.2%)
+[2026-04-22 18:29:27] batch 96/134 done=3072/4258 embed_dt=17.2s rate=1.99 q/s eta=9.9min pos_in_top20=1574/3072 (51.2%)
+[2026-04-22 18:30:56] batch 101/134 done=3232/4258 embed_dt=15.5s rate=1.98 q/s eta=8.6min pos_in_top20=1657/3232 (51.3%)
+[2026-04-22 18:32:51] batch 106/134 done=3392/4258 embed_dt=19.4s rate=1.94 q/s eta=7.4min pos_in_top20=1736/3392 (51.2%)
+[2026-04-22 18:34:34] batch 111/134 done=3552/4258 embed_dt=19.1s rate=1.92 q/s eta=6.1min pos_in_top20=1827/3552 (51.4%)
+[2026-04-22 18:37:22] batch 116/134 done=3712/4258 embed_dt=79.8s rate=1.84 q/s eta=4.9min pos_in_top20=1914/3712 (51.6%)
+[2026-04-22 18:42:06] batch 121/134 done=3872/4258 embed_dt=56.8s rate=1.68 q/s eta=3.8min pos_in_top20=1974/3872 (51.0%)
+[2026-04-22 18:47:33] batch 126/134 done=4032/4258 embed_dt=70.1s rate=1.53 q/s eta=2.5min pos_in_top20=2038/4032 (50.5%)
+[2026-04-22 18:51:53] batch 131/134 done=4192/4258 embed_dt=22.1s rate=1.45 q/s eta=0.8min pos_in_top20=2061/4192 (49.2%)
+[2026-04-22 18:52:37] batch 134/134 done=4258/4258 embed_dt=4.7s rate=1.45 q/s eta=0.0min pos_in_top20=2061/4258 (48.4%)
+[2026-04-22 18:52:37] === DONE ===
+[2026-04-22 18:52:37] Total mined this run: 4258
+[2026-04-22 18:52:37] Median hard-negs/question: 10
+[2026-04-22 18:52:37] Positive in top-20: 2061/4258 (48.40%)
+[2026-04-22 18:52:37] Output: D:\_gpu_rig_ai\training\hard_negatives.jsonl

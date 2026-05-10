@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "timestamp_utc": "2026-04-22T05:07:43.208907Z",
+    "api": "http://192.168.1.107:9500",
+    "judge_url": "http://192.168.1.107:9082/v1/chat/completions",
+    "judge_model": "qwen3-14b",
+    "workers": 1,
+    "gold_set": "D:\\_gpu_rig_ai\\eval\\gold_set.yaml",
+    "gold_version": 2,
+    "n_items": 2,
+    "elapsed_s": 55.4
+  },
+  "aggregate": {
+    "total_points": 8.0,
+    "max_points": 18.0,
+    "pct_score": 44.44,
+    "n_items": 2,
+    "errors": 0,
+    "latency_ms_median": 26441.0,
+    "latency_ms_p95": 26863,
+    "latency_ms_max": 26863,
+    "by_category": {
+      "gst": {
+        "count": 2,
+        "points": 8.0,
+        "max": 18.0,
+        "pct": 44.44,
+        "errors": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "gst_pos_001",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "basic",
+      "latency_ms": 26019,
+      "error": null,
+      "sections_expected": [
+        "10(1)(a) IGST",
+        "Section 10 IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Karnataka",
+        "IGST",
+        "inter-state"
+      ],
+      "keywords_matched": [
+        "Karnataka",
+        "IGST",
+        "inter-state"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": 1,
+      "points": 4.0,
+      "max_points": 9.0,
+      "answer_chars": 1629,
+      "question": "A registered supplier in Maharashtra sells goods to a registered buyer in Karnataka. Goods are shipped directly from Maharashtra to Karnataka. What is the place of supply and which tax applies?",
+      "answer_preview": "**Answer:** The place of supply is Karnataka, and the applicable tax is the Integrated Tax (IGST) at 0.1% under the conditions specified in the notification.\n\n**How we got here:**  \nThe supplier is registered in Maharashtra and the buyer is registered in Karnataka, and the goods are shipped directly from Maharashtra to Karnataka. This is an inter-State supply, as the supplier and recipient are located in different states. According to *Notification No. 41/2017--Integrated Tax (Rate)*, the inter-State supply of taxable goods by a registered supplier to a registered recipient for export is subject to an Integrated Tax (IGST) rate of 0.1% under certain conditions. These conditions include the supplier issuing a tax invoice, the recipient exporting the goods within 90 days, and the recipient i...",
+      "raw_error": null
+    },
+    {
+      "id": "gst_pos_002",
+      "category": "gst",
+      "subcategory": "place_of_supply",
+      "difficulty": "intermediate",
+      "latency_ms": 26863,
+      "error": null,
+      "sections_expected": [
+        "10(1)(b) IGST"
+      ],
+      "sections_matched": [],
+      "keywords_expected": [
+        "Delhi",
+        "bill-to",
+        "third person",
+        "IGST"
+      ],
+      "keywords_matched": [
+        "Delhi",
+        "bill-to",
+        "IGST"
+      ],
+      "forbidden_hits": [],
+      "verified_quotes_count": 0,
+      "verbatim_required": true,
+      "verbatim_gate_pass": false,
+      "judge_score": 1,
+      "points": 4.0,
+      "max_points": 9.0,
+      "answer_chars": 1718,
+      "question": "A buyer in Delhi instructs a Mumbai supplier to deliver goods directly to the buyer's customer in Chennai (bill-to-ship-to). What is the place of supply for each leg?",
+      "answer_preview": "**Answer:** The place of supply for the first leg (Mumbai to Chennai) is Chennai, and for the second leg (Delhi to Mumbai) is Mumbai.\n\n**How we got here:**  \nThe question involves a scenario where a buyer in Delhi instructs a supplier in Mumbai to deliver goods directly to the buyer's customer in Chennai. This is a \"bill-to-ship-to\" arrangement, where the goods are shipped from the supplier's location (Mumbai) to the final destination (Chennai), bypassing the buyer's location (Delhi). To determine the place of supply for each leg of the journey, we refer to the principles outlined in the IGST Act and its rules.\n\nThe place of supply for goods is generally determined by the location where the goods are delivered. In the case of the first leg (Mumbai to Chennai), the goods are delivered to Ch...",
+      "raw_error": null
+    }
+  ]
+}

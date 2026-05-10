@@ -1,0 +1,51 @@
+{
+  "pass": false,
+  "blocker": true,
+  "candidate": null,
+  "sec_per_page": null,
+  "samples": [],
+  "notes": "BLOCKER: no small-VLM GGUF (<=3B) present on rig. /opt/ai-models/ inventory confirms only Qwen2.5-VL-7B (frozen, 7B, already failed at 600 s/page) plus non-VLM text models. One orphan mmproj-gemma4-e4b-f16.gguf (945 MB) exists but its base gemma-4-E4B-it-Q4_K_M.gguf is a ~4B model, still exceeds 3B budget and Gemma-3/4-V was flagged in memory as poor Devanagari. Per B7 step 2, halting before any multi-GB download. User approval required.",
+  "rig_inventory_ai_models": [
+    "gemma-4-E4B-it-Q4_K_M.gguf (4.7G, text or paired with mmproj below)",
+    "mmproj-gemma4-e4b-f16.gguf (945M)",
+    "mistral-nemo-12b-instruct-q4_k_m.gguf (7.0G, text)",
+    "qwen2.5-coder-7b-instruct-q4_k_m.gguf (4.4G, text)",
+    "qwen3-14b-q4_k_m.gguf (8.4G, text, production chat)",
+    "qwen3.5-4b-q4_k_m.gguf (2.6G, text)",
+    "qwen3.5-9b-q4_k_m.gguf (5.3G, text)",
+    "qwen25vl/Qwen2.5-VL-7B-Instruct-Q4_K_M.gguf (4.4G, FROZEN)",
+    "qwen25vl/mmproj-Qwen2.5-VL-7B-Instruct-f16.gguf (1.3G, FROZEN)"
+  ],
+  "acquisition_plan": [
+    {
+      "rank": 1,
+      "model": "MiniCPM-V 2.6 (8B — slightly over 3B budget but best Vulkan-track record for OCR-per-VRAM)",
+      "hf_repo": "openbmb/MiniCPM-V-2_6-gguf",
+      "files": ["ggml-model-Q4_K_M.gguf", "mmproj-model-f16.gguf"],
+      "approx_disk_gb": 5.5,
+      "cmd": "huggingface-cli download openbmb/MiniCPM-V-2_6-gguf ggml-model-Q4_K_M.gguf mmproj-model-f16.gguf --local-dir /opt/ai-models/minicpmv26",
+      "caveat": "This is 8B, not <=3B. Only worth pursuing if user relaxes size budget; not inside current pass criterion."
+    },
+    {
+      "rank": 2,
+      "model": "Qwen2-VL-2B-Instruct (<=3B, direct small sibling of frozen 7B)",
+      "hf_repo": "bartowski/Qwen2-VL-2B-Instruct-GGUF (community) or second-state/Qwen2-VL-2B-Instruct-GGUF",
+      "files": ["Qwen2-VL-2B-Instruct-Q4_K_M.gguf", "mmproj-Qwen2-VL-2B-Instruct-f16.gguf"],
+      "approx_disk_gb": 2.2,
+      "cmd": "huggingface-cli download bartowski/Qwen2-VL-2B-Instruct-GGUF Qwen2-VL-2B-Instruct-Q4_K_M.gguf mmproj-Qwen2-VL-2B-Instruct-f16.gguf --local-dir /opt/ai-models/qwen2vl2b",
+      "caveat": "Same vision-tower family as the 7B that failed — smaller CLIP may help, but architecture risk: if Vulkan bottleneck was the encoder design itself (not parameter count), this inherits it. Cheapest to test."
+    },
+    {
+      "rank": 3,
+      "model": "SmolVLM-2.2B-Instruct",
+      "hf_repo": "ggml-org/SmolVLM-Instruct-GGUF or HuggingFaceTB/SmolVLM-Instruct",
+      "files": ["SmolVLM-Instruct-Q4_K_M.gguf", "mmproj-SmolVLM-Instruct-f16.gguf"],
+      "approx_disk_gb": 1.5,
+      "cmd": "huggingface-cli download ggml-org/SmolVLM-Instruct-GGUF SmolVLM-Instruct-Q4_K_M.gguf mmproj-SmolVLM-Instruct-f16.gguf --local-dir /opt/ai-models/smolvlm",
+      "caveat": "Smallest and newest. Devanagari coverage unknown — SmolVLM training corpus is English-heavy. Accept Devanagari-fidelity risk."
+    }
+  ],
+  "recommendation": "Ask user to approve one download. Default pick: rank 2 (Qwen2-VL-2B, 2.2 GB) because it most directly tests the hypothesis that the CLIP tower shrinks with the model. If user wants minimum disk and maximum novelty, pick rank 3 (SmolVLM, 1.5 GB) but Devanagari is a coin flip.",
+  "next_actions_if_all_fail": "Revert to Option D (park OCR for v2 ship). 471 image PDFs remain queued.",
+  "timestamp": "2026-04-22"
+}

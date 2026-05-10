@@ -1,0 +1,113 @@
+{
+  "tests": [
+    {
+      "name": "Basic",
+      "desc": "Arithmetic \u2014 verifiable correct answer",
+      "type": "math",
+      "prompt": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "What is 37 * 43? Show only the final number."
+          }
+        ],
+        "max_tokens": 500
+      },
+      "expect_all": [
+        "1591"
+      ],
+      "timeout": 30
+    },
+    {
+      "name": "JSON",
+      "desc": "Structured extraction \u2014 all fields must be present and correct",
+      "type": "extraction",
+      "prompt": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "Extract these facts as JSON only, no explanation: {\"element\", \"symbol\", \"atomic_number\", \"state_at_room_temp\", \"group\"}"
+          },
+          {
+            "role": "user",
+            "content": "Gold is a chemical element with the symbol Au and atomic number 79. It is a solid at room temperature and belongs to group 11 of the periodic table."
+          }
+        ],
+        "max_tokens": 2000
+      },
+      "expect_all": [
+        "Au",
+        "79",
+        "solid",
+        "11",
+        "Gold"
+      ],
+      "timeout": 60
+    },
+    {
+      "name": "Code",
+      "desc": "Function generation \u2014 must have correct structure and logic",
+      "type": "code",
+      "prompt": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "Write a Python function called celsius_to_fahrenheit that converts Celsius to Fahrenheit using the formula F = C * 9/5 + 32. Include a docstring. Show a test: celsius_to_fahrenheit(100) should return 212."
+          }
+        ],
+        "max_tokens": 2000
+      },
+      "expect_all": [
+        "def ",
+        "celsius_to_fahrenheit",
+        "return",
+        "212",
+        "32"
+      ],
+      "timeout": 60
+    },
+    {
+      "name": "Reasoning",
+      "desc": "Multi-step math \u2014 verifiable intermediate and final answers",
+      "type": "reasoning",
+      "prompt": {
+        "messages": [
+          {
+            "role": "user",
+            "content": "A rectangle has length 15 cm and width 8 cm. Calculate: 1) The area. 2) The perimeter. 3) The length of the diagonal (round to 2 decimal places). Show each step."
+          }
+        ],
+        "max_tokens": 2000
+      },
+      "expect_all": [
+        "120",
+        "46",
+        "17"
+      ],
+      "timeout": 60
+    },
+    {
+      "name": "Stress",
+      "desc": "Large prompt (~3000 tokens) \u2014 tests context limit without crash",
+      "type": "stress",
+      "prompt": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "Answer only: What is the boiling point of water in Celsius? And what is the chemical formula for water?"
+          },
+          {
+            "role": "user",
+            "content": "The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. The speed of light in a vacuum is approximately 299,792,458 meters per second. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers. Water boils at 100 degrees Celsius at standard atmospheric pressure. The chemical formula for water is H2O. The Earth orbits the Sun at an average distance of about 149.6 million kilometers.  Based on the text above, answer the system's questions."
+          }
+        ],
+        "max_tokens": 500
+      },
+      "expect_all": [
+        "100",
+        "H2O"
+      ],
+      "timeout": 120
+    }
+  ]
+}

@@ -1,0 +1,354 @@
+{
+  "queries": [
+    {
+      "query": "A registered taxpayer receives an advance payment for services to be rendered in the next financial year. At what point does GST liability arise, and how should the taxpayer issue the tax invoice under the CGST Rules?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is a table of contents listing GST registration form numbers and page references; it contains no information about time of supply for advances or invoice issuance rules."
+    },
+    {
+      "query": "A Qdrant collection ingested with BGE-M3 embeddings is returning low-relevance results for multi-part GST queries. What are the top three retrieval parameters you would tune first, and why?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about vector database retrieval tuning (a software engineering topic) and has zero relevance to the source chunk, which is a GST notification about accommodation/food services tax rate"
+    },
+    {
+      "query": "Your FastAPI RAG service is running on a 4-core CPU machine and query latency is unacceptably high. Walk through your diagnostic process — what metrics do you check first, and what are the most common bottlenecks in the embedding → retrieval → LLM generation pipeline?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about software engineering/RAG system diagnostics and has zero relation to the source chunk, which is a CBIC customs circular about public notices for trade custodians."
+    },
+    {
+      "query": "Under the Customs Act 1962, what is the procedure for provisional assessment when an importer is unable to produce required documents at the time of clearance, and what security or surety must be furnished?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk contains an anti-dumping duty notification amendment and court order extension; it has no information about provisional assessment procedures or security/surety requirements under the Custom"
+    },
+    {
+      "query": "When building a RAG pipeline for a large legal corpus, what are the key trade-offs between chunk size and retrieval quality, and how do you determine the optimal chunking strategy for dense regulatory text?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG pipeline design (a software engineering topic) and has no relation to the source chunk, which is about wildlife protection licensing under Indian law — not CBIC indirect-tax "
+    },
+    {
+      "query": "A taxpayer receives a show cause notice under Section 73 of the CGST Act for short payment of tax. The notice was issued on 15th March 2024 for FY 2021-22. Is the notice within the limitation period, and what is the deadline for adjudication?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is about TCS liability under Section 52 for ONDC/multiple ECOs and contains no information about Section 73 limitation periods or adjudication deadlines for short payment of tax."
+    },
+    {
+      "query": "When building a RAG pipeline for legal documents with a 4-core CPU server and AMD GPUs, what is the recommended chunking strategy and embedding batch size to avoid OOM errors while maintaining throughput above 5 chunks/second?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG pipeline engineering (chunking strategy, batch size, OOM errors) which has nothing to do with this chunk — a Customs notification amendment history listing GSR numbers and da"
+    },
+    {
+      "query": "A FastAPI RAG service returns correct answers but p95 latency exceeds 30 seconds on a 4-core host. What is your diagnostic sequence before making any code changes?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about FastAPI/RAG system diagnostics and has zero relationship to the source chunk, which covers agricultural income loss set-off rules under Indian tax law."
+    },
+    {
+      "query": "In a resource-constrained environment (4-core CPU, single consumer GPU), how would you schedule concurrent workloads — LLM inference, embedding generation, and OCR — to minimize latency for interactive queries while keeping batch ingestion throughput acceptable?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The source chunk is a CBIC import application form for controlled substances/narcotics with no relation to LLM inference, embedding, or OCR scheduling — the question is about system architecture, not "
+    },
+    {
+      "query": "A taxpayer receives a show cause notice under Section 74 of the CGST Act alleging suppression of facts with intent to evade tax. What is the penalty structure applicable if the demand is confirmed, and how does it differ from a notice issued under Section 73?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is an administrative circular acknowledgment with no content about Section 73/74 CGST penalty structures; it cannot answer the question at all."
+    },
+    {
+      "query": "A taxpayer receives a show cause notice under Section 73 of the CGST Act for short payment of tax. The notice demands ₹4,80,000 in tax along with interest and a penalty of 10% of the tax amount. The taxpayer disputes the demand but wants to avoid litigation. What is the maximum amount the taxpayer can pay to avail the benefit of reduced penalty under Section 73(5), and by what deadline must this payment be made relative to the notice date?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk contains only Customs notification amendment history and has no information about CGST Act Section 73, show cause notices, penalty provisions, or payment deadlines."
+    },
+    {
+      "query": "A taxpayer receives a show cause notice under Section 74 of the CGST Act alleging suppression of facts to evade tax. What is the time limit for issuing the order after the notice, and what is the maximum penalty that can be imposed if fraud is established?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is entirely about an anti-dumping duty notification under Customs Tariff Act and has no information about CGST Section 74 time limits or penalties for fraud/suppression."
+    },
+    {
+      "query": "Under GST, if a supplier issues a credit note after the annual return deadline for a financial year, can the recipient still reverse the input tax credit claimed on the original invoice, and what is the time limit for such reversal?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk covers GSTR-9 annual return table instructions and has no content about credit note time limits or ITC reversal rules after annual return deadlines."
+    },
+    {
+      "query": "A company's registered office is in Maharashtra, but it conducts business operations exclusively in Karnataka. The Registrar of Companies issues a show-cause notice for non-compliance under Section 12 of the Companies Act, 2013. Can the company shift its registered office to Karnataka without shareholder approval, and what is the procedure under the Companies (Incorporation) Rules, 2014?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is a CBIC GST notification about e-invoicing QR codes and has no relevance to Companies Act registered office procedures — the question cannot be answered from this chunk at all."
+    },
+    {
+      "query": "A manufacturer exports goods under LUT (Letter of Undertaking) but fails to realize foreign exchange within the prescribed period. What are the consequences under GST law, and what remedies are available to regularize the export?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is about TCS liability under Sec 52 for multiple E-commerce Operators on ONDC; it contains no information about LUT exports, foreign exchange realization, or remedies for regularizing export"
+    },
+    {
+      "query": "A company imports goods on CIF basis and the customs valuation officer proposes to add notional freight and insurance charges that the importer claims are already included in the invoice price. What documentary evidence should the importer produce under Rule 10 of the Customs Valuation Rules 2007 to successfully rebut the proposed addition?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk contains only a list of gazette notification S.O. numbers and publishing metadata — no substantive content about Rule 10 of Customs Valuation Rules 2007 or documentary evidence for CIF valua"
+    },
+    {
+      "query": "In a resource-constrained environment (4-core CPU, shared GPU), how do you diagnose and resolve high query latency in a FastAPI-based LLM service — what metrics do you check first, and what is the typical fix hierarchy?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The source chunk is about agricultural income loss set-off rules under Indian income tax law and contains zero information relevant to the question about FastAPI LLM latency diagnosis — complete topic"
+    },
+    {
+      "query": "When building a RAG pipeline for large legal corpora (100k+ chunks), what are the key trade-offs between dense retrieval (e.g., BGE-M3 embeddings) and sparse retrieval (e.g., BM25) for domain-specific queries involving statutory references and section numbers?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG pipeline engineering (dense vs sparse retrieval), which has nothing to do with this chunk about a 2015 Service Tax amendment notification defining 'aggregator' and 'brand nam"
+    },
+    {
+      "query": "When building a RAG pipeline for a large legal corpus (100k+ chunks), what are the key trade-offs between using a dense embedding model (e.g., BGE-M3) versus a sparse retrieval method (e.g., BM25), and under what conditions would a hybrid approach be warranted?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG/ML engineering and has zero relevance to the source chunk, which is a list of Customs notification amendment references; the chunk cannot answer the question at all."
+    },
+    {
+      "query": "When building a RAG pipeline for a large legal corpus (100k+ chunks), what are the key trade-offs between dense vector search (e.g., BGE-M3) and sparse retrieval (BM25), and in what scenarios would a hybrid approach outperform either alone?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG pipeline architecture and has zero relationship to the source chunk, which is about India-Mercosur PTA certificate of origin rules for goods in Special Economic Zones."
+    },
+    {
+      "query": "Under GST, if a supplier issues a credit note after the September filing deadline of the following financial year, can the recipient still reverse the corresponding input tax credit, and what are the procedural implications under Section 34 read with Section 16(2)?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk contains only a list of gazette notification references and a digital signature block — no substantive content about Section 34, Section 16(2), credit notes, or ITC reversal procedures."
+    },
+    {
+      "query": "Under GST, if a registered taxpayer receives an advance payment for a future supply of goods, at what point does the tax liability arise, and how should the taxpayer issue documentation for this transaction?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is about GSTR-9 annual return table instructions and has no information about time of supply for advances or receipt voucher requirements; the question cannot be answered from this chunk."
+    },
+    {
+      "query": "When building a RAG pipeline for a large legal corpus (100k+ chunks), what are the key trade-offs between using a dense embedding model (e.g., BGE-M3) versus a sparse retrieval method (e.g., BM25), and under what conditions would you combine both?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG/ML system design and has zero relevance to this chunk, which is about Customs drawback rules, CENVAT facility conditions, and export-oriented units under Indian tax law."
+    },
+    {
+      "query": "A supplier provides works contract services for construction of a residential complex. How should the place of supply be determined, and what is the applicable GST rate under the current CGST Act provisions?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The chunk is about GSTR-9 annual return filing instructions (HSN reporting, composition taxpayer supplies, job-worker deemed supplies) and contains no information about works contract place of supply "
+    },
+    {
+      "query": "When building a RAG pipeline on a 4-core CPU-constrained server, what is the recommended strategy for balancing embedding throughput against query latency when you cannot add more hardware?",
+      "type": "ooc",
+      "expected_refuse": true,
+      "_source": "qa_claude_opus.jsonl",
+      "_reason": "The question is about RAG pipeline engineering on constrained hardware, which is completely unrelated to the source chunk about GST restaurant food services and handicraft goods tax rates."
+    },
+    {
+      "query": "An Indian importer purchases machinery from a related German entity at ₹80 lakh. The Special Valuation Branch (SVB) provisionally assesses the transaction value and imposes a 1% extra duty deposit under Customs Circular 11/2001. During SVB investigation, it emerges that the importer pays a 'royalty' to the same German entity equal to 4% of net sales, and that the sale is conditional upon the buyer purchasing maintenance services exclusively from the seller. Evaluate: (1) whether the royalty is includible in customs value under Rule 10(1)(c) of the Customs Valuation Rules 2007 given the conditionality, distinguishing the Supreme Court's ruling in Commissioner of Customs v. Ferodo India, (2) the treatment of the maintenance service condition under Rule 3(3)(b) as a 'condition or consideration' affecting the acceptability of transaction value, and (3) the procedural rights of the importer to substitute an alternative valuation method under Rules 4–8 if transaction value is rejected, with timelines and appellate options.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is about anti-dumping duty on acrylic fibre and contains zero information about customs valuation rules, SVB procedures, royalty includibility, or Rule 10(1)(c)."
+    },
+    {
+      "query": "A manufacturing company has a factory in Maharashtra and a registered office in Delhi. They purchase raw materials from a supplier in Gujarat under a bill-to-ship-to arrangement where the goods are shipped directly from Gujarat to the Maharashtra factory but the invoice is raised on the Delhi registered office. The Delhi office then raises an inter-unit stock transfer to Maharashtra. Determine: (a) the place of supply for the original Gujarat-to-Delhi transaction, (b) whether ITC can be claimed by Delhi on the original purchase, (c) the GST implications of the subsequent Delhi-to-Maharashtra inter-unit transfer under Schedule I, and (d) whether the manufacturer can claim a refund of accumulated ITC if their output is zero-rated.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is a 2001 Central Excise circular about rebate of input duty on exports; it has zero relevance to GST place-of-supply, ITC, Schedule I inter-unit transfers, or zero-rated refunds."
+    },
+    {
+      "query": "An EOU (Export Oriented Unit) imports capital goods under Notification 52/2003-Customs with full duty exemption. After 8 years of operation, the unit surrenders its EOU status and applies for debonding. Customs demands proportionate duty on the remaining useful life of capital goods. Simultaneously, GST Council has clarified that such goods imported pre-GST are not liable to IGST on debonding, but the Customs department raises a demand under Section 28 for the differential CVD that would have been payable under the pre-GST regime, arguing unjust enrichment. The company disputes this citing: (i) limitation under Section 28(1) proviso, (ii) the goods are now fully depreciated in the company's books, and (iii) the Ministry of Commerce's rehabilitation package for debonded EOUs. Evaluate the legal merits of each defense, the correct valuation methodology for depreciated imported capital goods under Customs Valuation Rules 2007, and whether the unjust enrichment doctrine under Section 27 can be invoked by the department offensively rather than defensively.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The source chunk is about medical device dossier requirements (software validation, animal studies, stability data), completely unrelated to EOU debonding, Customs duty, or GST."
+    },
+    {
+      "query": "An Indian importer purchases goods from a related foreign entity. The transaction value is provisionally accepted by customs pending a Transfer Pricing order from the Income Tax Authority. The final TP order arrives 18 months after clearance and results in an upward revision of the ALP. Under Customs Valuation (Determination of Value of Imported Goods) Rules 2007, specifically Rules 3(3)(a) and 10(1)(e), is the importer liable to pay differential customs duty on the revised value, and does the limitation period under Section 28 of the Customs Act run from the date of original assessment or from the date the TP order was communicated to customs?",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is a GST notification about GSTR-1 filing deadlines; it contains nothing about Customs valuation, Transfer Pricing, Section 28 limitation, or Rules 3(3)(a)/10(1)(e)."
+    },
+    {
+      "query": "A multi-state e-commerce operator supplies both goods and services through a single platform. In FY 2025-26, their aggregate turnover crosses ₹20 crore. They have a warehouse in Maharashtra (registered), drop-ship from unregistered suppliers in Rajasthan, and their registered office is in Karnataka. Analyse: (a) the place of supply determination for each transaction type under IGST Act sections 10 and 12, (b) the input tax credit eligibility and reversal obligations under Rule 42/43 given the mixed supply classification, and (c) the potential liability exposure if the Rajasthan suppliers are subsequently found to have suppressed turnover, including any joint liability provisions under GST law.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is a 2002 Central Excise exemption notification for Assam refineries; it has zero relevance to GST place of supply, ITC reversal, or e-commerce operator liability."
+    },
+    {
+      "query": "An Indian subsidiary imports specialised software licenses and embedded technical services from its foreign parent under a cost-sharing arrangement. The customs department seeks to enhance the declared transaction value by including the royalty payments made post-importation, citing Rule 10(1)(c) of Customs Valuation Rules 2007, while the Transfer Pricing Officer simultaneously proposes an upward adjustment under Section 92C of the Income Tax Act on the grounds that the ALP for the same arrangement is higher than the contracted price. Analyze: (a) the legal basis for including or excluding post-importation royalties in customs value under WTO Customs Valuation Agreement Article 8 as adopted in Indian law; (b) the risk of economic double taxation when both adjustments are applied to the same underlying transaction; (c) the procedural remedy available under the Mutual Agreement Procedure in India's DTAAs and whether MAP relief can extend to indirect tax adjustments; and (d) the evidentiary standard the taxpayer must meet to rebut the customs enhancement while simultaneously defending the transfer price.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is about cosmetics licensing/labelling rules, completely unrelated to the question about customs valuation, transfer pricing, royalties, and MAP procedures."
+    },
+    {
+      "query": "You are ingesting a 471-document corpus where 40% are image-only PDFs (no text layer). Your proven pipeline achieves 5.2–9.6 chunks/second for text PDFs using single GPU Vulkan BGE-M3. For the image-only subset, you must choose between: (A) Qwen2.5-VL-7B GGUF on llama-server Vulkan for OCR, (B) RapidOCR on CPU, or (C) a two-pass hybrid routing documents by confidence score. Given your rig has 4 CPU cores, 2 RX 6700 XT GPUs already loaded with qwen3-14b and BGE-M3, and the requirement that OCR must not block the main ingestion queue, design the exact process isolation strategy, GPU memory budget allocation (in GB), and queue architecture that allows concurrent OCR + embedding without VRAM OOM. Specify the nice/ionice values, worker counts, and the confidence threshold routing logic.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "Question is about OCR pipeline architecture on a specific hardware rig, completely unrelated to Indian tax law; chunk is a table of contents listing GST form numbers with no substantive content."
+    },
+    {
+      "query": "An Indian importer purchases machinery from a foreign parent company. The transaction value is USD 500,000. Post-importation, the parent charges a 'technology access fee' of USD 50,000 per year for the right to operate the machinery using proprietary software embedded in it. Customs proposes to load this fee onto the transaction value under Rule 10(1)(c) of the Customs Valuation Rules. The importer argues the fee is post-importation and relates to a service, not the goods. Analyze: (a) whether the royalty/licence fee is includible under the Customs Valuation Rules and the conditions precedent under Rule 10(1)(c); (b) the 'condition of sale' test as interpreted by the CESTAT and Supreme Court; (c) the correct treatment if the software is separately licensed and the machinery can physically operate without the annual fee; and (d) the interplay with GST on the import of service (reverse charge) and whether double-taxation can be avoided.",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is an anti-dumping duty notification for Acetone from Korea ROK; it contains zero information about customs valuation rules, Rule 10(1)(c), royalty/licence fees, condition of sale test, or G"
+    },
+    {
+      "query": "A manufacturer in SEZ supplies goods to a DTA unit under a bond. The DTA unit further processes the goods and re-exports 60% while clearing 30% domestically (paying applicable IGST) and claiming the remaining 10% as wastage. The SEZ unit originally availed zero-rated supply benefits. How should the DTA unit compute its ITC reversal under Rule 42 and Rule 43 of CGST Rules, and what are the implications under Section 17(2) when the exempt portion (zero-rated origin) intersects with domestic taxable supply—specifically, does the zero-rated origin of inputs affect the proportional reversal calculation for the DTA unit?",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is about old CENVAT credit rules for service tax providers; it contains nothing about SEZ, DTA, Rule 42/43 of CGST Rules, Section 17(2), or ITC reversal—question is entirely unrelated to the"
+    },
+    {
+      "query": "A manufacturing company receives goods under a job work arrangement and later supplies some of these goods directly to the principal's customer on the principal's instruction. The job worker's factory is in a different state than the principal. The goods were originally sent under a delivery challan. Analyze the GST implications: (1) Is this supply by the job worker or the principal? (2) What documents are required? (3) How does Section 143 of CGST Act interact with this scenario, and does the six-month return period reset? (4) What are the ITC implications for the principal if the job worker is unregistered?",
+      "type": "upl",
+      "expected_refuse": true,
+      "_source": "qa_opus_highcomplex_BAD.jsonl",
+      "_reason": "The chunk is about Income-tax Act amendments (sections 80RRA, 112, 115AC, 115ACA) and contains zero information about GST, job work, Section 143 CGST Act, delivery challans, or ITC implications."
+    },
+    {
+      "query": "Regal Wheels Pvt Ltd, a Delhi-registered company (GSTIN 07AAACR5678M1ZP), operates a B2B rental fleet. Post 1-Jan-2022, it enters into a 12-month contract with a Pune-based IT firm, Techbridge Solutions Pvt Ltd (GSTIN 27AABCT9012K1ZQ), to provide chauffeur-driven omnibuses (14-seater) for daily employee commute in Pune. The vehicles are registered in Delhi, the contract is signed in Delhi, and invoices are raised from Delhi. Regal's accounts team claims the supply is exempt from IGST under the motor vehicle reverse charge notification because omnibuses were not covered prior to the amendment and argues the old notification language controls for contracts entered into before 1-Jan-2022 but invoiced after. Techbridge's tax counsel contends IGST at 12% applies on all invoices raised post 1-Jan-2022 regardless of contract date, and that reverse charge liability falls on Techbridge as the recipient. Who bears the GST liability, at what rate, and does the expanded definition of 'omnibus' and 'motor vehicle' under the amended explanation change the place-of-supply analysis for this inter-state B2B rental?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk confirms omnibus was added to reverse charge w.e.f. 1-Jan-2022 and the expanded definition, but does not contain the rate (12%), place-of-supply rules, or the legal principle on contract-dat"
+    },
+    {
+      "query": "Hindalco-Bharat Copper Works LLP, a manufacturer of copper wires and copper alloy rods in Gujarat, was availing the benefit of an exemption entry under notification 5/2006-CE covering specified non-ferrous metals listed in S.No.23. Following the March 2011 budget cycle, their CA advises that the entry has been amended and copper has been deleted from that entry effective 24-March-2011. The LLP has stock of semi-finished copper rods manufactured before 24-March-2011 but cleared to buyers in Maharashtra after that date, and also a fresh batch of copper wire drawn entirely post-amendment. Advise the LLP: (a) whether clearances of pre-amendment stock made after 24-March-2011 attract duty, (b) what rate of Basic Excise Duty now applies on copper rods and wire absent the exemption, and (c) whether any other notification under the Central Excise Act could independently shelter these clearances, given that the specific deletion of 'copper' from S.No.23 by notification 25/2011-CE is now on record.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk confirms the deletion of 'copper' from S.No.23 effective 24-March-2011 (answering part of (a) and the amendment fact), but does not contain the rate of Basic Excise Duty on copper rods/wire "
+    },
+    {
+      "query": "Rajeshwari Cold Chain Solutions Pvt Ltd (GSTIN 36AABCR4892M1ZQ, Telangana) filed for voluntary cancellation of its GST registration on 28-February-2025, having ceased all refrigerated logistics operations. Three weeks after submission, the proprietor realized the firm's mobile number registered on the GST portal was linked to a deactivated SIM, and all OTP-based communications regarding the cancellation status and any SCN issued by the officer were going undelivered. Additionally, the firm's CA discovered that the final return had not yet been filed and ₹3.1 lakh of tax paid via DRC-03 during the cancellation process was double-counted in the application. Given that the application is already submitted: (a) can the firm now update its mobile number and email on the portal without withdrawing the cancellation application; (b) how should it track the current status of its application given the communication gap; and (c) what are the consequences if the final return is not filed within the prescribed period — does the officer's order of cancellation remain valid, and does the double-payment error need to be corrected before or after the final return?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk provides partial answers to (a) and (b) but contains no information about consequences of not filing the final return, validity of cancellation order, or DRC-03 double-payment correction — m"
+    },
+    {
+      "query": "Blue Waters Fisheries LLP, registered in Chennai (Tamil Nadu), processes and sells smoked crustaceans (specifically smoked prawns, cooked by steaming before smoking) to a distributor in Maharashtra. The LLP filed a GST refund claim arguing their product falls under a specific exemption notification applicable to 'crustaceans in shell, cooked by steaming'. The Maharashtra GST officer, however, rejected the claim on the ground that the Finance Act 2021 expanded the heading 0306 description to explicitly include 'smoked crustaceans whether or not cooked before or during the smoking process' and 'crustaceans in shell cooked by steaming or boiling in water', arguing the amended heading creates a separate taxable entry distinct from the exemption notification which references only the pre-amendment description. The LLP's CA argues the amendment is merely clarificatory and the exemption notification must be read harmoniously with the amended tariff. Advise on whether the expanded heading 0306 description post-amendment qualifies as a new classification or a clarification, and whether the CGST exemption notification survives the tariff description change for inter-state supply from Tamil Nadu to Maharashtra.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk confirms the amended heading 0306 text verbatim, but does not contain any information about whether the amendment is clarificatory vs. new classification, nor whether exemption notifications"
+    },
+    {
+      "query": "Sunrise Automobiles LLP, a Delhi-based dealer, purchased three duty-free imported vehicles (two Mercedes-Benz sedans and one BMW SUV) from departing diplomatic staff of three different embassies between April and September 2025, all routed through STC. The ICD at Tughlakabad is handling customs formalities. During an internal audit in February 2026, the Custom House discovered that registers prescribed under para 3 of Ministry's letter dated 11.8.1978 were not being maintained in the stipulated proforma — instead, a junior officer had been tracking sales in an ad-hoc Excel sheet. Additionally, for one of the three vehicles, the MEA permission serial number appears to be out of sequence, suggesting a possible missing permission for another sale. What are the procedural consequences for the Custom House's failure to maintain the prescribed registers, can the duty assessments already completed on the two properly documented vehicles be challenged on the ground that the mandated register was not maintained, and what steps must the Custom House take regarding the out-of-sequence MEA serial number?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk confirms registers must be maintained and that MEA uses running serial numbers for tracking missing permissions, but does not contain sufficient information to answer the procedural conseque"
+    },
+    {
+      "query": "Prism Coatings Pvt Ltd, a manufacturer of industrial paints (HSN 3208) based in Pune, Maharashtra, received an adverse adjudication order dated 12-March-2019 from the Additional Commissioner of Central Excise raising a demand of ₹1.84 crore on account of alleged clandestine clearances for the period 2015–2017. The company's Managing Director, Mr. Arun Desai, is currently resident in Singapore and has not executed a formal Power of Attorney in favour of any India-based officer. The company's CFO, Mr. Rajeev Kulkarni, wishes to file an appeal before the Commissioner (Appeals) and sign the appeal form on behalf of the company. The in-house legal team is unsure (a) whether Mr. Kulkarni qualifies as the 'principal officer' for the purpose of signing the appeal form, (b) whether an additional document — a board resolution authorizing him — is legally required under the appeals rules, and (c) whether the appeal will be treated as defective and time-barred if submitted without such authorization. The limitation period expires on 20-May-2026. Please advise on the validity of the proposed filing and any curative steps required.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk defines who must sign for a company ('principal officer') but does not define what 'principal officer' means, does not address board resolutions as a requirement, and does not address defect"
+    },
+    {
+      "query": "Nexus Electronics Pvt Ltd (Mumbai, IEC holder) had a purchase order for 5,000 units of populated PCBs (CTH 8517 70 10) from a Taiwanese supplier, with the Bill of Lading dated 30 March 2018 and the vessel arriving at JNPT on 4 April 2018. The Out of Charge was granted on 5 April 2018. The company's customs broker filed the Bill of Entry on 3 April 2018 claiming Nil BCD based on the tariff rate prevailing on the date of B/L. The assessing officer is applying 10% BCD citing the rate on the date of arrival. Additionally, Nexus had separately imported the same PCBs for its SEZ unit in Kandla under a prior Bill of Entry dated 28 March 2018 that is still pending assessment. What is the applicable BCD rate for each of these three scenarios, and how does the emergency amendment mechanism under Section 8A interact with the general rule on the relevant date for customs duty assessment?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk establishes the Section 8A emergency amendment raising BCD to 10% on CTH 8517 70 10 effective 2 April 2018, but does not contain the prior Nil rate, the legal rule on 'relevant date' for cus"
+    },
+    {
+      "query": "Luminos Semiconductors Pvt Ltd (GSTIN 27AABCL1234F1ZX, Mumbai) imports CMOS image sensor dies from its parent Luminos Japan KK under an intercompany agreement. The invoice price is USD 4.20 per die. Luminos India also pays a 3% royalty to Luminos Japan on net sales of finished camera modules that incorporate these dies, under a separate IP licensing agreement. Additionally, Luminos Japan supplies tooling dies and test jigs to the Indian plant at no charge ('assists'). The SVB at JNCH has issued a questionnaire and is proposing to load both the royalty and the fair-market value of the assists onto the customs value. Luminos India counters that (a) the royalty relates to the finished product, not the imported dies, and (b) the tooling was provided free as a condition of the supply contract, not as an independent payment. Luminos India has also entered an APA with Indian Income Tax authorities fixing the arm's-length price of the dies at USD 4.20. Can the SVB override the APA-determined transfer price, and which specific additions to transaction value is SVB legally entitled to make in this scenario?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk is an SVB questionnaire template that asks about APAs, royalties, and assists but contains no substantive legal rules, precedents, or holdings that would allow a practitioner to determine wh"
+    },
+    {
+      "query": "Oceanic Exports Pvt Ltd, based in Kochi (Kerala), GSTIN 32AABCO1234F1Z5, exports frozen fillets of Alaska Pollock sourced from a Vladivostok-based supplier and re-processed at their Kochi facility. Their shipping bill dated 18-Mar-2025 classifies the goods under the old tariff description 'Pollachius chalcogrammus' under heading 0304. Customs at JNPT has raised a query disputing the classification and whether the amended tariff description post-Finance Act 2021 applies retroactively to bills of entry filed before the notification of the amendment but cleared after it. Their counsel also needs to reconcile whether IGST exemption notifications tied to the old species nomenclature survive the tariff amendment. Please advise on the correct classification, the effective date issue, and the IGST treatment.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk shows the tariff amendment substituting 'Theragra chalcogramma' for Alaska Pollock entries, but does not address the retroactivity question, the effective date issue, or IGST exemption notif"
+    },
+    {
+      "query": "Clearview Textiles LLP (GSTIN 24AABCC5678G1ZQ, Surat) exports polyester fabric to a buyer in Bangladesh. For the quarter Oct–Dec 2024, CBIC extended the GSTR-1 filing deadline. Clearview filed GSTR-3B on 20-Jan-2025 but mistakenly uploaded Table 6A export data to FORM GSTR-1 on 15-Jan-2025 — i.e., before GSTR-3B was filed — thinking an early filing would speed up the Customs refund. Customs has rejected the transmission saying the data arrived out of sequence. The LLP's tax counsel now wants to know: (a) whether the Table 6A data already uploaded to GSTR-1 before GSTR-3B is legally valid or void, (b) whether the auto-draft mechanism would have covered this data anyway, and (c) what corrective steps are available to ensure the ₹18 lakh IGST paid on these exports is refunded?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk establishes the rule that Table 6A must be filed *after* GSTR-3B when the deadline is extended, but it does not answer parts (a) legal validity/void status, or (c) corrective steps/refund pr"
+    },
+    {
+      "query": "Bharat Kitchenware LLP, a Chennai-based importer (GSTIN 33AABFB5678G1ZY), clears a mixed consignment from a Vietnamese exporter at Chennai Sea Port on 02-May-2020. The consignment includes: (i) stainless steel kitchen articles — ladles, skimmers, and tongs (HS 7323 93 00) worth INR 12,00,000 CIF; (ii) copper table and kitchen articles under sub-heading 7418 10 (HS 7418 10 10) worth INR 8,50,000 CIF; and (iii) aluminium cooking pots under sub-heading 7615 10 (HS 7615 10 10) worth INR 6,20,000 CIF. The importer holds an Advance Authorisation for the copper articles and claims BCD exemption under Customs Notification 18/2015 for that portion. The assessing officer disputes whether the pre-amendment or post-amendment BCD rate should form the 'normal rate' for the purpose of computing the differential duty under the Advance Authorisation condition. Additionally, Bharat Kitchenware's parent company in Delhi wishes to transfer the aluminium goods on stock transfer to its Tamil Nadu warehouse — advise on the customs duty liability on each product line, the correct 'standard rate' to use for AA differential duty computation on the copper articles, and the GST implications of the subsequent stock transfer.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk provides the post-amendment BCD rates for the three product lines (7323→20%, 7418 10→20%, 7615 10→20%) but does not address the Advance Authorisation exemption conditions, the 'standard rate"
+    },
+    {
+      "query": "Sunrise Pharma LLP, based in Hyderabad (GSTIN 36AACFS9876B1ZT), imports bulk active pharmaceutical ingredients (APIs) classifiable under sub-heading 3003.20 and also manufactures certain drug formulations under sub-heading 3003.39 at its Telangana plant. During FY 2024-25, it supplied these formulations to a hospital chain in Delhi under a single contract that bundles the drugs with administration/infusion services performed by Sunrise's nurses at the Delhi hospitals. The hospital chain's CFO is claiming the entire contract value should attract the GST exemption applicable to health-care services, while Sunrise's tax team insists the goods component (sub-headings 3003.20 / 3003.39) must be taxed separately at the applicable GST rate. A further complication: Sunrise had taken ITC on inputs for these formulations on the basis that identical sub-headings attracted 16% excise duty under an earlier Finance Act amendment, and it argues that the taxability history of these sub-headings should inform the 'principal supply' determination under CGST. How should the place of supply, the composite/mixed supply characterisation, and the ITC eligibility be determined for Sunrise's FY 2024-25 Delhi hospital contracts, and does the historical excise treatment of sub-headings 3003.20 and 3003.39 have any legal relevance to the current GST principal-supply analysis?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk only confirms that sub-headings 3003.20 and 3003.39 attracted 16% excise duty under a Finance Act amendment — it contains no information on place of supply rules, composite/mixed supply char"
+    },
+    {
+      "query": "Skybridge Events Pvt Ltd, a Bengaluru-based company with service tax registration, organized a large-scale product launch event for a US-based multinational in Dubai during March 2006. Skybridge paid service tax of Rs. 7,20,000 and education cess of Rs. 14,400 in India on the said services. The contract stipulated payment in USD, but the US parent company routed the payment through its Indian subsidiary (Skybridge's holding company) in INR as an intercompany settlement, and the INR amount was credited to Skybridge's account in April 2006. The jurisdictional Deputy Commissioner rejected the rebate claim on two grounds: (i) the service was performed in Dubai, not exported 'from India', and (ii) payment was not received from outside India in foreign exchange. Advise Skybridge on whether the rejection is sustainable under rule 3 of the Export of Service Rules, 2005, specifically addressing whether the INR intercompany receipt satisfies the 'payment received in India' declaration required in the rebate claim form, and whether the Dubai performance location disqualifies the export characterisation.",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk is only the rebate claim form template (Part A declaration + Part B sanction fields) and contains no substantive legal rules about what qualifies as 'exported from India', whether Dubai perf"
+    },
+    {
+      "query": "Triton Marine Systems LLP, a status holder in the marine sector based in Visakhapatnam, Andhra Pradesh, received a Duty Credit Certificate under para 3.7 of the Foreign Trade Policy in March 2009. In April 2009, after Notification 105/2009-Customs was issued amending the parent Notification 73/2006-Customs, Triton imported deep-sea fishing nets worth ₹1.8 crore against this certificate. Customs authorities at Vizag port are now questioning whether the substituted wording in the amended notification — which replaced the operative clause of Notification 73/2006 — applies retrospectively to certificates issued before the amendment date, and whether the goods must satisfy both the para 3.7 specification and the serial 509 requirement simultaneously or in the alternative. Triton's counsel argues the amendment is merely clarificatory and the exemption vests on the date the certificate was issued under the unamended notification. How should this dispute be resolved, and does section 25(1) of the Customs Act permit such mid-stream amendment to affect already-issued entitlements?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk contains only the substituted text of the amendment and gazette references — it does not address retrospectivity, vesting of rights, or the conjunctive vs. disjunctive interpretation of clau"
+    },
+    {
+      "query": "Meridian Pharma Pvt Ltd (GSTIN 27AABCM1234F1Z5, Maharashtra) receives a credit note dated 18-Mar-2025 from its API supplier in Hyderabad for ₹14.2 lakh relating to a February 2025 supply. The credit note appears in GSTR-2B for March 2025, but Meridian's accounts team has already reversed the ITC in their February 2025 GSTR-3B based on the supplier's intimation email. Now in April 2025, GSTR-2B again reflects the same credit note under a corrected document number issued by the supplier. The tax manager wants to know: (a) is Meridian obligated to reverse ITC again in April 2025 on the basis of the re-appearing credit note in GSTR-2B, or does the February reversal suffice; and (b) if the supplier had also raised a debit note in March correcting the original invoice amount upward by ₹3.1 lakh, how should Meridian treat the ITC on that debit note given it was not in February's GSTR-2B but appears only in March's — specifically, can Meridian claim the incremental credit in GSTR-3B for March without risking a dual-credit allegation?",
+      "type": "ambiguous",
+      "expected_refuse": true,
+      "_source": "qa_sonnet_high.jsonl",
+      "_reason": "The chunk only states general principles (no double credit, reverse where necessary) but lacks the specific rules about credit note treatment, GSTR-2B re-appearance, and debit note ITC timing needed t"
+    }
+  ]
+}

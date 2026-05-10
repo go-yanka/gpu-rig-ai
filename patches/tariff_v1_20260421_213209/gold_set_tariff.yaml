@@ -1,0 +1,97 @@
+# gold_set_tariff.yaml — 10 rate-lookup gold items for A4 (tariff pipeline).
+# Kept separate from gold_set.yaml (which stays at 50 Qs for A0 baseline comparability).
+# `expected_rate_igst_any_of` values are realistic candidates; fill exact ground truth
+# after first real ingest of notification 1/2017-CT(Rate) + updates.
+
+- id: rate_hsn_001
+  category: tariff
+  difficulty: basic
+  question: "What is the GST rate on HSN 8471?"
+  expected_hsn: "8471"
+  expected_rate_igst_any_of: [18.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+  notes: "Automatic data processing machines (computers)."
+
+- id: rate_hsn_002
+  category: tariff
+  difficulty: basic
+  question: "GST rate for HSN 6804 (abrasive products)?"
+  expected_hsn: "6804"
+  expected_rate_igst_any_of: [18.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_hsn_003
+  category: tariff
+  difficulty: basic
+  question: "What is IGST on HSN 2106 food preparations?"
+  expected_hsn: "2106"
+  expected_rate_igst_any_of: [18.0, 12.0, 5.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+  notes: "Chapter 2106 is split across schedules depending on preparation type."
+
+- id: rate_hsn_004
+  category: tariff
+  difficulty: basic
+  question: "GST rate on HSN 3004 medicaments?"
+  expected_hsn: "3004"
+  expected_rate_igst_any_of: [12.0, 5.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_hsn_005
+  category: tariff
+  difficulty: basic
+  question: "Rate of GST for HSN 9404 mattresses?"
+  expected_hsn: "9404"
+  expected_rate_igst_any_of: [18.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_hsn_006
+  category: tariff
+  difficulty: basic
+  question: "What GST applies to HSN 1905 (biscuits, bread, pastry)?"
+  expected_hsn: "1905"
+  expected_rate_igst_any_of: [18.0, 5.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_hsn_007
+  category: tariff
+  difficulty: intermediate
+  question: "IGST rate for HSN 8703 motor cars?"
+  expected_hsn: "8703"
+  expected_rate_igst_any_of: [28.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+  notes: "Likely has compensation cess too."
+
+- id: rate_hsn_008
+  category: tariff
+  difficulty: basic
+  question: "GST rate on HSN 4820 registers and notebooks?"
+  expected_hsn: "4820"
+  expected_rate_igst_any_of: [18.0, 12.0]
+  expected_notification_any_of: ["1/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_sac_009
+  category: tariff
+  difficulty: basic
+  question: "What is GST on SAC 9954 construction services?"
+  expected_sac: "9954"
+  expected_rate_igst_any_of: [18.0, 12.0, 5.0]
+  expected_notification_any_of: ["11/2017-CT(Rate)"]
+  must_cite_verbatim: false
+
+- id: rate_sac_010
+  category: tariff
+  difficulty: basic
+  question: "Rate of GST on SAC 9983 legal and accounting services?"
+  expected_sac: "9983"
+  expected_rate_igst_any_of: [18.0]
+  expected_notification_any_of: ["11/2017-CT(Rate)"]
+  must_cite_verbatim: false

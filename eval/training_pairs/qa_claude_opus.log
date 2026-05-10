@@ -1,0 +1,54 @@
+D:\_gpu_rig_ai\training\qa_pairs_claude.py:1: SyntaxWarning: invalid escape sequence '\_'
+  """
+[load] 76 chunk records
+[flat] 152 (chunk, question) pairs
+[1/152] ok=1 parse_err=0 call_err=0  rate=0.19/s  eta=13.0m
+[2/152] ok=2 parse_err=0 call_err=0  rate=0.37/s  eta=6.8m
+[3/152] ok=3 parse_err=0 call_err=0  rate=0.53/s  eta=4.7m
+[4/152] ok=4 parse_err=0 call_err=0  rate=0.34/s  eta=7.2m
+[5/152] ok=5 parse_err=0 call_err=0  rate=0.42/s  eta=5.8m
+[10/152] ok=10 parse_err=0 call_err=0  rate=0.44/s  eta=5.4m
+[20/152] ok=20 parse_err=0 call_err=0  rate=0.48/s  eta=4.6m
+[30/152] ok=30 parse_err=0 call_err=0  rate=0.49/s  eta=4.2m
+[40/152] ok=40 parse_err=0 call_err=0  rate=0.48/s  eta=3.9m
+[50/152] ok=50 parse_err=0 call_err=0  rate=0.47/s  eta=3.6m
+[60/152] ok=60 parse_err=0 call_err=0  rate=0.47/s  eta=3.3m
+[70/152] ok=70 parse_err=0 call_err=0  rate=0.45/s  eta=3.0m
+[80/152] ok=80 parse_err=0 call_err=0  rate=0.45/s  eta=2.7m
+[90/152] ok=90 parse_err=0 call_err=0  rate=0.45/s  eta=2.3m
+[100/152] ok=100 parse_err=0 call_err=0  rate=0.43/s  eta=2.0m
+[110/152] ok=110 parse_err=0 call_err=0  rate=0.43/s  eta=1.6m
+[120/152] ok=120 parse_err=0 call_err=0  rate=0.44/s  eta=1.2m
+[130/152] ok=130 parse_err=0 call_err=0  rate=0.44/s  eta=0.8m
+[140/152] ok=140 parse_err=0 call_err=0  rate=0.43/s  eta=0.5m
+[150/152] ok=150 parse_err=0 call_err=0  rate=0.44/s  eta=0.1m
+
+DONE: ok=152 parse_err=0 call_err=0  elapsed=344s
+
+=== SUMMARY ===
+{
+  "n_total": 152,
+  "n_graded": 152,
+  "n_parse_fail": 0,
+  "answerable_pct": 0.0,
+  "realistic_pct": 53.9,
+  "specific_pct": 0.7,
+  "all_three_pct": 0.0,
+  "complexity": {
+    "low": 44,
+    "high": 74,
+    "medium": 34
+  },
+  "complexity_pct": {
+    "low": 28.9,
+    "high": 48.7,
+    "medium": 22.4
+  },
+  "by_category": {
+    "customs": 86,
+    "gst": 50,
+    "central_excise": 6,
+    "others": 8,
+    "service_tax": 2
+  }
+}

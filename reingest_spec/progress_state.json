@@ -1,0 +1,1148 @@
+{
+  "global": {
+    "batches_done": 2,
+    "points": 8390,
+    "time_spent_s": 0,
+    "time_total_expected_s": 4500,
+    "time_remaining_s": 4500,
+    "eta_done": "TBD",
+    "halts_count": 0,
+    "restart_reason": "RG 23:15 IST: 6-card pool {0,1,3,4,5,6}, chunker R7+R8, rerank 30s. Removed stale FORBIDDEN={0,2} in ingest_v2 \u2014 canonical embed_pool_profiles.json wins."
+  },
+  "current_batch": {
+    "id": 3,
+    "started": "23:15 IST",
+    "started_ts": 1777259731,
+    "expected_s": 390,
+    "current_step": "E (Phase 2 chunk) \u2014 batch 3 ingesting"
+  },
+  "trust": {
+    "G1": {
+      "latest": "1.0000 (25/25, errors=0)",
+      "history": [],
+      "threshold": ">=0.95",
+      "passing": true
+    },
+    "G3": {
+      "latest": "1.0000 (None/25, errors=0)",
+      "history": [],
+      "threshold": ">=0.95",
+      "passing": true
+    },
+    "G4": {
+      "latest": "0.9502 (None/201, errors=0)",
+      "history": [],
+      "threshold": ">=0.95",
+      "passing": true
+    },
+    "G2": {
+      "latest": null,
+      "history": [],
+      "threshold": ">=0.95",
+      "passing": null
+    },
+    "G5": {
+      "latest": null,
+      "history": [],
+      "threshold": "p95 <=12-15s",
+      "passing": null
+    }
+  },
+  "active": [],
+  "batches": [
+    {
+      "id": 1,
+      "status": "pending",
+      "docs": "1500",
+      "pts_after": null,
+      "expected_s": 390,
+      "cp": "CP-1",
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 2,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 3,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 4,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 5,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 1290,
+      "cp": "CP-2",
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 6,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 7,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 8,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 9,
+      "status": "pending",
+      "docs": "~1500",
+      "expected_s": 390,
+      "cp": null,
+      "steps": {},
+      "gates": {}
+    },
+    {
+      "id": 10,
+      "status": "pending",
+      "docs": "~1425",
+      "expected_s": 3090,
+      "cp": "CP-3",
+      "steps": {},
+      "gates": {}
+    }
+  ],
+  "halts": [],
+  "agent_log": [
+    {
+      "ts": "18:55:34",
+      "epoch": 1777416934,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "18:58:35",
+      "epoch": 1777417115,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:01:35",
+      "epoch": 1777417295,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:04:36",
+      "epoch": 1777417476,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:07:37",
+      "epoch": 1777417657,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:10:37",
+      "epoch": 1777417837,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:13:38",
+      "epoch": 1777418018,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:16:38",
+      "epoch": 1777418198,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:19:39",
+      "epoch": 1777418379,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:22:39",
+      "epoch": 1777418559,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:25:40",
+      "epoch": 1777418740,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:28:41",
+      "epoch": 1777418921,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:31:41",
+      "epoch": 1777419101,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:34:42",
+      "epoch": 1777419282,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:37:42",
+      "epoch": 1777419462,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:40:43",
+      "epoch": 1777419643,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:43:43",
+      "epoch": 1777419823,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:46:44",
+      "epoch": 1777420004,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:49:44",
+      "epoch": 1777420184,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:52:45",
+      "epoch": 1777420365,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:55:45",
+      "epoch": 1777420545,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "19:58:46",
+      "epoch": 1777420726,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:01:47",
+      "epoch": 1777420907,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:04:47",
+      "epoch": 1777421087,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:07:48",
+      "epoch": 1777421268,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:10:48",
+      "epoch": 1777421448,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:13:49",
+      "epoch": 1777421629,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:16:49",
+      "epoch": 1777421809,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:19:50",
+      "epoch": 1777421990,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:22:50",
+      "epoch": 1777422170,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:25:51",
+      "epoch": 1777422351,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:28:52",
+      "epoch": 1777422532,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:31:52",
+      "epoch": 1777422712,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:34:53",
+      "epoch": 1777422893,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:37:53",
+      "epoch": 1777423073,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:40:54",
+      "epoch": 1777423254,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:43:54",
+      "epoch": 1777423434,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:46:55",
+      "epoch": 1777423615,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:49:56",
+      "epoch": 1777423796,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:52:56",
+      "epoch": 1777423976,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:55:57",
+      "epoch": 1777424157,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "20:58:57",
+      "epoch": 1777424337,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:01:58",
+      "epoch": 1777424518,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:04:58",
+      "epoch": 1777424698,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:07:59",
+      "epoch": 1777424879,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:11:00",
+      "epoch": 1777425060,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:14:00",
+      "epoch": 1777425240,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:17:01",
+      "epoch": 1777425421,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:20:02",
+      "epoch": 1777425602,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:23:02",
+      "epoch": 1777425782,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:26:03",
+      "epoch": 1777425963,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:29:03",
+      "epoch": 1777426143,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:32:04",
+      "epoch": 1777426324,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:35:05",
+      "epoch": 1777426505,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:38:05",
+      "epoch": 1777426685,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:41:06",
+      "epoch": 1777426866,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:44:06",
+      "epoch": 1777427046,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:47:07",
+      "epoch": 1777427227,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:50:08",
+      "epoch": 1777427408,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:53:08",
+      "epoch": 1777427588,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:56:09",
+      "epoch": 1777427769,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "21:59:09",
+      "epoch": 1777427949,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:02:10",
+      "epoch": 1777428130,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:05:11",
+      "epoch": 1777428311,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:08:11",
+      "epoch": 1777428491,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:11:12",
+      "epoch": 1777428672,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:14:12",
+      "epoch": 1777428852,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:17:13",
+      "epoch": 1777429033,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:20:14",
+      "epoch": 1777429214,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:23:14",
+      "epoch": 1777429394,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:26:15",
+      "epoch": 1777429575,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:29:15",
+      "epoch": 1777429755,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:32:16",
+      "epoch": 1777429936,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:35:17",
+      "epoch": 1777430117,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:38:17",
+      "epoch": 1777430297,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:41:18",
+      "epoch": 1777430478,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:44:18",
+      "epoch": 1777430658,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:47:19",
+      "epoch": 1777430839,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:50:20",
+      "epoch": 1777431020,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:53:20",
+      "epoch": 1777431200,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:56:21",
+      "epoch": 1777431381,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "22:59:21",
+      "epoch": 1777431561,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:02:22",
+      "epoch": 1777431742,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:05:22",
+      "epoch": 1777431922,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:08:23",
+      "epoch": 1777432103,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:11:23",
+      "epoch": 1777432283,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:14:24",
+      "epoch": 1777432464,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:17:24",
+      "epoch": 1777432644,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:20:25",
+      "epoch": 1777432825,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:23:25",
+      "epoch": 1777433005,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:26:26",
+      "epoch": 1777433186,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:29:27",
+      "epoch": 1777433367,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:32:27",
+      "epoch": 1777433547,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:35:28",
+      "epoch": 1777433728,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:38:28",
+      "epoch": 1777433908,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:41:29",
+      "epoch": 1777434089,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:44:29",
+      "epoch": 1777434269,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:47:30",
+      "epoch": 1777434450,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:50:30",
+      "epoch": 1777434630,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    },
+    {
+      "ts": "23:53:31",
+      "epoch": 1777434811,
+      "source": "dashboard_writer",
+      "severity": "P2",
+      "what": "Heartbeat: cbic_v2=None pts \u00b7 ingest=idle \u00b7 batch~?",
+      "rec": null,
+      "evidence": "(no log lines)",
+      "guardrail_ok": true
+    }
+  ]
+}

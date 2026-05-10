@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBIC Legal RAG</title>
+<script src="https://cdn.jsdelivr.net/npm/marked@13/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+<style>
+:root{
+  --green:#1a4d2e; --green-2:#0f3520; --amber-bg:#fef3c7; --amber-fg:#b45309;
+  --ink:#1a1f1a; --muted:#5c6760; --line:#e4e7e2; --bg:#fbfbf8; --card:#ffffff;
+  --red:#b42318; --ok:#1f7a3a; --warn:#b45309;
+  --cat-gst:#4338ca; --cat-customs:#0f766e; --cat-excise:#7f1d1d;
+  --cat-svc:#a0522d; --cat-others:#475569;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.5}
+h1,h2,h3,h4{font-family:Georgia,'Times New Roman',serif;font-weight:600;margin:0}
+a{color:var(--green)}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1220px;margin:0 auto;padding:0 18px}
+
+header{background:#fff;border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;padding:12px 0}
+.logo{width:40px;height:40px;flex:none;color:var(--green)}
+.ttl h1{font-size:22px;color:var(--green-2);letter-spacing:.2px}
+.ttl .sub{font-size:12px;color:var(--muted)}
+.hd-right{margin-left:auto;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.dot{width:9px;height:9px;border-radius:50%;background:#bbb;display:inline-block;margin-right:4px;vertical-align:middle}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--red)} .dot.warn{background:var(--warn)}
+.hstat{padding:3px 8px;border:1px solid var(--line);border-radius:999px;background:#fff}
+
+.scope{background:var(--amber-bg);color:var(--amber-fg);border-bottom:1px solid #f3d996}
+.scope-in{display:flex;gap:10px;align-items:center;padding:8px 0;font-size:13px}
+.scope strong{color:#7c3d04}
+.scope .x{margin-left:auto;background:transparent;border:1px solid #f3d996;color:var(--amber-fg);border-radius:4px;padding:2px 8px;font-size:12px}
+
+main{padding:18px 0 60px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;margin-bottom:16px}
+label.block{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+textarea{width:100%;font:14px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:6px;resize:vertical;min-height:90px;background:#fff;color:var(--ink)}
+textarea:focus{outline:2px solid var(--green);outline-offset:-1px;border-color:var(--green)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:#fff;padding:6px 11px;border-radius:999px;font-size:13px;color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.chip:hover{border-color:var(--green)}
+.chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.chip .count{font-size:11px;opacity:.75}
+.chip:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:12px}
+.kbox{flex:1;min-width:260px}
+.khead{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.klabel{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.info{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:#e6ece7;color:var(--green);font-size:11px;font-weight:700;cursor:help;position:relative}
+.info:hover .tip, .info:focus .tip{display:block}
+.tip{display:none;position:absolute;left:22px;top:-4px;z-index:50;background:#1a1f1a;color:#fff;padding:8px 10px;border-radius:6px;font-size:12px;font-weight:400;width:260px;text-transform:none;letter-spacing:0;line-height:1.45}
+.kinput{display:flex;align-items:center;gap:10px}
+.kinput input[type=range]{flex:1}
+.kval{font-variant-numeric:tabular-nums;font-weight:600;min-width:28px;text-align:right}
+.btn{background:var(--green);color:#fff;border:0;padding:10px 18px;border-radius:6px;font-weight:600;font-size:14px}
+.btn:hover{background:var(--green-2)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:#fff;color:var(--green);border:1px solid var(--green)}
+
+.recent{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.recent .r{background:#f2f4ef;border:1px solid var(--line);padding:4px 10px;border-radius:999px;font-size:12px;color:var(--ink);max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent .r:hover{background:#e6ece7;border-color:var(--green)}
+.recent-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-right:4px;align-self:center}
+
+.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:14px;overflow-x:auto}
+.tab{background:transparent;border:0;padding:10px 14px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;white-space:nowrap}
+.tab.active{color:var(--green);border-bottom-color:var(--green);font-weight:600}
+.tab:focus-visible{outline:2px solid var(--green);outline-offset:-2px}
+
+.answer{font-size:15px;line-height:1.65}
+.answer h1,.answer h2,.answer h3{font-family:Georgia,serif;margin:16px 0 8px}
+.answer p{margin:8px 0}
+.answer code{background:#f2f4ef;padding:1px 5px;border-radius:3px;font-size:13px}
+.answer pre{background:#f2f4ef;padding:10px;border-radius:6px;overflow:auto}
+.answer blockquote{border-left:3px solid var(--green);margin:8px 0;padding:4px 12px;color:#333;background:#f6f8f3}
+.spill{display:inline-block;background:var(--green);color:#fff;padding:1px 7px;border-radius:4px;font-size:12px;font-weight:600;margin:0 2px;cursor:pointer;vertical-align:baseline}
+.spill:hover{background:var(--green-2)}
+
+.pipe{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+.pipe summary{cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
+.pipe-body{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.pstep{background:#f2f4ef;padding:5px 9px;border-radius:4px;border:1px solid var(--line)}
+.pstep .ms{color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+.pstep.arr{background:transparent;border:0;padding:5px 2px;color:var(--muted)}
+
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:900px){.ev-grid{grid-template-columns:1fr}}
+.ev{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;transition:background .3s, box-shadow .3s}
+.ev.flash{background:#fff6d6;box-shadow:0 0 0 2px var(--green)}
+.ev-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
+.ev .sn{background:var(--green);color:#fff;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700}
+.ev .tt{font-weight:600;font-size:14px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ev .meta{display:flex;gap:4px;flex-wrap:wrap;margin:4px 0 6px}
+.cat{padding:1px 7px;border-radius:3px;font-size:11px;font-weight:600;color:#fff}
+.cat.gst{background:var(--cat-gst)} .cat.customs{background:var(--cat-customs)}
+.cat.central_excise{background:var(--cat-excise)} .cat.service_tax{background:var(--cat-svc)}
+.cat.others{background:var(--cat-others)}
+.sub{padding:1px 7px;border-radius:3px;font-size:11px;background:#e6ece7;color:var(--green-2)}
+.pg{padding:1px 7px;border-radius:3px;font-size:11px;background:#f2f4ef;color:var(--muted)}
+.bar{height:5px;background:#f2f4ef;border-radius:3px;overflow:hidden;margin:6px 0 4px}
+.bar-f{height:100%;background:linear-gradient(90deg,#a7c4a0,var(--green))}
+.score{font-size:11px;color:var(--muted)}
+.snip{background:#fafaf6;border:1px solid var(--line);border-radius:4px;padding:8px 10px;font-size:13px;max-height:180px;overflow:auto;margin:6px 0;white-space:pre-wrap;line-height:1.5}
+.ev-acts{display:flex;gap:6px;margin-top:6px}
+.ev-acts button, .ev-acts a{font-size:12px;background:#fff;color:var(--green);border:1px solid var(--line);padding:3px 8px;border-radius:4px;text-decoration:none}
+.ev-acts button:hover,.ev-acts a:hover{border-color:var(--green);background:#f6f8f3}
+
+.q{border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin-bottom:8px;background:#fff}
+.q.verified{border-left:4px solid var(--ok)}
+.q.flagged{border-left:4px solid var(--warn);background:#fffbf0}
+.q .qh{display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:4px}
+.q .stamp{font-size:11px;font-weight:700;padding:1px 6px;border-radius:3px}
+.q.verified .stamp{background:#e1f3e6;color:var(--ok)}
+.q.flagged .stamp{background:#fdebc4;color:var(--warn)}
+.q .qt{font-style:italic;color:#2a2f2a}
+
+.sk{background:linear-gradient(90deg,#eee 25%,#f5f5f0 50%,#eee 75%);background-size:200% 100%;animation:sk 1.3s infinite;border-radius:4px}
+@keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.sk-card{height:170px}
+
+.err{background:#fde8e7;border:1px solid #f2b8b4;color:var(--red);padding:10px 14px;border-radius:6px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.err pre{margin:4px 0 0;font-size:12px;max-height:140px;overflow:auto;white-space:pre-wrap;background:#fff6f5;padding:6px;border-radius:4px;width:100%}
+.empty{text-align:center;padding:28px;color:var(--muted)}
+.empty h3{font-size:16px;color:var(--ink);margin-bottom:6px}
+
+.tm-row{display:grid;grid-template-columns:140px 1fr 70px;gap:8px;align-items:center;margin:4px 0;font-size:12px}
+.tm-bar{height:14px;background:var(--green);border-radius:3px;min-width:2px}
+
+.modal-bg{position:fixed;inset:0;background:rgba(26,31,26,.5);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:#fff;border-radius:8px;max-width:640px;width:90%;max-height:80vh;overflow:auto;padding:20px;position:relative}
+.modal h3{font-size:18px;color:var(--green-2);margin-bottom:10px}
+.modal .close{position:absolute;right:12px;top:8px;background:transparent;border:0;font-size:22px;color:var(--muted)}
+.stats-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.stats-tbl td,.stats-tbl th{padding:5px 8px;border-bottom:1px solid var(--line);text-align:left}
+.stats-tbl th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+
+footer{border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:12px;background:#fff}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+footer a.lnk{background:transparent;border:0;color:var(--green);text-decoration:underline;cursor:pointer;font:inherit}
+
+@media (max-width:1024px){
+  .ttl h1{font-size:19px}
+  .ev-grid{gap:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <svg class="logo" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M24 6v36M10 42h28M16 16h16"/>
+      <path d="M16 16L9 30h14z M32 16l-7 14h14z"/>
+      <circle cx="24" cy="6" r="1.5" fill="currentColor"/>
+    </svg>
+    <div class="ttl">
+      <h1>CBIC Legal RAG</h1>
+      <div class="sub">Evidence-backed answers from CBIC primary sources</div>
+    </div>
+    <div class="hd-right" id="healthBox">
+      <span class="hstat" id="hCombined"><span class="dot" id="hDot"></span><span id="hText">checking...</span></span>
+    </div>
+  </div>
+</header>
+
+<div class="scope" id="scopeBar">
+  <div class="wrap scope-in">
+    <span><strong>Corpus: CBIC only</strong> (GST, Customs, Central Excise, Service Tax). Income tax (CBDT), MCA, labour/PF/ESI, and RBI are <strong>NOT</strong> indexed.</span>
+    <button class="x" id="scopeDismiss" aria-label="Dismiss scope note">Dismiss</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="panel" id="queryPanel">
+    <label class="block" for="q">Your question</label>
+    <textarea id="q" rows="4" placeholder="Loading example..."></textarea>
+
+    <div style="margin-top:12px">
+      <div class="khead">
+        <span class="klabel">Category filter</span>
+        <span class="info" tabindex="0" aria-label="Category filter help">?<span class="tip">Filter retrieval to a single CBIC sub-corpus. Only CBIC categories exist here &mdash; Income Tax (CBDT), MCA, RBI, and labour laws are not indexed.</span></span>
+      </div>
+      <div class="chips" id="catChips" role="tablist"></div>
+    </div>
+
+    <div class="row">
+      <div class="kbox">
+        <div class="khead">
+          <span class="klabel">Evidence chunks to feed LLM</span>
+          <span class="info" tabindex="0" aria-label="Top-k help">?<span class="tip">After retrieval, the top <em>k</em> most-relevant passages are sent to the LLM as context. More = more evidence but slower and risk of dilution.</span></span>
+        </div>
+        <div class="kinput">
+          <input id="kRange" type="range" min="3" max="20" value="8" aria-label="Top k slider">
+          <span class="kval" id="kVal">8</span>
+        </div>
+      </div>
+      <div>
+        <button class="btn" id="askBtn">Search <span style="opacity:.7;font-weight:400;font-size:12px">(Ctrl+Enter)</span></button>
+      </div>
+    </div>
+
+    <div class="recent" id="recentRow" style="display:none"></div>
+  </section>
+
+  <section id="skeletonPanel" class="panel" style="display:none">
+    <div class="sk" style="height:24px;width:50%;margin-bottom:12px"></div>
+    <div class="sk" style="height:14px;margin-bottom:6px"></div>
+    <div class="sk" style="height:14px;width:88%;margin-bottom:6px"></div>
+    <div class="sk" style="height:14px;width:76%;margin-bottom:16px"></div>
+    <div class="ev-grid">
+      <div class="sk sk-card"></div><div class="sk sk-card"></div>
+      <div class="sk sk-card"></div><div class="sk sk-card"></div>
+    </div>
+  </section>
+
+  <section id="respPanel" style="display:none">
+    <div id="errBox"></div>
+    <div class="panel">
+      <div class="tabs" role="tablist" id="tabs">
+        <button class="tab active" data-t="answer" role="tab">Answer</button>
+        <button class="tab" data-t="evidence" role="tab">Evidence <span id="cEv">(0)</span></button>
+        <button class="tab" data-t="verified" role="tab">Verified Quotes <span id="cVq">(0)</span></button>
+        <button class="tab" data-t="flagged" role="tab">Flagged <span id="cFl">(0)</span></button>
+        <button class="tab" data-t="timing" role="tab">Timing</button>
+      </div>
+
+      <div id="tAnswer" class="tabpane">
+        <div class="answer" id="answerMd"></div>
+        <details class="pipe"><summary>How we got this answer</summary>
+          <div class="pipe-body" id="pipeBody"></div>
+        </details>
+      </div>
+      <div id="tEvidence" class="tabpane" style="display:none"><div class="ev-grid" id="evGrid"></div></div>
+      <div id="tVerified" class="tabpane" style="display:none"><div id="vqList"></div></div>
+      <div id="tFlagged" class="tabpane" style="display:none"><div id="flList"></div></div>
+      <div id="tTiming" class="tabpane" style="display:none"><div id="timing"></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div id="footMeta">BGE-M3 dense + BM25 &rarr; RRF &rarr; ColBERT v2. Loading stack info&hellip;</div>
+    <div><button class="lnk" id="openStats">View corpus stats</button></div>
+  </div>
+</footer>
+
+<script>
+const CATS = [
+  {id:'all', label:'All'},
+  {id:'gst', label:'GST'},
+  {id:'customs', label:'Customs'},
+  {id:'central_excise', label:'Central Excise'},
+  {id:'service_tax', label:'Service Tax'},
+  {id:'others', label:'Others'},
+];
+const CAT_LABEL = {gst:'GST',customs:'Customs',central_excise:'Central Excise',service_tax:'Service Tax',others:'Others'};
+const EX_QS = [
+  'What is the time limit to claim ITC under Section 16(4) of CGST Act?',
+  'When is IGST applicable on imports and what is the valuation basis?',
+  'Which Customs circulars govern provisional assessment under Section 18?'
+];
+const HIST_KEY = 'cbic_rag_history';
+let statsData = null, statsAvailable = false;
+let selectedCat = 'all', lastTimings = null;
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+function rotatePlaceholder(){
+  let i = 0;
+  $('#q').placeholder = 'e.g. ' + EX_QS[0];
+  setInterval(()=>{ if(!$('#q').value){ i=(i+1)%EX_QS.length; $('#q').placeholder='e.g. '+EX_QS[i]; }},4500);
+}
+
+function buildChips(){
+  const box = $('#catChips'); box.innerHTML='';
+  CATS.forEach(c=>{
+    const b=document.createElement('button');
+    b.className='chip'+(c.id===selectedCat?' active':'');
+    b.dataset.cat=c.id; b.type='button';
+    let lbl = c.label;
+    if(statsData && statsData.categories && c.id!=='all'){
+      const n = statsData.categories[c.id];
+      if(n!=null) lbl += ` <span class="count">${n}</span>`;
+    }
+    b.innerHTML=lbl;
+    b.addEventListener('click',()=>{ selectedCat=c.id; buildChips(); });
+    b.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();b.click();}});
+    box.appendChild(b);
+  });
+}
+
+async function pollHealth(){
+  try{
+    const r = await fetch('/health',{cache:'no-store'});
+    if(!r.ok) throw 0;
+    setHealth('ok', statsAvailable ? splitHealth() : 'healthy');
+  }catch(e){ setHealth('bad','offline'); }
+}
+function setHealth(cls,text){
+  $('#hDot').className='dot '+cls;
+  $('#hText').textContent=text;
+}
+function splitHealth(){
+  const s = (statsData && statsData.status) || {};
+  return ['api','llm','qdrant'].map(k=>{
+    const v = s[k]; const good = v===true||v==='ok'||v==='up';
+    const bad = v===false||v==='down'||v==='error';
+    return `${k}:${good?'up':bad?'down':'?'}`;
+  }).join(' \u00b7 ');
+}
+async function loadStats(){
+  try{
+    const r = await fetch('/v1/stats',{cache:'no-store'});
+    if(r.status===404){ statsAvailable=false; return; }
+    if(!r.ok) throw new Error('stats '+r.status);
+    statsData = await r.json(); statsAvailable=true; buildChips();
+  }catch(e){ statsAvailable=false; }
+}
+
+function loadRecent(){
+  let arr=[];
+  try{ arr = JSON.parse(localStorage.getItem(HIST_KEY)||'[]'); }catch(e){}
+  const row=$('#recentRow');
+  const top = arr.slice(0,5);
+  if(!top.length){ row.style.display='none'; return; }
+  row.style.display='flex';
+  row.innerHTML='<span class="recent-label">Recent</span>'+top.map(q=>`<button class="r" type="button" title="${escHtml(q)}">${escHtml(q.length>60?q.slice(0,58)+'...':q)}</button>`).join('');
+  row.querySelectorAll('button.r').forEach((b,i)=>b.addEventListener('click',()=>{$('#q').value=top[i];$('#q').focus();}));
+}
+function saveRecent(q){
+  let arr=[]; try{arr=JSON.parse(localStorage.getItem(HIST_KEY)||'[]')}catch(e){}
+  arr = [q, ...arr.filter(x=>x!==q)].slice(0,10);
+  localStorage.setItem(HIST_KEY, JSON.stringify(arr));
+  loadRecent();
+}
+
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  const id = t.dataset.t;
+  ['answer','evidence','verified','flagged','timing'].forEach(k=>{
+    $('#t'+k[0].toUpperCase()+k.slice(1)).style.display = (k===id?'block':'none');
+  });
+}));
+
+$('#kRange').addEventListener('input',e=>$('#kVal').textContent=e.target.value);
+$('#askBtn').addEventListener('click',runQuery);
+$('#q').addEventListener('keydown',e=>{ if(e.key==='Enter'&&(e.ctrlKey||e.metaKey)){e.preventDefault();runQuery();}});
+
+async function runQuery(){
+  const q = $('#q').value.trim();
+  if(!q) return;
+  saveRecent(q);
+  // b8b9p5_v1: reset previous result UI before new query
+  try {
+    const _amd = document.getElementById('answerMd'); if (_amd) _amd.innerHTML = '';
+    ['evGrid','vqList','flList','timing','pipeBody'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.innerHTML = '';
+    });
+    const _pop = document.getElementById('citePopover'); if (_pop) _pop.style.display = 'none';
+    window.lastCitations = [];
+    window.lastQid = null;
+    if (_amd) _amd.innerHTML = '<div style="color:var(--dim);padding:12px">\u23f3 Thinking\u2026</div>';
+  } catch(_e) { /* non-fatal */ }
+  $('#respPanel').style.display='none';
+  $('#errBox').innerHTML='';
+  $('#skeletonPanel').style.display='block';
+  $('#askBtn').disabled=true;
+
+  const body = {question:q, k:parseInt($('#kRange').value,10)};
+  if(selectedCat!=='all') body.filters = {category:selectedCat};
+
+  const t0 = performance.now();
+  try{
+    const r = await fetch('/query',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    const elapsed = performance.now()-t0;
+    if(!r.ok){
+      const txt = await r.text();
+      showError(`HTTP ${r.status} ${r.statusText}`, txt);
+      return;
+    }
+    const headerTimings = extractTimings(r.headers);
+    const data = await r.json();
+    lastTimings = headerTimings || data.timings || {total_ms: Math.round(elapsed)};
+    renderResult(data);
+  }catch(e){
+    showError('Network error', e && e.message || String(e));
+  }finally{
+    $('#skeletonPanel').style.display='none';
+    $('#askBtn').disabled=false;
+  }
+}
+
+function extractTimings(h){
+  const out = {}; let any=false;
+  h.forEach((v,k)=>{ if(k.toLowerCase().startsWith('x-timing-')){ out[k.toLowerCase().slice(9)] = parseFloat(v); any=true; }});
+  return any ? out : null;
+}
+
+function showError(title, detail){
+  const e = document.createElement('div'); e.className='err';
+  e.innerHTML = `<strong>${escHtml(title)}</strong>
+    <button class="btn ghost" style="margin-left:auto" id="retry">Retry</button>
+    ${detail?`<pre>${escHtml(detail).slice(0,2000)}</pre>`:''}`;
+  $('#errBox').innerHTML=''; $('#errBox').appendChild(e);
+  $('#respPanel').style.display='block';
+  $('#retry').addEventListener('click',runQuery);
+}
+
+function renderResult(data){
+  $('#respPanel').style.display='block';
+  const citations = data.citations||[];
+  const vq = data.verified_quotes||[];
+  const fq = data.suspicious_quotes||[];
+  $('#cEv').textContent=`(${citations.length})`;
+  $('#cVq').textContent=`(${vq.length})`;
+  $('#cFl').textContent=`(${fq.length})`;
+
+  const md = data.answer_markdown || '_(no answer returned)_';
+  const html = DOMPurify.sanitize(marked.parse(md));
+  const linked = html.replace(/\[S(\d+)\]/g, (m,n)=>`<span class="spill" data-s="${n}" role="button" tabindex="0">[S${n}]</span>`);
+  $('#answerMd').innerHTML = linked;
+  $('#answerMd').querySelectorAll('.spill').forEach(el=>{
+    const go = ()=>jumpCite(el.dataset.s);
+    el.addEventListener('click',go);
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+  });
+
+  renderPipeline(data);
+
+  if(!citations.length){
+    $('#evGrid').innerHTML = `<div class="empty" style="grid-column:1/-1">
+      <h3>Retrieval returned no passages</h3>
+      <div>The CBIC corpus may not cover this topic. Remember: Income Tax, MCA, RBI, and labour laws are <strong>not</strong> indexed here.</div>
+    </div>`;
+  } else {
+    $('#evGrid').innerHTML = citations.map(renderCard).join('');
+    $('#evGrid').querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
+      const text=b.dataset.copy; const orig=b.textContent;
+      const flash=(ok)=>{b.textContent=ok?'Copied':'Copy failed';setTimeout(()=>b.textContent=orig,1500);};
+      const legacy=()=>{try{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');document.body.removeChild(ta);flash(ok);}catch(e){console.error('copy legacy failed',e);flash(false);}};
+      if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(()=>flash(true)).catch(e=>{console.warn('clipboard api failed, falling back',e);legacy();});}else{legacy();}
+    }));
+  }
+
+  const citeBySid = Object.fromEntries((citations||[]).map((c,i)=>[String(c.index||(i+1)), c]));
+  $('#vqList').innerHTML = vq.length ? vq.map(q=>renderQuote(q,'verified',citeBySid)).join('')
+    : `<div class="empty">No verified verbatim quotes for this answer.</div>`;
+  $('#flList').innerHTML = fq.length ? fq.map(q=>renderQuote(q,'flagged',citeBySid)).join('')
+    : `<div class="empty">No flagged quotes. All quotes (if any) verified.</div>`;
+
+  renderTiming();
+}
+
+function renderCard(c){
+  const cat = c.category||'others';
+  const catClass = ['gst','customs','central_excise','service_tax','others'].includes(cat)?cat:'others';
+  const title = escHtml(c.title||c.doc_id||'Untitled');
+  const snip = escHtml(c.snippet||'');
+  const score = typeof c.score==='number'?c.score:0;
+  const pct = Math.max(2, Math.min(100, score*100));
+  const cite = `[S${c.index}] ${c.title||c.doc_id||''}${c.subcategory?' \u2014 '+c.subcategory:''}${c.page?' p.'+c.page:''}`;
+  return `<div class="ev" id="cite-${c.index}" data-citation="${c.index}">
+    <div class="ev-head"><span class="sn cliks" data-s="${c.index}" style="cursor:pointer" title="View inline S${c.index}">S${c.index}</span><div class="tt" title="${title}">${title}${c.date?` <span class="badge badge-date">${escHtml(c.date)}</span>`:''}${c.number?` <span class="badge badge-num">${escHtml(c.number)}</span>`:''}</div><button class="eyebtn" data-sid="${c.index}" title="View inline" style="background:none;border:none;cursor:pointer;font-size:14px;margin-left:auto">\u{1F441}</button></div>
+    <div class="meta">
+      <span class="cat ${catClass}">${CAT_LABEL[cat]||cat}</span>
+      ${c.subcategory?`<span class="sub">${escHtml(c.subcategory)}</span>`:''}
+      ${c.page?`<span class="pg">p. ${escHtml(String(c.page))}</span>`:''}
+      ${c.download_source?`<span class="pg">${escHtml(c.download_source)}</span>`:''}
+    </div>
+    <div class="bar"><div class="bar-f" style="width:${pct}%"></div></div>
+    <div class="score">Score: ${score.toFixed(3)}</div>
+    <div class="snip">${snip}</div>
+    <div class="ev-acts">
+      ${c.doc_id?`<a href="/pdf/${encodeURIComponent(c.doc_id)}${c.page?('#page='+c.page):''}" target="_blank" rel="noopener">Open PDF${c.page?(' p.'+c.page):''}</a>`:''}${c.source_url?` <a href="${escAttr(c.source_url)}" target="_blank" rel="noopener" class="dim" style="opacity:.6">source</a>`:''}
+      <button type="button" data-copy="${escAttr(cite)}">Copy citation</button>
+      <button class="dvote" data-cidx="${c.index}" data-docid="${c.doc_id||''}" title="Report: not relevant" style="background:none;border:none;cursor:pointer;color:var(--dim);font-size:11px">\u229F Not relevant</button>
+    </div>
+    ${c.doc_id && c.page ? `
+      <details class="snapdet"><summary style="cursor:pointer;font-size:12px;color:var(--dim)">\u{1F4F7} Show PDF region (p.${c.page})</summary>
+        <img loading="lazy" class="snapimg" data-snipsrc="/pdf/${encodeURIComponent(c.doc_id)}/page/${c.page}/snippet?q=${encodeURIComponent((c.text_full||c.text||c.snippet||'').slice(0,120))}" style="max-width:100%;border:1px solid var(--line);border-radius:4px;margin-top:6px" />
+      </details>` : ''}
+    ${c.text_full && c.text_full.length > (c.snippet||'').length ? `
+      <details class="fullt"><summary style="font-size:11px;color:var(--dim);cursor:pointer">\u25B8 Show full passage (${c.text_full.length} chars)</summary>
+        <div class="ft" style="font-size:13px;white-space:pre-wrap;padding:8px;background:#fafafa;border-radius:4px;margin-top:6px">${escHtml(c.text_full)}</div>
+      </details>` : ''}
+  </div>`;
+}
+
+function renderQuote(q, kind, citeBySid){
+  // f1_quote_context: include doc title, page, Open PDF link, and match-type badge
+  const text = escHtml(q.text||q.quote||'');
+  const sid = String(q.source_index||q.index||q.s||'');
+  const cite = (citeBySid && citeBySid[sid]) || {};
+  const docId = q.doc_id || cite.doc_id;
+  const page = q.page || cite.page;
+  const title = escHtml(cite.title || docId || '');
+  const subcat = escHtml(cite.subcategory || cite.category || '');
+  const match = q.match ? ` <span class="dim" style="font-size:10px;opacity:.7">(${escHtml(q.match)})</span>` : '';
+  const stamp = kind==='verified'?`Verified verbatim${match}`:`Could not verify: ${escHtml(q.reason||q.issue||'no exact match')}`;
+  const prefix = kind==='flagged'?'\u26a0 ':'';
+  const pdfHref = docId ? `/pdf/${encodeURIComponent(docId)}${page?('#page='+page):''}` : '';
+  const pdfLink = pdfHref ? `<a href="${pdfHref}" target="_blank" rel="noopener" style="font-size:11px;margin-left:8px">Open PDF${page?(' p.'+page):''}</a>` : '';
+  // esuite_v1 — E6 verify-in-pdf snippet link
+  const verifyHref = (docId && page) ? `/pdf/${encodeURIComponent(docId)}/page/${page}/snippet?q=${encodeURIComponent(q.text||q.quote||'')}` : '';
+  const verifyLink = verifyHref ? `<a href="${verifyHref}" target="_blank" rel="noopener" style="font-size:11px;margin-left:8px" title="See PDF snippet highlighting this quote">\u{1F50D} Verify in PDF</a>` : '';
+  const ctx = (title||subcat||page) ? `<div class="qctx" style="font-size:11px;color:var(--dim);margin-top:4px">${title}${subcat?(' \u2014 '+subcat):''}${page?(' \u2014 p.'+page):''}${pdfLink}${verifyLink}</div>` : '';
+  const bg = kind==='verified'?'var(--green)':'#b26a00';
+  return `<div class="q ${kind}">
+    <div class="qh">${sid?`<span class="sn cliks" data-s="${escHtml(sid)}" style="background:${bg};color:#fff;padding:1px 6px;border-radius:3px;font-size:11px;font-weight:700;cursor:pointer" title="Jump to evidence S${escHtml(sid)}">S${escHtml(sid)}</span>`:''}<span class="stamp">${prefix}${stamp}</span></div>
+    <div class="qt">&ldquo;${text}&rdquo;</div>
+    ${ctx}
+  </div>`;
+}
+
+function renderPipeline(data){
+  const cat = (data.filters&&data.filters.category)||data.detected_category||(selectedCat!=='all'?selectedCat:'auto');
+  const nHits = data.retrieval_hits||(data.citations?data.citations.length:0);
+  const k = parseInt($('#kRange').value,10);
+  const t = lastTimings || {};
+  const step = (name,key)=>{
+    const ms = t[key]; const msHtml = ms!=null?`<span class="ms">${Math.round(ms)}ms</span>`:'';
+    return `<span class="pstep">${name}${msHtml}</span>`;
+  };
+  const arr = `<span class="pstep arr">&rarr;</span>`;
+  $('#pipeBody').innerHTML = [
+    step('Router','router'),arr,
+    `<span class="pstep">Category: ${escHtml(CAT_LABEL[cat]||cat||'auto')}</span>`,arr,
+    step('HyDE','hyde'),arr,
+    step(`Retrieval (${nHits} hits)`,'retrieval'),arr,
+    step('Rerank','rerank'),arr,
+    `<span class="pstep">Top k=${k}</span>`,arr,
+    step('LLM','llm')
+  ].join('');
+}
+
+function renderTiming(){
+  const t = lastTimings||{};
+  const keys = Object.keys(t).filter(k=>k!=='total_ms'&&k!=='total');
+  if(!keys.length){
+    $('#timing').innerHTML = `<div class="empty"><h3>Timing breakdown not yet exposed by backend</h3>
+      <div>Total request time: ${t.total_ms?Math.round(t.total_ms)+' ms':'n/a'}. Expose <code>x-timing-*</code> headers or a <code>timings</code> key in the JSON response to populate this tab.</div></div>`;
+    return;
+  }
+  const max = Math.max.apply(null, keys.map(k=>t[k]||0).concat([1]));
+  const rows = keys.map(k=>{
+    const v = t[k]||0;
+    const w = Math.max(2,Math.round(v/max*100));
+    return `<div class="tm-row"><div>${escHtml(k)}</div><div><div class="tm-bar" style="width:${w}%"></div></div><div style="text-align:right">${Math.round(v)} ms</div></div>`;
+  });
+  const total = t.total_ms||t.total||keys.reduce((a,k)=>a+(t[k]||0),0);
+  $('#timing').innerHTML = `<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Total: <strong>${Math.round(total)} ms</strong></div>`+rows.join('');
+}
+
+function jumpCite(n){
+  $$('.tab').forEach(t=>{ if(t.dataset.t==='evidence') t.click(); });
+  const el = document.getElementById('cite-'+n);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth',block:'center'});
+  el.classList.add('flash');
+  setTimeout(()=>el.classList.remove('flash'),1600);
+}
+
+$('#openStats').addEventListener('click',openStats);
+function openStats(){
+  const bg = document.createElement('div'); bg.className='modal-bg'; bg.tabIndex=-1;
+  let body;
+  if(!statsAvailable || !statsData){
+    body = `<p style="color:var(--muted)">The backend <code>/v1/stats</code> endpoint is not yet implemented, so live corpus counts are unavailable. Expected shape:</p>
+      <pre style="background:#f2f4ef;padding:10px;border-radius:6px;font-size:12px">{
+  "categories": {"gst": N, "customs": N, "central_excise": N, "service_tax": N, "others": N},
+  "subcategories": {"gst": {"act": N, "notification": N, ...}, ...},
+  "total_chunks": N,
+  "status": {"api": "up", "llm": "up", "qdrant": "up"}
+}</pre>`;
+  } else {
+    const cats = statsData.categories||{};
+    const subs = statsData.subcategories||{};
+    let html = `<table class="stats-tbl"><thead><tr><th>Category</th><th>Docs / Chunks</th></tr></thead><tbody>`;
+    Object.keys(cats).forEach(k=>{ html += `<tr><td>${CAT_LABEL[k]||k}</td><td>${cats[k]}</td></tr>`; });
+    html += `</tbody></table>`;
+    if(Object.keys(subs).length){
+      html += `<h4 style="margin-top:14px;font-family:Georgia,serif">Subcategories</h4>`;
+      Object.keys(subs).forEach(cat=>{
+        html += `<div style="margin-top:8px"><strong>${CAT_LABEL[cat]||cat}</strong></div><table class="stats-tbl"><tbody>`;
+        Object.keys(subs[cat]).forEach(s=>{ html += `<tr><td>${escHtml(s)}</td><td>${subs[cat][s]}</td></tr>`; });
+        html += `</tbody></table>`;
+      });
+    }
+    if(statsData.total_chunks) html += `<p style="margin-top:12px;color:var(--muted)">Total indexed chunks: <strong>${statsData.total_chunks}</strong></p>`;
+    body = html;
+  }
+  bg.innerHTML = `<div class="modal"><button class="close" aria-label="Close">&times;</button><h3>CBIC Corpus Stats</h3>${body}</div>`;
+  document.body.appendChild(bg);
+  const close=()=>bg.remove();
+  bg.addEventListener('click',e=>{ if(e.target===bg) close(); });
+  bg.querySelector('.close').addEventListener('click',close);
+  document.addEventListener('keydown',function esc(e){ if(e.key==='Escape'){close();document.removeEventListener('keydown',esc);}});
+}
+
+$('#scopeDismiss').addEventListener('click',()=>{ $('#scopeBar').style.display='none'; });
+
+function escHtml(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function escAttr(s){return escHtml(s);}
+
+rotatePlaceholder();
+buildChips();
+loadRecent();
+loadStats().then(pollHealth);
+setInterval(pollHealth,10000);
+// esuite_v1 — E-suite + inline popover wiring
+window.lastCitations = window.lastCitations || [];
+window.lastQid = window.lastQid || null;
+
+(function(){
+  // hook into renderResult via MutationObserver-lite: wrap existing fn
+  const _origRenderResult = window.renderResult;
+  if (typeof _origRenderResult === 'function') {
+    window.renderResult = function(data){
+      window.lastCitations = data && data.citations || [];
+      window.lastQid = data && data.query_id || null;
+      const r = _origRenderResult.apply(this, arguments);
+      try { esuitePostRender(); } catch(e){ console.warn('esuite post-render', e); }
+      return r;
+    };
+  }
+})();
+
+function esuitePostRender(){
+  // E1 — clickable S-badges
+  document.querySelectorAll('.cliks').forEach(el => {
+    if (el._esuiteBound) return; el._esuiteBound = true;
+    el.addEventListener('click', e => {
+      const sid = e.currentTarget.dataset.s;
+      const evTab = document.querySelector('.tab[data-t="evidence"]');
+      if (evTab) evTab.click();
+      const tgt = document.querySelector(`[data-citation="${sid}"]`);
+      if (tgt) {
+        tgt.scrollIntoView({behavior:'smooth', block:'center'});
+        tgt.classList.add('flash');
+        setTimeout(()=>tgt.classList.remove('flash'),1500);
+      }
+      openCitePopover(sid);
+    });
+  });
+  // E4 — lazy-load snapshot img on details toggle
+  document.querySelectorAll('details.snapdet').forEach(d => {
+    if (d._esuiteBound) return; d._esuiteBound = true;
+    d.addEventListener('toggle', () => {
+      if (d.open) {
+        const img = d.querySelector('img.snapimg');
+        if (img && !img.src && img.dataset.snipsrc) img.src = img.dataset.snipsrc;
+      }
+    });
+  });
+  // E10 — downvote
+  document.querySelectorAll('.dvote').forEach(b => {
+    if (b._esuiteBound) return; b._esuiteBound = true;
+    b.addEventListener('click', async e => {
+      const btn = e.currentTarget;
+      if (!window.lastQid) { btn.textContent='(no qid)'; return; }
+      try {
+        await fetch(`/v1/queries/${encodeURIComponent(window.lastQid)}/feedback`, {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({kind:'downvote_citation', citation_index: parseInt(btn.dataset.cidx), reason:'not_relevant'})
+        });
+        btn.textContent = '\u2713 Reported'; btn.disabled = true; btn.style.opacity = .5;
+      } catch(err){ btn.textContent='(failed)'; console.error(err); }
+    });
+  });
+  // Eye buttons
+  document.querySelectorAll('.eyebtn').forEach(b => {
+    if (b._esuiteBound) return; b._esuiteBound = true;
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      openCitePopover(e.currentTarget.dataset.sid);
+    });
+  });
+}
+
+// ---------- Citation popover ----------
+let _cpopState = { sid:null, cite:null };
+function openCitePopover(sid){
+  const c = (window.lastCitations||[]).find(x => String(x.index) === String(sid));
+  if (!c) return;
+  _cpopState = { sid, cite: c };
+  const pop = document.getElementById('citePopover');
+  if (!pop) return;
+  pop.style.display = 'flex';
+  document.getElementById('cpopTitle').textContent =
+    `S${sid} \u00B7 ${c.title || c.doc_id || ''}${c.page?' \u00B7 p.'+c.page:''}`;
+  _cpopShowTab('snap');
+}
+function _cpopShowTab(name){
+  const pop = document.getElementById('citePopover');
+  const c = _cpopState.cite; if (!c || !pop) return;
+  pop.querySelectorAll('.cpop-tab').forEach(b => b.classList.toggle('active', b.dataset.tab===name));
+  pop.querySelectorAll('.cpop-pane').forEach(p => p.style.display = 'none');
+  if (name === 'snap') {
+    const pane = pop.querySelector('.cpop-snap');
+    if (c.doc_id && c.page) {
+      pane.innerHTML = `<img src="/pdf/${encodeURIComponent(c.doc_id)}/page/${c.page}/snippet?q=${encodeURIComponent((c.text_full||c.text||c.snippet||'').slice(0,120))}" />`;
+    } else pane.textContent = 'No page info.';
+    pane.style.display = 'block';
+  } else if (name === 'text') {
+    const pane = pop.querySelector('.cpop-text');
+    pane.innerHTML = `<div class="ft">${escHtml(c.text_full||c.text||c.snippet||'')}</div>`;
+    pane.style.display = 'block';
+  } else if (name === 'pdf') {
+    const pane = pop.querySelector('.cpop-pdf');
+    if (c.doc_id) {
+      pane.innerHTML = `<iframe src="/pdf/${encodeURIComponent(c.doc_id)}${c.page?'#page='+c.page:''}"></iframe>`;
+    } else pane.textContent = 'No doc id.';
+    pane.style.display = 'block';
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const pop = document.getElementById('citePopover');
+  if (!pop) return;
+  pop.addEventListener('click', e => {
+    const tab = e.target.closest('.cpop-tab');
+    if (tab) { _cpopShowTab(tab.dataset.tab); return; }
+    if (e.target.id === 'cpopClose') { pop.style.display='none'; return; }
+    if (e.target.id === 'cpopCopy') {
+      const c = _cpopState.cite;
+      if (c && c.doc_id) {
+        const url = `${location.origin}/pdf/${encodeURIComponent(c.doc_id)}${c.page?'#page='+c.page:''}`;
+        if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(url).catch(()=>{});
+        else { const t=document.createElement('textarea'); t.value=url; document.body.appendChild(t); t.select(); try{document.execCommand('copy');}catch(_){} document.body.removeChild(t);}
+      }
+      return;
+    }
+    if (e.target.id === 'cpopOpen') {
+      const c = _cpopState.cite;
+      if (c && c.doc_id) window.open(`/pdf/${encodeURIComponent(c.doc_id)}${c.page?'#page='+c.page:''}`,'_blank');
+      return;
+    }
+  });
+});
+
+// E11 — dynamic footer
+fetch('/v1/meta').then(r=>r.json()).then(m=>{
+  const el = document.getElementById('footMeta');
+  if (el) el.innerHTML = `${m.llm_model} \u00B7 ${m.embedder} \u00B7 ${m.fusion} \u00B7 ${m.reranker} \u00B7 ${m.total_docs?Number(m.total_docs).toLocaleString():'?'} chunks`;
+}).catch(()=>{});
+
+</script>
+
+<style>
+/* esuite_v1 */
+.flash { outline: 2px solid var(--green); outline-offset: 4px; animation: flash .4s ease-in-out 2 alternate; }
+@keyframes flash { from{outline-color:var(--green)} to{outline-color:transparent} }
+.badge { display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;margin-left:6px;vertical-align:middle }
+.badge-date { background:#e8f4ff;color:#0066aa }
+.badge-num  { background:#fff4e8;color:#aa6600 }
+.cpop { position:fixed;top:60px;right:20px;width:min(520px,45vw);height:calc(100vh - 80px); background:#fff;border:1px solid var(--line);border-radius:8px; box-shadow:0 10px 40px rgba(0,0,0,.15);z-index:1000;display:flex;flex-direction:column }
+.cpop-head { display:flex;justify-content:space-between;align-items:center;padding:10px 14px; border-bottom:1px solid var(--line);background:#fafafa;border-radius:8px 8px 0 0 }
+.cpop-tools button { background:none;border:none;font-size:16px;cursor:pointer;padding:4px 8px;border-radius:4px }
+.cpop-tools button:hover { background:#eee }
+.cpop-tools button.active { background:var(--green);color:#fff }
+.cpop-body { flex:1;overflow:auto;padding:14px }
+.cpop-pane img { max-width:100% }
+.cpop-pane iframe { width:100%;height:100%;border:0;min-height:70vh }
+.cpop-pane .ft { white-space:pre-wrap;font-size:13px }
+</style>
+<div id="citePopover" class="cpop" style="display:none">
+  <div class="cpop-head">
+    <span id="cpopTitle">Citation</span>
+    <div class="cpop-tools">
+      <button class="cpop-tab" data-tab="snap" title="Snapshot">&#128247;</button>
+      <button class="cpop-tab" data-tab="text" title="Text">&#128196;</button>
+      <button class="cpop-tab" data-tab="pdf"  title="Full PDF">&#128218;</button>
+      <button id="cpopCopy" title="Copy link">&#128279;</button>
+      <button id="cpopOpen" title="Open in new tab">&#10542;</button>
+      <button id="cpopClose" title="Close">&#10006;</button>
+    </div>
+  </div>
+  <div class="cpop-body">
+    <div class="cpop-pane cpop-snap"></div>
+    <div class="cpop-pane cpop-text" style="display:none"></div>
+    <div class="cpop-pane cpop-pdf"  style="display:none"></div>
+  </div>
+</div>
+</body>
+</html>

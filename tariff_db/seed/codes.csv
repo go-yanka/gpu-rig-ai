@@ -1,0 +1,111 @@
+code,code_type,level,parent_code,description,chapter
+01,HSN,2,,Live animals,1
+0101,HSN,4,01,"Live horses, asses, mules and hinnies",1
+0102,HSN,4,01,Live bovine animals,1
+0103,HSN,4,01,Live swine,1
+02,HSN,2,,Meat and edible meat offal,2
+0201,HSN,4,02,"Meat of bovine animals, fresh or chilled",2
+0202,HSN,4,02,"Meat of bovine animals, frozen",2
+0203,HSN,4,02,"Meat of swine, fresh, chilled or frozen",2
+03,HSN,2,,Fish and crustaceans,3
+0301,HSN,4,03,Live fish,3
+0302,HSN,4,03,"Fish, fresh or chilled",3
+04,HSN,2,,Dairy produce,4
+0401,HSN,4,04,"Milk and cream, not concentrated",4
+0402,HSN,4,04,"Milk and cream, concentrated or containing added sugar",4
+06,HSN,2,,"Live trees, plants, bulbs, cut flowers",6
+0601,HSN,4,06,"Bulbs, tubers, tuberous roots",6
+07,HSN,2,,Edible vegetables,7
+0701,HSN,4,07,"Potatoes, fresh or chilled",7
+0702,HSN,4,07,"Tomatoes, fresh or chilled",7
+0703,HSN,4,07,"Onions, shallots, garlic",7
+08,HSN,2,,Edible fruits and nuts,8
+0801,HSN,4,08,"Coconuts, Brazil nuts and cashew nuts",8
+0802,HSN,4,08,Other nuts,8
+0803,HSN,4,08,"Bananas, fresh or dried",8
+0804,HSN,4,08,"Dates, figs, pineapples, mangoes",8
+09,HSN,2,,"Coffee, tea, mate and spices",9
+0901,HSN,4,09,Coffee,9
+0902,HSN,4,09,Tea,9
+0904,HSN,4,09,"Pepper of the genus Piper",9
+10,HSN,2,,Cereals,10
+1001,HSN,4,10,Wheat and meslin,10
+1006,HSN,4,10,Rice,10
+10063020,HSN,8,1006,"Basmati rice, semi-milled or wholly milled",10
+1007,HSN,4,10,Grain sorghum,10
+11,HSN,2,,Products of the milling industry,11
+1101,HSN,4,11,Wheat or meslin flour,11
+15,HSN,2,,Animal or vegetable fats and oils,15
+1507,HSN,4,15,Soya-bean oil and its fractions,15
+1512,HSN,4,15,"Sunflower-seed, safflower or cotton-seed oil",15
+1701,HSN,4,17,Cane or beet sugar,17
+17,HSN,2,,Sugars and sugar confectionery,17
+19,HSN,2,,"Preparations of cereals, flour, starch or milk",19
+1905,HSN,4,19,"Bread, pastry, cakes, biscuits",19
+21,HSN,2,,Miscellaneous edible preparations,21
+2106,HSN,4,21,Food preparations not elsewhere specified,21
+22,HSN,2,,"Beverages, spirits and vinegar",22
+2201,HSN,4,22,Waters including mineral waters,22
+2202,HSN,4,22,"Waters with added sugar, flavoured, and other non-alcoholic beverages",22
+2203,HSN,4,22,Beer made from malt,22
+24,HSN,2,,Tobacco and manufactured tobacco substitutes,24
+2402,HSN,4,24,"Cigars, cheroots, cigarillos and cigarettes",24
+25,HSN,2,,"Salt, sulphur, earths and stone",25
+2523,HSN,4,25,Portland cement and similar hydraulic cements,25
+27,HSN,2,,"Mineral fuels, mineral oils",27
+2710,HSN,4,27,Petroleum oils (other than crude),27
+28,HSN,2,,Inorganic chemicals,28
+30,HSN,2,,Pharmaceutical products,30
+3003,HSN,4,30,"Medicaments, two or more constituents, not in measured doses",30
+3004,HSN,4,30,"Medicaments, in measured doses or forms for retail sale",30
+38,HSN,2,,Miscellaneous chemical products,38
+39,HSN,2,,Plastics and articles thereof,39
+3923,HSN,4,39,"Articles for conveyance or packing of goods, plastic",39
+40,HSN,2,,Rubber and articles thereof,40
+4011,HSN,4,40,New pneumatic tyres of rubber,40
+44,HSN,2,,Wood and articles of wood,44
+48,HSN,2,,Paper and paperboard,48
+4901,HSN,4,49,"Printed books, brochures, leaflets",49
+49,HSN,2,,"Printed books, newspapers, pictures",49
+50,HSN,2,,Silk,50
+52,HSN,2,,Cotton,52
+54,HSN,2,,Man-made filaments,54
+5402,HSN,4,54,Synthetic filament yarn,54
+5407,HSN,4,54,Woven fabrics of synthetic filament yarn,54
+55,HSN,2,,Man-made staple fibres,55
+61,HSN,2,,Articles of apparel and clothing accessories knitted,61
+62,HSN,2,,Articles of apparel and clothing accessories not knitted,62
+6403,HSN,4,64,"Footwear with outer soles of rubber, plastics, leather",64
+64,HSN,2,,"Footwear, gaiters and the like",64
+69,HSN,2,,Ceramic products,69
+6907,HSN,4,69,"Ceramic flags and paving, hearth or wall tiles",69
+71,HSN,2,,"Natural or cultured pearls, precious stones, metals",71
+7113,HSN,4,71,"Articles of jewellery and parts thereof",71
+72,HSN,2,,Iron and steel,72
+7208,HSN,4,72,"Flat-rolled products of iron, hot-rolled",72
+73,HSN,2,,Articles of iron or steel,73
+84,HSN,2,,"Nuclear reactors, boilers, machinery",84
+8415,HSN,4,84,"Air conditioning machines",84
+8471,HSN,4,84,"Automatic data processing machines",84
+85,HSN,2,,"Electrical machinery and equipment",85
+8517,HSN,4,85,"Telephone sets, including smartphones",85
+8528,HSN,4,85,"Monitors, projectors, television receivers",85
+87,HSN,2,,"Vehicles other than railway",87
+8703,HSN,4,87,Motor cars and other motor vehicles for transport of persons,87
+8711,HSN,4,87,Motorcycles,87
+90,HSN,2,,"Optical, photographic, medical instruments",90
+94,HSN,2,,"Furniture, bedding, mattresses",94
+9403,HSN,4,94,Other furniture and parts thereof,94
+99,SAC,2,,All services,
+9954,SAC,4,99,Construction services,
+9963,SAC,4,99,Accommodation and food and beverage services,
+996331,SAC,6,9963,"Services by restaurants, cafes and similar eating facilities",
+9964,SAC,4,99,Passenger transport services,
+9965,SAC,4,99,Goods transport services,
+996511,SAC,6,9965,Road transport services of goods (GTA),
+9971,SAC,4,99,Financial and related services,
+9972,SAC,4,99,Real estate services,
+9973,SAC,4,99,Leasing or rental services,
+9983,SAC,4,99,Other professional services,
+9987,SAC,4,99,Maintenance repair and installation services,
+9988,SAC,4,99,Manufacturing services on physical inputs owned by others,

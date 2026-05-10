@@ -1,0 +1,62 @@
+{
+  "_comment": "Per-GPU embed pool profiles. Generated 2026-04-25 from ai_rig_shell.py:GPU_MAP. GPU 2 deliberately excluded — qwen3-14b host (12GB used). Hot-add via pool.add_gpu(2) only during phase 3-4-5 swap protocol (DECISIONS.yaml preflight_full_reingest.gpu2_swap).",
+  "model_path": "/usr/share/ollama/.ollama/models/blobs/sha256-daec91ffb5dd0c27411bd71f29932917c49cf529a641d0168496c3a501e3062c",
+  "dense_dim": 1024,
+  "default_gpus": [0, 1, 3, 4, 5, 6],
+  "gpus": {
+    "0": {
+      "name": "RX 5700 XT (ASUS)", "vram_mb": 8176, "bar": "full", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 3, "load_timeout_s": 120, "post_reset": true,
+      "weight": 1.0, "max_concurrent": 1
+    },
+    "1": {
+      "name": "RX 5700 XT (Dell)", "vram_mb": 8176, "bar": "full", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 3, "load_timeout_s": 120, "post_reset": true,
+      "weight": 1.0, "max_concurrent": 1
+    },
+    "2": {
+      "name": "RX 6700 XT (ASRock)", "vram_mb": 12272, "bar": "full", "arch": "RDNA2",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 1, "load_timeout_s": 120, "post_reset": false,
+      "weight": 1.5, "max_concurrent": 1,
+      "_note": "OFF-LIMITS by default. Hot-add only during phase 3-4-5 (qwen3 swap)."
+    },
+    "3": {
+      "name": "RX 5700 XT (Sapphire)", "vram_mb": 8192, "bar": "256MB", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 3, "load_timeout_s": 300, "post_reset": true,
+      "weight": 1.0, "max_concurrent": 1
+    },
+    "4": {
+      "name": "RX 5700 XT (PwrColor)", "vram_mb": 8192, "bar": "256MB", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 1, "load_timeout_s": 300, "post_reset": false,
+      "weight": 1.0, "max_concurrent": 1
+    },
+    "5": {
+      "name": "RX 5700 XT (ASRock)", "vram_mb": 8192, "bar": "256MB", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 1, "load_timeout_s": 300, "post_reset": false,
+      "weight": 1.0, "max_concurrent": 1
+    },
+    "6": {
+      "name": "RX 5700 XT (ASRock)", "vram_mb": 8192, "bar": "256MB", "arch": "RDNA1",
+      "n_ctx": 8192, "n_batch": 512, "n_ubatch": 512, "n_threads": 2,
+      "warmup_calls": 1, "load_timeout_s": 300, "post_reset": false,
+      "weight": 1.0, "max_concurrent": 1
+    }
+  },
+  "degraded_policy": {
+    "max_failures_60s": 3,
+    "dead_after_consecutive_failures": 5,
+    "rebench_after_seconds": 300
+  },
+  "min_pool_size_to_start": 2,
+  "rebalance_after_warmup": false,
+  "_rebalance_note": "Disabled 2026-04-25 — warmup p50 reflects cold-vs-warm cache, not steady-state throughput. Caused 99% funnel onto fastest-warmup GPU. Re-enable only with weighted-deficit scheduler (TODO).",
+  "sequential_cold_load": true,
+  "sequential_cold_load_gap_s": 0.5,
+  "_sequential_note": "MANDATORY 2026-04-25 — solo cold-load on this rig = 2.7-2.8s per GPU; 6-card concurrent cold-load = 2 timeouts (cards 1, 6) + 4 cards each 16x slower (45s vs 3s). Vulkan init contention on shared driver/shader-compiler resources. Sequential load = ~20s for all 6 cards healthy. Never disable on this hardware."
+}

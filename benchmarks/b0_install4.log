@@ -1,0 +1,20 @@
+=== wget torch wheel ===
+2727050K .......... .......... .......... .......... .......... 99% 14.7M 0s
+2727100K .......... .......... .......... .......... .......... 99% 11.2M 0s
+2727150K .......... .......                                    100% 16.6M=5m22s-rw-rw-r-- 1 user user 2.7G Jan 29  2025 torch-rocm61.whl
+=== wget torchvision ===
+  2300K .......... .......... .......... .......... .......... 97% 12.1M 0s
+  2350K .......... .......... .......... .......... .......... 99% 9.28M 0s
+  2400K .......... ..........                                 100% 13.2M=0.3s-rw-rw-r-- 1 user user 2.4M Jan 29  2025 torchvision-rocm61.whl
+=== install local wheels ===
+ERROR: Invalid wheel filename (wrong number of parts): 'torch-rocm61'
+=== sentence-transformers ===
+ERROR: THESE PACKAGES DO NOT MATCH THE HASHES FROM THE REQUIREMENTS FILE. If you have updated the package versions, please update the hashes. Otherwise, examine the package contents carefully; someone may have tampered with them.
+    unknown package:
+        Expected sha256 e4553a30f34195f3fa1da02a6da3d6337d28f2003943aa0a3d247bbc25fefc42
+             Got        b6b018fe3701c3fcb1e7089dd8ed91d4741152a889719eff05873cd61813395e
+
+=== smoke ===
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+ModuleNotFoundError: No module named 'torch'

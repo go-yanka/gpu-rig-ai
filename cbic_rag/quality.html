@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1024" />
+<title>CBIC RAG - Query Quality</title>
+<style>
+  :root {
+    --accent: #1a4d2e;
+    --accent-soft: #e7efe9;
+    --amber: #b7791f;
+    --amber-soft: #fdf6e3;
+    --green: #2f855a;
+    --green-soft: #e6f4ea;
+    --red: #b23b3b;
+    --border: #d9dde0;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --bg: #ffffff;
+    --panel: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--accent); margin: 0; }
+  a { color: var(--accent); }
+  header.top {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg);
+  }
+  header.top h1 { font-size: 22px; }
+  header.top .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  header.top .right a { margin-left: 16px; text-decoration: none; color: var(--accent); font-weight: 600; }
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 22px 28px 64px; }
+
+  .stat-grid {
+    display: grid; gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    margin-bottom: 24px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+  .card .val { font-size: 22px; font-weight: 600; color: var(--accent); margin-top: 4px; }
+  .card .hint { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  .section-title { display: flex; align-items: baseline; gap: 14px; margin: 14px 0 10px; }
+  .section-title h2 { font-size: 17px; }
+  .section-title .sub { color: var(--muted); font-size: 12px; }
+
+  table.queries { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.queries th, table.queries td {
+    border-bottom: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top;
+  }
+  table.queries th { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  table.queries tr:hover td { background: #f3f6f4; cursor: pointer; }
+  .pill {
+    display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; border: 1px solid;
+  }
+  .pill.good    { background: var(--green-soft); color: var(--green); border-color: var(--green); }
+  .pill.warn    { background: var(--amber-soft); color: var(--amber); border-color: var(--amber); }
+  .pill.bad     { background: #fdecec; color: var(--red); border-color: var(--red); }
+  .pill.neutral { background: var(--panel); color: var(--muted); border-color: var(--border); }
+  .stars { color: var(--amber); letter-spacing: 2px; }
+
+  /* modal */
+  .modal-bg {
+    position: fixed; inset: 0; background: rgba(0,0,0,.45); display: none;
+    align-items: center; justify-content: center; z-index: 50;
+  }
+  .modal-bg.open { display: flex; }
+  .modal {
+    background: #fff; width: min(940px, 94vw); max-height: 88vh; overflow: auto;
+    border: 1px solid var(--border); border-radius: 10px; padding: 22px 26px;
+  }
+  .modal h3 { font-size: 18px; margin-bottom: 6px; }
+  .modal .meta { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  .modal pre {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+    padding: 12px; white-space: pre-wrap; word-break: break-word;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px;
+  }
+  .modal .cit-list { margin: 8px 0 0 0; padding: 0; list-style: none; }
+  .modal .cit-list li {
+    border-bottom: 1px dashed var(--border); padding: 6px 0; font-size: 12.5px;
+  }
+  .modal .close {
+    float: right; cursor: pointer; border: none; background: transparent;
+    color: var(--muted); font-size: 22px; line-height: 1;
+  }
+  .rate-row { margin-top: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .rate-row button {
+    border: 1px solid var(--border); background: #fff; color: var(--text);
+    padding: 4px 10px; border-radius: 18px; cursor: pointer; font-size: 13px;
+  }
+  .rate-row button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .rate-row input[type=text] {
+    flex: 1; min-width: 220px; padding: 6px 10px;
+    border: 1px solid var(--border); border-radius: 6px; font-size: 13px;
+  }
+  .rate-row .save {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    padding: 6px 14px; border-radius: 6px;
+  }
+  .muted { color: var(--muted); }
+  .cat-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+  .cat-chip {
+    background: var(--accent-soft); color: var(--accent);
+    padding: 2px 10px; border-radius: 10px; font-size: 11.5px;
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>CBIC RAG - Query Quality</h1>
+    <div class="sub">Per-query timings, verification counts, user ratings. Click a row for full detail.</div>
+  </div>
+  <div class="right">
+    <a href="/ui/">Main UI</a>
+    <a href="#" id="refresh-btn">Refresh</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stat-grid" id="stat-grid">
+    <div class="card"><div class="label">Total queries</div><div class="val" id="s-total">-</div></div>
+    <div class="card"><div class="label">Avg latency</div><div class="val" id="s-ms">-</div><div class="hint">ms total</div></div>
+    <div class="card"><div class="label">Avg verified quotes</div><div class="val" id="s-ver">-</div><div class="hint">per query</div></div>
+    <div class="card"><div class="label">Avg suspicious</div><div class="val" id="s-sus">-</div><div class="hint">per query</div></div>
+    <div class="card"><div class="label">% good (&gt;=4 stars)</div><div class="val" id="s-good">-</div><div class="hint"><span id="s-good-hint">of rated</span></div></div>
+    <div class="card"><div class="label">Corpus points</div><div class="val" id="s-pts">-</div><div class="hint" id="s-docs">-</div></div>
+  </div>
+
+  <div class="section-title">
+    <h2>Corpus by category</h2>
+    <span class="sub" id="cat-sub">sampled up to 5000 points</span>
+  </div>
+  <div class="cat-row" id="cat-row"></div>
+
+  <div class="section-title" style="margin-top: 28px;">
+    <h2>Last 50 queries</h2>
+    <span class="sub" id="q-sub">click any row for the full answer + rating</span>
+  </div>
+  <table class="queries" id="q-table">
+    <thead><tr>
+      <th>#</th><th>When (UTC)</th><th>Question</th><th>Cat</th>
+      <th>Total ms</th><th>Retr</th><th>Rerank</th><th>LLM</th>
+      <th>Verified</th><th>Suspic.</th><th>Rating</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal">
+    <button class="close" title="close" onclick="closeModal()">&times;</button>
+    <h3 id="m-q">-</h3>
+    <div class="meta" id="m-meta">-</div>
+    <h4>Answer</h4>
+    <pre id="m-answer">-</pre>
+    <h4>Citations</h4>
+    <ul class="cit-list" id="m-cits"></ul>
+    <h4>Rate this answer</h4>
+    <div class="rate-row" id="rate-row">
+      <button data-v="1">1</button>
+      <button data-v="2">2</button>
+      <button data-v="3">3</button>
+      <button data-v="4">4</button>
+      <button data-v="5">5</button>
+      <input type="text" id="rate-fb" placeholder="optional feedback" />
+      <button class="save" onclick="submitRating()">Save rating</button>
+      <span id="rate-status" class="muted"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = ''; // same origin
+let currentId = null;
+let currentRating = null;
+
+function pill(text, cls) { return '<span class="pill ' + cls + '">' + text + '</span>'; }
+function fmtMs(v) { return (v == null) ? '-' : (Math.round(v*10)/10) + ''; }
+function stars(n) {
+  if (!n) return '<span class="muted">unrated</span>';
+  return '<span class="stars">' + '*'.repeat(n) + '</span>';
+}
+function esc(s) { return String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+async function loadAll() {
+  document.getElementById('q-sub').textContent = 'loading...';
+  try {
+    const [stats, recent] = await Promise.all([
+      fetch(API + '/v1/stats').then(r => r.json()),
+      fetch(API + '/v1/queries/recent?n=50').then(r => r.json()),
+    ]);
+    renderStats(stats);
+    renderQueries(recent.items || []);
+    document.getElementById('q-sub').textContent = 'click any row for the full answer + rating';
+  } catch (e) {
+    document.getElementById('q-sub').textContent = 'error: ' + e;
+  }
+}
+
+function renderStats(s) {
+  const q = s.queries || {};
+  document.getElementById('s-total').textContent = q.total || 0;
+  document.getElementById('s-ms').textContent    = fmtMs(q.avg_total_ms);
+  document.getElementById('s-ver').textContent   = (q.avg_verified_per_query || 0);
+  document.getElementById('s-sus').textContent   = (q.avg_suspicious_per_query || 0);
+  document.getElementById('s-good').textContent  = (q.pct_good_of_rated || 0) + '%';
+  document.getElementById('s-good-hint').textContent = 'of ' + (q.rated_count || 0) + ' rated';
+  const c = s.collection || {};
+  document.getElementById('s-pts').textContent   = c.points || 0;
+  document.getElementById('s-docs').textContent  = (c.docs || 0) + ' docs sampled';
+  const catRow = document.getElementById('cat-row');
+  catRow.innerHTML = '';
+  const bc = c.by_category || {};
+  const entries = Object.entries(bc).sort((a,b) => b[1]-a[1]);
+  for (const [k,v] of entries) {
+    const chip = document.createElement('span');
+    chip.className = 'cat-chip';
+    chip.textContent = k + ': ' + v;
+    catRow.appendChild(chip);
+  }
+  if (!entries.length) {
+    catRow.innerHTML = '<span class="muted">(none)</span>';
+  }
+  document.getElementById('cat-sub').textContent =
+    'sampled up to ' + (c.sample_limit || 0) + ' points (cached 5 min)';
+}
+
+function renderQueries(items) {
+  const tbody = document.querySelector('#q-table tbody');
+  tbody.innerHTML = '';
+  for (const r of items) {
+    const tr = document.createElement('tr');
+    tr.onclick = () => openModal(r.id);
+    const verCls = (r.verified_count || 0) >= 2 ? 'good'
+                 : (r.verified_count || 0) >= 1 ? 'warn' : 'bad';
+    const susCls = (r.suspicious_count || 0) > 0 ? 'warn' : 'neutral';
+    tr.innerHTML =
+      '<td>' + r.id + '</td>' +
+      '<td>' + esc((r.ts || '').replace('T',' ').replace('+00:00','Z')) + '</td>' +
+      '<td>' + esc((r.question || '').slice(0, 160)) + '</td>' +
+      '<td>' + esc(r.router_category || '-') + '</td>' +
+      '<td>' + fmtMs(r.t_total_ms) + '</td>' +
+      '<td>' + fmtMs(r.t_retrieve_ms) + '</td>' +
+      '<td>' + fmtMs(r.t_rerank_ms) + '</td>' +
+      '<td>' + fmtMs(r.t_llm_ms) + '</td>' +
+      '<td>' + pill(r.verified_count || 0, verCls) + '</td>' +
+      '<td>' + pill(r.suspicious_count || 0, susCls) + '</td>' +
+      '<td>' + stars(r.user_rating) + '</td>';
+    tbody.appendChild(tr);
+  }
+  if (!items.length) {
+    tbody.innerHTML = '<tr><td colspan="11" class="muted">No queries logged yet. Make one via /query.</td></tr>';
+  }
+}
+
+async function openModal(id) {
+  currentId = id;
+  currentRating = null;
+  document.getElementById('rate-status').textContent = '';
+  document.getElementById('rate-fb').value = '';
+  document.querySelectorAll('#rate-row button[data-v]').forEach(b => b.classList.remove('active'));
+  document.getElementById('m-q').textContent = 'Loading...';
+  document.getElementById('m-answer').textContent = '';
+  document.getElementById('m-cits').innerHTML = '';
+  document.getElementById('m-meta').textContent = '';
+  document.getElementById('modal-bg').classList.add('open');
+  try {
+    const r = await fetch(API + '/v1/queries/' + id).then(r => r.json());
+    const it = r.item || {};
+    document.getElementById('m-q').textContent = it.question || '(no question)';
+    document.getElementById('m-meta').textContent =
+      '#' + it.id + ' | ' + (it.ts || '') + ' | cat=' + (it.router_category || '-') +
+      ' | total=' + fmtMs(it.t_total_ms) + 'ms (router=' + fmtMs(it.t_router_ms) +
+      ', hyde=' + fmtMs(it.t_hyde_ms) + ', retrieve=' + fmtMs(it.t_retrieve_ms) +
+      ', rerank=' + fmtMs(it.t_rerank_ms) + ', llm=' + fmtMs(it.t_llm_ms) + ')' +
+      ' | verified=' + (it.verified_count || 0) + ' suspicious=' + (it.suspicious_count || 0);
+    document.getElementById('m-answer').textContent = it.answer_markdown || '(empty)';
+    const ul = document.getElementById('m-cits');
+    ul.innerHTML = '';
+    for (const c of (it.citations || [])) {
+      const li = document.createElement('li');
+      li.innerHTML = '<b>[S' + (c.index || '?') + ']</b> ' + esc(c.title || '') +
+        ' <span class="muted">- ' + esc(c.subcategory || c.category || '') +
+        ' p.' + esc(c.page) + ' (score=' + (c.score != null ? c.score.toFixed(3) : '-') + ')</span>';
+      ul.appendChild(li);
+    }
+    if (it.user_rating) {
+      currentRating = it.user_rating;
+      const btn = document.querySelector('#rate-row button[data-v="' + it.user_rating + '"]');
+      if (btn) btn.classList.add('active');
+      if (it.user_feedback) document.getElementById('rate-fb').value = it.user_feedback;
+    }
+  } catch (e) {
+    document.getElementById('m-q').textContent = 'Error loading: ' + e;
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal-bg').classList.remove('open');
+}
+
+document.getElementById('modal-bg').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-bg') closeModal();
+});
+
+document.querySelectorAll('#rate-row button[data-v]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#rate-row button[data-v]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentRating = parseInt(btn.dataset.v, 10);
+  });
+});
+
+async function submitRating() {
+  if (!currentId || !currentRating) {
+    document.getElementById('rate-status').textContent = 'pick a star count first';
+    return;
+  }
+  const fb = document.getElementById('rate-fb').value || '';
+  const st = document.getElementById('rate-status');
+  st.textContent = 'saving...';
+  try {
+    const r = await fetch(API + '/v1/queries/' + currentId + '/rate', {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify({rating: currentRating, feedback: fb}),
+    }).then(r => r.json());
+    if (r.ok) {
+      st.textContent = 'saved';
+      loadAll(); // refresh background table
+    } else {
+      st.textContent = 'error: ' + (r.detail || JSON.stringify(r));
+    }
+  } catch (e) {
+    st.textContent = 'error: ' + e;
+  }
+}
+
+document.getElementById('refresh-btn').addEventListener('click', (e) => {
+  e.preventDefault(); loadAll();
+});
+
+loadAll();
+setInterval(loadAll, 30000);
+</script>
+</body>
+</html>

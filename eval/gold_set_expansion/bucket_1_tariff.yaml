@@ -1,0 +1,300 @@
+- id: gst_rate_001
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: "What is the GST rate for computers under HSN 8471 for supply within India?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule III"]
+  expected_conclusion_keywords: ["18%", "HSN 8471", "computer"]
+  must_not_say: ["12%", "28%", "exempt"]
+  must_cite_verbatim: true
+  notes: "HSN 8471 falls under Schedule III of Notification 01/2017-CT(R) — 18% (9% CGST + 9% SGST intra-state)."
+- id: gst_rate_002
+  category: gst
+  subcategory: hsn
+  difficulty: basic
+  question: "What is the GST rate on fresh milk under HSN 0401?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule I"]
+  expected_conclusion_keywords: ["nil", "0%", "HSN 0401", "fresh milk"]
+  must_not_say: ["5%", "12%", "18%"]
+  must_cite_verbatim: true
+  notes: "Nil rated under Schedule I of 01/2017-CT(R)."
+- id: gst_rate_003
+  category: gst
+  subcategory: sac
+  difficulty: basic
+  question: "What SAC code covers restaurant services and what is the GST rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule III", "46/2017-CT(R)"]
+  expected_conclusion_keywords: ["SAC 9963", "5%", "restaurant"]
+  must_not_say: ["18%", "exempt"]
+  must_cite_verbatim: true
+  notes: "SAC 9963 — 5% without ITC for standalone restaurants."
+- id: gst_rate_004
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: "What is the basic customs duty on smartphones under HSN 8517 imported into India?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["20%", "HSN 8517", "smartphones"]
+  must_not_say: ["10%", "5%"]
+  must_cite_verbatim: true
+  notes: "20% BCD under Notification 50/2017-Cus for most mobile phones."
+- id: gst_rate_005
+  category: gst
+  subcategory: notif
+  difficulty: basic
+  question: "What did Notification 03/2022-CT(R) change regarding GST rates?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["03/2022-CT(R)"]
+  expected_conclusion_keywords: ["textiles", "5%", "12%"]
+  must_not_say: ["18%", "exempt"]
+  must_cite_verbatim: true
+  notes: "Revised GST rates on certain textile goods."
+- id: gst_rate_006
+  category: gst
+  subcategory: exempt
+  difficulty: basic
+  question: "Is fresh milk (HSN 0401) exempt under GST?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule I"]
+  expected_conclusion_keywords: ["nil", "exempt", "HSN 0401"]
+  must_not_say: ["5%", "12%"]
+  must_cite_verbatim: true
+  notes: "Nil rated (exempt from tax)."
+- id: gst_rate_007
+  category: gst
+  subcategory: cess
+  difficulty: basic
+  question: "Is compensation cess levied on cigarettes under HSN 2402?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-Compensation Cess"]
+  expected_conclusion_keywords: ["yes", "cess", "HSN 2402", "cigarettes"]
+  must_not_say: ["no", "exempt"]
+  must_cite_verbatim: true
+  notes: "Yes, cess is levied on tobacco products including cigarettes."
+- id: gst_rate_008
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: "What is the total customs duty on medical equipment imported under notification 50/2017-Cus?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["concessional", "IGST", "BCD"]
+  must_not_say: ["20%", "full rate"]
+  must_cite_verbatim: true
+  notes: "Concessional BCD + IGST rates for specified medical equipment."
+- id: gst_rate_009
+  category: gst
+  subcategory: inverted
+  difficulty: basic
+  question: "Is there an inverted duty structure for HSN 8415 air conditioners?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["inverted", "HSN 8415"]
+  must_not_say: ["no"]
+  must_cite_verbatim: true
+  notes: "Yes, inputs at 18% while output at 28% creates inverted structure."
+- id: gst_rate_010
+  category: gst
+  subcategory: ccy_supply
+  difficulty: basic
+  question: "A hotel supplies both room rent and restaurant service in one bill. How is GST applied?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["SAC 9963", "composite", "mixed"]
+  must_not_say: ["separate rates"]
+  must_cite_verbatim: true
+  notes: "Treated as mixed supply — highest rate applies."
+- id: gst_rate_011
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: "What is the IGST rate on import of HSN 8471 computers?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["18%", "IGST", "HSN 8471"]
+  must_not_say: ["28%", "12%"]
+  must_cite_verbatim: true
+  notes: "18% IGST on import."
+- id: gst_rate_012
+  category: gst
+  subcategory: hsn
+  difficulty: basic
+  question: "What GST rate applies to roasted cashew nuts under HSN 2008?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule III"]
+  expected_conclusion_keywords: ["18%", "HSN 2008", "roasted cashew"]
+  must_not_say: ["5%", "nil"]
+  must_cite_verbatim: true
+  notes: "18% under Schedule III."
+- id: gst_rate_013
+  category: gst
+  subcategory: notif
+  difficulty: intermediate
+  question: "A manufacturer of solar modules wants to know the GST rate change introduced by notification 03/2022-CT(R). What was the old rate and what is the new rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["03/2022-CT(R)"]
+  expected_conclusion_keywords: ["5%", "12%", "solar modules"]
+  must_not_say: ["18%"]
+  must_cite_verbatim: true
+  notes: "Reduced rate on solar power generating systems."
+- id: gst_rate_014
+  category: customs
+  subcategory: rate
+  difficulty: intermediate
+  question: "What is the combined BCD and IGST on smartphones (HSN 8517) imported from China, and is there any exemption available?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["20% BCD", "18% IGST"]
+  must_not_say: ["exempt"]
+  must_cite_verbatim: true
+  notes: "20% BCD + 18% IGST; limited exemptions apply."
+- id: gst_rate_015
+  category: gst
+  subcategory: inverted
+  difficulty: intermediate
+  question: "A company buys inputs at 18% GST and sells finished goods at 5% GST under inverted duty structure. What refund mechanism is available?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["inverted duty", "refund", "Rule 89"]
+  must_not_say: ["no refund"]
+  must_cite_verbatim: true
+  notes: "Refund under inverted duty structure via Rule 89."
+- id: gst_rate_016
+  category: gst
+  subcategory: exempt
+  difficulty: intermediate
+  question: "Is HSN 0401 fresh milk exempt, and what happens if it is processed into packaged milk?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R) Schedule I"]
+  expected_conclusion_keywords: ["nil", "processed milk"]
+  must_not_say: ["18%"]
+  must_cite_verbatim: true
+  notes: "Fresh milk nil; processed milk may attract GST."
+- id: gst_rate_017
+  category: gst
+  subcategory: cess
+  difficulty: intermediate
+  question: "A cigarette manufacturer (HSN 2402) wants to know if compensation cess applies and at what rate."
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-Compensation Cess"]
+  expected_conclusion_keywords: ["cess", "HSN 2402"]
+  must_not_say: ["no cess"]
+  must_cite_verbatim: true
+  notes: "Cess applies on cigarettes at varying rates."
+- id: gst_rate_018
+  category: customs
+  subcategory: rate
+  difficulty: intermediate
+  question: "What is the total duty on medical equipment (HSN 9018) imported under notification 50/2017-Cus, including IGST?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["concessional", "IGST"]
+  must_not_say: ["full rate"]
+  must_cite_verbatim: true
+  notes: "Concessional BCD + IGST."
+- id: gst_rate_019
+  category: gst
+  subcategory: ccy_supply
+  difficulty: intermediate
+  question: "A restaurant in a hotel with room tariff above ₹7500 supplies food. Can it charge different GST rates on the same bill?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["SAC 9963", "18%"]
+  must_not_say: ["5%"]
+  must_cite_verbatim: true
+  notes: "18% if hotel room tariff > ₹7500."
+- id: gst_rate_020
+  category: gst
+  subcategory: hsn
+  difficulty: intermediate
+  question: "Distinguish GST rate on raw cashew nuts (HSN 0801) vs roasted cashew nuts (HSN 2008)."
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["nil", "18%"]
+  must_not_say: ["same rate"]
+  must_cite_verbatim: true
+  notes: "Raw — nil; roasted — 18%."
+- id: gst_rate_021
+  category: gst
+  subcategory: notif
+  difficulty: intermediate
+  question: "An exporter of textiles under LUT wants to know the impact of notification 14/2019-CT(R) on input credit refund."
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["14/2019-CT(R)"]
+  expected_conclusion_keywords: ["refund", "textiles"]
+  must_not_say: ["no refund"]
+  must_cite_verbatim: true
+  notes: "Rate reduction affects refund calculation."
+- id: gst_rate_022
+  category: gst
+  subcategory: ccy_supply
+  difficulty: complex
+  question: "A manufacturer supplies both goods (HSN 8415 air conditioners at 28%) and installation services (SAC 9987 at 18%) under a single contract. How is GST applied, and what is the rate?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["mixed supply", "28%"]
+  must_not_say: ["separate rates"]
+  must_cite_verbatim: true
+  notes: "Treated as mixed supply — highest rate of 28%."
+- id: gst_rate_023
+  category: customs
+  subcategory: rate
+  difficulty: complex
+  question: "An importer brings HSN 8517 smartphones from Vietnam under notification 50/2017-Cus. What is the total duty, and is there any exemption for medical use components?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["50/2017-Cus"]
+  expected_conclusion_keywords: ["20% BCD", "18% IGST"]
+  must_not_say: ["exempt"]
+  must_cite_verbatim: true
+  notes: "20% BCD + 18% IGST; limited exemptions for specific components."
+- id: gst_rate_024
+  category: gst
+  subcategory: inverted
+  difficulty: complex
+  question: "A pharma company buys inputs at 18% GST and sells finished medicines at 5% GST. The company exports under LUT. Can it claim refund of the inverted duty difference, and under which rule?"
+  expected_sections: []
+  expected_rules: ["Rule 89"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["inverted duty", "refund", "Rule 89"]
+  must_not_say: ["no refund"]
+  must_cite_verbatim: true
+  notes: "Yes, refund under Rule 89 for inverted duty structure."
+- id: gst_rate_025
+  category: gst
+  subcategory: exempt
+  difficulty: complex
+  question: "A hotel with room tariff ₹8000 supplies food to guests and also sells packaged drinking water separately. What GST rate applies to each component, and is there any composite supply rule that overrides?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["01/2017-CT(R)"]
+  expected_conclusion_keywords: ["18%", "SAC 9963", "nil for water"]
+  must_not_say: ["5% on food"]
+  must_cite_verbatim: true
+  notes: "Room rent 18%, food 18% as mixed, water nil."

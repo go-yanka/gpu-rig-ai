@@ -1,0 +1,703 @@
+# CBIC RAG Gold Evaluation Set
+# 50 Q/A pairs across 5 categories. See README.md for schema.
+#
+# Difficulty: basic (single-concept lookup), intermediate (2-step reasoning),
+# complex (multi-part scenario, mirrors real user pain points like Quantum Tech).
+#
+# Scoring fields:
+#   expected_sections:   any-of-required — list of section refs that should appear
+#   expected_rules:      rule refs (optional)
+#   expected_notifications: notification refs (optional)
+#   expected_conclusion_keywords: keywords that MUST appear in answer (1pt each)
+#   must_not_say:        forbidden words/phrases (-1pt each if present)
+#   must_cite_verbatim:  if true, answer must have >=1 verified_quote
+#
+# Source: synthesized from CBIC practitioner training materials + real user
+# queries. (Rig api.log only logs HTTP-level access — no payloads — so we
+# couldn't extract literal past questions; instead mirror the scenarios the
+# user has consulted on: multi-leg place-of-supply, composite vs mixed,
+# ITC on capital goods, RCM on legal/GTA, refund of inverted-duty, etc.)
+
+version: 1
+created: 2026-04-21
+
+items:
+
+# ===========================================================================
+# GST — 20 items (sections 10-13 IGST, 15-17 CGST, 31-34 CGST, notifications)
+# ===========================================================================
+
+# --- Place of Supply (5) ---
+- id: gst_pos_001
+  category: gst
+  subcategory: place_of_supply
+  difficulty: basic
+  question: "A registered supplier in Maharashtra sells goods to a registered buyer in Karnataka. Goods are shipped directly from Maharashtra to Karnataka. What is the place of supply and which tax applies?"
+  expected_sections: ["10(1)(a) IGST", "Section 10 IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Karnataka", "IGST", "inter-state"]
+  must_not_say: ["CGST and SGST", "intra-state"]
+  must_cite_verbatim: true
+  notes: "Vanilla inter-state goods — baseline sanity check."
+
+- id: gst_pos_002
+  category: gst
+  subcategory: place_of_supply
+  difficulty: intermediate
+  question: "A buyer in Delhi instructs a Mumbai supplier to deliver goods directly to the buyer's customer in Chennai (bill-to-ship-to). What is the place of supply for each leg?"
+  expected_sections: ["10(1)(b) IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Delhi", "bill-to", "third person", "IGST"]
+  must_not_say: ["Chennai is place of supply"]
+  must_cite_verbatim: true
+  notes: "Classic 10(1)(b) — POS is principal place of business of the third person who gave the direction."
+
+- id: gst_pos_003
+  category: gst
+  subcategory: place_of_supply
+  difficulty: basic
+  question: "Services of a chartered accountant in Pune are rendered to a registered client in Gujarat. What is the place of supply?"
+  expected_sections: ["12(2) IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Gujarat", "location of recipient", "IGST"]
+  must_not_say: ["Pune is place of supply"]
+  must_cite_verbatim: true
+  notes: "12(2)(a) default: B2B services = location of recipient."
+
+- id: gst_pos_004
+  category: gst
+  subcategory: place_of_supply
+  difficulty: intermediate
+  question: "An event-management company organizes a conference in Bengaluru for a client registered in Delhi. Where is the place of supply?"
+  expected_sections: ["12(7) IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Delhi", "registered", "12(7)"]
+  must_not_say: ["Bengaluru", "Karnataka"]
+  must_cite_verbatim: true
+  notes: "12(7)(a)(i) — registered recipient: POS = recipient; if unregistered, POS = event location."
+
+- id: gst_pos_005
+  category: gst
+  subcategory: place_of_supply
+  difficulty: complex
+  question: "Quantum Tech Pvt Ltd (Karnataka GSTIN) receives a purchase order from a UK buyer. The UK buyer asks Quantum Tech to deliver the goods directly to a Mumbai-based third party (the UK buyer's Indian agent). Quantum Tech raises the invoice on the UK buyer in USD and receives an advance of USD 50,000. Determine: (a) place of supply for the goods, (b) whether this is export of goods, (c) tax treatment of the advance."
+  expected_sections: ["10(1)(b) IGST", "2(5) IGST", "13(8) CGST", "Section 7 IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Mumbai", "bill-to-ship-to", "not export", "IGST", "advance"]
+  must_not_say: ["export of goods", "zero-rated"]
+  must_cite_verbatim: true
+  notes: "Multi-part pain point. Goods delivered in India => NOT export (export requires goods taken OUT of India). POS under 10(1)(b) is where UK buyer directed (Mumbai). Advance on goods — per Notif 66/2017-CT, no GST on advance for goods."
+
+# --- Composite / Mixed Supply (2) ---
+- id: gst_cs_001
+  category: gst
+  subcategory: composite_mixed_supply
+  difficulty: intermediate
+  question: "A hotel provides a package of room + breakfast + airport transfer for a single price. How is this taxed — as composite supply or mixed supply?"
+  expected_sections: ["2(30) CGST", "8(a) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["composite", "principal supply", "accommodation", "naturally bundled"]
+  must_not_say: ["mixed supply"]
+  must_cite_verbatim: true
+  notes: "Naturally bundled; accommodation is principal — tax at accommodation rate."
+
+- id: gst_cs_002
+  category: gst
+  subcategory: composite_mixed_supply
+  difficulty: basic
+  question: "A gift hamper contains chocolates, a fruit juice bottle, and a toy, sold at one price for Diwali. Composite or mixed supply?"
+  expected_sections: ["2(74) CGST", "8(b) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["mixed supply", "highest rate"]
+  must_not_say: ["composite"]
+  must_cite_verbatim: true
+  notes: "Not naturally bundled => mixed supply => highest rate of the components applies."
+
+# --- ITC (4) ---
+- id: gst_itc_001
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: basic
+  question: "Can a registered taxpayer claim ITC on GST paid for the purchase of a motor car (seating capacity 5) used for business?"
+  expected_sections: ["17(5)(a) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["blocked", "17(5)", "not eligible"]
+  must_not_say: ["fully eligible", "available"]
+  must_cite_verbatim: true
+  notes: "17(5)(a) blocks ITC on motor vehicles <=13 seats unless further supply, passenger transport, training, or transport of goods."
+
+- id: gst_itc_002
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: intermediate
+  question: "A manufacturer buys capital goods in April 2024 and claims full ITC. In March 2026 the capital goods are sold as scrap. What is the reversal liability?"
+  expected_sections: ["18(6) CGST"]
+  expected_rules: ["Rule 40(2)", "Rule 44(6)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["reversal", "5%", "per quarter", "useful life", "tax on transaction value"]
+  must_not_say: ["no reversal"]
+  must_cite_verbatim: true
+  notes: "18(6) + Rule 40(2)/44(6): pay higher of (ITC reduced by 5% per quarter from date of invoice) or tax on transaction value."
+
+- id: gst_itc_003
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: intermediate
+  question: "The supplier has not uploaded the invoice in GSTR-1 but the recipient has the tax invoice in hand. Can the recipient claim ITC?"
+  expected_sections: ["16(2)(aa) CGST", "16(2) CGST"]
+  expected_rules: ["Rule 36(4)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["GSTR-2B", "not available", "cannot claim", "16(2)(aa)"]
+  must_not_say: ["can claim", "eligible"]
+  must_cite_verbatim: true
+  notes: "Post-2022 amendment: ITC only if invoice appears in GSTR-2B (16(2)(aa))."
+
+- id: gst_itc_004
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: basic
+  question: "Is ITC available on GST paid for office renovation of a rented building (capitalized in books)?"
+  expected_sections: ["17(5)(d) CGST", "17(5)(c) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["blocked", "immovable property", "17(5)(d)", "not available"]
+  must_not_say: ["fully available"]
+  must_cite_verbatim: true
+  notes: "17(5)(c)/(d) — works contract/construction of immovable property on own account, blocked if capitalized."
+
+# --- Time of Supply / Advances (2) ---
+- id: gst_tos_001
+  category: gst
+  subcategory: advances_timing
+  difficulty: basic
+  question: "A supplier of goods receives an advance of Rs 5 lakhs on 10 April 2025 against a future supply. Is GST payable on the advance?"
+  expected_sections: ["12(2) CGST"]
+  expected_rules: []
+  expected_notifications: ["66/2017-Central Tax"]
+  expected_conclusion_keywords: ["no GST", "advance", "goods", "66/2017"]
+  must_not_say: ["GST payable on advance"]
+  must_cite_verbatim: true
+  notes: "Notif 66/2017-CT removed advance-on-goods from tax; only for goods, not services."
+
+- id: gst_tos_002
+  category: gst
+  subcategory: advances_timing
+  difficulty: basic
+  question: "What is the time of supply when an advance is received for a service?"
+  expected_sections: ["13(2) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["earlier", "date of invoice", "date of receipt", "advance"]
+  must_not_say: ["no GST on advance"]
+  must_cite_verbatim: true
+  notes: "13(2) services: ToS = earlier of invoice or receipt of payment."
+
+# --- Invoice / Credit Note (2) ---
+- id: gst_inv_001
+  category: gst
+  subcategory: invoice_credit_note
+  difficulty: basic
+  question: "What is the time limit for issuing a tax invoice in case of supply of services?"
+  expected_sections: ["31(2) CGST"]
+  expected_rules: ["Rule 47"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["30 days", "services", "Rule 47"]
+  must_not_say: ["45 days"]
+  must_cite_verbatim: true
+  notes: "Rule 47 — 30 days from supply (45 days for banks/NBFC/insurers)."
+
+- id: gst_inv_002
+  category: gst
+  subcategory: invoice_credit_note
+  difficulty: intermediate
+  question: "By what date can a credit note be issued for a supply made in FY 2024-25, and when must it be declared in returns?"
+  expected_sections: ["34(2) CGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["30 November", "2025", "annual return", "earlier"]
+  must_not_say: ["no time limit", "31 March"]
+  must_cite_verbatim: true
+  notes: "34(2) — earlier of 30-Nov of following FY or date of filing annual return."
+
+# --- Reverse Charge (2) ---
+- id: gst_rcm_001
+  category: gst
+  subcategory: reverse_charge
+  difficulty: basic
+  question: "A registered company pays a sole-proprietor advocate for legal services. Who is liable to pay GST?"
+  expected_sections: ["9(3) CGST"]
+  expected_rules: []
+  expected_notifications: ["13/2017-Central Tax (Rate)"]
+  expected_conclusion_keywords: ["reverse charge", "recipient", "RCM", "company"]
+  must_not_say: ["advocate pays", "forward charge"]
+  must_cite_verbatim: true
+  notes: "Notif 13/2017-CTR — legal services by advocate to business entity => RCM."
+
+- id: gst_rcm_002
+  category: gst
+  subcategory: reverse_charge
+  difficulty: intermediate
+  question: "A GTA provides transport services to a registered manufacturer and charges 5% GST on forward-charge basis having filed Annexure V. Is RCM applicable to the recipient?"
+  expected_sections: ["9(3) CGST"]
+  expected_rules: []
+  expected_notifications: ["13/2017-Central Tax (Rate)", "11/2017-Central Tax (Rate)"]
+  expected_conclusion_keywords: ["no RCM", "forward charge", "Annexure V", "GTA option"]
+  must_not_say: ["RCM applies", "recipient pays"]
+  must_cite_verbatim: true
+  notes: "GTA that opts for FCM by filing Annexure V — RCM does NOT apply."
+
+# --- Refund (1) ---
+- id: gst_ref_001
+  category: gst
+  subcategory: refund
+  difficulty: intermediate
+  question: "A manufacturer has accumulated ITC because its output tax rate (5%) is lower than input tax rates (18%). Can it claim a refund, and under what provision?"
+  expected_sections: ["54(3)(ii) CGST"]
+  expected_rules: ["Rule 89(5)"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["inverted duty structure", "refund", "54(3)", "accumulated ITC"]
+  must_not_say: ["no refund", "not eligible"]
+  must_cite_verbatim: true
+  notes: "Inverted duty refund per 54(3)(ii); Rule 89(5) formula for max refund."
+
+# --- E-way bill (1) ---
+- id: gst_ewb_001
+  category: gst
+  subcategory: e_way_bill
+  difficulty: basic
+  question: "What is the threshold value above which an e-way bill is mandatory for inter-state movement of goods?"
+  expected_sections: ["68 CGST"]
+  expected_rules: ["Rule 138"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["50,000", "consignment value", "Rule 138", "inter-state"]
+  must_not_say: ["1 lakh"]
+  must_cite_verbatim: true
+  notes: "Rule 138 — Rs 50,000 consignment value."
+
+# --- Export / Zero-rated (1) ---
+- id: gst_exp_001
+  category: gst
+  subcategory: zero_rated
+  difficulty: intermediate
+  question: "An exporter of goods files a LUT. Is IGST payable at the time of export, and can the exporter claim refund of unutilized ITC?"
+  expected_sections: ["16 IGST", "54(3) CGST"]
+  expected_rules: ["Rule 96A"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["LUT", "without payment", "refund of ITC", "zero-rated"]
+  must_not_say: ["IGST must be paid", "no refund"]
+  must_cite_verbatim: true
+  notes: "Sec 16 IGST — export with LUT, no tax paid, refund of accumulated ITC."
+
+# ===========================================================================
+# Customs — 10 items
+# ===========================================================================
+
+- id: cus_val_001
+  category: customs
+  subcategory: valuation
+  difficulty: basic
+  question: "What is the primary method of valuation for imported goods under the Customs Act?"
+  expected_sections: ["14 Customs Act"]
+  expected_rules: ["Rule 3 CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["transaction value", "Section 14", "CVR 2007"]
+  must_not_say: ["tariff value is primary"]
+  must_cite_verbatim: true
+  notes: "Sec 14 + Rule 3 of Customs Valuation Rules 2007 — transaction value primary."
+
+- id: cus_val_002
+  category: customs
+  subcategory: valuation
+  difficulty: intermediate
+  question: "An Indian importer buys from a foreign parent company (related party). What valuation scrutiny applies?"
+  expected_sections: ["14 Customs Act"]
+  expected_rules: ["Rule 3(3) CVR 2007", "Rule 2(2) CVR 2007"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["related party", "SVB", "Special Valuation Branch", "circumstances of sale", "influence price"]
+  must_not_say: ["no scrutiny"]
+  must_cite_verbatim: true
+  notes: "Related-party imports go to SVB; acceptance if price not influenced per Rule 3(3)."
+
+- id: cus_cls_001
+  category: customs
+  subcategory: classification
+  difficulty: basic
+  question: "What is the basis for classification of imported goods under the Customs Tariff?"
+  expected_sections: ["Section XV GIR", "Customs Tariff Act 1975"]
+  expected_rules: ["General Rules of Interpretation"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["Harmonized System", "HSN", "General Rules of Interpretation", "GIR"]
+  must_not_say: ["SAC"]
+  must_cite_verbatim: true
+  notes: "HSN via CTA 1975 + GIR 1-6."
+
+- id: cus_wh_001
+  category: customs
+  subcategory: warehousing
+  difficulty: intermediate
+  question: "Imported capital goods are warehoused under Section 59. What is the maximum period they can remain warehoused without interest?"
+  expected_sections: ["61 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["capital goods", "till clearance", "EOU", "no interest", "Section 61"]
+  must_not_say: ["90 days"]
+  must_cite_verbatim: true
+  notes: "Sec 61: capital goods for EOU/SEZ etc — till clearance, no interest."
+
+- id: cus_db_001
+  category: customs
+  subcategory: drawback
+  difficulty: basic
+  question: "What is duty drawback under Section 74 of the Customs Act?"
+  expected_sections: ["74 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["re-export", "duty paid", "drawback", "identity"]
+  must_not_say: ["only for manufactured goods"]
+  must_cite_verbatim: true
+  notes: "Sec 74 — re-export of duty-paid goods in identifiable form => drawback up to 98%."
+
+- id: cus_db_002
+  category: customs
+  subcategory: drawback
+  difficulty: intermediate
+  question: "Goods imported and duty paid on 1 March 2024 are re-exported on 1 March 2026 without use. What percentage of drawback is allowed?"
+  expected_sections: ["74 Customs Act"]
+  expected_rules: ["Re-export of Imported Goods (Drawback) Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["24 months", "time limit", "not eligible"]
+  must_not_say: ["98%", "fully eligible"]
+  must_cite_verbatim: true
+  notes: "Sec 74 time limit = 2 years from date of payment of duty (extendable to 3)."
+
+- id: cus_svb_001
+  category: customs
+  subcategory: svb
+  difficulty: intermediate
+  question: "What is the role of the Special Valuation Branch (SVB) in customs?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["Circular 5/2016-Customs"]
+  expected_conclusion_keywords: ["related party", "transfer pricing", "valuation", "SVB", "investigation"]
+  must_not_say: []
+  must_cite_verbatim: false
+  notes: "Circular 5/2016 reorganized SVB procedures."
+
+- id: cus_ar_001
+  category: customs
+  subcategory: advance_ruling
+  difficulty: basic
+  question: "Who can seek an advance ruling under the Customs Act and on what matters?"
+  expected_sections: ["28H Customs Act", "28E Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["classification", "valuation", "applicability of notification", "CAAR", "advance ruling"]
+  must_not_say: ["only importers", "only exporters"]
+  must_cite_verbatim: true
+  notes: "Sec 28H — any person holding IEC or proposing to import/export; CAAR Delhi/Mumbai."
+
+- id: cus_cls_002
+  category: customs
+  subcategory: classification
+  difficulty: complex
+  question: "A composite machine imports a set containing: (a) a CNC lathe, (b) a robotic arm loader, (c) a tool-pre-setter, and (d) a set of wear consumables, invoiced separately but shipped together for the buyer's production line. How should these be classified — individually, or as one functional unit under Note 4 to Section XVI?"
+  expected_sections: ["Section XVI Note 4", "GIR 1", "GIR 3"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["functional unit", "Section XVI Note 4", "principal function", "consumables separately"]
+  must_not_say: ["always individually classified"]
+  must_cite_verbatim: true
+  notes: "Pain point: composite imports. Note 4 to Sec XVI allows functional-unit classification; wear consumables usually separate."
+
+- id: cus_ig_001
+  category: customs
+  subcategory: igst_import
+  difficulty: basic
+  question: "On import of goods into India, what are the components of customs duty levied?"
+  expected_sections: ["3 CTA", "12 Customs Act", "5(1) IGST"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Basic Customs Duty", "IGST", "Social Welfare Surcharge", "BCD"]
+  must_not_say: ["CGST and SGST on imports"]
+  must_cite_verbatim: true
+  notes: "BCD + SWS (10% on BCD) + IGST under Sec 3(7) CTA / Sec 5(1) IGST."
+
+# ===========================================================================
+# Central Excise — 8 items (legacy, pre-GST except on petroleum/tobacco)
+# ===========================================================================
+
+- id: exc_val_001
+  category: central_excise
+  subcategory: valuation
+  difficulty: basic
+  question: "What is transaction value under Section 4 of the Central Excise Act?"
+  expected_sections: ["4 Central Excise Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["transaction value", "price actually paid", "sole consideration", "place of removal"]
+  must_not_say: ["MRP is always used"]
+  must_cite_verbatim: true
+  notes: "Sec 4 — applies where price is sole consideration and buyer/seller not related."
+
+- id: exc_val_002
+  category: central_excise
+  subcategory: valuation
+  difficulty: intermediate
+  question: "For certain notified goods, valuation is based on MRP rather than transaction value. Which provision governs this?"
+  expected_sections: ["4A Central Excise Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["4A", "MRP", "retail sale price", "abatement"]
+  must_not_say: ["Section 4 applies"]
+  must_cite_verbatim: true
+  notes: "Sec 4A — MRP-based with notified abatement."
+
+- id: exc_cen_001
+  category: central_excise
+  subcategory: cenvat
+  difficulty: basic
+  question: "Under the erstwhile CENVAT Credit Rules 2004, was credit available on inputs used in manufacture of exempted final products?"
+  expected_sections: []
+  expected_rules: ["Rule 6 CCR 2004"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["Rule 6", "not available", "exempted", "reversal", "separate accounts"]
+  must_not_say: ["fully available"]
+  must_cite_verbatim: true
+  notes: "CCR 2004 Rule 6 — no credit for exempted; separate accounts or proportionate reversal."
+
+- id: exc_cen_002
+  category: central_excise
+  subcategory: cenvat
+  difficulty: intermediate
+  question: "A manufacturer paid CVD on imported inputs prior to July 2017. Was CENVAT credit of CVD available?"
+  expected_sections: []
+  expected_rules: ["Rule 3 CCR 2004"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["CVD", "CENVAT", "available", "Rule 3", "input"]
+  must_not_say: ["not available"]
+  must_cite_verbatim: true
+  notes: "CCR Rule 3(1)(vii) — CVD eligible as CENVAT."
+
+- id: exc_man_001
+  category: central_excise
+  subcategory: manufacture
+  difficulty: basic
+  question: "What is the definition of 'manufacture' under the Central Excise Act?"
+  expected_sections: ["2(f) Central Excise Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["2(f)", "incidental or ancillary", "new product", "name, character, use"]
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: "Sec 2(f) — includes any incidental/ancillary process + deemed manufacture per Schedule."
+
+- id: exc_man_002
+  category: central_excise
+  subcategory: manufacture
+  difficulty: intermediate
+  question: "Is mere labeling or re-labeling of goods covered under 'deemed manufacture'?"
+  expected_sections: ["2(f)(iii) Central Excise Act", "Third Schedule"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["deemed manufacture", "labeling", "Third Schedule", "specified goods"]
+  must_not_say: ["never deemed manufacture"]
+  must_cite_verbatim: true
+  notes: "Sec 2(f)(iii) — for goods specified in Third Schedule: packing, repacking, labeling, relabeling, MRP affixing = deemed manufacture."
+
+- id: exc_ssi_001
+  category: central_excise
+  subcategory: ssi_exemption
+  difficulty: basic
+  question: "Under the SSI exemption notification 8/2003-CE, what was the turnover-based threshold for full exemption?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["8/2003-CE"]
+  expected_conclusion_keywords: ["1.5 crore", "150 lakh", "SSI exemption", "clearances"]
+  must_not_say: ["20 lakh"]
+  must_cite_verbatim: true
+  notes: "Notif 8/2003-CE — exemption for first Rs 1.5 crore clearances in a FY."
+
+- id: exc_ssi_002
+  category: central_excise
+  subcategory: ssi_exemption
+  difficulty: complex
+  question: "An SSI unit used another's brand name. Could it still claim the SSI exemption under 8/2003-CE?"
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: ["8/2003-CE"]
+  expected_conclusion_keywords: ["brand name", "not eligible", "others' brand", "exception"]
+  must_not_say: ["fully eligible"]
+  must_cite_verbatim: true
+  notes: "Notif 8/2003-CE para 4 — goods bearing others' brand excluded from SSI exemption (exceptions for rural/specified categories)."
+
+# ===========================================================================
+# Service Tax — 6 items (legacy, pre-GST era)
+# ===========================================================================
+
+- id: st_val_001
+  category: service_tax
+  subcategory: valuation
+  difficulty: basic
+  question: "Under the Service Tax regime (Finance Act 1994), what was the valuation principle for taxable services?"
+  expected_sections: ["67 Finance Act 1994"]
+  expected_rules: ["Service Tax (Determination of Value) Rules 2006"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["gross amount charged", "Section 67", "pre-GST", "Finance Act 1994"]
+  must_not_say: ["still applicable post-GST"]
+  must_cite_verbatim: true
+  notes: "Pre-GST era — Sec 67 FA 1994, gross amount charged."
+
+- id: st_nl_001
+  category: service_tax
+  subcategory: negative_list
+  difficulty: basic
+  question: "Explain the 'negative list' regime under service tax introduced in 2012."
+  expected_sections: ["65B(44) Finance Act 1994", "66D Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["negative list", "Section 66D", "all services taxable except", "pre-GST", "2012"]
+  must_not_say: ["current GST regime"]
+  must_cite_verbatim: true
+  notes: "Post-July-2012: all services taxable unless in negative list (Sec 66D) or exempt."
+
+- id: st_exp_001
+  category: service_tax
+  subcategory: export_of_services
+  difficulty: complex
+  question: "Under the erstwhile Service Tax regime, what were the conditions for a service to qualify as 'export of services'?"
+  expected_sections: ["66B Finance Act 1994"]
+  expected_rules: ["Rule 6A Service Tax Rules 1994"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["Rule 6A", "provided from India", "received outside India", "convertible foreign exchange", "pre-GST"]
+  must_not_say: ["current provisions"]
+  must_cite_verbatim: true
+  notes: "Rule 6A STR 1994 — provider in taxable territory, recipient outside, POS outside, CFE receipt, etc."
+
+- id: st_pos_001
+  category: service_tax
+  subcategory: place_of_provision
+  difficulty: basic
+  question: "Under the Place of Provision of Services Rules 2012, what was the default rule for determining place of provision?"
+  expected_sections: []
+  expected_rules: ["Rule 3 POPS 2012"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["location of recipient", "Rule 3", "pre-GST"]
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: "POPS 2012 Rule 3 — default = location of recipient."
+
+- id: st_rcm_001
+  category: service_tax
+  subcategory: reverse_charge
+  difficulty: intermediate
+  question: "Under service tax, was reverse charge applicable to services received by a business from a goods transport agency?"
+  expected_sections: ["68(2) Finance Act 1994"]
+  expected_rules: []
+  expected_notifications: ["30/2012-ST"]
+  expected_conclusion_keywords: ["GTA", "reverse charge", "100%", "30/2012-ST", "pre-GST"]
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: "Notif 30/2012-ST — GTA services to specified persons = full RCM."
+
+- id: st_lev_001
+  category: service_tax
+  subcategory: levy
+  difficulty: basic
+  question: "When was service tax replaced by GST, and what happens to pending service tax liabilities?"
+  expected_sections: ["174 CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["1 July 2017", "GST", "Section 174", "saved", "pending proceedings"]
+  must_not_say: ["service tax still levied"]
+  must_cite_verbatim: true
+  notes: "Sec 174 CGST — repeal & saving; pending liabilities recoverable under old law."
+
+# ===========================================================================
+# Others (anti-profiteering, appeals, GAAR, classification, penalties) — 6 items
+# ===========================================================================
+
+- id: oth_ap_001
+  category: others
+  subcategory: anti_profiteering
+  difficulty: basic
+  question: "What is the anti-profiteering clause under GST and which body examines complaints now?"
+  expected_sections: ["171 CGST Act"]
+  expected_rules: ["Rule 122 CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["171", "benefit of rate reduction", "ITC benefit", "Competition Commission", "CCI"]
+  must_not_say: ["NAA still functions"]
+  must_cite_verbatim: true
+  notes: "Sec 171 — benefit of rate/ITC passed to consumer; post-2022 CCI handles it (NAA sunset)."
+
+- id: oth_ap_002
+  category: others
+  subcategory: appeals
+  difficulty: basic
+  question: "What is the time limit for filing an appeal to the First Appellate Authority under the CGST Act?"
+  expected_sections: ["107 CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["three months", "107", "First Appellate Authority", "condonation", "one month"]
+  must_not_say: ["six months"]
+  must_cite_verbatim: true
+  notes: "Sec 107 — 3 months from order + 1 month condonable."
+
+- id: oth_ap_003
+  category: others
+  subcategory: appeals
+  difficulty: intermediate
+  question: "What is the mandatory pre-deposit required to file an appeal with the Appellate Authority under GST?"
+  expected_sections: ["107(6) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["10%", "disputed tax", "pre-deposit", "107(6)", "maximum"]
+  must_not_say: ["25%", "full"]
+  must_cite_verbatim: true
+  notes: "Sec 107(6) — 10% of disputed tax (max Rs 25 cr under CGST after amendment)."
+
+- id: oth_gaar_001
+  category: others
+  subcategory: gaar
+  difficulty: basic
+  question: "Does GAAR (General Anti-Avoidance Rule) apply under GST law, or is it only under the Income Tax Act?"
+  expected_sections: ["Chapter X-A Income Tax Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Income Tax Act", "not GST", "95 to 102", "impermissible avoidance arrangement"]
+  must_not_say: ["GAAR under CGST"]
+  must_cite_verbatim: false
+  notes: "GAAR is under Chapter X-A of Income Tax Act (Sec 95-102), NOT GST. GST has its own anti-evasion provisions."
+
+- id: oth_pen_001
+  category: others
+  subcategory: penalties
+  difficulty: complex
+  question: "A taxpayer fails to furnish a tax invoice for a supply of Rs 10 lakh (tax Rs 1.8 lakh) and the officer finds this during an inspection. The taxpayer claims there was no intent to evade. Determine: (a) applicable penalty provision, (b) quantum, (c) whether Sec 73 or Sec 74 applies, (d) remedy to avoid penalty before SCN."
+  expected_sections: ["122(1) CGST Act", "73 CGST Act", "74 CGST Act", "73(5) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Section 73", "no fraud", "pay before SCN", "penalty 10% or Rs 10,000", "higher"]
+  must_not_say: ["Section 74 always applies"]
+  must_cite_verbatim: true
+  notes: "Pain-point multi-part: 122(1) general penalty; if no fraud => Sec 73, penalty = 10% of tax or Rs 10,000 whichever higher; payment before SCN under 73(5) = no penalty."
+
+- id: oth_cls_001
+  category: others
+  subcategory: hsn_classification
+  difficulty: intermediate
+  question: "A taxpayer is confused between two HSN codes for its product. What is the principle of classification under GST, and what remedy is available for binding clarity?"
+  expected_sections: ["Customs Tariff Act 1975"]
+  expected_rules: ["General Rules of Interpretation"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["GIR", "advance ruling", "AAR", "binding", "Section 95 CGST"]
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: "GST adopts HSN via CTA 1975 + GIR; Sec 95 CGST — advance ruling from AAR is binding on applicant & jurisdictional officer."

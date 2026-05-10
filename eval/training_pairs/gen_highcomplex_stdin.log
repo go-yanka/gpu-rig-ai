@@ -1,0 +1,69 @@
+[exclude] +536 from D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl
+[exclude] +35 from D:/_gpu_rig_ai/eval/training_pairs/pairs_claude_opus.jsonl
+[exclude] total 571 excluded chunk_ids
+[sample] collection has 108802 points
+[sample] 2004 cand (text \u2265600 chars), returning 200
+[queue] 200 chunks (model=opus, workers=2)
+[1/200] ok=1 skip=0 err=0  rate=0.05/s  eta=70.6m  pairs_so_far=2
+[2/200] ok=2 skip=0 err=0  rate=0.08/s  eta=40.4m  pairs_so_far=4
+[3/200] ok=3 skip=0 err=0  rate=0.06/s  eta=51.0m  pairs_so_far=6
+[5/200] ok=5 skip=0 err=0  rate=0.07/s  eta=46.7m  pairs_so_far=10
+[10/200] ok=10 skip=0 err=0  rate=0.07/s  eta=45.6m  pairs_so_far=20
+[20/200] ok=18 skip=2 err=0  rate=0.07/s  eta=40.2m  pairs_so_far=36
+[25/200] ok=23 skip=2 err=0  rate=0.07/s  eta=39.9m  pairs_so_far=46
+[30/200] ok=28 skip=2 err=0  rate=0.07/s  eta=39.1m  pairs_so_far=56
+[exclude] +536 from D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl
+[exclude] +35 from D:/_gpu_rig_ai/eval/training_pairs/pairs_claude_opus.jsonl
+[exclude] total 605 excluded chunk_ids
+[sample] collection has 108802 points
+[sample] 2084 cand (text \u2265600 chars), returning 200
+[queue] 200 chunks (model=opus, workers=4)
+[1/200] ok=1 skip=0 err=0  rate=0.04/s  eta=82.3m  pairs_so_far=2
+[2/200] ok=2 skip=0 err=0  rate=0.08/s  eta=43.6m  pairs_so_far=4
+[3/200] ok=3 skip=0 err=0  rate=0.11/s  eta=31.1m  pairs_so_far=6
+[exclude] +536 from D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl
+[exclude] +35 from D:/_gpu_rig_ai/eval/training_pairs/pairs_claude_opus.jsonl
+[exclude] total 609 excluded chunk_ids
+[sample] collection has 108802 points
+[sample] 2080 cand (text \u2265600 chars), returning 200
+[queue] 200 chunks (model=sonnet, workers=4)
+[2/200] ok=1 skip=1 err=0  rate=0.09/s  eta=34.8m  pairs_so_far=2
+[3/200] ok=2 skip=1 err=0  rate=0.12/s  eta=27.2m  pairs_so_far=4
+[5/200] ok=3 skip=2 err=0  rate=0.16/s  eta=20.7m  pairs_so_far=6
+[10/200] ok=8 skip=2 err=0  rate=0.17/s  eta=19.2m  pairs_so_far=16
+[15/200] ok=11 skip=4 err=0  rate=0.17/s  eta=18.1m  pairs_so_far=22
+[20/200] ok=16 skip=4 err=0  rate=0.17/s  eta=17.9m  pairs_so_far=32
+[25/200] ok=21 skip=4 err=0  rate=0.17/s  eta=17.2m  pairs_so_far=42
+[30/200] ok=26 skip=4 err=0  rate=0.17/s  eta=16.3m  pairs_so_far=52
+[40/200] ok=33 skip=7 err=0  rate=0.18/s  eta=15.0m  pairs_so_far=66
+[45/200] ok=38 skip=7 err=0  rate=0.17/s  eta=14.9m  pairs_so_far=76
+[50/200] ok=42 skip=8 err=0  rate=0.17/s  eta=14.4m  pairs_so_far=84
+[55/200] ok=47 skip=8 err=0  rate=0.17/s  eta=14.3m  pairs_so_far=94
+[60/200] ok=51 skip=9 err=0  rate=0.17/s  eta=13.6m  pairs_so_far=102
+[65/200] ok=54 skip=11 err=0  rate=0.18/s  eta=12.6m  pairs_so_far=108
+[70/200] ok=59 skip=11 err=0  rate=0.18/s  eta=12.1m  pairs_so_far=118
+[75/200] ok=63 skip=12 err=0  rate=0.18/s  eta=11.7m  pairs_so_far=126
+[80/200] ok=67 skip=13 err=0  rate=0.18/s  eta=11.4m  pairs_so_far=134
+[85/200] ok=71 skip=14 err=0  rate=0.18/s  eta=10.7m  pairs_so_far=142
+[90/200] ok=76 skip=14 err=0  rate=0.18/s  eta=10.3m  pairs_so_far=152
+[100/200] ok=85 skip=15 err=0  rate=0.18/s  eta=9.3m  pairs_so_far=170
+[105/200] ok=89 skip=16 err=0  rate=0.18/s  eta=8.8m  pairs_so_far=178
+[110/200] ok=92 skip=18 err=0  rate=0.18/s  eta=8.4m  pairs_so_far=184
+[115/200] ok=97 skip=18 err=0  rate=0.18/s  eta=8.0m  pairs_so_far=194
+[120/200] ok=102 skip=18 err=0  rate=0.18/s  eta=7.6m  pairs_so_far=204
+[130/200] ok=109 skip=21 err=0  rate=0.17/s  eta=6.7m  pairs_so_far=218
+[135/200] ok=114 skip=21 err=0  rate=0.17/s  eta=6.3m  pairs_so_far=228
+[140/200] ok=119 skip=21 err=0  rate=0.17/s  eta=5.7m  pairs_so_far=238
+[145/200] ok=123 skip=22 err=0  rate=0.17/s  eta=5.3m  pairs_so_far=246
+[150/200] ok=127 skip=23 err=0  rate=0.17/s  eta=4.8m  pairs_so_far=254
+[155/200] ok=132 skip=23 err=0  rate=0.17/s  eta=4.4m  pairs_so_far=264
+[160/200] ok=137 skip=23 err=0  rate=0.17/s  eta=3.9m  pairs_so_far=274
+[165/200] ok=142 skip=23 err=0  rate=0.17/s  eta=3.4m  pairs_so_far=284
+[170/200] ok=147 skip=23 err=0  rate=0.17/s  eta=2.9m  pairs_so_far=294
+[175/200] ok=152 skip=23 err=0  rate=0.17/s  eta=2.4m  pairs_so_far=304
+[180/200] ok=157 skip=23 err=0  rate=0.17/s  eta=1.9m  pairs_so_far=314
+[185/200] ok=162 skip=23 err=0  rate=0.17/s  eta=1.5m  pairs_so_far=324
+[195/200] ok=171 skip=24 err=0  rate=0.17/s  eta=0.5m  pairs_so_far=342
+[200/200] ok=175 skip=25 err=0  rate=0.17/s  eta=0.0m  pairs_so_far=350
+
+DONE: ok=175 skip=25 err=0  pairs=350  elapsed=1179s

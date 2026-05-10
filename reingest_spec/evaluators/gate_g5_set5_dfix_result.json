@@ -1,0 +1,169 @@
+{
+  "gate": "G5",
+  "collection": "cbic_v2_set5_dfix",
+  "n": 37,
+  "ok": 37,
+  "errors": 0,
+  "p50_s": 46.726,
+  "p95_s": 70.102,
+  "p99_s": 86.709,
+  "max_s": 86.709,
+  "min_s": 37.924,
+  "p95_threshold": 8.0,
+  "avg_cost_usd": 0.0,
+  "cost_threshold": 0.01,
+  "grounded": true,
+  "workers": 1,
+  "pass_gate": false,
+  "ts": 1777180971.7845821,
+  "per_item": [
+    {
+      "i": 0,
+      "latency_s": 43.089
+    },
+    {
+      "i": 1,
+      "latency_s": 44.968
+    },
+    {
+      "i": 2,
+      "latency_s": 50.149
+    },
+    {
+      "i": 3,
+      "latency_s": 48.909
+    },
+    {
+      "i": 4,
+      "latency_s": 54.014
+    },
+    {
+      "i": 5,
+      "latency_s": 47.693
+    },
+    {
+      "i": 6,
+      "latency_s": 44.758
+    },
+    {
+      "i": 7,
+      "latency_s": 38.51
+    },
+    {
+      "i": 8,
+      "latency_s": 46.044
+    },
+    {
+      "i": 9,
+      "latency_s": 45.517
+    },
+    {
+      "i": 10,
+      "latency_s": 38.893
+    },
+    {
+      "i": 11,
+      "latency_s": 45.913
+    },
+    {
+      "i": 12,
+      "latency_s": 45.362
+    },
+    {
+      "i": 13,
+      "latency_s": 51.493
+    },
+    {
+      "i": 14,
+      "latency_s": 46.695
+    },
+    {
+      "i": 15,
+      "latency_s": 40.362
+    },
+    {
+      "i": 16,
+      "latency_s": 42.118
+    },
+    {
+      "i": 17,
+      "latency_s": 47.963
+    },
+    {
+      "i": 18,
+      "latency_s": 45.617
+    },
+    {
+      "i": 19,
+      "latency_s": 50.521
+    },
+    {
+      "i": 20,
+      "latency_s": 44.96
+    },
+    {
+      "i": 21,
+      "latency_s": 50.629
+    },
+    {
+      "i": 22,
+      "latency_s": 53.233
+    },
+    {
+      "i": 23,
+      "latency_s": 86.709
+    },
+    {
+      "i": 24,
+      "latency_s": 48.505
+    },
+    {
+      "i": 25,
+      "latency_s": 37.924
+    },
+    {
+      "i": 26,
+      "latency_s": 65.257
+    },
+    {
+      "i": 27,
+      "latency_s": 68.257
+    },
+    {
+      "i": 28,
+      "latency_s": 47.026
+    },
+    {
+      "i": 29,
+      "latency_s": 59.754
+    },
+    {
+      "i": 30,
+      "latency_s": 45.966
+    },
+    {
+      "i": 31,
+      "latency_s": 43.717
+    },
+    {
+      "i": 32,
+      "latency_s": 46.726
+    },
+    {
+      "i": 33,
+      "latency_s": 57.731
+    },
+    {
+      "i": 34,
+      "latency_s": 56.372
+    },
+    {
+      "i": 35,
+      "latency_s": 52.892
+    },
+    {
+      "i": 36,
+      "latency_s": 42.563
+    }
+  ]
+}

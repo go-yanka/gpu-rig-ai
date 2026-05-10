@@ -1,0 +1,10 @@
+[Unit]
+Description=AI Rig - Post-Resume GPU Health Check + Auto-Reload
+After=suspend.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/ai-rig-resume.sh
+
+[Install]
+WantedBy=suspend.target

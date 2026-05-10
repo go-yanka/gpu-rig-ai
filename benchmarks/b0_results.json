@@ -1,0 +1,13 @@
+{
+  "pass": false,
+  "torch_version": "2.11.0+cu130",
+  "hip_version": null,
+  "cuda_available": false,
+  "device_count": 0,
+  "gpu_used": null,
+  "chunks_per_sec": null,
+  "errors": "PyTorch installed on rig is a CUDA/NVIDIA build (2.11.0+cu130). torch.version.hip is None, torch.cuda.is_available()=False, device_count=0. No ROCm-enabled PyTorch present. B0 fails decisively at step 1; B0b not attempted.",
+  "raw_log": "torch: 2.11.0+cu130\nhip: None\ncuda_avail: False\ndevice_count: 0",
+  "suggested_install": "pip3 install --pre torch torchvision --index-url https://download.pytorch.org/whl/rocm6.2  (verify rocm version against rig: rocminfo | head; current ROCm-torch wheels are multi-GB ~2-3GB each; needs user approval)",
+  "notes": "Rig rocminfo already confirmed gfx1010 (5x RX 5700 XT) + gfx1031 (1x RX 6700 XT). Vulkan baseline (9.6 ch/s on GPU 5) remains the working path until ROCm torch is explicitly installed."
+}

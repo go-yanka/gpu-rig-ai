@@ -1,0 +1,22 @@
+{
+  "torch": "2.6.0+rocm6.1",
+  "hip": "6.1.40091-a8dbc0c19",
+  "gpu": "AMD Radeon RX 6700 XT",
+  "trainable_params": 7110656,
+  "total_params": 574865408,
+  "losses_per_epoch": [
+    1.0270709886885525,
+    1.0806227964267396,
+    1.0225367922531932
+  ],
+  "mean_pos_sim": 0.49426070928573607,
+  "mean_neg_sim": 0.3404232576489449,
+  "margin": 0.1538374516367912,
+  "nan_detected": false,
+  "loss_decreasing": false,
+  "pos_reasonable": true,
+  "neg_reasonable": true,
+  "passed": false,
+  "wall_time_s": 2763.201976776123,
+  "peak_vram_gb": 2.93099008
+}

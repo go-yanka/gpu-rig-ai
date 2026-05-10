@@ -1,0 +1,19 @@
+{
+  "wall_s": 6.354646330000833,
+  "total_embeddings": 2000,
+  "aggregate_emb_per_s": 314.73033999670884,
+  "per_port": {
+    "8770": {
+      "total_dt": 5.94414042099379,
+      "total_n": 1000,
+      "emb_per_s": 168.2329031912089
+    },
+    "8771": {
+      "total_dt": 6.290716185001656,
+      "total_n": 1000,
+      "emb_per_s": 158.96441209415914
+    }
+  },
+  "speedup_vs_single": 1.8708013356875557,
+  "passed": true
+}

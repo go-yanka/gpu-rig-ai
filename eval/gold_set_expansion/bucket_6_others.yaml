@@ -1,0 +1,259 @@
+- id: oth_appeals_001
+  category: gst
+  subcategory: appeals
+  difficulty: intermediate
+  question: "A taxpayer faces a confirmed CGST demand of Rs. 300 Crores from the First Appellate Authority (FAA). They wish to file an appeal before the GST Appellate Tribunal (GSTAT) in December 2024. Under Section 112(8) of the CGST Act, what is the exact mandatory pre-deposit amount for the CGST component, assuming the full amount remains in dispute?"
+  expected_sections: ["Section 112(8) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Rs. 20 crore", "10 per cent of the remaining amount", "maximum of twenty crore rupees"]
+  must_not_say: ["Rs. 50 crore", "20 per cent", "Rs. 30 crore", "Rs. 25 crore"]
+  must_cite_verbatim: true
+  notes: "Post Finance (No.2) Act 2024 (eff Nov 2024), GSTAT pre-deposit is 10% of disputed tax subject to a maximum cap of Rs 20 crore for CGST."
+
+- id: oth_appeals_002
+  category: gst
+  subcategory: appeals
+  difficulty: intermediate
+  question: "An adjudicating authority confirms a disputed CGST tax liability of Rs. 250 Crores. The taxpayer files an appeal to the Appellate Authority (FAA) under Section 107. What is the pre-deposit required for the CGST portion to stay the recovery proceedings?"
+  expected_sections: ["Section 107(6) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["Rs. 20 crore", "10 per cent of the disputed amount", "maximum of twenty crore rupees"]
+  must_not_say: ["Rs. 25 crore", "Rs. 50 crore", "20 per cent"]
+  must_cite_verbatim: true
+  notes: "The Finance (No.2) Act 2024 reduced the Section 107(6) pre-deposit cap from Rs 25 crores to Rs 20 crores for CGST."
+
+- id: oth_appeals_003
+  category: customs
+  subcategory: appeals
+  difficulty: basic
+  question: "An importer receives an unfavorable assessment order on 1st March. They file an appeal to the Commissioner (Appeals) on 10th May (70 days later). Under Section 128 of the Customs Act, is this appeal time-barred, and does the Commissioner have the power to condone the delay?"
+  expected_sections: ["Section 128 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["within condonable period", "60 days", "extendable by 30 days", "sufficient cause"]
+  must_not_say: ["time-barred unconditionally", "extendable by 60 days", "90 days normal period"]
+  must_cite_verbatim: true
+  notes: "Customs Sec 128 allows 60 days for appeal, plus a condonation window of a further 30 days if sufficient cause is shown."
+
+- id: oth_appeals_004
+  category: customs
+  subcategory: appeals
+  difficulty: intermediate
+  question: "A company appeals against an Order-in-Appeal confirming a customs duty demand of Rs. 150 Crores to the CESTAT. What is the mandatory pre-deposit required under Section 129E of the Customs Act, and does it hit the statutory cap?"
+  expected_sections: ["Section 129E Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["10%", "Rs. 10 crore", "statutory cap"]
+  must_not_say: ["Rs. 15 crore", "7.5%", "20%"]
+  must_cite_verbatim: true
+  notes: "CESTAT pre-deposit under Customs Sec 129E is 10% of the duty, but strictly capped at Rs 10 crores."
+
+- id: oth_appeals_005
+  category: gst
+  subcategory: appeals
+  difficulty: basic
+  question: "An Appellate Authority issues an order on 10th January. The Commissioner of CGST believes the order is not legal and directs a subordinate officer to file an appeal to the GSTAT. Under Section 112(3), what is the time limit for the Department to file this appeal?"
+  expected_sections: ["Section 112(3) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["six months", "from the date of communication"]
+  must_not_say: ["three months", "ninety days", "sixty days"]
+  must_cite_verbatim: true
+  notes: "Departmental appeals to GSTAT under Sec 112(3) have a 6-month time limit, compared to 3 months for taxpayers."
+
+- id: oth_penalty_001
+  category: gst
+  subcategory: penalty
+  difficulty: intermediate
+  question: "A truck carrying taxable goods without an e-way bill is intercepted. The owner of the goods voluntarily comes forward to pay the applicable tax and penalty. Under Section 129(1)(a) of the CGST Act (post-2021 amendment), what is the penalty quantum required to release the goods?"
+  expected_sections: ["Section 129(1)(a) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["200 per cent of the tax payable", "penalty equal to two hundred per cent"]
+  must_not_say: ["100 per cent of the tax", "50 per cent of the value", "confiscation"]
+  must_cite_verbatim: true
+  notes: "Finance Act 2021 delinked Section 129 and 130. For detained goods where the owner comes forward, the penalty is purely 200% of the tax payable."
+
+- id: oth_penalty_002
+  category: gst
+  subcategory: penalty
+  difficulty: basic
+  question: "A registered person collects Rs. 6,000 as CGST from a client but intentionally fails to deposit it with the government beyond a period of three months. Under Section 122(1) of the CGST Act, what is the specific penalty amount they are liable to pay?"
+  expected_sections: ["Section 122(1) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ten thousand rupees", "higher of the two", "Rs. 10,000"]
+  must_not_say: ["Rs. 6,000", "100 per cent of tax", "Rs. 25,000"]
+  must_cite_verbatim: true
+  notes: "Sec 122(1) penalty is the higher of Rs 10,000 or the tax evaded. Since 10,000 > 6,000, the penalty is Rs 10,000."
+
+- id: oth_penalty_003
+  category: gst
+  subcategory: penalty
+  difficulty: advanced
+  question: "A Proper Officer proceeds to confiscate goods under Section 130 of the CGST Act due to intent to evade tax. The officer offers the taxpayer an option to pay a fine in lieu of confiscation. What is the statutory maximum limit for this redemption fine?"
+  expected_sections: ["Section 130(2) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["market value of the goods", "less the tax chargeable thereon", "shall not exceed"]
+  must_not_say: ["200% of tax", "100% of market value", "inclusive of tax"]
+  must_cite_verbatim: true
+  notes: "Under Sec 130(2), the maximum redemption fine cannot exceed the market value of the goods minus the tax chargeable on them."
+
+- id: oth_penalty_004
+  category: customs
+  subcategory: penalty
+  difficulty: intermediate
+  question: "An exporter attempts to smuggle out prohibited goods (antiques) hidden in a container. The goods are seized at the port. Under Section 114 of the Customs Act, what is the maximum penalty the exporter is liable for?"
+  expected_sections: ["Section 114 Customs Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["not exceeding three times the value", "three times the value of the goods"]
+  must_not_say: ["100% of duty", "five times the value", "confiscation only"]
+  must_cite_verbatim: true
+  notes: "For prohibited goods attempted to be exported, Sec 114 imposes a penalty not exceeding three times the value of the goods as declared or determined."
+
+- id: oth_advance_ruling_001
+  category: gst
+  subcategory: advance_ruling
+  difficulty: basic
+  question: "Company X obtains a favorable Advance Ruling from the state AAR clarifying the HSN code for their software product. Company Y, located in the same state and selling an identical product, begins using this ruling to classify their goods. Under Section 103, is Company Y legally protected by this ruling?"
+  expected_sections: ["Section 103 CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["binding only on the applicant", "not binding on Company Y", "jurisdictional officer of the applicant"]
+  must_not_say: ["binding on identical goods", "precedent", "binding on all taxpayers in state"]
+  must_cite_verbatim: true
+  notes: "Section 103 explicitly restricts the binding nature of an advance ruling strictly to the applicant and their concerned/jurisdictional officer."
+
+- id: oth_advance_ruling_002
+  category: gst
+  subcategory: advance_ruling
+  difficulty: intermediate
+  question: "A taxpayer files an application before the Authority for Advance Ruling (AAR) asking whether a notice issued to them for a delay in filing GSTR-3B is legally valid. Does the AAR have the jurisdiction to admit and rule on this specific question under Section 97(2)?"
+  expected_sections: ["Section 97(2) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["not maintainable", "outside the scope", "not covered under Section 97(2)"]
+  must_not_say: ["has jurisdiction", "can decide on validity of notices", "binding on the department"]
+  must_cite_verbatim: false
+  notes: "Section 97(2) strictly lists the questions an AAR can entertain (classification, valuation, applicability of notifs, etc.). Validity of notices or procedural defaults are explicitly outside its jurisdiction."
+
+- id: oth_advance_ruling_003
+  category: gst
+  subcategory: advance_ruling
+  difficulty: advanced
+  question: "The two members of an Authority for Advance Ruling (AAR) have a difference of opinion on a classification issue. The matter is referred to the Appellate Authority (AAAR). If the members of the AAAR are also unable to reach a consensus, what is the statutory outcome for the applicant's ruling?"
+  expected_sections: ["Section 101(3) CGST Act", "Section 98(5) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["no advance ruling can be issued", "shall be deemed that no advance ruling can be issued", "difference of opinion"]
+  must_not_say: ["referred to High Court", "original AAR ruling stands", "referred to National AAAR"]
+  must_cite_verbatim: true
+  notes: "Under Sec 101(3), if AAAR members cannot agree on a reference from the AAR, the law deems that no advance ruling can be issued in respect of that question."
+
+- id: oth_advance_ruling_004
+  category: gst
+  subcategory: advance_ruling
+  difficulty: basic
+  question: "Company Z receives an adverse Advance Ruling from the state AAR. They want to appeal the decision to the Appellate Authority for Advance Ruling (AAAR). Under Section 100(2), what is the statutory time limit for filing this appeal, and can it be extended?"
+  expected_sections: ["Section 100(2) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["thirty days", "extendable by a further period not exceeding thirty days", "sufficient cause"]
+  must_not_say: ["sixty days", "no extension allowed", "ninety days"]
+  must_cite_verbatim: true
+  notes: "Appeals against an AAR order must be filed to the AAAR within 30 days, which can be condoned by another 30 days."
+
+- id: oth_anti_evasion_001
+  category: gst
+  subcategory: anti_evasion
+  difficulty: intermediate
+  question: "The Commissioner suspects a taxpayer is availing ITC based on fake invoices and invokes Rule 86A to block the taxpayer's electronic credit ledger. Assuming no show-cause notice is issued, what is the maximum statutory time limit for which this block can remain in effect before automatically expiring?"
+  expected_sections: []
+  expected_rules: ["Rule 86A(3) CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["one year", "expiry of a period of one year", "date of imposing such restriction"]
+  must_not_say: ["six months", "until adjudication", "indefinitely"]
+  must_cite_verbatim: true
+  notes: "Rule 86A(3) mandates that the restriction on the electronic credit ledger ceases to have effect after one year from the date of imposition."
+
+- id: oth_anti_evasion_002
+  category: gst
+  subcategory: anti_evasion
+  difficulty: intermediate
+  question: "A registered person's monthly taxable supply (excluding exempt and zero-rated) is Rs. 75 lakhs. They have enough balance in the electronic credit ledger to discharge 100% of their output tax liability. Under Rule 86B, what is the minimum liability they must discharge through the electronic cash ledger, assuming no exceptions apply?"
+  expected_sections: []
+  expected_rules: ["Rule 86B CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["1%", "one per cent of the output tax liability", "electronic cash ledger"]
+  must_not_say: ["can use 100% ITC", "5%", "10%"]
+  must_cite_verbatim: true
+  notes: "Rule 86B, an anti-evasion measure, restricts the use of the electronic credit ledger to 99% of output tax liability for taxpayers with monthly taxable supplies exceeding Rs 50 lakhs."
+
+- id: oth_anti_evasion_003
+  category: gst
+  subcategory: anti_evasion
+  difficulty: basic
+  question: "A manufacturing company purchases a 5-seater SUV for the exclusive use of its Managing Director. The vehicle is not used for further supply, transport of passengers for hire, or driving training. Can the company claim ITC on the purchase of this vehicle?"
+  expected_sections: ["Section 17(5)(a) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["ITC blocked", "seating capacity of not more than thirteen", "not eligible"]
+  must_not_say: ["ITC allowed", "business asset", "capital goods credit"]
+  must_cite_verbatim: true
+  notes: "Section 17(5)(a) specifically blocks ITC on motor vehicles for transportation of persons with a seating capacity of <= 13 unless used for specified exceptions."
+
+- id: oth_offences_001
+  category: gst
+  subcategory: offences
+  difficulty: intermediate
+  question: "A syndicate issues fake invoices without underlying supply, resulting in an ITC evasion of Rs. 6 Crores. An arrest is made. Under Section 132(5) of the CGST Act, is this offence classified as cognizable and non-bailable?"
+  expected_sections: ["Section 132(1)(b) CGST Act", "Section 132(5) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["cognizable", "non-bailable", "exceeds five hundred lakh rupees", "Rs. 5 crores"]
+  must_not_say: ["bailable", "non-cognizable", "exceeds two crore"]
+  must_cite_verbatim: true
+  notes: "For fake invoice evasion exceeding Rs 500 lakhs (Rs 5 Crores), Section 132(5) categorizes the offence as cognizable and non-bailable."
+
+- id: oth_offences_002
+  category: gst
+  subcategory: offences
+  difficulty: advanced
+  question: "A taxpayer applies for the compounding of an offence under the CGST Act involving tax evasion of Rs. 30 Lakhs. Under Section 138(2) (as amended by Finance Act 2023), what are the minimum and maximum compounding amounts the Commissioner can fix?"
+  expected_sections: ["Section 138(2) CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["minimum", "twenty-five per cent of the tax", "maximum", "one hundred per cent of the tax"]
+  must_not_say: ["150 per cent", "fifty per cent", "ten thousand rupees"]
+  must_cite_verbatim: true
+  notes: "Finance Act 2023 rationalized compounding amounts in Sec 138(2). The minimum is now 25% of the tax involved, and the maximum is 100% of the tax involved."
+
+- id: oth_interest_001
+  category: gst
+  subcategory: interest
+  difficulty: intermediate
+  question: "A taxpayer mistakenly availed an ineligible ITC of Rs. 5 Lakhs in their GSTR-3B for January. However, their electronic credit ledger balance never fell below Rs. 10 Lakhs. They voluntarily reverse the Rs. 5 Lakhs ITC in May. Under Section 50(3) of the CGST Act, are they liable to pay interest?"
+  expected_sections: ["Section 50(3) CGST Act"]
+  expected_rules: ["Rule 88B(3) CGST Rules"]
+  expected_notifications: []
+  expected_conclusion_keywords: ["no interest payable", "availed but not utilised", "wrongly availed and utilised"]
+  must_not_say: ["interest at 18%", "interest at 24%", "interest applies on availment"]
+  must_cite_verbatim: true
+  notes: "Following the retrospective amendment to Sec 50(3), interest is only payable if the ineligible ITC is both availed AND utilized. Since the balance didn't dip below the wrong ITC amount, it was not utilized."
+
+- id: oth_interest_002
+  category: gst
+  subcategory: interest
+  difficulty: basic
+  question: "A taxpayer files a valid refund application under Section 54. The proper officer sanctions and disburses the refund 85 days after the receipt of the application. Is the taxpayer entitled to interest, and if so, from what date and at what rate?"
+  expected_sections: ["Section 56 CGST Act"]
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords: ["six per cent", "expiry of sixty days", "from the date of receipt of application"]
+  must_not_say: ["nine per cent", "from the 85th day", "no interest"]
+  must_cite_verbatim: true
+  notes: "Section 56 mandates interest at 6% p.a. for delayed refunds, calculated from the expiry of 60 days from the date of receipt of the application."

@@ -1,0 +1,83 @@
+{
+  "n_pdfs": 10,
+  "total_pages": 13,
+  "wall_seconds": 131.55094687099336,
+  "effective_s_per_page_parallel": 10.119303605461027,
+  "avg_s_per_page_serial_sum": 37.40473434500074,
+  "speedup": 3.696374355722931,
+  "target_s_per_page": 4.0,
+  "passed": false,
+  "projected_471pdfs_x15pg_hours": 19.859133325717266,
+  "per_pdf": [
+    {
+      "pdf": "50-96-cus.pdf",
+      "pages": 1,
+      "seconds": 72.88219229599054,
+      "s_per_page": 72.88219229599054,
+      "chars": 2620
+    },
+    {
+      "pdf": "csnt21-2k.pdf",
+      "pages": 1,
+      "seconds": 35.84761307000008,
+      "s_per_page": 35.84761307000008,
+      "chars": 1148
+    },
+    {
+      "pdf": "csnt47-2016.pdf",
+      "pages": 1,
+      "seconds": 27.283388299008948,
+      "s_per_page": 27.283388299008948,
+      "chars": 896
+    },
+    {
+      "pdf": "csnt108-2017.pdf",
+      "pages": 2,
+      "seconds": 31.766263709010673,
+      "s_per_page": 15.883131854505336,
+      "chars": 929
+    },
+    {
+      "pdf": "90-98-cus.pdf",
+      "pages": 2,
+      "seconds": 99.78073262599355,
+      "s_per_page": 49.890366312996775,
+      "chars": 5127
+    },
+    {
+      "pdf": "ce03-2019.pdf",
+      "pages": 2,
+      "seconds": 74.86233860500215,
+      "s_per_page": 37.431169302501075,
+      "chars": 2834
+    },
+    {
+      "pdf": "csnt76-2k7.pdf",
+      "pages": 1,
+      "seconds": 46.081464841001434,
+      "s_per_page": 46.081464841001434,
+      "chars": 1334
+    },
+    {
+      "pdf": "547-00-cx.pdf",
+      "pages": 1,
+      "seconds": 52.50017636700068,
+      "s_per_page": 52.50017636700068,
+      "chars": 2359
+    },
+    {
+      "pdf": "cent16h-2016_hi.pdf",
+      "pages": 1,
+      "seconds": 24.100361813005293,
+      "s_per_page": 24.100361813005293,
+      "chars": 361
+    },
+    {
+      "pdf": "notfctn-25-UTGST-rate-english.pdf",
+      "pages": 1,
+      "seconds": 21.157014858996263,
+      "s_per_page": 21.157014858996263,
+      "chars": 1585
+    }
+  ]
+}

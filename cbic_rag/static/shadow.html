@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1024" />
+<title>CBIC RAG - Shadow Cutover Monitor</title>
+<style>
+  :root {
+    --accent: #1a4d2e;
+    --accent-soft: #e7efe9;
+    --amber: #b7791f;
+    --amber-soft: #fdf6e3;
+    --green: #2f855a;
+    --green-soft: #e6f4ea;
+    --red: #b23b3b;
+    --red-soft: #fdecec;
+    --border: #d9dde0;
+    --text: #1f2328;
+    --muted: #6b7280;
+    --bg: #ffffff;
+    --panel: #fafbfc;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px; line-height: 1.5;
+  }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; color: var(--accent); margin: 0; }
+
+  header.top {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg);
+  }
+  header.top h1 { font-size: 22px; }
+  header.top .sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  header.top .right { color: var(--muted); font-size: 12px; }
+
+  .kill-banner {
+    padding: 12px 28px; font-weight: 600; font-size: 14px;
+    display: none;
+    background: var(--red-soft); color: var(--red);
+    border-bottom: 1px solid var(--red);
+  }
+  .kill-banner.on { display: block; }
+  .kill-banner.ok { display: block; background: var(--green-soft); color: var(--green); border-color: var(--green); }
+
+  .wrap { max-width: 1300px; margin: 0 auto; padding: 22px 28px 64px; }
+
+  .stat-grid {
+    display: grid; gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    margin-bottom: 24px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+  .card .val   { font-size: 22px; font-weight: 600; color: var(--accent); margin-top: 4px; }
+  .card .hint  { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .card.warn .val { color: var(--amber); }
+  .card.bad  .val { color: var(--red); }
+
+  .section-title { display: flex; align-items: baseline; gap: 14px; margin: 18px 0 10px; }
+  .section-title h2 { font-size: 17px; }
+  .section-title .sub { color: var(--muted); font-size: 12px; }
+
+  .chart-box {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    padding: 14px 16px; margin-bottom: 18px;
+  }
+  svg.spark { width: 100%; height: 140px; display: block; }
+  .threshold-line { stroke: var(--red); stroke-dasharray: 4 3; stroke-width: 1; }
+  .spark-line { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+  .spark-fill { fill: var(--accent-soft); opacity: 0.7; }
+
+  .controls { display: flex; gap: 10px; margin: 10px 0 6px; flex-wrap: wrap; }
+  button {
+    font: inherit; padding: 8px 14px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text);
+  }
+  button.danger  { background: var(--red);   color: #fff; border-color: var(--red); }
+  button.safe    { background: var(--green); color: #fff; border-color: var(--green); }
+  button:disabled { opacity: .5; cursor: not-allowed; }
+
+  table.log { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.log th, table.log td {
+    border-bottom: 1px solid var(--border); padding: 6px 8px;
+    text-align: left; vertical-align: top; font-variant-numeric: tabular-nums;
+  }
+  table.log th { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  table.log td.q { max-width: 520px; word-break: break-word; }
+  table.log td.d { font-weight: 600; }
+  table.log td.d.hi { color: var(--red); }
+  table.log td.d.mid { color: var(--amber); }
+  table.log td.d.lo { color: var(--green); }
+
+  .meta { color: var(--muted); font-size: 12px; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div>
+    <h1>Shadow Cutover Monitor</h1>
+    <div class="sub">v1 primary, v2 shadow &mdash; rolling divergence &amp; kill-switch</div>
+  </div>
+  <div class="right"><span id="lastUpdated">&mdash;</span></div>
+</header>
+
+<div id="killBanner" class="kill-banner">&mdash;</div>
+
+<div class="wrap">
+
+  <div class="stat-grid" id="statGrid">
+    <div class="card"><div class="label">Rolling avg divergence</div><div class="val" id="s_avg">&mdash;</div><div class="hint">window <span id="s_win">0</span>/<span id="s_cap">?</span></div></div>
+    <div class="card"><div class="label">Threshold</div><div class="val" id="s_thr">&mdash;</div><div class="hint">trip if avg exceeds</div></div>
+    <div class="card"><div class="label">theta_v2</div><div class="val" id="s_theta">&mdash;</div><div class="hint">acceptance gate for v2</div></div>
+    <div class="card"><div class="label">Shadow requests</div><div class="val" id="s_shadow_n">0</div></div>
+    <div class="card"><div class="label">v2-only requests</div><div class="val" id="s_v2only">0</div></div>
+    <div class="card"><div class="label">v1 errors</div><div class="val" id="s_err1">0</div></div>
+    <div class="card"><div class="label">v2 errors</div><div class="val" id="s_err2">0</div></div>
+  </div>
+
+  <div class="section-title">
+    <h2>Divergence over last 200 requests</h2>
+    <span class="sub">dashed red = threshold | updates every 2s</span>
+  </div>
+  <div class="chart-box">
+    <svg class="spark" id="spark" viewBox="0 0 1000 140" preserveAspectRatio="none">
+      <path id="sparkFill" class="spark-fill" d="" />
+      <path id="sparkLine" class="spark-line" d="" />
+      <line id="sparkThr" class="threshold-line" x1="0" x2="1000" y1="0" y2="0" />
+    </svg>
+    <div class="meta" id="chartMeta">&mdash;</div>
+  </div>
+
+  <div class="section-title">
+    <h2>Admin controls</h2>
+    <span class="sub">use with care &mdash; trips apply immediately</span>
+  </div>
+  <div class="controls">
+    <button id="btnKill"   class="danger">Trip Kill Switch</button>
+    <button id="btnResume" class="safe">Resume (clear kill &amp; window)</button>
+    <span class="meta" id="adminMsg"></span>
+  </div>
+
+  <div class="section-title">
+    <h2>Recent divergence log</h2>
+    <span class="sub">tail of last 20 entries from SHADOW_LOG</span>
+  </div>
+  <table class="log" id="logTable">
+    <thead>
+      <tr>
+        <th style="width:150px">time</th>
+        <th style="width:80px">div</th>
+        <th>question</th>
+        <th style="width:160px">v1 hits</th>
+        <th style="width:160px">v2 hits</th>
+      </tr>
+    </thead>
+    <tbody id="logBody">
+      <tr><td colspan="5" class="meta">loading&hellip;</td></tr>
+    </tbody>
+  </table>
+
+</div>
+
+<script>
+(function(){
+  const API = ""; // same origin
+  const POLL_MS = 2000;
+
+  const $ = (id) => document.getElementById(id);
+
+  const banner = $("killBanner");
+  const lastUpd = $("lastUpdated");
+  const spark = $("spark");
+  const sparkLine = $("sparkLine");
+  const sparkFill = $("sparkFill");
+  const sparkThr  = $("sparkThr");
+
+  // Rolling history of rolling-avg divergence for the chart.
+  // We plot *status.rolling_avg_divergence* over time (one point per poll),
+  // up to 200 samples, so the chart literally shows "rolling divergence over
+  // last 200 requests" as the underlying window itself rolls.
+  const MAX_POINTS = 200;
+  const history = [];
+
+  function fmtPct(x, digits=2){
+    if (x === null || x === undefined || isNaN(x)) return "&mdash;";
+    return (x * 100).toFixed(digits) + "%";
+  }
+  function fmtNum(x){
+    if (x === null || x === undefined) return "&mdash;";
+    return String(x);
+  }
+  function fmtTs(ts){
+    if (!ts) return "";
+    try { return new Date(ts * 1000).toLocaleTimeString(); }
+    catch(e){ return ""; }
+  }
+
+  function drawSpark(threshold){
+    const W = 1000, H = 140, PAD = 4;
+    if (history.length < 2){
+      sparkLine.setAttribute("d", "");
+      sparkFill.setAttribute("d", "");
+      sparkThr.setAttribute("y1", H-PAD);
+      sparkThr.setAttribute("y2", H-PAD);
+      return;
+    }
+    // y-max: at least 2 * threshold, or actual max, whichever is larger
+    let maxY = Math.max(threshold * 2, ...history);
+    if (maxY <= 0) maxY = 0.01;
+    const N = history.length;
+    const xStep = W / (MAX_POINTS - 1);
+    const pts = history.map((v, i) => {
+      const x = i * xStep;
+      const y = H - PAD - (v / maxY) * (H - 2*PAD);
+      return [x, y];
+    });
+    const d = "M " + pts.map(p => p[0].toFixed(1)+","+p[1].toFixed(1)).join(" L ");
+    sparkLine.setAttribute("d", d);
+    const first = pts[0], last = pts[pts.length-1];
+    const fill = "M "+first[0].toFixed(1)+","+(H-PAD)+" L "
+               + pts.map(p => p[0].toFixed(1)+","+p[1].toFixed(1)).join(" L ")
+               + " L "+last[0].toFixed(1)+","+(H-PAD)+" Z";
+    sparkFill.setAttribute("d", fill);
+    const thrY = H - PAD - (threshold / maxY) * (H - 2*PAD);
+    sparkThr.setAttribute("y1", thrY);
+    sparkThr.setAttribute("y2", thrY);
+    $("chartMeta").textContent =
+      "samples=" + N + "/" + MAX_POINTS
+      + "  y-max=" + fmtPct(maxY, 2)
+      + "  current=" + fmtPct(history[history.length-1], 3);
+  }
+
+  function divClass(d){
+    if (d >= 0.05) return "hi";
+    if (d >= 0.02) return "mid";
+    return "lo";
+  }
+
+  function renderBanner(ks){
+    if (ks && ks.tripped){
+      banner.className = "kill-banner on";
+      const when = fmtTs(ks.ts);
+      banner.innerHTML = "KILL SWITCH TRIPPED &nbsp;&mdash;&nbsp; reason: "
+        + (ks.reason || "(none)")
+        + (when ? " &nbsp;&mdash;&nbsp; at " + when : "")
+        + " &nbsp;&mdash;&nbsp; serving v1 only.";
+    } else {
+      banner.className = "kill-banner ok";
+      banner.textContent = "Shadow mode active \u2014 kill switch clear, serving v1 with v2 shadow.";
+    }
+  }
+
+  async function pollStatus(){
+    try {
+      const r = await fetch(API + "/shadow/status", {cache: "no-store"});
+      if (!r.ok) throw new Error("status HTTP " + r.status);
+      const s = await r.json();
+
+      $("s_avg").innerHTML   = fmtPct(s.rolling_avg_divergence, 3);
+      $("s_thr").innerHTML   = fmtPct(s.threshold, 2);
+      $("s_theta").textContent = (s.theta_v2 === null || s.theta_v2 === undefined) ? "unset" : Number(s.theta_v2).toFixed(4);
+      $("s_win").textContent = fmtNum(s.window_size);
+      $("s_cap").textContent = fmtNum(s.window_capacity);
+
+      const st = s.stats || {};
+      $("s_shadow_n").textContent = fmtNum(st.shadow_n || 0);
+      $("s_v2only").textContent   = fmtNum(st.v2_only_n || 0);
+      $("s_err1").textContent     = fmtNum(st.errors_v1 || 0);
+      $("s_err2").textContent     = fmtNum(st.errors_v2 || 0);
+
+      // Color: warn if avg > 0.5 * threshold, bad if > threshold.
+      const avg = s.rolling_avg_divergence || 0;
+      const avgCard = $("s_avg").parentElement;
+      avgCard.className = "card" + (avg >= s.threshold ? " bad" : (avg >= 0.5*s.threshold ? " warn" : ""));
+
+      renderBanner(s.kill_switch);
+      history.push(avg);
+      while (history.length > MAX_POINTS) history.shift();
+      drawSpark(s.threshold);
+
+      lastUpd.textContent = "updated " + new Date().toLocaleTimeString();
+    } catch (e){
+      lastUpd.textContent = "status error: " + e.message;
+    }
+  }
+
+  async function pollRecent(){
+    try {
+      const r = await fetch(API + "/shadow/recent?n=20", {cache: "no-store"});
+      if (!r.ok) throw new Error("recent HTTP " + r.status);
+      const j = await r.json();
+      const items = (j.items || []).slice().reverse(); // newest first
+      const body = $("logBody");
+      if (!items.length){
+        body.innerHTML = '<tr><td colspan="5" class="meta">no entries yet</td></tr>';
+        return;
+      }
+      body.innerHTML = items.map(it => {
+        const d = Number(it.divergence || 0);
+        const cls = divClass(d);
+        const v1 = (it.v1_ids || []).map(x => String(x).slice(0,10)).join(", ");
+        const v2 = (it.v2_ids || []).map(x => String(x).slice(0,10)).join(", ");
+        const q = (it.q || "").replace(/&/g,"&amp;").replace(/</g,"&lt;");
+        return "<tr>"
+          + "<td>" + fmtTs(it.ts) + "</td>"
+          + "<td class='d "+cls+"'>" + (d*100).toFixed(2) + "%</td>"
+          + "<td class='q'>" + q + "</td>"
+          + "<td>" + v1 + "</td>"
+          + "<td>" + v2 + "</td>"
+          + "</tr>";
+      }).join("");
+    } catch (e){
+      $("logBody").innerHTML = '<tr><td colspan="5" class="meta">recent error: '+e.message+'</td></tr>';
+    }
+  }
+
+  async function postAction(path, okMsg){
+    try {
+      const r = await fetch(API + path, {method: "POST"});
+      const j = await r.json();
+      $("adminMsg").textContent = okMsg + " -> " + JSON.stringify(j);
+      pollStatus();
+    } catch (e){
+      $("adminMsg").textContent = "error: " + e.message;
+    }
+  }
+
+  $("btnKill").addEventListener("click", () => {
+    if (!confirm("Trip the kill switch NOW?\n\nThis forces v1-only mode for all /query_shadow calls until Resume is pressed.")) return;
+    postAction("/shadow/kill", "kill");
+  });
+  $("btnResume").addEventListener("click", () => {
+    if (!confirm("Resume shadow mode?\n\nThis clears the kill switch AND resets the rolling window.")) return;
+    postAction("/shadow/resume", "resume");
+  });
+
+  function tick(){ pollStatus(); pollRecent(); }
+  tick();
+  setInterval(tick, POLL_MS);
+})();
+</script>
+</body>
+</html>

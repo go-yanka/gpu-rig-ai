@@ -1,0 +1,3375 @@
+version: 2
+created: '2026-04-21'
+notes: Merged v1 (50 items) + bucket expansions 1-6 (120 items). See gold_set_expansion/ for per-bucket YAMLs.
+items:
+- id: gst_pos_001
+  category: gst
+  subcategory: place_of_supply
+  difficulty: basic
+  question: A registered supplier in Maharashtra sells goods to a registered buyer in Karnataka. Goods are shipped directly from Maharashtra to Karnataka. What is the place of supply and which tax applies?
+  expected_sections:
+  - 10(1)(a) IGST
+  - Section 10 IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Karnataka
+  - IGST
+  - inter-state
+  must_not_say:
+  - CGST and SGST
+  - intra-state
+  must_cite_verbatim: true
+  notes: Vanilla inter-state goods — baseline sanity check.
+- id: gst_pos_002
+  category: gst
+  subcategory: place_of_supply
+  difficulty: intermediate
+  question: A buyer in Delhi instructs a Mumbai supplier to deliver goods directly to the buyer's customer in Chennai (bill-to-ship-to). What is the place of supply for each leg?
+  expected_sections:
+  - 10(1)(b) IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Delhi
+  - bill-to
+  - third person
+  - IGST
+  must_not_say:
+  - Chennai is place of supply
+  must_cite_verbatim: true
+  notes: Classic 10(1)(b) — POS is principal place of business of the third person who gave the direction.
+- id: gst_pos_003
+  category: gst
+  subcategory: place_of_supply
+  difficulty: basic
+  question: Services of a chartered accountant in Pune are rendered to a registered client in Gujarat. What is the place of supply?
+  expected_sections:
+  - 12(2) IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Gujarat
+  - location of recipient
+  - IGST
+  must_not_say:
+  - Pune is place of supply
+  must_cite_verbatim: true
+  notes: '12(2)(a) default: B2B services = location of recipient.'
+- id: gst_pos_004
+  category: gst
+  subcategory: place_of_supply
+  difficulty: intermediate
+  question: An event-management company organizes a conference in Bengaluru for a client registered in Delhi. Where is the place of supply?
+  expected_sections:
+  - 12(7) IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Delhi
+  - registered
+  - 12(7)
+  must_not_say:
+  - Bengaluru
+  - Karnataka
+  must_cite_verbatim: true
+  notes: '12(7)(a)(i) — registered recipient: POS = recipient; if unregistered, POS = event location.'
+- id: gst_pos_005
+  category: gst
+  subcategory: place_of_supply
+  difficulty: complex
+  question: 'Quantum Tech Pvt Ltd (Karnataka GSTIN) receives a purchase order from a UK buyer. The UK buyer asks Quantum Tech to deliver the goods directly to a Mumbai-based third party (the UK buyer''s Indian agent). Quantum Tech raises the invoice on the UK buyer in USD and receives an advance of USD 50,000. Determine: (a) place of supply for the goods, (b) whether this is export of goods, (c) tax treatment of the advance.'
+  expected_sections:
+  - 10(1)(b) IGST
+  - 2(5) IGST
+  - 13(8) CGST
+  - Section 7 IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Mumbai
+  - bill-to-ship-to
+  - not export
+  - IGST
+  - advance
+  must_not_say:
+  - export of goods
+  - zero-rated
+  must_cite_verbatim: true
+  notes: Multi-part pain point. Goods delivered in India => NOT export (export requires goods taken OUT of India). POS under 10(1)(b) is where UK buyer directed (Mumbai). Advance on goods — per Notif 66/2017-CT, no GST on advance for goods.
+- id: gst_cs_001
+  category: gst
+  subcategory: composite_mixed_supply
+  difficulty: intermediate
+  question: A hotel provides a package of room + breakfast + airport transfer for a single price. How is this taxed — as composite supply or mixed supply?
+  expected_sections:
+  - 2(30) CGST
+  - 8(a) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - composite
+  - principal supply
+  - accommodation
+  - naturally bundled
+  must_not_say:
+  - mixed supply
+  must_cite_verbatim: true
+  notes: Naturally bundled; accommodation is principal — tax at accommodation rate.
+- id: gst_cs_002
+  category: gst
+  subcategory: composite_mixed_supply
+  difficulty: basic
+  question: A gift hamper contains chocolates, a fruit juice bottle, and a toy, sold at one price for Diwali. Composite or mixed supply?
+  expected_sections:
+  - 2(74) CGST
+  - 8(b) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - mixed supply
+  - highest rate
+  must_not_say:
+  - composite
+  must_cite_verbatim: true
+  notes: Not naturally bundled => mixed supply => highest rate of the components applies.
+- id: gst_itc_001
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: basic
+  question: Can a registered taxpayer claim ITC on GST paid for the purchase of a motor car (seating capacity 5) used for business?
+  expected_sections:
+  - 17(5)(a) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - blocked
+  - 17(5)
+  - not eligible
+  must_not_say:
+  - fully eligible
+  - available
+  must_cite_verbatim: true
+  notes: 17(5)(a) blocks ITC on motor vehicles <=13 seats unless further supply, passenger transport, training, or transport of goods.
+- id: gst_itc_002
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: intermediate
+  question: A manufacturer buys capital goods in April 2024 and claims full ITC. In March 2026 the capital goods are sold as scrap. What is the reversal liability?
+  expected_sections:
+  - 18(6) CGST
+  expected_rules:
+  - Rule 40(2)
+  - Rule 44(6)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - reversal
+  - 5%
+  - per quarter
+  - useful life
+  - tax on transaction value
+  must_not_say:
+  - no reversal
+  must_cite_verbatim: true
+  notes: '18(6) + Rule 40(2)/44(6): pay higher of (ITC reduced by 5% per quarter from date of invoice) or tax on transaction value.'
+- id: gst_itc_003
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: intermediate
+  question: The supplier has not uploaded the invoice in GSTR-1 but the recipient has the tax invoice in hand. Can the recipient claim ITC?
+  expected_sections:
+  - 16(2)(aa) CGST
+  - 16(2) CGST
+  expected_rules:
+  - Rule 36(4)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - GSTR-2B
+  - not available
+  - cannot claim
+  - 16(2)(aa)
+  must_not_say:
+  - can claim
+  - eligible
+  must_cite_verbatim: true
+  notes: 'Post-2022 amendment: ITC only if invoice appears in GSTR-2B (16(2)(aa)).'
+- id: gst_itc_004
+  category: gst
+  subcategory: input_tax_credit
+  difficulty: basic
+  question: Is ITC available on GST paid for office renovation of a rented building (capitalized in books)?
+  expected_sections:
+  - 17(5)(d) CGST
+  - 17(5)(c) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - blocked
+  - immovable property
+  - 17(5)(d)
+  - not available
+  must_not_say:
+  - fully available
+  must_cite_verbatim: true
+  notes: 17(5)(c)/(d) — works contract/construction of immovable property on own account, blocked if capitalized.
+- id: gst_tos_001
+  category: gst
+  subcategory: advances_timing
+  difficulty: basic
+  question: A supplier of goods receives an advance of Rs 5 lakhs on 10 April 2025 against a future supply. Is GST payable on the advance?
+  expected_sections:
+  - 12(2) CGST
+  expected_rules: []
+  expected_notifications:
+  - 66/2017-Central Tax
+  expected_conclusion_keywords:
+  - no GST
+  - advance
+  - goods
+  - 66/2017
+  must_not_say:
+  - GST payable on advance
+  must_cite_verbatim: true
+  notes: Notif 66/2017-CT removed advance-on-goods from tax; only for goods, not services.
+- id: gst_tos_002
+  category: gst
+  subcategory: advances_timing
+  difficulty: basic
+  question: What is the time of supply when an advance is received for a service?
+  expected_sections:
+  - 13(2) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - earlier
+  - date of invoice
+  - date of receipt
+  - advance
+  must_not_say:
+  - no GST on advance
+  must_cite_verbatim: true
+  notes: '13(2) services: ToS = earlier of invoice or receipt of payment.'
+- id: gst_inv_001
+  category: gst
+  subcategory: invoice_credit_note
+  difficulty: basic
+  question: What is the time limit for issuing a tax invoice in case of supply of services?
+  expected_sections:
+  - 31(2) CGST
+  expected_rules:
+  - Rule 47
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 30 days
+  - services
+  - Rule 47
+  must_not_say:
+  - 45 days
+  must_cite_verbatim: true
+  notes: Rule 47 — 30 days from supply (45 days for banks/NBFC/insurers).
+- id: gst_inv_002
+  category: gst
+  subcategory: invoice_credit_note
+  difficulty: intermediate
+  question: By what date can a credit note be issued for a supply made in FY 2024-25, and when must it be declared in returns?
+  expected_sections:
+  - 34(2) CGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 30 November
+  - '2025'
+  - annual return
+  - earlier
+  must_not_say:
+  - no time limit
+  - 31 March
+  must_cite_verbatim: true
+  notes: 34(2) — earlier of 30-Nov of following FY or date of filing annual return.
+- id: gst_rcm_001
+  category: gst
+  subcategory: reverse_charge
+  difficulty: basic
+  question: A registered company pays a sole-proprietor advocate for legal services. Who is liable to pay GST?
+  expected_sections:
+  - 9(3) CGST
+  expected_rules: []
+  expected_notifications:
+  - 13/2017-Central Tax (Rate)
+  expected_conclusion_keywords:
+  - reverse charge
+  - recipient
+  - RCM
+  - company
+  must_not_say:
+  - advocate pays
+  - forward charge
+  must_cite_verbatim: true
+  notes: Notif 13/2017-CTR — legal services by advocate to business entity => RCM.
+- id: gst_rcm_002
+  category: gst
+  subcategory: reverse_charge
+  difficulty: intermediate
+  question: A GTA provides transport services to a registered manufacturer and charges 5% GST on forward-charge basis having filed Annexure V. Is RCM applicable to the recipient?
+  expected_sections:
+  - 9(3) CGST
+  expected_rules: []
+  expected_notifications:
+  - 13/2017-Central Tax (Rate)
+  - 11/2017-Central Tax (Rate)
+  expected_conclusion_keywords:
+  - no RCM
+  - forward charge
+  - Annexure V
+  - GTA option
+  must_not_say:
+  - RCM applies
+  - recipient pays
+  must_cite_verbatim: true
+  notes: GTA that opts for FCM by filing Annexure V — RCM does NOT apply.
+- id: gst_ref_001
+  category: gst
+  subcategory: refund
+  difficulty: intermediate
+  question: A manufacturer has accumulated ITC because its output tax rate (5%) is lower than input tax rates (18%). Can it claim a refund, and under what provision?
+  expected_sections:
+  - 54(3)(ii) CGST
+  expected_rules:
+  - Rule 89(5)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - inverted duty structure
+  - refund
+  - 54(3)
+  - accumulated ITC
+  must_not_say:
+  - no refund
+  - not eligible
+  must_cite_verbatim: true
+  notes: Inverted duty refund per 54(3)(ii); Rule 89(5) formula for max refund.
+- id: gst_ewb_001
+  category: gst
+  subcategory: e_way_bill
+  difficulty: basic
+  question: What is the threshold value above which an e-way bill is mandatory for inter-state movement of goods?
+  expected_sections:
+  - 68 CGST
+  expected_rules:
+  - Rule 138
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 50,000
+  - consignment value
+  - Rule 138
+  - inter-state
+  must_not_say:
+  - 1 lakh
+  must_cite_verbatim: true
+  notes: Rule 138 — Rs 50,000 consignment value.
+- id: gst_exp_001
+  category: gst
+  subcategory: zero_rated
+  difficulty: intermediate
+  question: An exporter of goods files a LUT. Is IGST payable at the time of export, and can the exporter claim refund of unutilized ITC?
+  expected_sections:
+  - 16 IGST
+  - 54(3) CGST
+  expected_rules:
+  - Rule 96A
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - LUT
+  - without payment
+  - refund of ITC
+  - zero-rated
+  must_not_say:
+  - IGST must be paid
+  - no refund
+  must_cite_verbatim: true
+  notes: Sec 16 IGST — export with LUT, no tax paid, refund of accumulated ITC.
+- id: cus_val_001
+  category: customs
+  subcategory: valuation
+  difficulty: basic
+  question: What is the primary method of valuation for imported goods under the Customs Act?
+  expected_sections:
+  - 14 Customs Act
+  expected_rules:
+  - Rule 3 CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - transaction value
+  - Section 14
+  - CVR 2007
+  must_not_say:
+  - tariff value is primary
+  must_cite_verbatim: true
+  notes: Sec 14 + Rule 3 of Customs Valuation Rules 2007 — transaction value primary.
+- id: cus_val_002
+  category: customs
+  subcategory: valuation
+  difficulty: intermediate
+  question: An Indian importer buys from a foreign parent company (related party). What valuation scrutiny applies?
+  expected_sections:
+  - 14 Customs Act
+  expected_rules:
+  - Rule 3(3) CVR 2007
+  - Rule 2(2) CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - related party
+  - SVB
+  - Special Valuation Branch
+  - circumstances of sale
+  - influence price
+  must_not_say:
+  - no scrutiny
+  must_cite_verbatim: true
+  notes: Related-party imports go to SVB; acceptance if price not influenced per Rule 3(3).
+- id: cus_cls_001
+  category: customs
+  subcategory: classification
+  difficulty: basic
+  question: What is the basis for classification of imported goods under the Customs Tariff?
+  expected_sections:
+  - Section XV GIR
+  - Customs Tariff Act 1975
+  expected_rules:
+  - General Rules of Interpretation
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Harmonized System
+  - HSN
+  - General Rules of Interpretation
+  - GIR
+  must_not_say:
+  - SAC
+  must_cite_verbatim: true
+  notes: HSN via CTA 1975 + GIR 1-6.
+- id: cus_wh_001
+  category: customs
+  subcategory: warehousing
+  difficulty: intermediate
+  question: Imported capital goods are warehoused under Section 59. What is the maximum period they can remain warehoused without interest?
+  expected_sections:
+  - 61 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - capital goods
+  - till clearance
+  - EOU
+  - no interest
+  - Section 61
+  must_not_say:
+  - 90 days
+  must_cite_verbatim: true
+  notes: 'Sec 61: capital goods for EOU/SEZ etc — till clearance, no interest.'
+- id: cus_db_001
+  category: customs
+  subcategory: drawback
+  difficulty: basic
+  question: What is duty drawback under Section 74 of the Customs Act?
+  expected_sections:
+  - 74 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - re-export
+  - duty paid
+  - drawback
+  - identity
+  must_not_say:
+  - only for manufactured goods
+  must_cite_verbatim: true
+  notes: Sec 74 — re-export of duty-paid goods in identifiable form => drawback up to 98%.
+- id: cus_db_002
+  category: customs
+  subcategory: drawback
+  difficulty: intermediate
+  question: Goods imported and duty paid on 1 March 2024 are re-exported on 1 March 2026 without use. What percentage of drawback is allowed?
+  expected_sections:
+  - 74 Customs Act
+  expected_rules:
+  - Re-export of Imported Goods (Drawback) Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 24 months
+  - time limit
+  - not eligible
+  must_not_say:
+  - 98%
+  - fully eligible
+  must_cite_verbatim: true
+  notes: Sec 74 time limit = 2 years from date of payment of duty (extendable to 3).
+- id: cus_svb_001
+  category: customs
+  subcategory: svb
+  difficulty: intermediate
+  question: What is the role of the Special Valuation Branch (SVB) in customs?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - Circular 5/2016-Customs
+  expected_conclusion_keywords:
+  - related party
+  - transfer pricing
+  - valuation
+  - SVB
+  - investigation
+  must_not_say: []
+  must_cite_verbatim: false
+  notes: Circular 5/2016 reorganized SVB procedures.
+- id: cus_ar_001
+  category: customs
+  subcategory: advance_ruling
+  difficulty: basic
+  question: Who can seek an advance ruling under the Customs Act and on what matters?
+  expected_sections:
+  - 28H Customs Act
+  - 28E Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - classification
+  - valuation
+  - applicability of notification
+  - CAAR
+  - advance ruling
+  must_not_say:
+  - only importers
+  - only exporters
+  must_cite_verbatim: true
+  notes: Sec 28H — any person holding IEC or proposing to import/export; CAAR Delhi/Mumbai.
+- id: cus_cls_002
+  category: customs
+  subcategory: classification
+  difficulty: complex
+  question: 'A composite machine imports a set containing: (a) a CNC lathe, (b) a robotic arm loader, (c) a tool-pre-setter, and (d) a set of wear consumables, invoiced separately but shipped together for the buyer''s production line. How should these be classified — individually, or as one functional unit under Note 4 to Section XVI?'
+  expected_sections:
+  - Section XVI Note 4
+  - GIR 1
+  - GIR 3
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - functional unit
+  - Section XVI Note 4
+  - principal function
+  - consumables separately
+  must_not_say:
+  - always individually classified
+  must_cite_verbatim: true
+  notes: 'Pain point: composite imports. Note 4 to Sec XVI allows functional-unit classification; wear consumables usually separate.'
+- id: cus_ig_001
+  category: customs
+  subcategory: igst_import
+  difficulty: basic
+  question: On import of goods into India, what are the components of customs duty levied?
+  expected_sections:
+  - 3 CTA
+  - 12 Customs Act
+  - 5(1) IGST
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Basic Customs Duty
+  - IGST
+  - Social Welfare Surcharge
+  - BCD
+  must_not_say:
+  - CGST and SGST on imports
+  must_cite_verbatim: true
+  notes: BCD + SWS (10% on BCD) + IGST under Sec 3(7) CTA / Sec 5(1) IGST.
+- id: exc_val_001
+  category: central_excise
+  subcategory: valuation
+  difficulty: basic
+  question: What is transaction value under Section 4 of the Central Excise Act?
+  expected_sections:
+  - 4 Central Excise Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - transaction value
+  - price actually paid
+  - sole consideration
+  - place of removal
+  must_not_say:
+  - MRP is always used
+  must_cite_verbatim: true
+  notes: Sec 4 — applies where price is sole consideration and buyer/seller not related.
+- id: exc_val_002
+  category: central_excise
+  subcategory: valuation
+  difficulty: intermediate
+  question: For certain notified goods, valuation is based on MRP rather than transaction value. Which provision governs this?
+  expected_sections:
+  - 4A Central Excise Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 4A
+  - MRP
+  - retail sale price
+  - abatement
+  must_not_say:
+  - Section 4 applies
+  must_cite_verbatim: true
+  notes: Sec 4A — MRP-based with notified abatement.
+- id: exc_cen_001
+  category: central_excise
+  subcategory: cenvat
+  difficulty: basic
+  question: Under the erstwhile CENVAT Credit Rules 2004, was credit available on inputs used in manufacture of exempted final products?
+  expected_sections: []
+  expected_rules:
+  - Rule 6 CCR 2004
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Rule 6
+  - not available
+  - exempted
+  - reversal
+  - separate accounts
+  must_not_say:
+  - fully available
+  must_cite_verbatim: true
+  notes: CCR 2004 Rule 6 — no credit for exempted; separate accounts or proportionate reversal.
+- id: exc_cen_002
+  category: central_excise
+  subcategory: cenvat
+  difficulty: intermediate
+  question: A manufacturer paid CVD on imported inputs prior to July 2017. Was CENVAT credit of CVD available?
+  expected_sections: []
+  expected_rules:
+  - Rule 3 CCR 2004
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - CVD
+  - CENVAT
+  - available
+  - Rule 3
+  - input
+  must_not_say:
+  - not available
+  must_cite_verbatim: true
+  notes: CCR Rule 3(1)(vii) — CVD eligible as CENVAT.
+- id: exc_man_001
+  category: central_excise
+  subcategory: manufacture
+  difficulty: basic
+  question: What is the definition of 'manufacture' under the Central Excise Act?
+  expected_sections:
+  - 2(f) Central Excise Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 2(f)
+  - incidental or ancillary
+  - new product
+  - name, character, use
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: Sec 2(f) — includes any incidental/ancillary process + deemed manufacture per Schedule.
+- id: exc_man_002
+  category: central_excise
+  subcategory: manufacture
+  difficulty: intermediate
+  question: Is mere labeling or re-labeling of goods covered under 'deemed manufacture'?
+  expected_sections:
+  - 2(f)(iii) Central Excise Act
+  - Third Schedule
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - deemed manufacture
+  - labeling
+  - Third Schedule
+  - specified goods
+  must_not_say:
+  - never deemed manufacture
+  must_cite_verbatim: true
+  notes: 'Sec 2(f)(iii) — for goods specified in Third Schedule: packing, repacking, labeling, relabeling, MRP affixing = deemed manufacture.'
+- id: exc_ssi_001
+  category: central_excise
+  subcategory: ssi_exemption
+  difficulty: basic
+  question: Under the SSI exemption notification 8/2003-CE, what was the turnover-based threshold for full exemption?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 8/2003-CE
+  expected_conclusion_keywords:
+  - 1.5 crore
+  - 150 lakh
+  - SSI exemption
+  - clearances
+  must_not_say:
+  - 20 lakh
+  must_cite_verbatim: true
+  notes: Notif 8/2003-CE — exemption for first Rs 1.5 crore clearances in a FY.
+- id: exc_ssi_002
+  category: central_excise
+  subcategory: ssi_exemption
+  difficulty: complex
+  question: An SSI unit used another's brand name. Could it still claim the SSI exemption under 8/2003-CE?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 8/2003-CE
+  expected_conclusion_keywords:
+  - brand name
+  - not eligible
+  - others' brand
+  - exception
+  must_not_say:
+  - fully eligible
+  must_cite_verbatim: true
+  notes: Notif 8/2003-CE para 4 — goods bearing others' brand excluded from SSI exemption (exceptions for rural/specified categories).
+- id: st_val_001
+  category: service_tax
+  subcategory: valuation
+  difficulty: basic
+  question: Under the Service Tax regime (Finance Act 1994), what was the valuation principle for taxable services?
+  expected_sections:
+  - 67 Finance Act 1994
+  expected_rules:
+  - Service Tax (Determination of Value) Rules 2006
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - gross amount charged
+  - Section 67
+  - pre-GST
+  - Finance Act 1994
+  must_not_say:
+  - still applicable post-GST
+  must_cite_verbatim: true
+  notes: Pre-GST era — Sec 67 FA 1994, gross amount charged.
+- id: st_nl_001
+  category: service_tax
+  subcategory: negative_list
+  difficulty: basic
+  question: Explain the 'negative list' regime under service tax introduced in 2012.
+  expected_sections:
+  - 65B(44) Finance Act 1994
+  - 66D Finance Act 1994
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - negative list
+  - Section 66D
+  - all services taxable except
+  - pre-GST
+  - '2012'
+  must_not_say:
+  - current GST regime
+  must_cite_verbatim: true
+  notes: 'Post-July-2012: all services taxable unless in negative list (Sec 66D) or exempt.'
+- id: st_exp_001
+  category: service_tax
+  subcategory: export_of_services
+  difficulty: complex
+  question: Under the erstwhile Service Tax regime, what were the conditions for a service to qualify as 'export of services'?
+  expected_sections:
+  - 66B Finance Act 1994
+  expected_rules:
+  - Rule 6A Service Tax Rules 1994
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Rule 6A
+  - provided from India
+  - received outside India
+  - convertible foreign exchange
+  - pre-GST
+  must_not_say:
+  - current provisions
+  must_cite_verbatim: true
+  notes: Rule 6A STR 1994 — provider in taxable territory, recipient outside, POS outside, CFE receipt, etc.
+- id: st_pos_001
+  category: service_tax
+  subcategory: place_of_provision
+  difficulty: basic
+  question: Under the Place of Provision of Services Rules 2012, what was the default rule for determining place of provision?
+  expected_sections: []
+  expected_rules:
+  - Rule 3 POPS 2012
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - location of recipient
+  - Rule 3
+  - pre-GST
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: POPS 2012 Rule 3 — default = location of recipient.
+- id: st_rcm_001
+  category: service_tax
+  subcategory: reverse_charge
+  difficulty: intermediate
+  question: Under service tax, was reverse charge applicable to services received by a business from a goods transport agency?
+  expected_sections:
+  - 68(2) Finance Act 1994
+  expected_rules: []
+  expected_notifications:
+  - 30/2012-ST
+  expected_conclusion_keywords:
+  - GTA
+  - reverse charge
+  - 100%
+  - 30/2012-ST
+  - pre-GST
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: Notif 30/2012-ST — GTA services to specified persons = full RCM.
+- id: st_lev_001
+  category: service_tax
+  subcategory: levy
+  difficulty: basic
+  question: When was service tax replaced by GST, and what happens to pending service tax liabilities?
+  expected_sections:
+  - 174 CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 1 July 2017
+  - GST
+  - Section 174
+  - saved
+  - pending proceedings
+  must_not_say:
+  - service tax still levied
+  must_cite_verbatim: true
+  notes: Sec 174 CGST — repeal & saving; pending liabilities recoverable under old law.
+- id: oth_ap_001
+  category: others
+  subcategory: anti_profiteering
+  difficulty: basic
+  question: What is the anti-profiteering clause under GST and which body examines complaints now?
+  expected_sections:
+  - 171 CGST Act
+  expected_rules:
+  - Rule 122 CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - '171'
+  - benefit of rate reduction
+  - ITC benefit
+  - Competition Commission
+  - CCI
+  must_not_say:
+  - NAA still functions
+  must_cite_verbatim: true
+  notes: Sec 171 — benefit of rate/ITC passed to consumer; post-2022 CCI handles it (NAA sunset).
+- id: oth_ap_002
+  category: others
+  subcategory: appeals
+  difficulty: basic
+  question: What is the time limit for filing an appeal to the First Appellate Authority under the CGST Act?
+  expected_sections:
+  - 107 CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - three months
+  - '107'
+  - First Appellate Authority
+  - condonation
+  - one month
+  must_not_say:
+  - six months
+  must_cite_verbatim: true
+  notes: Sec 107 — 3 months from order + 1 month condonable.
+- id: oth_ap_003
+  category: others
+  subcategory: appeals
+  difficulty: intermediate
+  question: What is the mandatory pre-deposit required to file an appeal with the Appellate Authority under GST?
+  expected_sections:
+  - 107(6) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 10%
+  - disputed tax
+  - pre-deposit
+  - 107(6)
+  - maximum
+  must_not_say:
+  - 25%
+  - full
+  must_cite_verbatim: true
+  notes: Sec 107(6) — 10% of disputed tax (max Rs 25 cr under CGST after amendment).
+- id: oth_gaar_001
+  category: others
+  subcategory: gaar
+  difficulty: basic
+  question: Does GAAR (General Anti-Avoidance Rule) apply under GST law, or is it only under the Income Tax Act?
+  expected_sections:
+  - Chapter X-A Income Tax Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Income Tax Act
+  - not GST
+  - 95 to 102
+  - impermissible avoidance arrangement
+  must_not_say:
+  - GAAR under CGST
+  must_cite_verbatim: false
+  notes: GAAR is under Chapter X-A of Income Tax Act (Sec 95-102), NOT GST. GST has its own anti-evasion provisions.
+- id: oth_pen_001
+  category: others
+  subcategory: penalties
+  difficulty: complex
+  question: 'A taxpayer fails to furnish a tax invoice for a supply of Rs 10 lakh (tax Rs 1.8 lakh) and the officer finds this during an inspection. The taxpayer claims there was no intent to evade. Determine: (a) applicable penalty provision, (b) quantum, (c) whether Sec 73 or Sec 74 applies, (d) remedy to avoid penalty before SCN.'
+  expected_sections:
+  - 122(1) CGST Act
+  - 73 CGST Act
+  - 74 CGST Act
+  - 73(5) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 73
+  - no fraud
+  - pay before SCN
+  - penalty 10% or Rs 10,000
+  - higher
+  must_not_say:
+  - Section 74 always applies
+  must_cite_verbatim: true
+  notes: 'Pain-point multi-part: 122(1) general penalty; if no fraud => Sec 73, penalty = 10% of tax or Rs 10,000 whichever higher; payment before SCN under 73(5) = no penalty.'
+- id: oth_cls_001
+  category: others
+  subcategory: hsn_classification
+  difficulty: intermediate
+  question: A taxpayer is confused between two HSN codes for its product. What is the principle of classification under GST, and what remedy is available for binding clarity?
+  expected_sections:
+  - Customs Tariff Act 1975
+  expected_rules:
+  - General Rules of Interpretation
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - GIR
+  - advance ruling
+  - AAR
+  - binding
+  - Section 95 CGST
+  must_not_say: []
+  must_cite_verbatim: true
+  notes: GST adopts HSN via CTA 1975 + GIR; Sec 95 CGST — advance ruling from AAR is binding on applicant & jurisdictional officer.
+- id: gst_rate_001
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: What is the GST rate for life-saving drugs under HSN 3004?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-CT(R) Schedule I
+  - 02/2017-CT(R)
+  expected_conclusion_keywords:
+  - 5%
+  - nil rated
+  - HSN 3004
+  must_not_say:
+  - 12%
+  - 18%
+  - standard rate
+  must_cite_verbatim: true
+  notes: Specific life-saving drugs are 5% or nil-rated depending on the exact drug formulation and notification entries.
+- id: gst_sac_001
+  category: gst
+  subcategory: sac
+  difficulty: basic
+  question: What is the SAC code and GST rate for a hotel room tariff of Rs. 8,000 per night?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 11/2017-CT(R)
+  expected_conclusion_keywords:
+  - SAC 9963
+  - 18%
+  - with ITC
+  must_not_say:
+  - 12%
+  - exempt
+  - without ITC
+  must_cite_verbatim: true
+  notes: Hotel accommodation with declared tariff above Rs. 7,500/night attracts 18% GST with ITC.
+- id: gst_exempt_001
+  category: gst
+  subcategory: exempt
+  difficulty: basic
+  question: Is raw, unbranded wheat (HSN 1001) sold loose subject to GST?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 02/2017-CT(R)
+  expected_conclusion_keywords:
+  - exempt
+  - nil rated
+  - HSN 1001
+  must_not_say:
+  - 5%
+  - 12%
+  - taxable
+  must_cite_verbatim: true
+  notes: Cereals like wheat sold loose and unbranded are exempt.
+- id: gst_cess_001
+  category: gst
+  subcategory: cess
+  difficulty: basic
+  question: What is the compensation cess rate on aerated waters (HSN 2202)?
+  expected_sections:
+  - Section 8 of GST (Compensation to States) Act
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-Compensation Cess (Rate)
+  expected_conclusion_keywords:
+  - 12%
+  - compensation cess
+  - aerated drinks
+  must_not_say:
+  - exempt
+  - 22%
+  - only GST applies
+  must_cite_verbatim: true
+  notes: Aerated waters attract a 12% compensation cess in addition to the 28% GST.
+- id: customs_rate_001
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: What is the IGST rate on imported capital goods like industrial sewing machines under HSN 8452?
+  expected_sections:
+  - Section 3(7) of Customs Tariff Act
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-IT(R)
+  expected_conclusion_keywords:
+  - 18%
+  - IGST
+  - HSN 8452
+  must_not_say:
+  - 12%
+  - exempt
+  - 28%
+  must_cite_verbatim: true
+  notes: General capital goods machinery falls under the 18% IGST bracket.
+- id: gst_rate_002
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: What is the GST rate for cotton fabrics under HSN 5208?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-CT(R) Schedule I
+  expected_conclusion_keywords:
+  - 5%
+  - HSN 5208
+  - cotton fabric
+  must_not_say:
+  - 12%
+  - 18%
+  - exempt
+  must_cite_verbatim: true
+  notes: Cotton fabrics generally attract a 5% GST rate.
+- id: gst_hsn_001
+  category: gst
+  subcategory: hsn
+  difficulty: basic
+  question: Is aviation turbine fuel (ATF) under HSN 2710 subject to GST?
+  expected_sections:
+  - Section 9(2) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - not leviable
+  - outside GST
+  - Section 9(2)
+  must_not_say:
+  - 18%
+  - 28%
+  - exempt notification
+  must_cite_verbatim: true
+  notes: ATF, like petrol and crude, is currently outside the purview of GST.
+- id: gst_sac_002
+  category: gst
+  subcategory: sac
+  difficulty: basic
+  question: What is the GST rate on passenger transport services by a non-AC contract carriage under SAC 9964?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 12/2017-CT(R)
+  expected_conclusion_keywords:
+  - exempt
+  - SAC 9964
+  - nil
+  must_not_say:
+  - 5%
+  - 18%
+  - taxable
+  must_cite_verbatim: true
+  notes: Transport of passengers by non-AC contract carriage is exempt.
+- id: gst_notif_001
+  category: gst
+  subcategory: notif
+  difficulty: basic
+  question: What was the GST rate change for mobile phones (HSN 8517.12) effective from April 1, 2020?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 03/2020-CT(R)
+  - 01/2017-CT(R)
+  expected_conclusion_keywords:
+  - 18%
+  - increased from 12%
+  must_not_say:
+  - reduced to 12%
+  - exempt
+  - 5%
+  must_cite_verbatim: true
+  notes: Notification 03/2020-CT(R) corrected the inverted duty structure by raising the rate on mobile phones from 12% to 18%.
+- id: customs_rate_002
+  category: customs
+  subcategory: rate
+  difficulty: basic
+  question: What is the Basic Customs Duty (BCD) rate on the import of unworked gold (HSN 7108)?
+  expected_sections:
+  - First Schedule to Customs Tariff Act
+  expected_rules: []
+  expected_notifications:
+  - 50/2017-Cus
+  - Notification number to verify
+  expected_conclusion_keywords:
+  - BCD
+  - Agricultural Infrastructure and Development Cess
+  - AIDC
+  must_not_say:
+  - exempt
+  - 10%
+  - 20%
+  must_cite_verbatim: true
+  notes: Gold attracts a specific BCD rate plus Agricultural Infrastructure and Development Cess (AIDC).
+- id: gst_rate_003
+  category: gst
+  subcategory: rate
+  difficulty: basic
+  question: What is the GST rate for diamonds, unworked or simply sawn (HSN 7102)?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-CT(R)
+  expected_conclusion_keywords:
+  - 0.25%
+  - HSN 7102
+  - diamonds
+  must_not_say:
+  - 3%
+  - 1.5%
+  - 18%
+  must_cite_verbatim: true
+  notes: Rough diamonds have a special concessional rate of 0.25%.
+- id: gst_cess_002
+  category: gst
+  subcategory: cess
+  difficulty: basic
+  question: Are motorcycles with engine capacity exceeding 350cc (HSN 8711) subject to compensation cess?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-Compensation Cess (Rate)
+  expected_conclusion_keywords:
+  - 'yes'
+  - 3%
+  - compensation cess
+  must_not_say:
+  - exempt from cess
+  - no cess
+  - 22%
+  must_cite_verbatim: true
+  notes: Motorcycles > 350cc attract a 3% compensation cess.
+- id: gst_ccy_supply_001
+  category: gst
+  subcategory: ccy_supply
+  difficulty: intermediate
+  question: A company supplies an air conditioner (HSN 8415, 28% GST) and includes standard installation services (SAC 9954, 18% GST) in the invoice price. Is this a composite supply, and what rate applies?
+  expected_sections:
+  - Section 2(30) CGST Act
+  - Section 8(a) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - composite supply
+  - 28%
+  - principal supply
+  must_not_say:
+  - mixed supply
+  - 18%
+  - apportioned
+  must_cite_verbatim: true
+  notes: When naturally bundled and supplied together in ordinary course of business, it's composite. The AC is the principal supply, so 28% applies to the total value.
+- id: customs_notif_001
+  category: customs
+  subcategory: notif
+  difficulty: intermediate
+  question: What is the concessional IGST rate for rough precious stones imported under Notification 50/2017-Cus, and what happens to BCD?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 50/2017-Cus
+  - GST rate schedule notification (01/2017-IT(R) as amended)
+  expected_conclusion_keywords:
+  - 0.25%
+  - nil BCD
+  - rough stones
+  must_not_say:
+  - 18%
+  - standard rate
+  - 3%
+  must_cite_verbatim: true
+  notes: Rough precious stones typically enjoy nil BCD and a concessional 0.25% IGST.
+- id: gst_notif_002
+  category: gst
+  subcategory: notif
+  difficulty: intermediate
+  question: Under Notification 03/2019-CT(R), what is the GST rate for commercial apartments in a Real Estate Project (REP) where commercial carpet area is not more than 15%?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 03/2019-CT(R)
+  expected_conclusion_keywords:
+  - 5%
+  - without ITC
+  - treated as RREP
+  must_not_say:
+  - 12%
+  - 18%
+  - with ITC
+  must_cite_verbatim: true
+  notes: If commercial area is <= 15%, the project is treated as a Residential Real Estate Project (RREP) and commercial units get the 5% rate without ITC.
+- id: gst_inverted_001
+  category: gst
+  subcategory: inverted
+  difficulty: intermediate
+  question: A manufacturer of electric railway locomotives (HSN 8601) procures electrical components and parts taxed at 18% GST, while their output is taxed at a lower rate. Can they claim a refund of unutilized ITC due to the inverted duty structure?
+  expected_sections:
+  - Section 54(3) CGST Act
+  expected_rules: []
+  expected_notifications:
+  - 05/2017-CT(R)
+  expected_conclusion_keywords:
+  - 'no'
+  - refund restricted
+  - notification 05/2017
+  must_not_say:
+  - 'yes'
+  - inverted duty applies
+  - can claim refund
+  must_cite_verbatim: true
+  notes: Railway locomotives and parts (Chapter 86) are specifically notified under 05/2017-CT(R) as goods for which no refund of unutilised ITC is allowed under the inverted duty structure.
+- id: gst_sac_003
+  category: gst
+  subcategory: sac
+  difficulty: intermediate
+  question: Is a bank liable to pay GST on interest earned from providing loans and advances (SAC 9971)?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 12/2017-CT(R)
+  expected_conclusion_keywords:
+  - exempt
+  - interest
+  - loans and advances
+  must_not_say:
+  - 18%
+  - taxable
+  - financial services
+  must_cite_verbatim: true
+  notes: Services by way of extending deposits, loans or advances in so far as the consideration is represented by way of interest or discount is exempt.
+- id: gst_exempt_002
+  category: gst
+  subcategory: exempt
+  difficulty: intermediate
+  question: An exporter ships cane sugar (HSN 1701) to the UK. While sugar is taxable domestically at 5%, what is the GST treatment on this export, and can they claim ITC on packaging materials?
+  expected_sections:
+  - Section 16 IGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - zero-rated supply
+  - LUT
+  - can claim ITC
+  must_not_say:
+  - exempt supply
+  - cannot claim ITC
+  - no refund
+  must_cite_verbatim: true
+  notes: Exports are zero-rated supplies. The exporter can claim ITC on inputs used for making zero-rated supplies.
+- id: customs_rate_003
+  category: customs
+  subcategory: rate
+  difficulty: intermediate
+  question: When calculating the total customs duty on imported goods, is the Social Welfare Surcharge (SWS) levied on the IGST component?
+  expected_sections:
+  - Section 3(7) Customs Tariff Act
+  - Chapter VI of Finance Act 2018
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 'no'
+  - SWS on BCD
+  - not on IGST
+  - not on compensation cess
+  must_not_say:
+  - 'yes'
+  - SWS on total value
+  - SWS includes IGST
+  must_cite_verbatim: true
+  notes: SWS is levied as a percentage of the aggregate of customs duties (like BCD), but specifically excludes IGST and Compensation Cess.
+- id: gst_hsn_002
+  category: gst
+  subcategory: hsn
+  difficulty: intermediate
+  question: Distinguish the GST rate on roasted peanuts (HSN 2008) sold in a branded retail package versus raw peanuts (HSN 1202) sold loose by a farmer.
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 01/2017-CT(R)
+  - 02/2017-CT(R)
+  expected_conclusion_keywords:
+  - roasted 12%
+  - raw loose exempt
+  - HSN 2008
+  - HSN 1202
+  must_not_say:
+  - both 5%
+  - both 12%
+  - both exempt
+  must_cite_verbatim: true
+  notes: Raw nuts loose are generally exempt agricultural produce. Roasted/prepared nuts are processed foods (12% under 2008).
+- id: gst_rate_004
+  category: gst
+  subcategory: rate
+  difficulty: intermediate
+  question: What did notification 18/2021-CT(R) change regarding the GST rate on job work services in relation to dyeing or printing of textile yarns/fabrics (SAC 9988)?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 18/2021-CT(R)
+  - 11/2017-CT(R)
+  expected_conclusion_keywords:
+  - 12%
+  - increased from 5%
+  must_not_say:
+  - reduced to 5%
+  - 18%
+  - exempt
+  must_cite_verbatim: true
+  notes: Notification 18/2021-CT(R) rationalized rates, increasing the job work rate for textiles from 5% to 12%.
+- id: gst_inverted_002
+  category: gst
+  subcategory: inverted
+  difficulty: complex
+  question: A solar power developer builds a solar power plant under an EPC contract (composite supply). Inputs like solar modules (HSN 8541) were previously taxed at 5%, while services were 18%. How did Notification 08/2021-CT(R) alter the valuation and rate structure to resolve the inverted duty issue for such contracts?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 08/2021-CT(R)
+  - 24/2018-CT(R)
+  expected_conclusion_keywords:
+  - 70% goods
+  - 30% services
+  - deemed valuation
+  - 12% rate for goods component
+  must_not_say:
+  - all at 5%
+  - all at 18%
+  - mixed supply
+  must_cite_verbatim: true
+  notes: The notification created a deemed 70/30 split for goods/services value in solar EPC contracts and increased the rate on specified renewable energy parts from 5% to 12% to mitigate ITC accumulation.
+- id: gst_ccy_supply_002
+  category: gst
+  subcategory: ccy_supply
+  difficulty: complex
+  question: A retailer offers a Diwali gift hamper containing canned juice (12%), dry fruits (12%), and luxury chocolates (28%) for a single price of Rs. 2000. Is this a composite or mixed supply, and what GST rate must be charged on the invoice?
+  expected_sections:
+  - Section 2(74) CGST Act
+  - Section 8(b) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - mixed supply
+  - 28%
+  - highest rate
+  - not naturally bundled
+  must_not_say:
+  - composite supply
+  - 12%
+  - apportioned rates
+  must_cite_verbatim: true
+  notes: This is a canonical mixed supply as the items are independent and not naturally bundled. Section 8(b) dictates the highest rate (28% for chocolates) applies to the entire bundle.
+- id: customs_rate_004
+  category: customs
+  subcategory: rate
+  difficulty: complex
+  question: An importer registers a contract for setting up a power project under Project Imports (Heading 9801). They import turbines (merit BCD 7.5%) and specialized valves (merit BCD 15%). How are the BCD and IGST rates applied across these items under the Project Import Regulations?
+  expected_sections:
+  - Heading 9801 Customs Tariff
+  expected_rules:
+  - Project Import Regulations, 1986
+  expected_notifications:
+  - 50/2017-Cus
+  - Notification number to verify
+  expected_conclusion_keywords:
+  - flat concessional BCD
+  - all items under 9801
+  - merit rates ignored
+  - flat IGST 18%
+  must_not_say:
+  - turbines at 7.5%
+  - valves at 15%
+  - merit rate applies
+  must_cite_verbatim: true
+  notes: Under Project Imports, the entire plant and machinery imported under registered contracts are classified under heading 9801, attracting a uniform concessional BCD and a flat IGST rate (typically 18%), disregarding individual item merit rates.
+- id: gst_notif_003
+  category: gst
+  subcategory: notif
+  difficulty: complex
+  question: A transporter provides Goods Transport Agency (GTA) services (SAC 9965). Historically they paid 5% without ITC. Under the mechanism introduced by Notification 03/2022-CT(R), what are the rate and ITC options now available to a GTA for forward charge, and what declaration must be filed?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 03/2022-CT(R)
+  - 11/2017-CT(R)
+  expected_conclusion_keywords:
+  - option to pay 5% without ITC
+  - option to pay 12% with ITC
+  - forward charge
+  - Annexure V declaration
+  must_not_say:
+  - only reverse charge
+  - 18%
+  - ITC not allowed under 12%
+  must_cite_verbatim: true
+  notes: The notification gave GTAs the option to pay under forward charge at either 5% (no ITC) or 12% (with ITC), requiring a specific annual declaration (Annexure V) to exercise the option.
+- id: gst_refuse_001
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: What specific restrictions are outlined in Section 188A of the CGST Act regarding input tax credit on flying cars?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no such section
+  - does not exist
+  - cannot verify
+  - Section 188A
+  must_not_say:
+  - Section 188A states
+  - as per Section 188A
+  - flying cars are exempt
+  - ITC is blocked
+  must_cite_verbatim: false
+  notes: Section 188A is a fabricated section. The CGST Act ends at Section 174. System must refuse to provide restrictions.
+- id: customs_refuse_002
+  category: customs
+  subcategory: refuse
+  difficulty: basic
+  question: Under Notification No. 154/2026-Customs, what is the new concessional BCD rate for importing vibranium?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no such notification
+  - not found
+  - no record
+  - 154/2026-Customs
+  must_not_say:
+  - 154/2026-Customs
+  - the notification states
+  - concessional rate is
+  - vibranium
+  must_cite_verbatim: false
+  notes: Notification 154/2026-Customs is fabricated (future date, high number). System must refuse to invent a rate.
+- id: gst_refuse_003
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: According to Rule 185 of the CGST Rules, 2017, what is the penalty for failing to file GSTR-19?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no such rule
+  - does not exist
+  - not found
+  - Rule 185
+  - GSTR-19
+  must_not_say:
+  - Rule 185 states
+  - penalty is
+  - as per Rule 185
+  - GSTR-19
+  must_cite_verbatim: false
+  notes: Rule 185 and GSTR-19 are fabricated. System must recognize these do not exist in the corpus.
+- id: others_refuse_004
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: What is the capital gains tax rate for an individual selling a residential property after holding it for 5 years?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - out of scope
+  - income tax
+  - direct tax
+  must_not_say:
+  - 20%
+  - capital gains
+  - Income Tax Act
+  - indexation benefit
+  must_cite_verbatim: false
+  notes: This is a direct tax (Income Tax) question. The CBIC corpus covers indirect taxes. System must refuse on scope grounds.
+- id: others_refuse_005
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: Under the Indian Penal Code (IPC), what is the punishment for cheating and dishonestly inducing delivery of property?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - out of scope
+  - not available
+  - Indian Penal Code
+  - criminal law
+  must_not_say:
+  - Section 420
+  - imprisonment
+  - fine
+  - IPC
+  must_cite_verbatim: false
+  notes: This is a criminal law question, outside the indirect tax corpus. System must refuse to answer.
+- id: gst_refuse_006
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: What is the GST rate?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ambiguous
+  - require clarification
+  - insufficient information
+  - specify goods or services
+  must_not_say:
+  - the standard GST rate is 18%
+  - the GST rate is 18%
+  must_cite_verbatim: false
+  notes: The query lacks any subject matter. System must ask for clarification, not pick a single rate. (Must_not_say tightened to only catch single-rate guesses, not legitimate rate-bracket clarifications.)
+- id: customs_refuse_007
+  category: customs
+  subcategory: refuse
+  difficulty: basic
+  question: Is duty applicable on my import?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ambiguous
+  - require clarification
+  - insufficient information
+  - what are you importing
+  must_not_say:
+  - yes, duty is applicable at
+  - BCD of 10%
+  - BCD of 20%
+  must_cite_verbatim: false
+  notes: Query is too vague to answer. System must refuse and request details on item, origin, or value. (Must_not_say tightened to catch specific-rate guesses while allowing 'it depends on X' clarifications.)
+- id: gst_refuse_008
+  category: gst
+  subcategory: refuse
+  difficulty: basic
+  question: What will be the GST rate on electric vehicles in the financial year 2028-2029?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - cannot verify
+  - not available
+  - future
+  - no record
+  must_not_say:
+  - 5%
+  - the rate will be
+  - expected to remain
+  must_cite_verbatim: false
+  notes: System cannot predict future rates or notifications not yet issued. Must refuse due to temporal scope.
+- id: others_refuse_009
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: What was the Octroi rate on textiles levied by the Municipal Corporation of Greater Mumbai before April 2017?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - not available
+  - Octroi
+  - municipal
+  - no record
+  must_not_say:
+  - Octroi rate was
+  - 5%
+  - Mumbai Municipal Corporation Act
+  - subsumed into GST
+  must_cite_verbatim: false
+  notes: Octroi was a municipal/state levy (not a central indirect tax), abolished in 2017 when subsumed into GST. Not in the CBIC central-indirect-tax corpus. System must refuse on scope grounds. (Swapped from pre-2017 Central Excise because CE archive IS in our corpus.)
+- id: others_refuse_010
+  category: others
+  subcategory: refuse
+  difficulty: basic
+  question: Write a haiku about the complexities of filing a GSTR-9 annual return.
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - not a legal question
+  - outside scope
+  - unable to answer
+  - cannot fulfill
+  must_not_say:
+  - filing is hard
+  - GSTR-9
+  - annual return
+  must_cite_verbatim: false
+  notes: This is an off-topic creative writing request. System must politely refuse to generate poetry.
+- id: gst_complex_001
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A company paid for marketing services on 1st March. The supplier issued the invoice on 5th March but filed their GSTR-1 for March on 15th May (late). The company wants to claim ITC in their GSTR-3B for March filed on 20th April. Explain the eligibility considering the interaction of Section 16(2)(aa) and Rule 36(4).
+  expected_sections:
+  - Section 16(2)(aa) CGST Act
+  expected_rules:
+  - Rule 36(4) CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - cannot claim in March
+  - auto-populated in GSTR-2B
+  - must reflect in GSTR-2B
+  must_not_say:
+  - can claim in March
+  - invoice date governs
+  - provisional ITC allowed
+  must_cite_verbatim: true
+  notes: Tests the strict linkage between supplier filing (GSTR-1), auto-population (GSTR-2B), and recipient ITC eligibility introduced by 16(2)(aa).
+- id: gst_complex_002
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A manufacturer (not an MSME) purchases raw materials on 10th January. The invoice is dated 10th January, goods received 12th January. Payment to the supplier is delayed and finally made on 20th August. They claimed ITC in January. What are the consequences under Section 16(2) second proviso and Rule 37?
+  expected_sections:
+  - Section 16(2) CGST Act
+  - Section 50(1) CGST Act
+  expected_rules:
+  - Rule 37 CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - reverse ITC
+  - pay interest
+  - 180 days
+  - re-avail upon payment
+  must_not_say:
+  - no consequence
+  - ITC permanently lost
+  - penalty applies automatically
+  must_cite_verbatim: true
+  notes: Requires combining the 180-day payment rule (Sec 16(2) proviso), the mechanism for reversal (Rule 37), and the interest liability (Sec 50).
+- id: gst_complex_003
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A registered person in Delhi provides architectural design services for an immovable property located in Dubai to a client registered in Mumbai. Determine the Place of Supply and the type of tax applicable, citing relevant IGST sections.
+  expected_sections:
+  - Section 12(3) IGST Act
+  - Section 12(1) IGST Act
+  - Section 8 IGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Mumbai
+  - location of recipient
+  - IGST
+  - inter-state
+  must_not_say:
+  - Dubai
+  - Delhi
+  - CGST/SGST
+  - export of service
+  must_cite_verbatim: true
+  notes: Tests POS for immovable property when property is outside India but both supplier and recipient are in India (Sec 12(3) proviso shifting POS to recipient location).
+- id: gst_complex_004
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A corporate entity receives legal advisory services from an individual advocate. They also receive services from an arbitral tribunal. Contrast the GST liability mechanism (forward vs reverse charge) citing the relevant section and notification entries.
+  expected_sections:
+  - Section 9(3) CGST Act
+  expected_rules: []
+  expected_notifications:
+  - 13/2017-CT(R)
+  expected_conclusion_keywords:
+  - reverse charge
+  - RCM
+  - business entity
+  - both under RCM
+  must_not_say:
+  - forward charge
+  - advocate pays
+  - arbitral tribunal pays
+  - exempt
+  must_cite_verbatim: true
+  notes: Requires linking Sec 9(3) with specific entries in Notification 13/2017-CT(R) for legal and arbitral services provided to business entities.
+- id: gst_complex_005
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: An exporter of goods wants to claim a refund of unutilized ITC under LUT without payment of IGST. They have accumulated ITC on inputs, capital goods, and input services. Based on Section 54(3) and the formula in Rule 89(4), which components of ITC are eligible for the refund calculation?
+  expected_sections:
+  - Section 54(3) CGST Act
+  expected_rules:
+  - Rule 89(4) CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - inputs
+  - input services
+  - excludes capital goods
+  - Net ITC definition
+  must_not_say:
+  - capital goods
+  - all ITC
+  - only inputs
+  must_cite_verbatim: true
+  notes: Tests the definition of 'Net ITC' in Rule 89(4) for zero-rated supply refunds, which explicitly excludes capital goods but includes input services (unlike inverted duty structure).
+- id: gst_complex_006
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A principal sends inputs to a job worker on 1st April 2022. The job worker processes them but fails to return the goods or supply them from their premises by 1st April 2023. What is the deemed supply trigger under Section 143, and what are the invoicing and interest implications per Rule 45?
+  expected_sections:
+  - Section 143(3) CGST Act
+  expected_rules:
+  - Rule 45 CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - deemed supply
+  - principal to job worker
+  - effective from original date
+  - interest applies
+  must_not_say:
+  - no supply
+  - job worker pays
+  - penalty instead of interest
+  must_cite_verbatim: true
+  notes: Combines the 1-year return requirement (Sec 143) with the consequence of it becoming a deemed supply from the date goods were originally sent, requiring invoice issuance and interest payment (Rule 45).
+- id: gst_complex_007
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A company provides free meals to its employees in the factory canteen as mandated by the Factories Act. They use catering services (taxed at 5%) to provide this. Can the company claim ITC on the catering services? Analyze using Section 17(5) and its provisos.
+  expected_sections:
+  - Section 17(5)(b) CGST Act
+  - Section 17(5) proviso
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ITC allowed
+  - obligatory for employer
+  - under any law
+  must_not_say:
+  - ITC blocked
+  - personal consumption
+  - food and beverages are blocked always
+  must_cite_verbatim: true
+  notes: Tests the exception to the blocked credit on food/beverages (17(5)(b)) when provision of such goods/services is obligatory for an employer under any law (e.g., Factories Act). Proviso inserted by Finance Act 2018 effective 01-Feb-2019.
+- id: gst_complex_008
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A transporter (GTA) opts to pay GST at 12% under forward charge. They provide transport services to an unregistered individual for personal household goods, and to a registered manufacturing company. Determine the taxability and payment mechanism for both transactions citing the relevant exemption and rate notifications.
+  expected_sections:
+  - Section 9(1) CGST Act
+  expected_rules: []
+  expected_notifications:
+  - 11/2017-CT(R)
+  - 12/2017-CT(R)
+  expected_conclusion_keywords:
+  - unregistered individual exempt
+  - registered company forward charge 12%
+  - option exercised
+  must_not_say:
+  - RCM applies to registered company
+  - unregistered individual pays RCM
+  - both exempt
+  must_cite_verbatim: true
+  notes: Requires combining the GTA exemption for unregistered persons (12/2017) with the GTA rate options (11/2017) where exercising the 12% option overrides the default RCM for registered recipients.
+- id: gst_complex_009
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A company in Karnataka has a branch in Maharashtra. The Karnataka head office centrally procures IT software licenses and distributes the credit to the Maharashtra branch. Does the head office need to register as an Input Service Distributor (ISD)? Contrast the ISD mechanism under Section 20 with the cross-charge mechanism.
+  expected_sections:
+  - Section 20 CGST Act
+  - Section 24 CGST Act
+  - Schedule I CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - mandatory ISD registration
+  - distinct persons
+  - third-party services
+  - cross-charge for internal services
+  must_not_say:
+  - ISD is optional
+  - can use cross-charge for third party
+  - no registration needed
+  must_cite_verbatim: true
+  notes: Tests the mandatory nature of ISD registration (Sec 24) for distributing third-party service ITC (Sec 20) vs cross-charging for internally generated services between distinct persons (Schedule I). Mandatory ISD effective 01-Apr-2025 per Finance Act 2024.
+- id: gst_complex_010
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A taxpayer receives a show cause notice (SCN) under Section 74 alleging fraud. The tax amount is Rs. 10 Lakhs. They want to settle the matter before the adjudication order is passed. What amount of penalty must they pay under Section 74(5) to conclude the proceedings, and how does this differ if the SCN was issued under Section 73?
+  expected_sections:
+  - Section 74(5) CGST Act
+  - Section 73(5) CGST Act
+  - Section 73(8) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 25% penalty
+  - Section 74
+  - 10% penalty or no penalty
+  - Section 73
+  must_not_say:
+  - 100% penalty
+  - 15% penalty for 74(5)
+  - same for both
+  must_cite_verbatim: true
+  notes: 'Sec 74(5): 25% penalty to conclude before adjudication. Sec 73(5): no penalty if paid before SCN. Sec 73(8): 10% penalty if paid within 30 days of SCN. (Tightened keyword list to avoid conflating 73(5) pre-SCN and 73(8) post-SCN cases.)'
+- id: gst_complex_011
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: An e-commerce operator (ECO) facilitates the sale of plumbing services through its app. The plumber is unregistered. Who is liable to pay GST, and under what specific provision? Does the ECO need to collect TCS under Section 52?
+  expected_sections:
+  - Section 9(5) CGST Act
+  - Section 52 CGST Act
+  expected_rules: []
+  expected_notifications:
+  - 17/2017-CT(R)
+  expected_conclusion_keywords:
+  - ECO liable
+  - Section 9(5)
+  - no TCS under Section 52
+  must_not_say:
+  - plumber liable
+  - TCS applies
+  - RCM applies
+  must_cite_verbatim: true
+  notes: Tests the specific liability of ECOs for notified services (housekeeping including plumbing/carpentering, inserted by Notif 23/2017-CT(R)) under Sec 9(5) and 17/2017-CT(R), which overrides standard TCS provisions under Sec 52.
+- id: gst_complex_012
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A supplier receives an advance payment for services on 20th June. The services are completed on 15th July, and the invoice is issued on 10th August. When is the time of supply, and how does this differ from the time of supply for goods receiving an advance? Cite relevant sections.
+  expected_sections:
+  - Section 13(2) CGST Act
+  - Section 12(2) CGST Act
+  expected_rules:
+  - Rule 47 CGST Rules
+  expected_notifications:
+  - 66/2017-CT
+  expected_conclusion_keywords:
+  - time of supply is 20th June
+  - advance received
+  - invoice not within 30 days
+  - goods exempt from advance tax
+  must_not_say:
+  - 15th July
+  - 10th August
+  - advance for goods is taxable
+  must_cite_verbatim: true
+  notes: Combines Sec 13 (TOS for services), Rule 47 (30-day invoice limit, which was missed), making TOS the date of advance. Contrasts with goods (Sec 12) where advance tax was removed by Notif 66/2017.
+- id: gst_complex_013
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A registered person's GSTR-3B shows an output liability of Rs. 100,000. They have Rs. 40,000 in their electronic credit ledger and Rs. 60,000 in their electronic cash ledger. They file the return 30 days late. Calculate the amount on which interest under Section 50(1) is payable, referring to the specific proviso.
+  expected_sections:
+  - Section 50(1) CGST Act
+  expected_rules:
+  - Rule 88B CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - interest on Rs. 60,000
+  - cash ledger portion
+  - proviso to Section 50(1)
+  must_not_say:
+  - interest on Rs. 100,000
+  - gross liability
+  - no interest
+  must_cite_verbatim: true
+  notes: Tests the proviso to Sec 50(1) (and Rule 88B) which restricts interest to the net tax liability paid via the electronic cash ledger when returns are filed late.
+- id: gst_complex_014
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: A company transfers capital goods (computers) to its branch in another state. ITC was availed on these computers 2 years ago. How is the value of this supply determined under Section 15 and Rule 28, and does the proviso to Rule 28 apply if the branch is eligible for full ITC?
+  expected_sections:
+  - Section 15 CGST Act
+  - Schedule I CGST Act
+  expected_rules:
+  - Rule 28 CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - distinct persons
+  - open market value
+  - invoice value accepted
+  - proviso to Rule 28
+  must_not_say:
+  - no supply
+  - book value
+  - proviso doesn't apply
+  must_cite_verbatim: true
+  notes: Combines Schedule I (supply between distinct persons), Sec 15, and Rule 28 valuation. Crucially, tests the proviso to Rule 28 allowing invoice value to be accepted as open market value if recipient branch can claim full ITC.
+- id: gst_complex_015
+  category: gst
+  subcategory: complex
+  difficulty: complex
+  question: What is the order of utilization of Input Tax Credit (ITC) available in the IGST ledger? Can IGST credit be used to pay SGST before exhausting it against CGST? Cite the relevant section and rule governing this new mechanism.
+  expected_sections:
+  - Section 49A CGST Act
+  - Section 49B CGST Act
+  expected_rules:
+  - Rule 88A CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - first against IGST
+  - then CGST or SGST in any order
+  - must exhaust IGST first
+  must_not_say:
+  - only CGST then SGST
+  - cannot pay SGST
+  - proportional utilization
+  must_cite_verbatim: true
+  notes: Tests the specific ITC utilization hierarchy introduced by Sec 49A/49B and Rule 88A, allowing IGST to be used for CGST or SGST in any order/proportion after IGST liability is met.
+- id: customs_complex_016
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: An importer brings in goods from a related party supplier in Germany. The customs authorities suspect undervaluation. Explain the procedure under the Customs Valuation Rules, 2007, specifically referring to Rule 3(3) regarding related party transactions and the role of the Special Valuation Branch (SVB) as per Circular 5/2016-Cus.
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 3(3) Customs Valuation Rules
+  expected_notifications:
+  - Circular 5/2016-Cus
+  expected_conclusion_keywords:
+  - related party
+  - transaction value accepted if relationship didn't influence price
+  - SVB investigation
+  - extra duty deposit
+  must_not_say:
+  - transaction value always rejected
+  - SVB not required
+  - rule 4 applies immediately
+  must_cite_verbatim: true
+  notes: Requires combining Sec 14 valuation, the specific related-party test in Rule 3(3) (circumstances of sale), and the procedural mandate for SVB referral under the specific circular.
+- id: customs_complex_017
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: An exporter imports raw materials duty-free under an Advance Authorisation scheme. They manufacture finished goods and export them. Later, they realize they exported less than required to fulfill their export obligation. What are the consequences regarding the BCD and IGST initially exempted, citing relevant Customs notifications and Section 28?
+  expected_sections:
+  - Section 28 Customs Act
+  expected_rules: []
+  expected_notifications:
+  - Advance Authorisation Notification (e.g., 18/2015-Cus)
+  expected_conclusion_keywords:
+  - pay proportionate duty
+  - interest applies
+  - BCD and IGST recovered
+  must_not_say:
+  - no penalty
+  - only BCD recovered
+  - IGST is permanently exempt
+  must_cite_verbatim: true
+  notes: Tests the conditions of Advance Authorisation (exemption notifications) and the recovery mechanism (Sec 28) for unfulfilled export obligations, including both basic duty and IGST.
+- id: customs_complex_018
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: A company imports machinery under 'Project Imports' (Heading 9801) for a new power plant. The BCD is concessional. However, one specific machine would have been fully exempt from BCD under a separate notification if imported individually. Can the importer claim that specific exemption for that one machine while keeping the rest under 9801? Cite the Project Import Regulations.
+  expected_sections:
+  - Heading 9801 Customs Tariff
+  expected_rules:
+  - Project Import Regulations, 1986
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 'no'
+  - classified together
+  - single rate applies
+  - cannot cherry-pick
+  must_not_say:
+  - 'yes'
+  - can claim exemption
+  - merit rate applies
+  must_cite_verbatim: true
+  notes: 'Tests the fundamental principle of Project Imports (Heading 9801 and PIR 1986): all items imported under registered contracts are assessed together at the project rate; individual merit rates/exemptions are disregarded.'
+- id: customs_complex_019
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: An importer pays IGST on imported goods and then immediately re-exports them without putting them to use. Can they claim duty drawback under Section 74 of the Customs Act for the IGST paid? Contrast this with the availability of ITC under the CGST Act.
+  expected_sections:
+  - Section 74 Customs Act
+  - Section 16 CGST Act
+  expected_rules:
+  - Re-export of Imported Goods (Drawback of Customs Duties) Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no drawback for IGST
+  - drawback only for BCD
+  - claim ITC under GST
+  must_not_say:
+  - drawback includes IGST
+  - 98% drawback on IGST
+  - cannot claim ITC
+  must_cite_verbatim: true
+  notes: Combines Customs Sec 74 (which allows drawback for basic duties) with the principle that IGST paid on imports is creditable as ITC under GST (Sec 16), hence excluded from Customs drawback.
+- id: customs_complex_020
+  category: customs
+  subcategory: complex
+  difficulty: complex
+  question: Determine the assessable value for customs duty if an importer brings in goods by air. The FOB value is $10,000, but the actual air freight incurred is $3,000. Insurance is unknown. Cite Section 14 and the specific provisions in Rule 10 of the Customs Valuation Rules.
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 10(2) Customs Valuation Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - freight restricted to 20% of FOB
+  - insurance 1.125% of FOB
+  - assessable value calculation
+  must_not_say:
+  - actual freight $3,000
+  - insurance zero
+  - CIF is assessable value directly
+  must_cite_verbatim: true
+  notes: 'Requires applying the specific restrictions in Rule 10(2): air freight is capped at 20% of FOB, and unknown insurance is deemed 1.125% of FOB.'
+- id: central_excise_complex_021
+  category: central_excise
+  subcategory: complex
+  difficulty: complex
+  question: A manufacturer had unutilized CENVAT credit relating to Education Cess and Secondary & Higher Education Cess as of June 30, 2017. Can this credit be transitioned to the GST regime under Section 140 of the CGST Act? Cite relevant provisions and key judicial rulings if applicable.
+  expected_sections:
+  - Section 140 CGST Act
+  expected_rules:
+  - Rule 117 CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - cannot transition
+  - eligible duties only
+  - cesses excluded
+  must_not_say:
+  - can transition
+  - carry forward allowed
+  - treated as GST credit
+  must_cite_verbatim: true
+  notes: Tests the transition provisions (Sec 140) which explicitly defined 'eligible duties', omitting specific cesses from the pre-GST regime, blocking their transition.
+- id: central_excise_complex_022
+  category: central_excise
+  subcategory: complex
+  difficulty: complex
+  question: A manufacturer cleared excisable goods in May 2017 but the buyer rejected and returned them in August 2017 (post-GST implementation). Under Section 142 of the CGST Act, how is this return treated for duty/tax purposes, and can the manufacturer claim a refund of the excise duty originally paid?
+  expected_sections:
+  - Section 142(1) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - treated as fresh supply
+  - buyer pays GST
+  - manufacturer claims excise refund
+  - returned within 6 months
+  must_not_say:
+  - no refund
+  - adjust against GST
+  - treated as pre-GST return
+  must_cite_verbatim: true
+  notes: Tests the specific transitional mechanism in Sec 142(1) for goods returned post-appointed day, involving a deemed fresh GST supply and a separate excise refund process.
+- id: service_tax_complex_023
+  category: service_tax
+  subcategory: complex
+  difficulty: complex
+  question: Under the pre-GST Service Tax regime, an IT company in Bangalore provided software development services to a client in the USA. However, the software was tested on servers physically located in Bangalore. Did this qualify as an 'export of service' under the Place of Provision of Services Rules (POPS), 2012? Cite relevant rules.
+  expected_sections:
+  - Section 66B Finance Act 1994
+  expected_rules:
+  - Rule 3 POPS Rules 2012
+  - Rule 4 POPS Rules 2012
+  - Rule 6A Service Tax Rules 1994
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - export of service
+  - location of recipient
+  - Rule 3 applies
+  - Rule 4 does not override
+  must_not_say:
+  - taxable in India
+  - performance based
+  - location of server
+  must_cite_verbatim: true
+  notes: Requires analyzing POPS Rules. While Rule 4 is performance-based (where goods/servers are), IT services typically fell under the default Rule 3 (location of recipient), satisfying export criteria under Rule 6A.
+- id: service_tax_complex_024
+  category: service_tax
+  subcategory: complex
+  difficulty: complex
+  question: A real estate developer received an advance payment for an under-construction apartment in June 2017 (Service Tax era) but issued the invoice and handed over possession in September 2017 (GST era). How is the Point of Taxation Rules, 2011 reconciled with Section 142(11) of the CGST Act to prevent double taxation?
+  expected_sections:
+  - Section 142(11) CGST Act
+  expected_rules:
+  - Rule 3 Point of Taxation Rules 2011
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - taxed under Service Tax
+  - extent of advance
+  - no GST on that portion
+  - prevent double taxation
+  must_not_say:
+  - fully taxable under GST
+  - Service Tax refunded
+  - GST applies to total value
+  must_cite_verbatim: true
+  notes: Combines pre-GST POT Rules (tax triggers on advance) with the specific GST transitional provision Sec 142(11) ensuring GST isn't levied on amounts already subjected to Service Tax.
+- id: others_complex_025
+  category: others
+  subcategory: complex
+  difficulty: complex
+  question: A taxpayer receives an unfavorable order from the Appellate Authority (first appeal) under Section 107. They wish to appeal to the GST Appellate Tribunal (GSTAT) under Section 112. What is the mandatory pre-deposit requirement for filing this second appeal, and how is it calculated relative to the disputed tax amount?
+  expected_sections:
+  - Section 107(6) CGST Act
+  - Section 112(8) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 10% of remaining disputed tax
+  - in addition to Section 107 deposit
+  - maximum 20 crores
+  must_not_say:
+  - 20%
+  - 50 crores
+  - 100%
+  - no pre-deposit
+  must_cite_verbatim: true
+  notes: 'Sec 112(8) pre-deposit for GSTAT appeal: 10% of remaining disputed tax (in addition to 10% already deposited under Sec 107 for first appeal), capped at Rs 20 crores per CGST+Rs 20 crores SGST. (UPDATED: Pre-Nov-2024 it was 20%/Rs 50 crores, reduced to 10%/Rs 20 crores by Finance (No.2) Act 2024 / CGST Amendment Act 2024 effective 01-Nov-2024.)'
+- id: st_service_tax_001
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: An IT consulting firm located in Bangalore provided general software testing services in February 2017 to a client registered and located in Germany. Under the default rule of POPS, where is the place of provision of this service?
+  expected_sections: []
+  expected_rules:
+  - Rule 3 POPS Rules 2012
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - location of the service receiver
+  - Germany
+  - Rule 3
+  must_not_say:
+  - location of the service provider
+  - Bangalore
+  - Rule 4
+  must_cite_verbatim: true
+  notes: Under Rule 3 of Place of Provision of Services Rules 2012, the default place of provision was the location of the service receiver.
+- id: st_service_tax_002
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: A technician from a UK-based company travelled to Chennai in May 2017 to repair a specialized manufacturing machine located at an Indian factory. According to the Place of Provision of Services Rules, what is the place of provision?
+  expected_sections: []
+  expected_rules:
+  - Rule 4 POPS Rules 2012
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - location where the services are actually performed
+  - Chennai
+  - Rule 4
+  must_not_say:
+  - location of the service provider
+  - United Kingdom
+  - Rule 3
+  must_cite_verbatim: true
+  notes: Under Rule 4 of POPS Rules 2012, for services in respect of goods required to be made physically available, the POS is where the services are actually performed.
+- id: st_service_tax_003
+  category: service_tax
+  subcategory: service_tax
+  difficulty: advanced
+  question: In January 2017, a travel agent in Mumbai acted as an intermediary to book hotel accommodations in London for a US-based tourist. What was the place of provision for this intermediary service?
+  expected_sections: []
+  expected_rules:
+  - Rule 9 POPS Rules 2012
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - location of the service provider
+  - Mumbai
+  - Rule 9
+  must_not_say:
+  - location of the service receiver
+  - United States
+  - London
+  - Rule 3
+  must_cite_verbatim: true
+  notes: Under Rule 9(c) of POPS Rules 2012, the place of provision of intermediary services was the location of the service provider.
+- id: st_service_tax_004
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: An audit firm completed a statutory audit on 10-Aug-2016, issued its invoice on 25-Aug-2016, and received payment on 05-Sep-2016. What is the point of taxation for this service?
+  expected_sections: []
+  expected_rules:
+  - Rule 3 POT Rules 2011
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 25-Aug-2016
+  - date of invoice
+  - earlier of invoice or payment
+  must_not_say:
+  - 10-Aug-2016
+  - date of completion
+  - 05-Sep-2016
+  must_cite_verbatim: true
+  notes: Under Rule 3 of Point of Taxation Rules 2011, since the invoice was issued within 30 days of completion, the POT is the earlier of the invoice date or payment date.
+- id: st_service_tax_005
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: A company received legal advisory services from an advocate on 01-Jan-2017. The invoice was issued on 05-Jan-2017. The company, liable to pay Service Tax under reverse charge, finally made the payment to the advocate on 10-May-2017. Determine the point of taxation.
+  expected_sections: []
+  expected_rules:
+  - Rule 7 POT Rules 2011
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - date immediately following three months
+  - 06-Apr-2017
+  must_not_say:
+  - 10-May-2017
+  - 05-Jan-2017
+  - date of payment
+  must_cite_verbatim: true
+  notes: Under Rule 7 of POT Rules, for reverse charge, if payment is not made within 3 months of the invoice date, the POT is the date immediately following the end of 3 months from the date of invoice.
+- id: st_service_tax_006
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: In March 2017, a business engaged in both the 'trading of goods' and the provision of 'health care services'. Which of these two activities was strictly covered under the Negative List of services in the Finance Act, 1994?
+  expected_sections:
+  - Section 66D Finance Act 1994
+  expected_rules: []
+  expected_notifications:
+  - 25/2012-ST
+  expected_conclusion_keywords:
+  - trading of goods
+  - Negative List
+  - health care services are exempted
+  - Mega Exemption
+  must_not_say:
+  - health care is in the negative list
+  - both are in the negative list
+  must_cite_verbatim: true
+  notes: Trading of goods is under the Negative List (Sec 66D). Health care services were exempt via Mega Exemption Notification 25/2012-ST, not the Negative List.
+- id: st_service_tax_007
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: An executive received a non-compete fee in November 2016 for agreeing to the obligation to refrain from an act. Was this transaction treated as a service under the Finance Act 1994?
+  expected_sections:
+  - Section 66E Finance Act 1994
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - declared service
+  - agreeing to the obligation to refrain from an act
+  - 'yes'
+  must_not_say:
+  - not a service
+  - negative list
+  must_cite_verbatim: true
+  notes: Section 66E of the Finance Act 1994 explicitly listed 'agreeing to the obligation to refrain from an act' as a Declared Service.
+- id: st_service_tax_008
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: A registered manufacturing company utilized the services of a Goods Transport Agency (GTA) for road transport in December 2016. Under the Service Tax reverse charge notification, what percentage of the Service Tax liability was the manufacturing company required to pay?
+  expected_sections:
+  - Section 68(2) Finance Act 1994
+  expected_rules: []
+  expected_notifications:
+  - 30/2012-ST
+  expected_conclusion_keywords:
+  - 100%
+  - service receiver
+  - full reverse charge
+  must_not_say:
+  - 50%
+  - partial reverse charge
+  - GTA pays the tax
+  must_cite_verbatim: true
+  notes: Under Notification 30/2012-ST, the service receiver (a specified corporate/registered entity) was liable to pay 100% of the Service Tax under reverse charge for GTA services.
+- id: st_service_tax_009
+  category: service_tax
+  subcategory: service_tax
+  difficulty: advanced
+  question: An individual provided manpower supply services to a corporate entity in October 2016. What portion of the Service Tax liability did the corporate service receiver pay under reverse charge, and what was the applicable total Service Tax rate in effect at that time?
+  expected_sections:
+  - Section 68(2) Finance Act 1994
+  expected_rules: []
+  expected_notifications:
+  - 30/2012-ST
+  - 7/2015-ST
+  expected_conclusion_keywords:
+  - 100%
+  - full reverse charge
+  - service receiver pays the entire tax
+  - 15%
+  must_not_say:
+  - 75%
+  - 25%
+  - partial reverse charge
+  - 18%
+  - 12.36%
+  - 14%
+  must_cite_verbatim: true
+  notes: Manpower supply and security services were shifted from partial RCM (75/25) to 100% FULL RCM on the service receiver by Notification 7/2015-ST effective 01-Apr-2015 (amending Notif 30/2012-ST). By October 2016, it was full RCM. Effective ST rate was 15% (14% ST + 0.5% SBC + 0.5% KKC) from 01-Jun-2016 to 30-Jun-2017. Corrected from Gemini's 75/25 error.
+- id: st_service_tax_010
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: What was the abatement percentage allowed for Goods Transport Agency (GTA) services under the relevant 2012 notification, and what was the primary condition regarding CENVAT credit?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 26/2012-ST
+  expected_conclusion_keywords:
+  - 70% abatement
+  - taxable value is 30%
+  - no CENVAT credit
+  - inputs or capital goods
+  must_not_say:
+  - 100% abatement
+  - CENVAT credit allowed
+  - 30% abatement
+  must_cite_verbatim: true
+  notes: Notification 26/2012-ST provided an abatement of 70% (taxable on 30%) for GTA services, subject to the condition that no CENVAT credit was taken on inputs, capital goods, and input services.
+- id: st_service_tax_011
+  category: service_tax
+  subcategory: service_tax
+  difficulty: intermediate
+  question: For the service of renting of a motor cab designed to carry passengers in early 2017, what was the abatement percentage allowed, and what portion of the value was subject to Service Tax?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 26/2012-ST
+  expected_conclusion_keywords:
+  - 60% abatement
+  - taxable portion 40%
+  - renting of motor cab
+  must_not_say:
+  - 70% abatement
+  - taxable portion 30%
+  - CENVAT fully allowed
+  must_cite_verbatim: true
+  notes: Under Notification 26/2012-ST, renting of a motor cab enjoyed a 60% abatement, meaning Service Tax was levied on 40% of the value, with restrictions on CENVAT credit.
+- id: st_service_tax_012
+  category: service_tax
+  subcategory: service_tax
+  difficulty: basic
+  question: In March 2016, a service provider purchased capital goods for providing taxable services. Under the CENVAT Credit Rules, what was the maximum percentage of CENVAT credit on these capital goods that could be availed in the same financial year?
+  expected_sections: []
+  expected_rules:
+  - Rule 4 CENVAT Credit Rules 2004
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 50%
+  - in the same financial year
+  - first year
+  must_not_say:
+  - 100%
+  - no credit allowed
+  - 20%
+  must_cite_verbatim: true
+  notes: Under Rule 4(2)(a) of the CENVAT Credit Rules 2004, a maximum of 50% of the CENVAT credit on capital goods could be taken in the financial year of receipt.
+- id: st_transition_001
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: intermediate
+  question: A taxpayer missed the original deadline to file Form GST TRAN-1 to carry forward pre-GST CENVAT credit. In 2022, the Supreme Court in the Filco Trade Centre case directed a special window to reopen the portal. What were the specific dates for this reopened window?
+  expected_sections:
+  - Section 140 CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Filco Trade Centre
+  - 01-Oct-2022
+  - 30-Nov-2022
+  - Supreme Court
+  must_not_say:
+  - 31-Dec-2017
+  - portal permanently closed
+  - no extension
+  must_cite_verbatim: true
+  notes: 'The SC directed the reopening of the common portal for filing TRAN-1/TRAN-2 for two months: from October 1, 2022, to November 30, 2022.'
+- id: st_transition_002
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: advanced
+  question: An architect received an advance of Rs 1,00,000 in June 2017 and paid 15% Service Tax on it. The architectural service was completed and the final invoice was issued in September 2017. Under the CGST Act transitional provisions, how is the advance portion protected from GST levy?
+  expected_sections:
+  - Section 142(11)(b) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 142(11)(b)
+  - no tax shall be payable under CGST Act
+  - tax was leviable under the Chapter V of the Finance Act
+  must_not_say:
+  - Section 142(11)(c)
+  - GST is payable on the full amount
+  - Service tax is refunded
+  must_cite_verbatim: true
+  notes: Section 142(11)(b) ensures no GST is payable on services to the extent the tax was leviable under the Finance Act 1994 (Service Tax) due to POT rules on advances.
+- id: st_transition_003
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: intermediate
+  question: In August 2017, a taxpayer filed a refund claim for unutilized CENVAT credit related to Service Tax for the quarter ending March 2017. According to the CGST Act, how will this claim be disposed of, and how will the refund be paid if sanctioned?
+  expected_sections:
+  - Section 142(3) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 142(3)
+  - disposed of in accordance with the provisions of existing law
+  - paid in cash
+  must_not_say:
+  - credited to electronic credit ledger
+  - rejected as pre-GST
+  - adjusted against CGST
+  must_cite_verbatim: true
+  notes: Section 142(3) of the CGST Act states that refund claims filed post-appointed day for CENVAT credit under existing law must be disposed of under existing law and paid in cash.
+- id: st_transition_004
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: basic
+  question: A company entered into a continuous supply of service contract that spanned from April 2017 to September 2017. For the portion of services provided prior to July 1, 2017, what tax applied according to the CGST Act transitional provisions?
+  expected_sections:
+  - Section 142(11)(b) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 142(11)(b)
+  - Service Tax
+  - Chapter V of the Finance Act 1994
+  - no tax under CGST Act to the extent leviable under existing law
+  must_not_say:
+  - Section 142(10)
+  - GST applies to pre-July portion
+  - exempt from all tax
+  must_cite_verbatim: true
+  notes: Corrected from Gemini's Sec 142(10) citation. Sec 142(10) actually states post-appointed-day supplies under pre-GST contracts are liable to GST. The correct citation for the pre-01-Jul-2017 portion remaining under Service Tax is Sec 142(11)(b) — no GST to the extent ST was leviable under Chapter V of Finance Act 1994.
+- id: st_transition_005
+  category: gst
+  subcategory: st_gst_transition
+  difficulty: advanced
+  question: An Input Service Distributor (ISD) received an invoice for services rendered in June 2017, but the physical invoice only reached them in August 2017. Under which sub-section of the CGST transitional provisions can the ISD distribute this credit as CGST?
+  expected_sections:
+  - Section 140(7) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 140(7)
+  - Input Service Distributor shall be eligible
+  - even if the invoices are received on or after the appointed day
+  must_not_say:
+  - Section 140(1)
+  - credit lapses
+  - cannot be distributed
+  must_cite_verbatim: true
+  notes: Section 140(7) specifically addresses the transition of CENVAT credit for an ISD when services were received pre-GST but the invoice is received post-GST.
+- id: st_refuse_001
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: basic
+  question: I paid Rs 50,000 to a consultant for professional fees in 2023. I know GST applies at 18%, but what is the exact TDS rate I need to deduct under Section 194J of the Income Tax Act before making the payment?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - direct tax
+  - Income Tax Act
+  - indirect tax corpus
+  must_not_say:
+  - 10%
+  - 2%
+  - Section 194J states
+  must_cite_verbatim: false
+  notes: This is a direct-tax question embedded with a GST reference. The system must refuse to provide Income Tax (TDS) rates as the corpus is restricted to indirect tax.
+- id: st_refuse_002
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: basic
+  question: A freelance software developer has gross receipts of Rs 40 Lakhs. They want to opt for presumptive taxation. Under Section 44ADA of the Income-tax Act, 1961, what percentage of gross receipts is considered as presumed profit?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - direct tax
+  - Income Tax Act
+  - cannot answer
+  must_not_say:
+  - 50%
+  - presumptive taxation
+  - Section 44ADA allows
+  must_cite_verbatim: false
+  notes: Pure Income Tax Act query regarding presumptive taxation. The system must refuse on scope grounds.
+- id: st_refuse_003
+  category: others
+  subcategory: refuse_direct_tax
+  difficulty: intermediate
+  question: A company sold the goodwill of its business in the financial year 2022-23. According to the recent amendments to the Income Tax Act, is depreciation allowed on goodwill, and how are the capital gains calculated on its sale?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - outside scope
+  - direct tax
+  - Income Tax Act
+  - capital gains
+  must_not_say:
+  - depreciation is not allowed
+  - Finance Act 2021
+  - short term capital asset
+  must_cite_verbatim: false
+  notes: Capital gains and depreciation on goodwill are purely matters of the Income-tax Act 1961. The system must refuse to answer.
+- id: cust_customs_valuation_001
+  category: customs
+  subcategory: customs_valuation
+  difficulty: advanced
+  question: An importer brings in goods by air in 2024. The FOB value is $10,000. They paid $500 to their sourcing agent (buying commission) and $2,500 for air freight. Insurance costs are not ascertainable. Calculate the assessable value components under CVR 2007.
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 10(1)(a) CVR 2007
+  - Rule 10(2) CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - buying commission not added
+  - air freight capped at 20%
+  - insurance 1.125% of FOB
+  - no landing charges
+  must_not_say:
+  - add buying commission
+  - air freight $2,500
+  - add 1% landing charges
+  must_cite_verbatim: false
+  notes: Buying commission excluded under Rule 10(1)(a)(i). Air freight capped at 20% of FOB under Rule 10(2). 1% landing charge was abolished 26-Sep-2017.
+- id: cust_customs_valuation_002
+  category: customs
+  subcategory: customs_valuation
+  difficulty: intermediate
+  question: An Indian company imports raw materials. The foreign supplier dictates that the Indian company must pay a royalty to a third-party patent holder as a condition of the sale. Should this royalty be included in the transaction value?
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 10(1)(c) CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - add to transaction value
+  - condition of sale
+  - Rule 10(1)(c)
+  must_not_say:
+  - excluded from transaction value
+  - only paid to seller
+  - post-importation expense
+  must_cite_verbatim: true
+  notes: Under Rule 10(1)(c), royalties and license fees related to the imported goods must be added if paid as a condition of the sale, even if paid to a third party.
+- id: cust_customs_valuation_003
+  category: customs
+  subcategory: customs_valuation
+  difficulty: advanced
+  question: An Indian subsidiary imports goods from its foreign holding company. Does the customs officer automatically reject the transaction value under Rule 3 because they are related parties?
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 3(3) CVR 2007
+  - Rule 2(2) CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - transaction value accepted if relationship did not influence price
+  - test values
+  - SVB reference
+  must_not_say:
+  - automatically rejected
+  - Rule 4 applies immediately
+  - must use deductive value
+  must_cite_verbatim: false
+  notes: Under Rule 3(3), transaction value is accepted if the importer demonstrates the relationship didn't influence the price, usually via Special Valuation Branch (SVB) investigation.
+- id: cust_customs_valuation_004
+  category: customs
+  subcategory: customs_valuation
+  difficulty: intermediate
+  question: An importer uses an Indian design firm to create engineering drawings for a machine, which are then sent free of cost to the foreign manufacturer to produce the imported machine. Is the cost of this Indian design work added to the customs value?
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 10(1)(b)(iv) CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - not added
+  - undertaken in India
+  - excluded from value
+  must_not_say:
+  - must be added
+  - apportioned value
+  - free issue material
+  must_cite_verbatim: true
+  notes: Rule 10(1)(b)(iv) explicitly excludes the cost of engineering, development, artwork, and design work if it is undertaken in India.
+- id: cust_customs_valuation_005
+  category: customs
+  subcategory: customs_valuation
+  difficulty: basic
+  question: If the proper officer rejects the declared transaction value of imported goods under Rule 12 of the Customs Valuation Rules, 2007, what is the mandatory sequence of rules to determine the value?
+  expected_sections:
+  - Section 14 Customs Act
+  expected_rules:
+  - Rule 4 CVR 2007
+  - Rule 5 CVR 2007
+  - Rule 7 CVR 2007
+  - Rule 8 CVR 2007
+  - Rule 9 CVR 2007
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - sequential application
+  - identical goods
+  - similar goods
+  - deductive value
+  - computed value
+  - residual method
+  must_not_say:
+  - importer can choose any rule
+  - skip Rule 4 and 5
+  - use MRP directly
+  must_cite_verbatim: false
+  notes: Rules 4 through 9 must be applied sequentially. Only the order of deductive (Rule 7) and computed (Rule 8) values can be reversed at the importer's request.
+- id: cust_customs_classification_001
+  category: customs
+  subcategory: customs_classification
+  difficulty: advanced
+  question: An importer brings in a composite retail grooming kit containing an electric hair clipper (Heading 8510), steel scissors (Heading 8213), and a plastic comb (Heading 9615). Assuming GRI 1 and 2 don't resolve the classification, how is the kit classified?
+  expected_sections: []
+  expected_rules:
+  - GRI 3(b)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - essential character
+  - composite goods
+  - retail sale
+  - GRI 3(b)
+  must_not_say:
+  - highest rate of duty
+  - GRI 3(c)
+  - classify separately
+  must_cite_verbatim: true
+  notes: Under GRI 3(b), composite goods put up in sets for retail sale are classified by the component that gives them their essential character.
+- id: cust_customs_classification_002
+  category: customs
+  subcategory: customs_classification
+  difficulty: intermediate
+  question: A mixture of two chemical compounds cannot be classified by specific description (GRI 3a) or by essential character (GRI 3b). How is the classification determined under the General Rules for the Interpretation of Import Tariff?
+  expected_sections: []
+  expected_rules:
+  - GRI 3(c)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - heading which occurs last in numerical order
+  - equally merit consideration
+  - GRI 3(c)
+  must_not_say:
+  - highest duty rate
+  - GRI 1
+  - essential character
+  must_cite_verbatim: true
+  notes: GRI 3(c) acts as a tiebreaker when 3(a) and 3(b) fail, requiring classification under the heading that occurs last in numerical order among those equally meriting consideration.
+- id: cust_customs_classification_003
+  category: customs
+  subcategory: customs_classification
+  difficulty: basic
+  question: An importer argues that the titles of Sections and Chapters in the Customs Tariff Act have legal weight for classification, overriding the actual headings. Is this correct according to GRI 1?
+  expected_sections: []
+  expected_rules:
+  - GRI 1
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - for ease of reference only
+  - determined according to the terms of the headings
+  - Section or Chapter Notes
+  must_not_say:
+  - titles have legal force
+  - titles override headings
+  - titles determine classification
+  must_cite_verbatim: true
+  notes: GRI 1 states that titles of Sections, Chapters, and Sub-chapters are provided for ease of reference only; legally, classification is determined by the terms of headings and relevant Section or Chapter Notes.
+- id: cust_customs_classification_004
+  category: customs
+  subcategory: customs_classification
+  difficulty: intermediate
+  question: A shipment of complete bicycles is imported entirely in a completely knocked down (CKD) condition for convenience of packing. How is this classified under the Customs Tariff?
+  expected_sections: []
+  expected_rules:
+  - GRI 2(a)
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - presented unassembled or disassembled
+  - classified as the complete article
+  - finished article
+  must_not_say:
+  - classified as parts
+  - classified separately
+  - GRI 3(b)
+  must_cite_verbatim: true
+  notes: GRI 2(a) mandates that an article presented unassembled or disassembled is classified in the same heading as the assembled/complete article.
+- id: cust_customs_drawback_001
+  category: customs
+  subcategory: customs_drawback
+  difficulty: intermediate
+  question: An importer pays duty on a specialized machine, but it turns out to be incompatible with their systems. They re-export it back to the supplier 3 months later without ever putting it to use. What percentage of duty drawback can they claim, and under what section?
+  expected_sections:
+  - Section 74 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 74
+  - 98 per cent
+  - imported goods exported
+  - without use
+  must_not_say:
+  - Section 75
+  - 100 per cent
+  - AIR drawback
+  - Brand rate
+  must_cite_verbatim: true
+  notes: Section 74 allows a 98% drawback of duties paid on imported goods if re-exported within 2 years without being put to use.
+- id: cust_customs_drawback_002
+  category: customs
+  subcategory: customs_drawback
+  difficulty: advanced
+  question: An Indian production house imports a high-end camera, pays BCD and IGST, uses it for a 4-month film shoot, and then re-exports it. What is the applicable drawback provision, and what rate applies under the relevant notification?
+  expected_sections:
+  - Section 74 Customs Act
+  - Section 74(2) Customs Act
+  expected_rules: []
+  expected_notifications:
+  - 19/1965-Cus
+  expected_conclusion_keywords:
+  - Section 74
+  - re-export after use
+  - 95%
+  - reduced drawback
+  must_not_say:
+  - Section 75
+  - 98%
+  - no drawback allowed
+  - AIR
+  must_cite_verbatim: false
+  notes: Under Section 74(2) read with Notification 19/65-Cus, if imported goods are re-exported after use for a period up to 6 months, drawback is 95% of import duty paid.
+- id: cust_customs_drawback_003
+  category: customs
+  subcategory: customs_drawback
+  difficulty: intermediate
+  question: An exporter manufactures garments using imported fabric and exports them. The All Industry Rate (AIR) of drawback covers only 50% of the actual customs duties paid on the inputs. How can the exporter recover the actual duties paid?
+  expected_sections:
+  - Section 75 Customs Act
+  expected_rules:
+  - Rule 7 Drawback Rules 2017
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Section 75
+  - Brand Rate
+  - Rule 7
+  - less than four-fifths
+  - actual duty paid
+  must_not_say:
+  - Section 74
+  - cannot claim excess
+  - apply for DGFT license
+  must_cite_verbatim: false
+  notes: Under Rule 7 of the Drawback Rules 2017 (Sec 75), if AIR drawback is less than 4/5ths (80%) of actual duties paid, the exporter can apply for Brand Rate fixation.
+- id: cust_customs_drawback_004
+  category: customs
+  subcategory: customs_drawback
+  difficulty: advanced
+  question: An exporter ships goods and successfully claims drawback under Section 75. A year later, they fail to realize the export proceeds in foreign exchange within the time allowed by FEMA. What action will customs take regarding the drawback?
+  expected_sections:
+  - Section 75 Customs Act
+  - Section 75A Customs Act
+  expected_rules:
+  - Rule 18 Drawback Rules 2017
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - recovery of drawback
+  - with interest
+  - failure to realize export proceeds
+  must_not_say:
+  - drawback is not impacted
+  - penalty but no recovery
+  - Section 74
+  must_cite_verbatim: true
+  notes: Under Rule 18 of the Drawback Rules 2017, drawback shall be recovered with interest if sale proceeds are not realized within the time allowed under FEMA.
+- id: cust_customs_warehouse_001
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: basic
+  question: An importer deposits raw materials (non-capital goods) into a public customs bonded warehouse. Under Section 61, what is the standard initial period these goods can remain warehoused, and can it be extended?
+  expected_sections:
+  - Section 61 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - one year
+  - extended by the Principal Commissioner
+  - Commissioner of Customs
+  - sufficient cause
+  must_not_say:
+  - till clearance
+  - three years
+  - cannot be extended
+  must_cite_verbatim: true
+  notes: Section 61 sets a 1-year limit for warehousing non-capital goods, extendable by the Principal Commissioner/Commissioner on sufficient cause.
+- id: cust_customs_warehouse_002
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: advanced
+  question: A company wishes to import raw materials duty-free, manufacture electronics in a bonded facility, and export the finished goods. They opt for the MOOWR 2019 scheme. Is there a maximum warehousing bond period for the imported inputs under this scheme?
+  expected_sections:
+  - Section 65 Customs Act
+  expected_rules: []
+  expected_notifications:
+  - MOOWR 2019
+  expected_conclusion_keywords:
+  - no time limit
+  - till clearance
+  - manufacture in bond
+  - interest-free
+  must_not_say:
+  - one year limit
+  - extension required
+  - interest applies after 90 days
+  must_cite_verbatim: false
+  notes: MOOWR 2019 (under Section 65) removes warehousing period expiry and interest burden for inputs used in manufacturing within the bonded warehouse.
+- id: cust_customs_warehouse_003
+  category: customs
+  subcategory: customs_warehouse
+  difficulty: intermediate
+  question: A 100% Export Oriented Unit (EOU) imports capital goods and stores them in a bonded warehouse. What is the maximum permitted warehousing period for these capital goods under Section 61?
+  expected_sections:
+  - Section 61 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - till they are cleared
+  - no one-year limit
+  - capital goods
+  - 100% EOU
+  must_not_say:
+  - one year
+  - three years
+  - expires if not used
+  must_cite_verbatim: true
+  notes: Under Section 61(1)(a), capital goods intended for use in an EOU can remain in warehouse till cleared (no 1-year expiry).
+- id: cust_customs_adviolation_001
+  category: customs
+  subcategory: customs_adviolation
+  difficulty: intermediate
+  question: An anti-dumping duty (ADD) was levied on a chemical import 6 years ago. The domestic industry petitions to extend it, but no review was conducted before the 5-year expiry. Under Section 9A of the Customs Tariff Act, what is the status of the ADD, and which body conducts the reviews?
+  expected_sections:
+  - Section 9A Customs Tariff Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ceases to have effect
+  - five years
+  - sunset review
+  - Directorate General of Trade Remedies
+  - DGTR
+  must_not_say:
+  - valid for 10 years
+  - DGAD
+  - Board decides without review
+  must_cite_verbatim: true
+  notes: Under Sec 9A(5), ADD expires after 5 years unless a sunset review is initiated by DGTR (formerly DGAD) before expiry.
+- id: cust_customs_adviolation_002
+  category: customs
+  subcategory: customs_adviolation
+  difficulty: advanced
+  question: The Central Government wishes to impose a Safeguard Duty on imported steel due to a sudden surge in imports. What specific threshold of injury must the domestic industry prove under Section 8B of the Customs Tariff Act to justify this duty?
+  expected_sections:
+  - Section 8B Customs Tariff Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - serious injury
+  - threat of serious injury
+  - increased quantities
+  must_not_say:
+  - material injury
+  - dumping margin
+  - subsidy
+  must_cite_verbatim: true
+  notes: Unlike ADD (material injury), Safeguard Duty under Sec 8B requires proving 'serious injury' or threat thereof from increased imports.
+- id: cust_customs_exemption_001
+  category: customs
+  subcategory: customs_exemption
+  difficulty: intermediate
+  question: An importer claims a concessional rate of BCD under Notification 50/2017-Cus, which is subject to an end-use condition. Under the Customs (Import of Goods at Concessional Rate of Duty) Rules, 2022 (IGCR), how must the importer report the utilization of these goods?
+  expected_sections: []
+  expected_rules:
+  - IGCR Rules 2022
+  expected_notifications:
+  - 50/2017-Cus
+  expected_conclusion_keywords:
+  - monthly statement
+  - Common Customs Electronic Portal
+  - ICEGATE
+  - Rule 6
+  must_not_say:
+  - IGCR 2017
+  - quarterly manual return
+  - no reporting required
+  must_cite_verbatim: false
+  notes: IGCR Rules 2022 require monthly statement of receipt and utilization on the common customs portal (ICEGATE).
+- id: cust_customs_exemption_002
+  category: customs
+  subcategory: customs_exemption
+  difficulty: advanced
+  question: An exporter imports capital goods duty-free under the EPCG scheme via Notification 16/2015-Cus. Six years later, they completely fail to fulfill their export obligation. What must they pay to regularize the import?
+  expected_sections: []
+  expected_rules: []
+  expected_notifications:
+  - 16/2015-Cus
+  expected_conclusion_keywords:
+  - customs duty saved
+  - 15% interest
+  - per annum
+  - unfulfilled export obligation
+  must_not_say:
+  - 18% interest
+  - forfeit the machine
+  - only pay BCD
+  must_cite_verbatim: true
+  notes: Under EPCG scheme conditions, failure to meet export obligation requires payment of customs duties saved plus 15% interest per annum.
+- id: oth_appeals_001
+  category: gst
+  subcategory: appeals
+  difficulty: intermediate
+  question: A taxpayer faces a confirmed CGST demand of Rs. 300 Crores from the First Appellate Authority (FAA). They wish to file an appeal before the GST Appellate Tribunal (GSTAT) in December 2024. Under Section 112(8) of the CGST Act, what is the exact mandatory pre-deposit amount for the CGST component, assuming the full amount remains in dispute?
+  expected_sections:
+  - Section 112(8) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Rs. 20 crore
+  - 10 per cent of the remaining amount
+  - maximum of twenty crore rupees
+  must_not_say:
+  - Rs. 50 crore
+  - 20 per cent
+  - Rs. 30 crore
+  - Rs. 25 crore
+  must_cite_verbatim: true
+  notes: Post Finance (No.2) Act 2024 (eff Nov 2024), GSTAT pre-deposit is 10% of disputed tax subject to a maximum cap of Rs 20 crore for CGST.
+- id: oth_appeals_002
+  category: gst
+  subcategory: appeals
+  difficulty: intermediate
+  question: An adjudicating authority confirms a disputed CGST tax liability of Rs. 250 Crores. The taxpayer files an appeal to the Appellate Authority (FAA) under Section 107. What is the pre-deposit required for the CGST portion to stay the recovery proceedings?
+  expected_sections:
+  - Section 107(6) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - Rs. 20 crore
+  - 10 per cent of the disputed amount
+  - maximum of twenty crore rupees
+  must_not_say:
+  - Rs. 25 crore
+  - Rs. 50 crore
+  - 20 per cent
+  must_cite_verbatim: true
+  notes: The Finance (No.2) Act 2024 reduced the Section 107(6) pre-deposit cap from Rs 25 crores to Rs 20 crores for CGST.
+- id: oth_appeals_003
+  category: customs
+  subcategory: appeals
+  difficulty: basic
+  question: An importer receives an unfavorable assessment order on 1st March. They file an appeal to the Commissioner (Appeals) on 10th May (70 days later). Under Section 128 of the Customs Act, is this appeal time-barred, and does the Commissioner have the power to condone the delay?
+  expected_sections:
+  - Section 128 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - within condonable period
+  - 60 days
+  - extendable by 30 days
+  - sufficient cause
+  must_not_say:
+  - time-barred unconditionally
+  - extendable by 60 days
+  - 90 days normal period
+  must_cite_verbatim: true
+  notes: Customs Sec 128 allows 60 days for appeal, plus a condonation window of a further 30 days if sufficient cause is shown.
+- id: oth_appeals_004
+  category: customs
+  subcategory: appeals
+  difficulty: intermediate
+  question: A company appeals against an Order-in-Appeal confirming a customs duty demand of Rs. 150 Crores to the CESTAT. What is the mandatory pre-deposit required under Section 129E of the Customs Act, and does it hit the statutory cap?
+  expected_sections:
+  - Section 129E Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 10%
+  - Rs. 10 crore
+  - statutory cap
+  must_not_say:
+  - Rs. 15 crore
+  - 7.5%
+  - 20%
+  must_cite_verbatim: true
+  notes: CESTAT pre-deposit under Customs Sec 129E is 10% of the duty, but strictly capped at Rs 10 crores.
+- id: oth_appeals_005
+  category: gst
+  subcategory: appeals
+  difficulty: basic
+  question: An Appellate Authority issues an order on 10th January. The Commissioner of CGST believes the order is not legal and directs a subordinate officer to file an appeal to the GSTAT. Under Section 112(3), what is the time limit for the Department to file this appeal?
+  expected_sections:
+  - Section 112(3) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - six months
+  - from the date of communication
+  must_not_say:
+  - three months
+  - ninety days
+  - sixty days
+  must_cite_verbatim: true
+  notes: Departmental appeals to GSTAT under Sec 112(3) have a 6-month time limit, compared to 3 months for taxpayers.
+- id: oth_penalty_001
+  category: gst
+  subcategory: penalty
+  difficulty: intermediate
+  question: A truck carrying taxable goods without an e-way bill is intercepted. The owner of the goods voluntarily comes forward to pay the applicable tax and penalty. Under Section 129(1)(a) of the CGST Act (post-2021 amendment), what is the penalty quantum required to release the goods?
+  expected_sections:
+  - Section 129(1)(a) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 200 per cent of the tax payable
+  - penalty equal to two hundred per cent
+  must_not_say:
+  - 100 per cent of the tax
+  - 50 per cent of the value
+  - confiscation
+  must_cite_verbatim: true
+  notes: Finance Act 2021 delinked Section 129 and 130. For detained goods where the owner comes forward, the penalty is purely 200% of the tax payable.
+- id: oth_penalty_002
+  category: gst
+  subcategory: penalty
+  difficulty: basic
+  question: A registered person collects Rs. 6,000 as CGST from a client but intentionally fails to deposit it with the government beyond a period of three months. Under Section 122(1) of the CGST Act, what is the specific penalty amount they are liable to pay?
+  expected_sections:
+  - Section 122(1) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ten thousand rupees
+  - higher of the two
+  - Rs. 10,000
+  must_not_say:
+  - Rs. 6,000
+  - 100 per cent of tax
+  - Rs. 25,000
+  must_cite_verbatim: true
+  notes: Sec 122(1) penalty is the higher of Rs 10,000 or the tax evaded. Since 10,000 > 6,000, the penalty is Rs 10,000.
+- id: oth_penalty_003
+  category: gst
+  subcategory: penalty
+  difficulty: advanced
+  question: A Proper Officer proceeds to confiscate goods under Section 130 of the CGST Act due to intent to evade tax. The officer offers the taxpayer an option to pay a fine in lieu of confiscation. What is the statutory maximum limit for this redemption fine?
+  expected_sections:
+  - Section 130(2) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - market value of the goods
+  - less the tax chargeable thereon
+  - shall not exceed
+  must_not_say:
+  - 200% of tax
+  - 100% of market value
+  - inclusive of tax
+  must_cite_verbatim: true
+  notes: Under Sec 130(2), the maximum redemption fine cannot exceed the market value of the goods minus the tax chargeable on them.
+- id: oth_penalty_004
+  category: customs
+  subcategory: penalty
+  difficulty: intermediate
+  question: An exporter attempts to smuggle out prohibited goods (antiques) hidden in a container. The goods are seized at the port. Under Section 114 of the Customs Act, what is the maximum penalty the exporter is liable for?
+  expected_sections:
+  - Section 114 Customs Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - not exceeding three times the value
+  - three times the value of the goods
+  must_not_say:
+  - 100% of duty
+  - five times the value
+  - confiscation only
+  must_cite_verbatim: true
+  notes: For prohibited goods attempted to be exported, Sec 114 imposes a penalty not exceeding three times the value of the goods as declared or determined.
+- id: oth_advance_ruling_001
+  category: gst
+  subcategory: advance_ruling
+  difficulty: basic
+  question: Company X obtains a favorable Advance Ruling from the state AAR clarifying the HSN code for their software product. Company Y, located in the same state and selling an identical product, begins using this ruling to classify their goods. Under Section 103, is Company Y legally protected by this ruling?
+  expected_sections:
+  - Section 103 CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - binding only on the applicant
+  - not binding on Company Y
+  - jurisdictional officer of the applicant
+  must_not_say:
+  - binding on identical goods
+  - precedent
+  - binding on all taxpayers in state
+  must_cite_verbatim: true
+  notes: Section 103 explicitly restricts the binding nature of an advance ruling strictly to the applicant and their concerned/jurisdictional officer.
+- id: oth_advance_ruling_002
+  category: gst
+  subcategory: advance_ruling
+  difficulty: intermediate
+  question: A taxpayer files an application before the Authority for Advance Ruling (AAR) asking whether a notice issued to them for a delay in filing GSTR-3B is legally valid. Does the AAR have the jurisdiction to admit and rule on this specific question under Section 97(2)?
+  expected_sections:
+  - Section 97(2) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - not maintainable
+  - outside the scope
+  - not covered under Section 97(2)
+  must_not_say:
+  - has jurisdiction
+  - can decide on validity of notices
+  - binding on the department
+  must_cite_verbatim: false
+  notes: Section 97(2) strictly lists the questions an AAR can entertain (classification, valuation, applicability of notifs, etc.). Validity of notices or procedural defaults are explicitly outside its jurisdiction.
+- id: oth_advance_ruling_003
+  category: gst
+  subcategory: advance_ruling
+  difficulty: advanced
+  question: The two members of an Authority for Advance Ruling (AAR) have a difference of opinion on a classification issue. The matter is referred to the Appellate Authority (AAAR). If the members of the AAAR are also unable to reach a consensus, what is the statutory outcome for the applicant's ruling?
+  expected_sections:
+  - Section 101(3) CGST Act
+  - Section 98(5) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no advance ruling can be issued
+  - shall be deemed that no advance ruling can be issued
+  - difference of opinion
+  must_not_say:
+  - referred to High Court
+  - original AAR ruling stands
+  - referred to National AAAR
+  must_cite_verbatim: true
+  notes: Under Sec 101(3), if AAAR members cannot agree on a reference from the AAR, the law deems that no advance ruling can be issued in respect of that question.
+- id: oth_advance_ruling_004
+  category: gst
+  subcategory: advance_ruling
+  difficulty: basic
+  question: Company Z receives an adverse Advance Ruling from the state AAR. They want to appeal the decision to the Appellate Authority for Advance Ruling (AAAR). Under Section 100(2), what is the statutory time limit for filing this appeal, and can it be extended?
+  expected_sections:
+  - Section 100(2) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - thirty days
+  - extendable by a further period not exceeding thirty days
+  - sufficient cause
+  must_not_say:
+  - sixty days
+  - no extension allowed
+  - ninety days
+  must_cite_verbatim: true
+  notes: Appeals against an AAR order must be filed to the AAAR within 30 days, which can be condoned by another 30 days.
+- id: oth_anti_evasion_001
+  category: gst
+  subcategory: anti_evasion
+  difficulty: intermediate
+  question: The Commissioner suspects a taxpayer is availing ITC based on fake invoices and invokes Rule 86A to block the taxpayer's electronic credit ledger. Assuming no show-cause notice is issued, what is the maximum statutory time limit for which this block can remain in effect before automatically expiring?
+  expected_sections: []
+  expected_rules:
+  - Rule 86A(3) CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - one year
+  - expiry of a period of one year
+  - date of imposing such restriction
+  must_not_say:
+  - six months
+  - until adjudication
+  - indefinitely
+  must_cite_verbatim: true
+  notes: Rule 86A(3) mandates that the restriction on the electronic credit ledger ceases to have effect after one year from the date of imposition.
+- id: oth_anti_evasion_002
+  category: gst
+  subcategory: anti_evasion
+  difficulty: intermediate
+  question: A registered person's monthly taxable supply (excluding exempt and zero-rated) is Rs. 75 lakhs. They have enough balance in the electronic credit ledger to discharge 100% of their output tax liability. Under Rule 86B, what is the minimum liability they must discharge through the electronic cash ledger, assuming no exceptions apply?
+  expected_sections: []
+  expected_rules:
+  - Rule 86B CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - 1%
+  - one per cent of the output tax liability
+  - electronic cash ledger
+  must_not_say:
+  - can use 100% ITC
+  - 5%
+  - 10%
+  must_cite_verbatim: true
+  notes: Rule 86B, an anti-evasion measure, restricts the use of the electronic credit ledger to 99% of output tax liability for taxpayers with monthly taxable supplies exceeding Rs 50 lakhs.
+- id: oth_anti_evasion_003
+  category: gst
+  subcategory: anti_evasion
+  difficulty: basic
+  question: A manufacturing company purchases a 5-seater SUV for the exclusive use of its Managing Director. The vehicle is not used for further supply, transport of passengers for hire, or driving training. Can the company claim ITC on the purchase of this vehicle?
+  expected_sections:
+  - Section 17(5)(a) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - ITC blocked
+  - seating capacity of not more than thirteen
+  - not eligible
+  must_not_say:
+  - ITC allowed
+  - business asset
+  - capital goods credit
+  must_cite_verbatim: true
+  notes: Section 17(5)(a) specifically blocks ITC on motor vehicles for transportation of persons with a seating capacity of <= 13 unless used for specified exceptions.
+- id: oth_offences_001
+  category: gst
+  subcategory: offences
+  difficulty: intermediate
+  question: A syndicate issues fake invoices without underlying supply, resulting in an ITC evasion of Rs. 6 Crores. An arrest is made. Under Section 132(5) of the CGST Act, is this offence classified as cognizable and non-bailable?
+  expected_sections:
+  - Section 132(1)(b) CGST Act
+  - Section 132(5) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - cognizable
+  - non-bailable
+  - exceeds five hundred lakh rupees
+  - Rs. 5 crores
+  must_not_say:
+  - bailable
+  - non-cognizable
+  - exceeds two crore
+  must_cite_verbatim: true
+  notes: For fake invoice evasion exceeding Rs 500 lakhs (Rs 5 Crores), Section 132(5) categorizes the offence as cognizable and non-bailable.
+- id: oth_offences_002
+  category: gst
+  subcategory: offences
+  difficulty: advanced
+  question: A taxpayer applies for the compounding of an offence under the CGST Act involving tax evasion of Rs. 30 Lakhs. Under Section 138(2) (as amended by Finance Act 2023), what are the minimum and maximum compounding amounts the Commissioner can fix?
+  expected_sections:
+  - Section 138(2) CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - minimum
+  - twenty-five per cent of the tax
+  - maximum
+  - one hundred per cent of the tax
+  must_not_say:
+  - 150 per cent
+  - fifty per cent
+  - ten thousand rupees
+  must_cite_verbatim: true
+  notes: Finance Act 2023 rationalized compounding amounts in Sec 138(2). The minimum is now 25% of the tax involved, and the maximum is 100% of the tax involved.
+- id: oth_interest_001
+  category: gst
+  subcategory: interest
+  difficulty: intermediate
+  question: A taxpayer mistakenly availed an ineligible ITC of Rs. 5 Lakhs in their GSTR-3B for January. However, their electronic credit ledger balance never fell below Rs. 10 Lakhs. They voluntarily reverse the Rs. 5 Lakhs ITC in May. Under Section 50(3) of the CGST Act, are they liable to pay interest?
+  expected_sections:
+  - Section 50(3) CGST Act
+  expected_rules:
+  - Rule 88B(3) CGST Rules
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - no interest payable
+  - availed but not utilised
+  - wrongly availed and utilised
+  must_not_say:
+  - interest at 18%
+  - interest at 24%
+  - interest applies on availment
+  must_cite_verbatim: true
+  notes: Following the retrospective amendment to Sec 50(3), interest is only payable if the ineligible ITC is both availed AND utilized. Since the balance didn't dip below the wrong ITC amount, it was not utilized.
+- id: oth_interest_002
+  category: gst
+  subcategory: interest
+  difficulty: basic
+  question: A taxpayer files a valid refund application under Section 54. The proper officer sanctions and disburses the refund 85 days after the receipt of the application. Is the taxpayer entitled to interest, and if so, from what date and at what rate?
+  expected_sections:
+  - Section 56 CGST Act
+  expected_rules: []
+  expected_notifications: []
+  expected_conclusion_keywords:
+  - six per cent
+  - expiry of sixty days
+  - from the date of receipt of application
+  must_not_say:
+  - nine per cent
+  - from the 85th day
+  - no interest
+  must_cite_verbatim: true
+  notes: Section 56 mandates interest at 6% p.a. for delayed refunds, calculated from the expiry of 60 days from the date of receipt of the application.

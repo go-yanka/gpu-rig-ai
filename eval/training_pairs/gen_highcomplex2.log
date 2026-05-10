@@ -1,0 +1,10 @@
+[exclude] +536 from D:/_gpu_rig_ai/eval/training_pairs/pairs_2000_20260422.jsonl
+[exclude] +35 from D:/_gpu_rig_ai/eval/training_pairs/pairs_claude_opus.jsonl
+[exclude] total 579 excluded chunk_ids
+[sample] collection has 108802 points
+[sample] 9 cand (text \u2265600 chars), returning 9
+[queue] 9 chunks (model=opus, workers=2)
+[1/9] ok=1 skip=0 err=0  rate=0.05/s  eta=2.6m  pairs_so_far=2
+[2/9] ok=2 skip=0 err=0  rate=0.10/s  eta=1.2m  pairs_so_far=4
+[3/9] ok=3 skip=0 err=0  rate=0.09/s  eta=1.1m  pairs_so_far=6
+[5/9] ok=5 skip=0 err=0  rate=0.09/s  eta=0.7m  pairs_so_far=10

@@ -1,0 +1,6 @@
+[Unit]
+Description=Weekly llama-server restart (clear memory leaks)
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'killall llama-server-rocm 2>/dev/null; echo "Fri Apr 10 21:47:40 EDT 2026 Weekly restart" >> /tmp/ai-rig-watchdog.log'

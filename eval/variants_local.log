@@ -1,0 +1,86 @@
+[resume] 0 already done
+[queue] 510 (item, variant) pairs  workers=6
+[1/510] ok=1 err=0  rate=0.01/s  eta=827.3m
+[2/510] ok=2 err=0  rate=0.01/s  eta=635.4m
+[3/510] ok=3 err=0  rate=0.02/s  eta=509.2m
+[10/510] ok=4 err=6  rate=0.03/s  eta=302.1m
+[resume] 12 already done
+[queue] 498 (item, variant) pairs  workers=3
+[1/498] ok=1 err=0  rate=0.00/s  eta=2557.2m
+[2/498] ok=2 err=0  rate=0.01/s  eta=1386.3m
+[3/498] ok=3 err=0  rate=0.01/s  eta=992.6m
+[resume] 16 already done
+[queue] 494 (item, variant) pairs  workers=2
+[1/494] ok=1 err=0  rate=0.02/s  eta=460.0m
+[2/494] ok=2 err=0  rate=0.02/s  eta=410.1m
+[3/494] ok=3 err=0  rate=0.02/s  eta=346.2m
+[10/494] ok=10 err=0  rate=0.02/s  eta=370.1m
+[20/494] ok=20 err=0  rate=0.02/s  eta=366.8m
+[30/494] ok=30 err=0  rate=0.02/s  eta=356.4m
+[40/494] ok=35 err=5  rate=0.02/s  eta=305.4m
+[50/494] ok=45 err=5  rate=0.03/s  eta=283.4m
+[60/494] ok=55 err=5  rate=0.03/s  eta=269.3m
+[70/494] ok=65 err=5  rate=0.03/s  eta=256.0m
+[80/494] ok=75 err=5  rate=0.03/s  eta=244.9m
+[90/494] ok=85 err=5  rate=0.03/s  eta=236.7m
+[100/494] ok=95 err=5  rate=0.03/s  eta=227.1m
+[110/494] ok=105 err=5  rate=0.03/s  eta=218.6m
+[120/494] ok=115 err=5  rate=0.03/s  eta=209.8m
+[130/494] ok=125 err=5  rate=0.03/s  eta=202.8m
+[140/494] ok=135 err=5  rate=0.03/s  eta=196.4m
+[150/494] ok=145 err=5  rate=0.03/s  eta=189.2m
+[160/494] ok=155 err=5  rate=0.03/s  eta=183.0m
+[170/494] ok=165 err=5  rate=0.03/s  eta=176.9m
+[180/494] ok=175 err=5  rate=0.03/s  eta=171.2m
+[190/494] ok=185 err=5  rate=0.03/s  eta=165.9m
+[200/494] ok=195 err=5  rate=0.03/s  eta=160.4m
+[210/494] ok=205 err=5  rate=0.03/s  eta=154.4m
+[220/494] ok=215 err=5  rate=0.03/s  eta=148.8m
+[230/494] ok=225 err=5  rate=0.03/s  eta=143.5m
+[240/494] ok=235 err=5  rate=0.03/s  eta=137.9m
+[250/494] ok=245 err=5  rate=0.03/s  eta=132.7m
+[260/494] ok=255 err=5  rate=0.03/s  eta=127.4m
+[270/494] ok=265 err=5  rate=0.03/s  eta=121.8m
+[280/494] ok=275 err=5  rate=0.03/s  eta=116.4m
+[290/494] ok=285 err=5  rate=0.03/s  eta=110.7m
+[300/494] ok=295 err=5  rate=0.03/s  eta=105.3m
+[310/494] ok=305 err=5  rate=0.03/s  eta=99.9m
+[320/494] ok=315 err=5  rate=0.03/s  eta=94.4m
+[330/494] ok=325 err=5  rate=0.03/s  eta=88.8m
+[340/494] ok=335 err=5  rate=0.03/s  eta=83.1m
+[350/494] ok=345 err=5  rate=0.03/s  eta=77.5m
+[360/494] ok=355 err=5  rate=0.03/s  eta=72.0m
+[370/494] ok=365 err=5  rate=0.03/s  eta=66.6m
+[380/494] ok=375 err=5  rate=0.03/s  eta=61.1m
+[390/494] ok=385 err=5  rate=0.03/s  eta=55.8m
+[400/494] ok=395 err=5  rate=0.03/s  eta=50.4m
+[410/494] ok=405 err=5  rate=0.03/s  eta=45.0m
+[420/494] ok=415 err=5  rate=0.03/s  eta=39.7m
+[430/494] ok=425 err=5  rate=0.03/s  eta=34.4m
+[440/494] ok=435 err=5  rate=0.03/s  eta=28.9m
+[450/494] ok=445 err=5  rate=0.03/s  eta=23.5m
+[460/494] ok=455 err=5  rate=0.03/s  eta=18.2m
+[470/494] ok=465 err=5  rate=0.03/s  eta=12.8m
+[480/494] ok=475 err=5  rate=0.03/s  eta=7.5m
+[490/494] ok=481 err=9  rate=0.03/s  eta=2.3m
+# Recall variants — 2026-04-22 22:29
+
+Gold: 170 items | API: http://192.168.1.107:9500 | k=8
+
+## Headline
+
+| Variant | @1 | @5 |
+|---|---:|---:|
+| baseline | 9/157 (5.7%) | 14/157 (8.9%) |
+| hyde | 12/170 (7.1%) | 20/170 (11.8%) |
+| meta_filter | 9/162 (5.6%) | 16/162 (9.9%) |
+
+## Per category (@5)
+
+| Category | baseline | hyde | meta_filter |
+|---|---:|---:|---:|
+| central_excise | 0/10 (0%) | 2/10 (20%) | 0/10 (0%) |
+| customs | 4/44 (9%) | 5/45 (11%) | 5/45 (11%) |
+| gst | 4/69 (6%) | 5/81 (6%) | 5/73 (7%) |
+| others | 5/14 (36%) | 5/14 (36%) | 5/14 (36%) |
+| service_tax | 1/20 (5%) | 3/20 (15%) | 1/20 (5%) |

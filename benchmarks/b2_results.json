@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "win_lines": 1000,
+  "rig_lines": 1000,
+  "win_wrote": 1000,
+  "rig_wrote": 1000,
+  "interleaves": 0,
+  "json_parse_failures": 0,
+  "win_monotonic": true,
+  "rig_monotonic": true,
+  "share_path": "\\\\192.168.1.222\\projects  (D:\\ on Windows, /mnt/d CIFS vers=3.0 on rig)",
+  "test_dir": "D:\\_gpu_rig_ai\\benchmarks\\b2_test (== /mnt/d/_gpu_rig_ai/benchmarks/b2_test)",
+  "duration_sec": 60,
+  "interval_sec": 0.06,
+  "notes": "clean"
+}

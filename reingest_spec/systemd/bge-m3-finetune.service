@@ -1,0 +1,65 @@
+# Resume-safe BGE-M3 fine-tune service.
+# Codified rule RULES_INDEX `[TRIGGER: training resume]`:
+# multi-hour training MUST survive rig reboots. This service:
+#   - Runs as user (not root) so no privilege escalation in training pipeline
+#   - Auto-restarts on failure (kernel panic, OOM, ROCm crash) within 30s
+#   - Trainer auto-resumes from latest checkpoint at /opt/.../checkpoints/
+#   - On final-model success, the script writes TRAINING_COMPLETE marker;
+#     subsequent restarts no-op (idempotent).
+#
+# To install on rig:
+#   sudo cp /tmp/bge-m3-finetune.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now bge-m3-finetune
+#
+# To monitor:
+#   journalctl -u bge-m3-finetune -f
+#   tail -f /opt/indian-legal-ai/logs/finetune_v1.log
+#
+# To stop:
+#   sudo systemctl disable --now bge-m3-finetune
+
+[Unit]
+Description=BGE-M3 fine-tune (resume-safe)
+After=network.target
+# Do NOT wait for qwen3-14b — we explicitly stopped it to free card 2
+
+[Service]
+Type=simple
+User=user
+Group=user
+WorkingDirectory=/opt/indian-legal-ai
+
+# Force GPU power high on card 2 before training (codified power_dpm rule)
+ExecStartPre=/bin/bash -c 'echo high > /sys/class/drm/card2/device/power_dpm_force_performance_level 2>/dev/null || true'
+
+# ROCm env
+Environment=HSA_OVERRIDE_GFX_VERSION=10.3.0
+Environment=HIP_VISIBLE_DEVICES=2
+Environment=ROCR_VISIBLE_DEVICES=2
+Environment=CUDA_VISIBLE_DEVICES=2
+Environment=PYTORCH_HIP_ALLOC_CONF=max_split_size_mb:512
+# HF cache (point at persistent disk so we don't re-download on reboot)
+Environment=HF_HOME=/opt/indian-legal-ai/models/hf_cache
+Environment=TRANSFORMERS_CACHE=/opt/indian-legal-ai/models/hf_cache
+
+# Trainer command
+ExecStart=/opt/training-venv/bin/python /opt/indian-legal-ai/reingest_spec/scripts/train_bge_m3_cbic.py
+
+# Append all stdout/stderr to persistent log
+StandardOutput=append:/opt/indian-legal-ai/logs/finetune_v1.log
+StandardError=append:/opt/indian-legal-ai/logs/finetune_v1.log
+
+# Resume-on-failure
+Restart=on-failure
+RestartSec=30
+# But STOP retrying after 10 consecutive failures (likely a hard error, not a hang)
+StartLimitBurst=10
+StartLimitIntervalSec=600
+
+# Resource limits (soft)
+LimitNOFILE=65536
+TimeoutStopSec=120
+
+[Install]
+WantedBy=multi-user.target

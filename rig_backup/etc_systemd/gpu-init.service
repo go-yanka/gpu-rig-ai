@@ -1,0 +1,12 @@
+[Unit]
+Description=Staggered AMD GPU Initialization (7 GPUs on USB risers)
+After=network.target
+Before=ai-dashboard.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/opt/gpu-init.sh
+
+[Install]
+WantedBy=multi-user.target

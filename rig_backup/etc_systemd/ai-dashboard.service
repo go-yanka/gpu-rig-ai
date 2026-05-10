@@ -1,0 +1,14 @@
+[Unit]
+Description=AI Rig Dashboard
+After=network-online.target gpu-init.service
+Wants=network-online.target gpu-init.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/dashboard
+ExecStart=/usr/bin/python3 /opt/dashboard/app.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,32 @@
+ii  amdgpu-dkms                            1:6.7.0.60100-1756574.22.04             all          amdgpu driver in DKMS format.
+ii  amdgpu-dkms-firmware                   1:6.7.0.60100-1756574.22.04             all          firmware blobs used by amdgpu driver in DKMS format
+ii  amdgpu-install                         6.1.60100-1756574.22.04                 all          AMDGPU driver repository and installer
+ii  libdrm-amdgpu1:amd64                   2.4.113-2~ubuntu0.22.04.1               amd64        Userspace interface to amdgpu-specific kernel DRM services -- runtime
+ii  libegl-mesa0:amd64                     23.2.1-1ubuntu3.1~22.04.3               amd64        free implementation of the EGL API -- Mesa vendor library
+ii  libgl1-mesa-dri:amd64                  23.2.1-1ubuntu3.1~22.04.3               amd64        free implementation of the OpenGL API -- DRI modules
+ii  libglapi-mesa:amd64                    23.2.1-1ubuntu3.1~22.04.3               amd64        free implementation of the GL API -- shared library
+ii  libglu1-mesa:amd64                     9.0.2-1                                 amd64        Mesa OpenGL utility library (GLU)
+ii  libglu1-mesa-dev:amd64                 9.0.2-1                                 amd64        Mesa OpenGL utility library -- development files
+ii  libglx-mesa0:amd64                     23.2.1-1ubuntu3.1~22.04.3               amd64        free implementation of the OpenGL API -- GLX vendor library
+ii  libvulkan-dev:amd64                    1.3.296.0~rc1-1lunarg22.04-1            amd64        This package contains the Vulkan loader
+ii  libvulkan1:amd64                       1.3.296.0~rc1-1lunarg22.04-1            amd64        This package contains the Vulkan loader
+ii  linux-headers-5.15.0-174               5.15.0-174.184                          all          Header files related to Linux kernel version 5.15.0
+ii  linux-headers-5.15.0-174-generic       5.15.0-174.184                          amd64        Linux kernel headers for version 5.15.0 on 64 bit x86 SMP
+ii  linux-headers-generic                  5.15.0.174.162                          amd64        Generic Linux kernel headers
+ii  linux-image-5.15.0-174-generic         5.15.0-174.184                          amd64        Signed kernel image generic
+ii  linux-image-generic                    5.15.0.174.162                          amd64        Generic Linux kernel image
+ii  lunarg-via                             1.3.296.0~rc2-1lunarg22.04-1            amd64        LunarG Vulkan Installation Analyzer
+ii  lunarg-vkconfig                        1.3.296.0~rc2-1lunarg22.04-1            amd64        LunarG GUI tool to configure Vulkan layers
+ii  lunarg-vulkan-layers                   1.3.296.0~rc2-1lunarg22.04-1            amd64        Extra Vulkan development layers from LunarG
+ii  mesa-vulkan-drivers:amd64              23.2.1-1ubuntu3.1~22.04.3               amd64        Mesa Vulkan graphics drivers
+ii  vma                                    3.1.0~rc1-1lunarg22.04-1                amd64        Easy to integrate Vulkan memory allocation library.
+ii  volk                                   1.3.296.0~rc1-1lunarg22.04-1            amd64        Volk is a meta-loader for Vulkan. It allows
+ii  vulkan-extensionlayer                  1.3.296.0~rc2-1lunarg22.04-1            amd64        Layers providing Vulkan features when native support is unavailable
+ii  vulkan-headers                         1.3.296.0~rc1-1lunarg22.04-1            all          Vulkan header files and API registry
+ii  vulkan-profiles                        1.3.296.0~rc1-1lunarg22.04-1            amd64        Collection of tools to leverage Vulkan Profiles
+ii  vulkan-sdk                             1.3.296.0~rc2-1lunarg22.04-1            all          Tools and runtime for Vulkan development.The Vulkan
+ii  vulkan-tools                           1.3.296.0~rc2-1lunarg22.04-1            amd64        This project provides Vulkan tools and utilities that can
+ii  vulkan-utility-libraries               1.3.296.0~rc1-1lunarg22.04-1            amd64        Utility Libraries for various
+ii  vulkan-utility-libraries-dev           1.3.296.0~rc1-1lunarg22.04-1            amd64        Utility Libraries for various
+ii  vulkan-validationlayers                1.3.296.0~rc2-1lunarg22.04-1            amd64        Vulkan is an Explicit API, enabling direct control over how GPUs actually
+ii  vulkancapsviewer                       3.42~rc1-1lunarg22.04-1                 amd64        Client application to display

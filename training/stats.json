@@ -1,0 +1,45 @@
+{
+  "input_file": "..\\eval\\training_pairs\\pairs_2000_20260422.jsonl",
+  "records_in": 11,
+  "pairs_total": 22,
+  "train": {
+    "n": 20,
+    "unique_chunks": 10,
+    "query_len_chars": {
+      "mean": 197.9,
+      "median": 200.0,
+      "min": 114,
+      "max": 272
+    },
+    "positive_len_chars": {
+      "mean": 2142.3,
+      "median": 1984.5,
+      "min": 1164,
+      "max": 3697
+    },
+    "by_category": {
+      "customs": 14,
+      "central_excise": 4,
+      "gst": 2
+    }
+  },
+  "val": {
+    "n": 2,
+    "unique_chunks": 1,
+    "query_len_chars": {
+      "mean": 172,
+      "median": 172.0,
+      "min": 109,
+      "max": 235
+    },
+    "positive_len_chars": {
+      "mean": 2269,
+      "median": 2269.0,
+      "min": 2269,
+      "max": 2269
+    },
+    "by_category": {
+      "customs": 2
+    }
+  }
+}

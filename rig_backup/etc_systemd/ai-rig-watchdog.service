@@ -1,0 +1,6 @@
+[Unit]
+Description=AI Rig Watchdog (GPU health + DB sync + OOM)
+
+[Service]
+Type=oneshot
+ExecStart=/opt/ai-rig-watchdog.sh

@@ -1,0 +1,108 @@
+{
+  "model": "gemini-2.0-flash",
+  "n_pdfs": 10,
+  "total_pages": 13,
+  "wall_seconds": 73.56639120799082,
+  "seconds_per_page": 5.658953169845447,
+  "total_in_tok": 23868,
+  "total_out_tok": 7174,
+  "total_chars": 24262,
+  "cost_usd": 0.0052564000000000005,
+  "cost_per_page_usd": 0.0004043384615384616,
+  "target_s_per_page": 4.0,
+  "passed": false,
+  "projected_471pdfs_x15pg_hours": 11.10569559582169,
+  "projected_471pdfs_x15pg_cost_usd": 2.856651230769231,
+  "per_pdf": [
+    {
+      "pdf": "50-96-cus.pdf",
+      "pages": 1,
+      "seconds": 6.5942643099988345,
+      "s_per_page": 6.5942643099988345,
+      "chars": 3602,
+      "in_tok": 1836,
+      "out_tok": 778
+    },
+    {
+      "pdf": "csnt21-2k.pdf",
+      "pages": 1,
+      "seconds": 4.61058628000319,
+      "s_per_page": 4.61058628000319,
+      "chars": 1662,
+      "in_tok": 1836,
+      "out_tok": 562
+    },
+    {
+      "pdf": "csnt47-2016.pdf",
+      "pages": 1,
+      "seconds": 3.45030303200474,
+      "s_per_page": 3.45030303200474,
+      "chars": 968,
+      "in_tok": 1836,
+      "out_tok": 341
+    },
+    {
+      "pdf": "csnt108-2017.pdf",
+      "pages": 2,
+      "seconds": 9.859412259989767,
+      "s_per_page": 4.929706129994884,
+      "chars": 973,
+      "in_tok": 3672,
+      "out_tok": 361
+    },
+    {
+      "pdf": "90-98-cus.pdf",
+      "pages": 2,
+      "seconds": 13.094377132991212,
+      "s_per_page": 6.547188566495606,
+      "chars": 6959,
+      "in_tok": 3672,
+      "out_tok": 1695
+    },
+    {
+      "pdf": "ce03-2019.pdf",
+      "pages": 2,
+      "seconds": 17.451214182990952,
+      "s_per_page": 8.725607091495476,
+      "chars": 3029,
+      "in_tok": 3672,
+      "out_tok": 1157
+    },
+    {
+      "pdf": "csnt76-2k7.pdf",
+      "pages": 1,
+      "seconds": 5.079105810989859,
+      "s_per_page": 5.079105810989859,
+      "chars": 1700,
+      "in_tok": 1836,
+      "out_tok": 623
+    },
+    {
+      "pdf": "547-00-cx.pdf",
+      "pages": 1,
+      "seconds": 5.191293161988142,
+      "s_per_page": 5.191293161988142,
+      "chars": 2667,
+      "in_tok": 1836,
+      "out_tok": 666
+    },
+    {
+      "pdf": "cent16h-2016_hi.pdf",
+      "pages": 1,
+      "seconds": 3.752983801998198,
+      "s_per_page": 3.752983801998198,
+      "chars": 1063,
+      "in_tok": 1836,
+      "out_tok": 447
+    },
+    {
+      "pdf": "notfctn-25-UTGST-rate-english.pdf",
+      "pages": 1,
+      "seconds": 4.481843578003463,
+      "s_per_page": 4.481843578003463,
+      "chars": 1639,
+      "in_tok": 1836,
+      "out_tok": 544
+    }
+  ]
+}

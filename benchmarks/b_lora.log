@@ -1,0 +1,50 @@
+[21:44:41] torch 2.6.0+rocm6.1 hip=6.1.40091-a8dbc0c19 cuda_avail=True
+[21:44:41] device 0: AMD Radeon RX 6700 XT
+[21:44:41] HIP_VISIBLE_DEVICES=2
+[21:44:41] HSA_OVERRIDE_GFX_VERSION=10.3.0
+[21:44:41] Loading BGE-M3...
+[21:46:24] Model loaded. VRAM: 2.27 GB
+[21:46:25] LoRA trainable params: 7,110,656 / 574,865,408 (1.24%)
+[21:46:25] Training on 450 pairs, batch=8, 3 epochs...
+[21:47:42] torch 2.6.0+rocm6.1 hip=6.1.40091-a8dbc0c19 cuda_avail=True
+[21:47:42] device 0: AMD Radeon RX 6700 XT
+[21:47:42] HIP_VISIBLE_DEVICES=2
+[21:47:42] HSA_OVERRIDE_GFX_VERSION=10.3.0
+[21:47:42] Loading BGE-M3...
+[21:48:26] Model loaded. VRAM: 2.27 GB
+[21:48:27] LoRA trainable params: 7,110,656 / 574,865,408 (1.24%)
+[21:48:27] Training on 450 pairs, batch=8, 3 epochs...
+[21:49:15] torch 2.6.0+rocm6.1 hip=6.1.40091-a8dbc0c19 cuda_avail=True
+[21:49:15] device 0: AMD Radeon RX 6700 XT
+[21:49:15] HIP_VISIBLE_DEVICES=2
+[21:49:15] HSA_OVERRIDE_GFX_VERSION=10.3.0
+[21:49:15] Loading BGE-M3...
+[21:49:40] Model loaded. VRAM: 2.27 GB
+[21:49:41] LoRA trainable params: 7,110,656 / 574,865,408 (1.24%)
+[21:49:41] Training on 450 pairs, batch=8, 3 epochs...
+[22:05:14]   epoch 0: mean_loss=1.0271 vram=2.40GB
+[22:21:59]   epoch 1: mean_loss=1.0806 vram=2.40GB
+[22:34:57]   epoch 2: mean_loss=1.0225 vram=2.40GB
+[22:35:09] RESULT: {
+  "torch": "2.6.0+rocm6.1",
+  "hip": "6.1.40091-a8dbc0c19",
+  "gpu": "AMD Radeon RX 6700 XT",
+  "trainable_params": 7110656,
+  "total_params": 574865408,
+  "losses_per_epoch": [
+    1.0270709886885525,
+    1.0806227964267396,
+    1.0225367922531932
+  ],
+  "mean_pos_sim": 0.49426070928573607,
+  "mean_neg_sim": 0.3404232576489449,
+  "margin": 0.1538374516367912,
+  "nan_detected": false,
+  "loss_decreasing": false,
+  "pos_reasonable": true,
+  "neg_reasonable": true,
+  "passed": false,
+  "wall_time_s": 2763.201976776123,
+  "peak_vram_gb": 2.93099008
+}
+[22:35:09] VERDICT: FAIL
