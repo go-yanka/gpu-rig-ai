@@ -34,6 +34,16 @@ A closed pilot is how we learn which of these matter to real users. Every tester
 6. **Local hybrid search** (`pilot/local/local_retrieve.py`). SQLite full-text BM25 plus optional BGE-M3 "meaning" search through Ollama, fused. Same `/retrieve` contract as the rig, so the G1 evaluator can score it.
 7. **Feedback that fixes the gold-set problem.** Every rating is logged with the tester's correct reference, and exported as CSV.
 
+## Try it on your desktop in 15 minutes (sample corpus, no rig)
+
+```powershell
+cd D:\_gpu_rig_ai
+git pull; git checkout claude/update-cbic-status-j9HYF
+python pilot\local\export_chunks.py --sample --out D:\_gpu_rig_ai\pilot_data
+powershell -ExecutionPolicy Bypass -File pilot\local\run_local.ps1 -Model qwen3:8b
+```
+Open the link it prints. The sample is only ~540 chunks, so most questions will be "not found" — it is for seeing the app and the model working, not for testers. Delete `pilot_data` before doing the real export below.
+
 ## Set up on your desktop (about half a day, mostly waiting)
 
 1. **Export the corpus — the only step that touches the rig.** It reads the manifest; nothing is written on the rig's own disk.

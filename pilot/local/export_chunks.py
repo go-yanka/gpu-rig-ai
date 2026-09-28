@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Export the CBIC chunk corpus once, so the pilot can run on a desktop without the rig.
 
-Run ON THE RIG (reads the v2 ingest manifest read-only; no Qdrant needed):
+Quick start without the rig (the ~540-chunk sample already in the repo — a demo, not the corpus):
+
+    python pilot/local/export_chunks.py --sample --out D:/_gpu_rig_ai/pilot_data
+
+Run ON THE RIG for the real corpus (reads the v2 ingest manifest read-only; no Qdrant needed):
 
     python3 export_chunks.py --manifest /opt/indian-legal-ai/data/ingest_manifest_v2.sqlite \
         --out /mnt/d/_gpu_rig_ai/pilot_data
@@ -39,9 +43,24 @@ def rows(manifest: str):
             yield {k: p.get(k) for k in FIELDS}
 
 
+def sample_rows():
+    seen = set()
+    src = Path(__file__).resolve().parents[2] / 'eval' / 'training_pairs' / 'pairs_2000_20260422.jsonl'
+    for line in src.open(encoding='utf-8'):
+        try:
+            p = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if p.get('text') and p['chunk_id'] not in seen:
+            seen.add(p['chunk_id'])
+            yield {k: p.get(k) for k in FIELDS}
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--manifest', required=True)
+    src = ap.add_mutually_exclusive_group(required=True)
+    src.add_argument('--manifest')
+    src.add_argument('--sample', action='store_true', help='demo corpus from the repo sample')
     ap.add_argument('--out', required=True)
     ap.add_argument('--only', type=int, help='re-export just this part number')
     a = ap.parse_args()
@@ -58,7 +77,7 @@ def main():
             sums[path.name] = hashlib.sha256(data).hexdigest()
         part, buf = part + 1, []
 
-    for r in rows(a.manifest):
+    for r in (sample_rows() if a.sample else rows(a.manifest)):
         buf.append(r)
         total += 1
         if len(buf) == ROWS_PER_PART:
