@@ -1,0 +1,25 @@
+[Unit]
+Description=CBIC Verify pilot gateway (in front of cbic-rag-api)
+After=network.target cbic-rag-api.service
+Wants=cbic-rag-api.service
+
+[Service]
+Type=simple
+User=user
+WorkingDirectory=/opt/indian-legal-ai/pilot/backend
+Environment=CBIC_RAG_DIR=/opt/indian-legal-ai/rag/cbic_rag
+Environment=PYTHONPATH=/home/user/.local/lib/python3.10/site-packages
+Environment=UPSTREAM_URL=http://127.0.0.1:9500
+Environment=LLM_URL=http://127.0.0.1:9082
+Environment=LLM_MODEL=qwen3-14b-q4_k_m.gguf
+Environment=GRAPH_DB=/opt/indian-legal-ai/data/amendment_graph.sqlite
+Environment=PILOT_DB=/opt/indian-legal-ai/data/pilot_log.sqlite
+Environment=PILOT_TOKENS=/opt/cbic-auth/pilot_tokens.json
+# PILOT_ADMIN_TOKEN and any hosted-LLM key go in this root-only file, never in git
+EnvironmentFile=-/etc/cbic-pilot.env
+ExecStart=/usr/bin/python3 -m uvicorn pilot_api:app --host 127.0.0.1 --port 9600
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

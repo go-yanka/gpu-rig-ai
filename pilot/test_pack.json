@@ -1,0 +1,494 @@
+{
+ "version": 1,
+ "created": "2026-09-28",
+ "instructions": [
+  "Work through as many missions as you like; each takes 2-4 minutes.",
+  "Ask the question exactly as written first; then feel free to rephrase it the way you would at work.",
+  "Rate each answer: was it correct, were the references the right ones, and would you rely on it?",
+  "If you know the correct notification/circular/section, type it in — that is the most valuable feedback.",
+  "Please also ask at least 5 real questions from your own practice (track G)."
+ ],
+ "tracks": [
+  "A. Is this notification still in force?",
+  "B. Customs for importers & exporters",
+  "C. Everyday GST questions (from your own past queries)",
+  "D. Real business scenarios",
+  "E. हिंदी में प्रश्न (Hindi)",
+  "F. Trick questions (it should refuse or say \"not found\")",
+  "G. Your own questions"
+ ],
+ "missions": [
+  {
+   "id": "A1",
+   "track": "A. Is this notification still in force?",
+   "title": "Amendment history of a GST notification",
+   "question": "Has Notification No. 35/2020-Central Tax been amended? Which notifications amended it and what did the latest one change?",
+   "good_answer": [
+    "Amended by 55/2020-Central Tax (27.06.2020)",
+    "Further amended by 65/2020-Central Tax, extending the due date for compliance under Section 171 to 30.11.2020",
+    "Quotes the amending notification text"
+   ],
+   "must_not_say": [
+    "not amended",
+    "no amendment"
+   ],
+   "expected_behaviour": "answer",
+   "source": "corpus: cbic-notification-msts:1000569 (65/2020-Central Tax)",
+   "why": "Core product promise: show the chain behind a notification."
+  },
+  {
+   "id": "A2",
+   "track": "A. Is this notification still in force?",
+   "title": "Is an anti-dumping notification still valid?",
+   "question": "Is Notification No. 56/2016-Customs (ADD) still in force?",
+   "good_answer": [
+    "No — superseded by Notification 51/2017-Customs",
+    "51/2017-Customs also rescinded 08/2013-Customs (ADD)",
+    "Quotes the supersession text"
+   ],
+   "must_not_say": [
+    "still in force"
+   ],
+   "expected_behaviour": "answer",
+   "source": "corpus: cbic-notification-msts:1001479 (51/2017-Customs)",
+   "why": "A superseded notification cited as live is the costliest mistake a practitioner can make."
+  },
+  {
+   "id": "A3",
+   "track": "A. Is this notification still in force?",
+   "title": "Amendments to the main customs exemption notification",
+   "question": "Which notifications amended Notification No. 50/2017-Customs in September 2021, and on what dates?",
+   "good_answer": [
+    "42/2021-Customs dated 10.09.2021",
+    "44/2021-Customs dated 17.09.2021"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "corpus: cbic-notification-msts:1000010",
+   "why": "50/2017-Customs is the most-amended exemption notification; importers must know its current state."
+  },
+  {
+   "id": "A4",
+   "track": "A. Is this notification still in force?",
+   "title": "Relying on an old excise notification",
+   "question": "Can I still rely on Notification No. 19/2000-Central Excise for my exemption claim?",
+   "good_answer": [
+    "It was rescinded by Notification 7/2001-CE dated 01.03.2001",
+    "Quotes the rescission"
+   ],
+   "must_not_say": [
+    "yes, you can rely"
+   ],
+   "expected_behaviour": "answer",
+   "source": "corpus: pairs_2000 chunk for 19/2000-CE",
+   "why": "Tests \"rescinded\" detection and a clear warning."
+  },
+  {
+   "id": "A5",
+   "track": "A. Is this notification still in force?",
+   "title": "Last amendment before a given notification",
+   "question": "What was the last notification that amended the principal notification No. 21/2019-Central Tax (GSTR-4 filing) before Notification 10/2021-Central Tax, and when was it issued?",
+   "good_answer": [
+    "64/2020-Central Tax dated 31.08.2020",
+    "Quotes the note in 10/2021-Central Tax"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "eval/training_pairs/pairs_2000_20260422.jsonl (cbic-notification-msts:1000523)",
+   "why": "\"As amended up to date X\" is the question courts now expect to be verified."
+  },
+  {
+   "id": "A6",
+   "track": "A. Is this notification still in force?",
+   "title": "Tracing a long amendment chain",
+   "question": "List the notifications that amended Notification No. 31/86-Customs over the years.",
+   "good_answer": [
+    "Includes 42/89-Customs (N.T.), 7/93, 10/95, 72/97, 90/98 and 20/2004-Customs (N.T.)",
+    "Presents them in date order"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "corpus: cbic-notification-msts:1007949 (20/2004-Cus (N.T.))",
+   "why": "Stress test for multi-step chains."
+  },
+  {
+   "id": "gst_notif_001",
+   "track": "A. Is this notification still in force?",
+   "title": "Rate change on a date",
+   "question": "What was the GST rate change for mobile phones (HSN 8517.12) effective from April 1, 2020?",
+   "good_answer": [
+    "Cites notification(s): 03/2020-CT(R); 01/2017-CT(R)",
+    "Conclusion mentions: 18%, increased from 12%"
+   ],
+   "must_not_say": [
+    "reduced to 12%",
+    "exempt",
+    "5%"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#gst_notif_001",
+   "why": "Rate \"as on a date\" questions are the everyday version of the chain problem."
+  },
+  {
+   "id": "customs_notif_001",
+   "track": "B. Customs for importers & exporters",
+   "title": "Concessional rate under 50/2017-Customs",
+   "question": "What is the concessional IGST rate for rough precious stones imported under Notification 50/2017-Cus, and what happens to BCD?",
+   "good_answer": [
+    "Cites notification(s): 50/2017-Cus; GST rate schedule notification (01/2017-IT(R) as amended)",
+    "Conclusion mentions: 0.25%, nil BCD, rough stones"
+   ],
+   "must_not_say": [
+    "18%",
+    "standard rate",
+    "3%"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#customs_notif_001",
+   "why": "Importer everyday question with a notification condition."
+  },
+  {
+   "id": "customs_rate_003",
+   "track": "B. Customs for importers & exporters",
+   "title": "Social Welfare Surcharge on IGST",
+   "question": "When calculating the total customs duty on imported goods, is the Social Welfare Surcharge (SWS) levied on the IGST component?",
+   "good_answer": [
+    "Cites: Section 3(7) Customs Tariff Act; Chapter VI of Finance Act 2018",
+    "Conclusion mentions: no, SWS on BCD, not on IGST, not on compensation cess"
+   ],
+   "must_not_say": [
+    "yes",
+    "SWS on total value",
+    "SWS includes IGST"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#customs_rate_003",
+   "why": "Common duty-computation confusion."
+  },
+  {
+   "id": "cust_customs_warehouse_001",
+   "track": "B. Customs for importers & exporters",
+   "title": "Warehousing period",
+   "question": "An importer deposits raw materials (non-capital goods) into a public customs bonded warehouse. Under Section 61, what is the standard initial period these goods can remain warehoused, and can it be extended?",
+   "good_answer": [
+    "Cites: Section 61 Customs Act",
+    "Conclusion mentions: one year, extended by the Principal Commissioner, Commissioner of Customs, sufficient cause"
+   ],
+   "must_not_say": [
+    "till clearance",
+    "three years",
+    "cannot be extended"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#cust_customs_warehouse_001",
+   "why": "Plain-language procedure question."
+  },
+  {
+   "id": "cust_customs_drawback_001",
+   "track": "B. Customs for importers & exporters",
+   "title": "Re-export of a defective machine",
+   "question": "An importer pays duty on a specialized machine, but it turns out to be incompatible with their systems. They re-export it back to the supplier 3 months later without ever putting it to use. What percentage of duty drawback can they claim, and under what section?",
+   "good_answer": [
+    "Cites: Section 74 Customs Act",
+    "Conclusion mentions: Section 74, 98 per cent, imported goods exported, without use"
+   ],
+   "must_not_say": [
+    "Section 75",
+    "100 per cent",
+    "AIR drawback",
+    "Brand rate"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#cust_customs_drawback_001",
+   "why": "Refund/drawback question SMEs ask."
+  },
+  {
+   "id": "cust_customs_valuation_005",
+   "track": "B. Customs for importers & exporters",
+   "title": "Rejected transaction value",
+   "question": "If the proper officer rejects the declared transaction value of imported goods under Rule 12 of the Customs Valuation Rules, 2007, what is the mandatory sequence of rules to determine the value?",
+   "good_answer": [
+    "Cites: Section 14 Customs Act",
+    "Conclusion mentions: sequential application, identical goods, similar goods, deductive value, computed value, residual method"
+   ],
+   "must_not_say": [
+    "importer can choose any rule",
+    "skip Rule 4 and 5",
+    "use MRP directly"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#cust_customs_valuation_005",
+   "why": "Valuation-rule sequence."
+  },
+  {
+   "id": "cus_svb_001",
+   "track": "B. Customs for importers & exporters",
+   "title": "Related-party imports (SVB)",
+   "question": "What is the role of the Special Valuation Branch (SVB) in customs?",
+   "good_answer": [
+    "Cites notification(s): Circular 5/2016-Customs",
+    "Conclusion mentions: related party, transfer pricing, valuation, SVB, investigation"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#cus_svb_001",
+   "why": "Broker-level question."
+  },
+  {
+   "id": "C1",
+   "track": "C. Everyday GST questions (from your own past queries)",
+   "title": "Return due date",
+   "question": "When is GSTR-3B due?",
+   "good_answer": [
+    "States the due date and cites the rule/notification that sets it",
+    "Mentions state-wise staggered dates (20th/22nd/24th) if applicable, or asks for the taxpayer type"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "your earlier query (rig_mirror/…/b12_1.json)",
+   "why": "Short, common question — should be fast and precise."
+  },
+  {
+   "id": "C2",
+   "track": "C. Everyday GST questions (from your own past queries)",
+   "title": "ITC time limit",
+   "question": "What is the time limit for claiming ITC under Section 16(4)?",
+   "good_answer": [
+    "Cites Section 16(4) CGST Act verbatim",
+    "30 November following the end of the financial year (post-2022 amendment) or annual return, whichever is earlier"
+   ],
+   "must_not_say": [
+    "September"
+   ],
+   "expected_behaviour": "answer",
+   "source": "your earlier query (rig_mirror/…/c1.json)",
+   "why": "Classic \"as amended\" trap: the date changed in 2022."
+  },
+  {
+   "id": "C3",
+   "track": "C. Everyday GST questions (from your own past queries)",
+   "title": "Rate lookup",
+   "question": "What is the GST rate on branded rice?",
+   "good_answer": [
+    "Explains the pre-packaged and labelled rule (5%) vs loose (nil)",
+    "Cites the rate notification and its amendment"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "your earlier query (rig_mirror/…/qr1.json)",
+   "why": "Your earlier run said the rate was \"not directly\" found — a good regression check."
+  },
+  {
+   "id": "gst_itc_001",
+   "track": "C. Everyday GST questions (from your own past queries)",
+   "title": "Blocked credit on a car",
+   "question": "Can a registered taxpayer claim ITC on GST paid for the purchase of a motor car (seating capacity 5) used for business?",
+   "good_answer": [
+    "Cites: 17(5)(a) CGST",
+    "Conclusion mentions: blocked, 17(5), not eligible"
+   ],
+   "must_not_say": [
+    "fully eligible",
+    "available"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#gst_itc_001",
+   "why": "Blocked-credit basics."
+  },
+  {
+   "id": "gst_rcm_001",
+   "track": "C. Everyday GST questions (from your own past queries)",
+   "title": "Reverse charge on legal services",
+   "question": "A registered company pays a sole-proprietor advocate for legal services. Who is liable to pay GST?",
+   "good_answer": [
+    "Cites: 9(3) CGST",
+    "Cites notification(s): 13/2017-Central Tax (Rate)",
+    "Conclusion mentions: reverse charge, recipient, RCM, company"
+   ],
+   "must_not_say": [
+    "advocate pays",
+    "forward charge"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#gst_rcm_001",
+   "why": "RCM notification citation."
+  },
+  {
+   "id": "customs_complex_016",
+   "track": "D. Real business scenarios",
+   "title": "Undervaluation by a related-party supplier",
+   "question": "An importer brings in goods from a related party supplier in Germany. The customs authorities suspect undervaluation. Explain the procedure under the Customs Valuation Rules, 2007, specifically referring to Rule 3(3) regarding related party transactions and the role of the Special Valuation Branch (SVB) as per Circular 5/2016-Cus.",
+   "good_answer": [
+    "Cites: Section 14 Customs Act",
+    "Cites notification(s): Circular 5/2016-Cus",
+    "Conclusion mentions: related party, transaction value accepted if relationship didn't influence price, SVB investigation, extra duty deposit"
+   ],
+   "must_not_say": [
+    "transaction value always rejected",
+    "SVB not required",
+    "rule 4 applies immediately"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#customs_complex_016",
+   "why": "Long scenario — where retrieval used to fail."
+  },
+  {
+   "id": "customs_complex_019",
+   "track": "D. Real business scenarios",
+   "title": "IGST drawback on immediate re-export",
+   "question": "An importer pays IGST on imported goods and then immediately re-exports them without putting them to use. Can they claim duty drawback under Section 74 of the Customs Act for the IGST paid? Contrast this with the availability of ITC under the CGST Act.",
+   "good_answer": [
+    "Cites: Section 74 Customs Act; Section 16 CGST Act",
+    "Conclusion mentions: no drawback for IGST, drawback only for BCD, claim ITC under GST"
+   ],
+   "must_not_say": [
+    "drawback includes IGST",
+    "98% drawback on IGST",
+    "cannot claim ITC"
+   ],
+   "expected_behaviour": "answer",
+   "source": "eval/gold_set.yaml#customs_complex_019",
+   "why": "Multi-provision reasoning."
+  },
+  {
+   "id": "D3",
+   "track": "D. Real business scenarios",
+   "title": "Plant quarantine on a mixed consignment",
+   "question": "GreenRoots Horticulture Pvt Ltd (GSTIN 29AABCG1234F1ZX), based in Bengaluru, Karnataka, imports a consignment of 1,200 kgs of sphagnum moss and 800 kgs of Perlite (declared for agricultural use) arriving at New Delhi's IGI Airport in March 2025. The company's customs broker insists that two separate Plant Quarantine Import Permits are required. Which authority issues the permit for each commodity at this port, what fee applies to the sphagnum moss, and does the fumigation supervision obligation apply to both?",
+   "good_answer": [
+    "Identifies the Plant Quarantine (Regulation of Import into India) Order schedule entries",
+    "Names the permit-issuing authority per commodity",
+    "Quotes the fee and fumigation conditions"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "eval/training_pairs/qa_sonnet_high.jsonl (chunk 67560582491266)",
+   "why": "Allied-law scenario an importer would really ask."
+  },
+  {
+   "id": "D4",
+   "track": "D. Real business scenarios",
+   "title": "Hearing timeline in an excise SCN (known miss)",
+   "question": "Prakash & Associates, a Cost Accounting firm in Chennai, represents Suvarna Steels Pvt Ltd, which received a Show Cause Notice for irregular CENVAT credit of Rs 4.5 crore under Section 11A(4) of the Central Excise Act citing wilful suppression. Within what time must a personal hearing be granted after the demand notice if the assessee asks for one?",
+   "good_answer": [
+    "Cites the provision on personal hearing / adjournments (Section 33A or the relevant Appeals rules/circular)",
+    "Says clearly if the CBIC documents do not fix a hard timeline"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "reingest_spec/CONSULT_BRIEF_2026-05-08.md Appendix A (a G1 miss)",
+   "why": "One of the questions the old system could not find; tells us if the new search helps."
+  },
+  {
+   "id": "E1",
+   "track": "E. हिंदी में प्रश्न (Hindi)",
+   "title": "GSTR-3B की देय तिथि",
+   "question": "GSTR-3B रिटर्न भरने की अंतिम तिथि क्या है?",
+   "good_answer": [
+    "Answers in Hindi",
+    "Same substance as C1, with the English source quoted verbatim"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "Hindi version of C1",
+   "why": "Tests Hindi understanding and Hindi answers."
+  },
+  {
+   "id": "E2",
+   "track": "E. हिंदी में प्रश्न (Hindi)",
+   "title": "कार पर ITC",
+   "question": "क्या कोई पंजीकृत व्यापारी व्यवसाय में इस्तेमाल होने वाली 5 सीटों वाली कार की खरीद पर चुकाए गए GST का इनपुट टैक्स क्रेडिट ले सकता है?",
+   "good_answer": [
+    "Answers in Hindi: blocked under Section 17(5)(a)",
+    "Quotes Section 17(5)"
+   ],
+   "must_not_say": [
+    "क्रेडिट मिलेगा"
+   ],
+   "expected_behaviour": "answer",
+   "source": "Hindi version of gst_itc_001",
+   "why": "Hindi + blocked-credit rule."
+  },
+  {
+   "id": "E3",
+   "track": "E. हिंदी में प्रश्न (Hindi)",
+   "title": "बॉन्डेड वेयरहाउस की अवधि",
+   "question": "सार्वजनिक सीमा शुल्क बॉन्डेड वेयरहाउस में रखे कच्चे माल को धारा 61 के तहत कितने समय तक रखा जा सकता है?",
+   "good_answer": [
+    "Answers in Hindi: states the Section 61 period and extension",
+    "Quotes Section 61 of the Customs Act"
+   ],
+   "must_not_say": [],
+   "expected_behaviour": "answer",
+   "source": "Hindi version of cust_customs_warehouse_001",
+   "why": "Customs procedure in Hindi."
+  },
+  {
+   "id": "customs_refuse_002",
+   "track": "F. Trick questions (it should refuse or say \"not found\")",
+   "title": "A notification that does not exist",
+   "question": "Under Notification No. 154/2026-Customs, what is the new concessional BCD rate for importing vibranium?",
+   "good_answer": [
+    "Conclusion mentions: no such notification, not found, no record, 154/2026-Customs"
+   ],
+   "must_not_say": [
+    "154/2026-Customs",
+    "the notification states",
+    "concessional rate is",
+    "vibranium"
+   ],
+   "expected_behaviour": "refuse",
+   "source": "eval/gold_set.yaml#customs_refuse_002",
+   "why": "Hallucination trap: the right answer is \"I cannot find this notification\"."
+  },
+  {
+   "id": "st_refuse_001",
+   "track": "F. Trick questions (it should refuse or say \"not found\")",
+   "title": "Income-tax question",
+   "question": "I paid Rs 50,000 to a consultant for professional fees in 2023. I know GST applies at 18%, but what is the exact TDS rate I need to deduct under Section 194J of the Income Tax Act before making the payment?",
+   "good_answer": [
+    "Conclusion mentions: outside scope, direct tax, Income Tax Act, indirect tax corpus"
+   ],
+   "must_not_say": [
+    "10%",
+    "2%",
+    "Section 194J states"
+   ],
+   "expected_behaviour": "refuse",
+   "source": "eval/gold_set.yaml#st_refuse_001",
+   "why": "Out of CBIC scope — should say so, not answer from memory."
+  },
+  {
+   "id": "customs_refuse_007",
+   "track": "F. Trick questions (it should refuse or say \"not found\")",
+   "title": "Too vague to answer",
+   "question": "Is duty applicable on my import?",
+   "good_answer": [
+    "Conclusion mentions: ambiguous, require clarification, insufficient information, what are you importing"
+   ],
+   "must_not_say": [
+    "yes, duty is applicable at",
+    "BCD of 10%",
+    "BCD of 20%"
+   ],
+   "expected_behaviour": "refuse",
+   "source": "eval/gold_set.yaml#customs_refuse_007",
+   "why": "Should ask what is being imported and from where."
+  },
+  {
+   "id": "F4",
+   "track": "F. Trick questions (it should refuse or say \"not found\")",
+   "title": "Future decision",
+   "question": "What rate will the GST Council fix for online gaming at its next meeting?",
+   "good_answer": [
+    "Says it cannot predict future decisions and only answers from published CBIC documents"
+   ],
+   "must_not_say": [
+    "will be fixed at"
+   ],
+   "expected_behaviour": "refuse",
+   "source": "new",
+   "why": "Speculation trap."
+  }
+ ]
+}

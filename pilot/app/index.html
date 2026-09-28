@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CBIC Verify — Pilot</title>
+<link rel="icon" href="data:,">
+<style>
+:root{
+  --bg:#f6f7f9;--card:#fff;--ink:#16202c;--muted:#5b6776;--line:#dfe3e8;--accent:#1f5fbf;--accent-ink:#fff;
+  --hi:#1e7a46;--hi-bg:#e6f4ec;--md:#8a5a00;--md-bg:#fff4dc;--lo:#b3261e;--lo-bg:#fde8e7;--nf:#44505f;--nf-bg:#eceff3;
+  --quote:#f1f5fb;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f141a;--card:#161d25;--ink:#e6ebf1;--muted:#98a4b3;--line:#2a3441;--accent:#5b9bff;--accent-ink:#08111c;
+  --hi:#6fd39a;--hi-bg:#123223;--md:#f0c060;--md-bg:#352a0f;--lo:#ff8a80;--lo-bg:#3a1714;--nf:#b8c2cf;--nf-bg:#222b36;--quote:#1b2533;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans","Noto Sans Devanagari",sans-serif}
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{max-width:980px;margin:0 auto;padding:10px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:700;font-size:17px}.brand small{font-weight:500;color:var(--muted);margin-left:6px}
+nav{display:flex;gap:4px;margin-left:auto}
+nav button{border:0;background:none;color:var(--muted);padding:8px 12px;border-radius:8px;font:inherit;cursor:pointer}
+nav button[aria-selected=true]{background:var(--quote);color:var(--ink);font-weight:600}
+.who{color:var(--muted);font-size:13px}
+main{max-width:980px;margin:0 auto;padding:16px}
+.notice{font-size:13px;color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+textarea,input[type=text]{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px}
+textarea{min-height:96px;resize:vertical}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:8px;padding:9px 16px;font:inherit;font-weight:600;cursor:pointer}
+.btn[disabled]{opacity:.55;cursor:wait}.btn.ghost{background:none;color:var(--accent);border:1px solid var(--line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.chip{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:5px 11px;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.muted{color:var(--muted)}.small{font-size:13px}
+.progress{display:flex;gap:10px;align-items:center;color:var(--muted)}
+.spin{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s 1s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+.banner{border-radius:10px;padding:10px 14px;font-weight:600;margin-bottom:12px}
+.banner span{display:block;font-weight:400;font-size:13px}
+.b-high{background:var(--hi-bg);color:var(--hi)}.b-medium{background:var(--md-bg);color:var(--md)}
+.b-low{background:var(--lo-bg);color:var(--lo)}.b-none{background:var(--nf-bg);color:var(--nf)}
+.answer p{margin:.5em 0}.answer em.q{font-style:normal;background:var(--quote);border-left:3px solid var(--accent);padding:1px 6px;display:inline}
+.answer .bad{color:var(--lo);font-weight:600}
+.cite{font-family:var(--mono);font-size:12px;color:var(--accent);cursor:pointer;text-decoration:underline dotted}
+details{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+summary{cursor:pointer;font-weight:600}
+.src{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:8px 0}
+.src.flash{outline:2px solid var(--accent)}
+.src h4{margin:0 0 4px;font-size:14px}
+.tag{display:inline-block;font-size:11px;border-radius:6px;padding:1px 7px;margin-right:6px;background:var(--quote);color:var(--muted)}
+.tag.ok{background:var(--hi-bg);color:var(--hi)}
+.src pre{white-space:pre-wrap;font:13px/1.5 var(--mono);background:var(--bg);padding:8px;border-radius:8px;max-height:260px;overflow:auto;margin:6px 0 0}
+.chain h4{margin:0 0 2px}.chain ol{margin:6px 0 0;padding-left:18px}.chain li{margin:3px 0}
+.chain .ev{font-size:12px;color:var(--muted)}
+fieldset{border:0;padding:0;margin:10px 0}legend{font-weight:600;margin-bottom:4px}
+.opts{display:flex;gap:6px;flex-wrap:wrap}
+.opts label{border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer}
+.opts input{margin-right:5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}nav{margin-left:0;width:100%}}
+.mission{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.mission:last-child{border-bottom:0}.mission .done{color:var(--hi);font-weight:700;min-width:18px}
+.track h3{margin:6px 0}
+ul.check{margin:4px 0 0;padding-left:18px}
+.err{color:var(--lo)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand">CBIC Verify<small>pilot</small></div>
+  <nav role="tablist">
+    <button role="tab" data-tab="ask" aria-selected="true">Ask</button>
+    <button role="tab" data-tab="missions" aria-selected="false">Test missions</button>
+    <button role="tab" data-tab="status" aria-selected="false">Notification status</button>
+  </nav>
+  <div class="who" id="who"></div>
+</div></header>
+
+<main>
+  <p class="notice">Research preview for invited testers. Answers come only from CBIC documents (GST, Customs, Central Excise, Service Tax) and are <b>not legal advice</b> — always open the quoted source before relying on it. Your questions and ratings are logged to improve the system.</p>
+
+  <section id="tab-login" hidden class="card">
+    <h3 style="margin-top:0">Enter your tester key</h3>
+    <p class="muted small">It is in the invitation link you received (the part after <code>?t=</code>).</p>
+    <input type="text" id="tokenIn" autocomplete="off" placeholder="tester key">
+    <div class="row"><button class="btn" id="tokenBtn">Continue</button><span class="err" id="tokenErr"></span></div>
+  </section>
+
+  <section id="tab-ask">
+    <div class="card">
+      <div id="missionBox" hidden class="small" style="margin-bottom:10px"></div>
+      <label for="q" class="muted small">Your question — a short question or a full business scenario, in English or Hindi</label>
+      <textarea id="q" placeholder="e.g. Is Notification No. 56/2016-Customs (ADD) still in force?"></textarea>
+      <div class="chips" id="starters"></div>
+      <div class="row">
+        <button class="btn" id="askBtn">Ask</button>
+        <span class="progress" id="progress" hidden><span class="spin"></span><span id="stage"></span></span>
+        <span class="err" id="askErr"></span>
+      </div>
+    </div>
+    <div id="result"></div>
+  </section>
+
+  <section id="tab-missions" hidden>
+    <div class="card"><ul class="check" id="instructions"></ul><p class="small muted" id="progressCount"></p></div>
+    <div id="missionList"></div>
+  </section>
+
+  <section id="tab-status" hidden>
+    <div class="card">
+      <label for="ref" class="muted small">Notification number — e.g. <code>50/2017-Customs</code>, <code>35/2020-Central Tax</code>, <code>19/2000-Central Excise</code></label>
+      <div class="row" style="margin-top:4px"><input type="text" id="ref" style="flex:1;min-width:220px"><button class="btn" id="refBtn">Check status</button></div>
+      <p class="small muted">Built from the text of CBIC notifications ("amends…", "rescinds…", "in supersession of…"). It only knows amendments whose text is in our corpus.</p>
+      <div id="refOut"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+};
+
+let token = new URLSearchParams(location.search).get('t') || store.get('cbicToken', '');
+if (new URLSearchParams(location.search).get('t')) { store.set('cbicToken', token); history.replaceState(null, '', location.pathname); }
+let pack = null, currentMission = null, lastAsk = null;
+
+async function api(path, opts = {}) {
+  const r = await fetch(path, {...opts, headers: {'Content-Type': 'application/json', 'X-Tester-Token': token, ...(opts.headers || {})}});
+  if (r.status === 401) { showLogin('That tester key was not recognised.'); throw new Error('unauthorised'); }
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.detail || `Server error (${r.status})`);
+  return body;
+}
+
+function showTab(name) {
+  for (const b of document.querySelectorAll('nav button')) b.setAttribute('aria-selected', b.dataset.tab === name);
+  for (const t of ['ask', 'missions', 'status', 'login']) $('#tab-' + t).hidden = t !== name;
+}
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => showTab(b.dataset.tab));
+
+function showLogin(msg) { showTab('login'); $('#tokenErr').textContent = msg || ''; }
+$('#tokenBtn').onclick = async () => { token = $('#tokenIn').value.trim(); store.set('cbicToken', token); await boot(); };
+
+// ---------- markdown (escape first, then format — the answer is model output)
+function renderAnswer(md) {
+  let h = esc(md);
+  h = h.replace(/\*&quot;([\s\S]+?)&quot;\*/g, '<em class="q">&ldquo;$1&rdquo;</em>');
+  h = h.replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+  h = h.replace(/\[S(\d+)\]/g, '<span class="cite" data-s="$1">[S$1]</span>');
+  h = h.replace(/⚠️\[unverified\]/g, '<span class="bad" title="This quote was not found word-for-word in the source">⚠ not found in source</span>');
+  return h.split(/\n{2,}/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('');
+}
+
+const BANNERS = {
+  high:   ['b-high', 'Every quote checked word-for-word against the CBIC source', 'Still open the sources below before relying on it.'],
+  medium: ['b-medium', 'Partly supported', 'At least one quote was verified; check the reasoning and sources.'],
+  low:    ['b-low', 'Not supported by a verified quote — do not rely on this', 'The answer could not be matched word-for-word to any source.'],
+  not_found: ['b-none', 'Not found in the CBIC documents searched', 'This is an honest "I don’t know". If you know the right reference, please add it below.'],
+  out_of_scope: ['b-none', 'Outside CBIC indirect tax', 'This pilot only covers GST, Customs, Central Excise and Service Tax.'],
+};
+
+function chainHtml(c) {
+  const all = [...c.amended_by, ...c.ended_by].sort((a, b) => (a.date || a.key.split('/')[1]).localeCompare(b.date || b.key.split('/')[1]));
+  const items = all.map(a => `<li><b>${esc(a.key)}</b> ${a.relation === 'amends' ? 'amended it' : a.relation === 'rescinds' ? '<b class="err">rescinded it</b>' : '<b class="err">superseded it</b>'}${a.date ? ' — ' + esc(a.date) : ''}
+      <details><summary class="small muted">Show the proving text</summary><div class="ev">&ldquo;${esc(a.evidence)}&rdquo;</div></details></li>`).join('');
+  const acts = c.acts_on.length ? `<p class="small muted">This notification itself ${[...new Set(c.acts_on.map(a => a.relation))].join('/')}: ${c.acts_on.map(a => esc(a.key)).join(', ')}</p>` : '';
+  return `<div class="src chain"><h4>${esc(c.key)}${c.date ? ' <span class="muted small">(' + esc(c.date) + ')</span>' : ''}</h4>
+    <div class="${c.ended_by.length ? 'err' : ''}"><b>${esc(c.status)}</b></div>${items ? `<ol>${items}</ol>` : ''}${acts}</div>`;
+}
+
+function sourceHtml(s) {
+  return `<div class="src" id="src-${s.index}"><h4>[S${s.index}] ${esc(s.title || s.doc_id)}</h4>
+    <div class="small">${s.quoted ? '<span class="tag ok">quoted in answer</span>' : ''}<span class="tag">${esc(s.doc_id)}</span>${s.section_ref ? `<span class="tag">${esc(String(s.section_ref).slice(0, 80))}</span>` : ''}<span class="tag">found by ${s.found_by} search${s.found_by > 1 ? 'es' : ''}</span></div>
+    <details><summary class="small">Read the source text</summary><pre>${esc(s.text)}</pre></details></div>`;
+}
+
+function renderResult(r) {
+  const key = r.status === 'answered' ? r.confidence : r.status;
+  const [cls, title, sub] = BANNERS[key] || BANNERS.low;
+  const secs = (r.timings.total_ms / 1000).toFixed(0);
+  $('#result').innerHTML = `
+  <div class="card">
+    <div class="banner ${cls}">${title}<span>${sub}</span></div>
+    <div class="answer">${renderAnswer(r.answer_markdown)}</div>
+    ${r.chains.length ? `<h3>Notification status</h3>${r.chains.map(chainHtml).join('')}` : ''}
+    ${r.sources.length ? `<h3>Sources (${r.sources.length})</h3>${r.sources.map(sourceHtml).join('')}` : ''}
+    <details><summary class="small">How I searched (${secs}s)</summary>
+      ${r.issues.length ? `<p class="small"><b>Legal issue(s) identified:</b> ${r.issues.map(esc).join('; ')}</p>` : ''}
+      <p class="small"><b>Searches run:</b></p><ul class="small">${[r.question, ...r.search_queries].map(q => `<li>${esc(q)}</li>`).join('')}</ul>
+    </details>
+  </div>
+  <div class="card" id="fb">
+    <h3 style="margin-top:0">Your rating <span class="muted small">(takes 30 seconds — this is what we learn from)</span></h3>
+    ${radio('answer_correct', 'Was the answer correct?')}
+    ${radio('refs_correct', 'Were these the right references (notification / circular / section)?')}
+    <div class="grid2">
+      <div><label class="small" for="cref"><b>The correct reference, if different or missing</b></label><input type="text" id="cref" placeholder="e.g. Notification 13/2017-Central Tax (Rate), Sl. 2"></div>
+      <div><fieldset><legend class="small">Would you rely on this at work?</legend><div class="opts">${[1,2,3,4,5].map(n => `<label><input type="radio" name="rely" value="${n}">${n}</label>`).join('')}<span class="small muted">1 = never, 5 = as is</span></div></fieldset></div>
+    </div>
+    <label class="small" for="cmt"><b>Anything else?</b></label><textarea id="cmt" style="min-height:60px"></textarea>
+    <div class="row"><button class="btn" id="fbBtn">Send rating</button><span id="fbMsg" class="small"></span></div>
+  </div>`;
+  for (const c of document.querySelectorAll('.cite')) c.onclick = () => {
+    const el = $('#src-' + c.dataset.s); if (!el) return;
+    el.querySelector('details').open = true; el.scrollIntoView({behavior: 'smooth', block: 'center'});
+    el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 1400);
+  };
+  $('#fbBtn').onclick = sendFeedback;
+}
+
+function radio(name, label) {
+  return `<fieldset><legend class="small">${label}</legend><div class="opts">${['yes', 'partly', 'no', 'unsure'].map(v =>
+    `<label><input type="radio" name="${name}" value="${v}">${v === 'unsure' ? 'not sure' : v}</label>`).join('')}</div></fieldset>`;
+}
+const picked = n => document.querySelector(`input[name=${n}]:checked`)?.value;
+
+async function sendFeedback() {
+  const a = picked('answer_correct'), rf = picked('refs_correct');
+  if (!a || !rf) { $('#fbMsg').innerHTML = '<span class="err">Please answer the first two questions.</span>'; return; }
+  $('#fbBtn').disabled = true;
+  try {
+    await api('/api/feedback', {method: 'POST', body: JSON.stringify({ask_id: lastAsk.ask_id, answer_correct: a, refs_correct: rf,
+      correct_reference: $('#cref').value.trim() || null, would_rely: +picked('rely') || null, comment: $('#cmt').value.trim() || null})});
+    $('#fbMsg').textContent = 'Thank you — saved.';
+    if (currentMission) { const done = store.get('cbicDone', {}); done[currentMission.id] = true; store.set('cbicDone', done); renderMissions(); }
+  } catch (e) { $('#fbMsg').innerHTML = `<span class="err">${esc(e.message)}</span>`; $('#fbBtn').disabled = false; }
+}
+
+const STAGES = ['Understanding the question…', 'Searching CBIC documents…', 'Checking notification status…', 'Writing the answer…', 'Checking every quote against its source…'];
+async function ask() {
+  const question = $('#q').value.trim();
+  if (question.length < 3) return;
+  $('#askBtn').disabled = true; $('#askErr').textContent = ''; $('#result').innerHTML = ''; $('#progress').hidden = false;
+  const t0 = Date.now(); let i = 0;
+  const tick = setInterval(() => { i = Math.min(STAGES.length - 1, Math.floor((Date.now() - t0) / 9000)); $('#stage').textContent = `${STAGES[i]} ${Math.round((Date.now() - t0) / 1000)}s`; }, 500);
+  try {
+    lastAsk = await api('/api/ask', {method: 'POST', body: JSON.stringify({question, mission_id: currentMission?.id || null})});
+    renderResult(lastAsk);
+  } catch (e) { $('#askErr').textContent = e.message; }
+  finally { clearInterval(tick); $('#progress').hidden = true; $('#askBtn').disabled = false; }
+}
+$('#askBtn').onclick = ask;
+$('#q').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) ask(); });
+
+function setMission(m) {
+  currentMission = m;
+  $('#missionBox').hidden = !m;
+  if (!m) return;
+  $('#missionBox').innerHTML = `<b>Mission ${esc(m.id)} — ${esc(m.title)}</b> <button class="btn ghost" style="padding:2px 8px;font-size:12px" id="leave">leave mission</button>
+    <details><summary class="small">What a good answer includes (a guide, not the final word)</summary>
+    <ul class="check">${m.good_answer.map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+    ${m.must_not_say.length ? `<p class="small muted">It should not say: ${m.must_not_say.map(esc).join('; ')}</p>` : ''}
+    ${m.expected_behaviour === 'refuse' ? '<p class="small"><b>The right behaviour here is to refuse or say "not found".</b></p>' : ''}</details>`;
+  $('#leave').onclick = () => setMission(null);
+  $('#q').value = m.question;
+}
+
+function renderMissions() {
+  if (!pack) return;
+  const done = store.get('cbicDone', {});
+  $('#instructions').innerHTML = pack.instructions.map(x => `<li>${esc(x)}</li>`).join('');
+  $('#progressCount').textContent = `${Object.keys(done).length} of ${pack.missions.length} missions rated`;
+  $('#missionList').innerHTML = pack.tracks.map(t => {
+    const ms = pack.missions.filter(m => m.track === t);
+    const body = ms.length ? ms.map(m => `<div class="mission" data-id="${esc(m.id)}"><span class="done">${done[m.id] ? '✓' : ''}</span>
+        <div><b>${esc(m.title)}</b><div class="small muted">${esc(m.question.length > 160 ? m.question.slice(0, 160) + '…' : m.question)}</div></div></div>`).join('')
+      : `<p class="small">Ask real questions from your own work on the Ask tab. If you know the right answer or reference, add it in the rating.</p>`;
+    return `<div class="card track"><h3>${esc(t)}</h3>${body}</div>`;
+  }).join('');
+  for (const el of document.querySelectorAll('.mission')) el.onclick = () => {
+    setMission(pack.missions.find(m => m.id === el.dataset.id)); $('#result').innerHTML = ''; showTab('ask'); window.scrollTo(0, 0);
+  };
+}
+
+function renderStarters() {
+  const starters = [
+    ['Is this notification still in force?', 'Is Notification No. 56/2016-Customs (ADD) still in force?'],
+    ['Amendment history', 'Has Notification No. 35/2020-Central Tax been amended? Which notifications amended it?'],
+    ['Import duty question', 'What is the concessional IGST rate for rough precious stones imported under Notification 50/2017-Cus, and what happens to BCD?'],
+    ['Business scenario', 'An importer pays IGST on imported goods and then re-exports them without using them. Can they claim duty drawback under Section 74?'],
+    ['हिंदी में पूछें', 'GSTR-3B रिटर्न भरने की अंतिम तिथि क्या है?'],
+  ];
+  $('#starters').innerHTML = starters.map(([l], i) => `<button class="chip" data-i="${i}">${esc(l)}</button>`).join('');
+  for (const b of document.querySelectorAll('#starters .chip')) b.onclick = () => { setMission(null); $('#q').value = starters[+b.dataset.i][1]; $('#q').focus(); };
+}
+
+$('#refBtn').onclick = async () => {
+  const ref = $('#ref').value.trim(); if (!ref) return;
+  $('#refOut').innerHTML = '<p class="muted small">Looking up…</p>';
+  try {
+    const c = await api('/api/chain?ref=' + encodeURIComponent(ref));
+    $('#refOut').innerHTML = c.known ? chainHtml(c) : `<p class="small">No record of <b>${esc(c.key)}</b> in the notifications we have indexed. That does not mean it is in force — check CBIC directly.</p>`;
+  } catch (e) { $('#refOut').innerHTML = `<p class="err small">${esc(e.message)}</p>`; }
+};
+$('#ref').addEventListener('keydown', e => { if (e.key === 'Enter') $('#refBtn').click(); });
+
+async function boot() {
+  if (!token) { showLogin(); return; }
+  try {
+    const me = await api('/api/me');
+    $('#who').textContent = me.tester;
+    pack = await api('/api/test-pack');
+    renderStarters(); renderMissions(); showTab('ask');
+  } catch (e) { if (e.message !== 'unauthorised') showLogin(e.message); }
+}
+boot();
+</script>
+</body>
+</html>
