@@ -17,10 +17,12 @@ Query:
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import re
 import sqlite3
 from dataclasses import dataclass
+from pathlib import Path
 from datetime import date
 from typing import Iterable, Iterator, List, Optional
 
@@ -307,7 +309,16 @@ def iter_manifest(path: str) -> Iterator[dict]:
 
 
 def iter_jsonl(path: str) -> Iterator[dict]:
-    with open(path, encoding='utf-8') as f:
+    """A .jsonl / .jsonl.gz file, or a pilot export folder of corpus-*.jsonl.gz parts."""
+    p = Path(path)
+    files = sorted(p.glob('corpus-*.jsonl.gz')) if p.is_dir() else [p]
+    for fp in files:
+        opener = gzip.open if fp.suffix == '.gz' else open
+        yield from _iter_file(opener(fp, 'rt', encoding='utf-8'))
+
+
+def _iter_file(f) -> Iterator[dict]:
+    with f:
         for line in f:
             line = line.strip()
             if not line:
@@ -409,7 +420,7 @@ def main() -> None:
     b = sub.add_parser('build')
     src = b.add_mutually_exclusive_group(required=True)
     src.add_argument('--manifest')
-    src.add_argument('--jsonl')
+    src.add_argument('--jsonl', help='.jsonl(.gz) file or pilot export folder')
     b.add_argument('--out', required=True)
     c = sub.add_parser('chain')
     c.add_argument('ref')

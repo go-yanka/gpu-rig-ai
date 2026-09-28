@@ -169,39 +169,65 @@ def _hit_key(h: Dict) -> str:
     return str(h.get('chunk_id') or f"{h.get('doc_id')}:{hash(h.get('text') or '')}")
 
 
-def _chains(question: str, rw: Dict, top: List[Dict]) -> List[Dict]:
-    if graph is None:
-        return []
-    asked: List[str] = []
+def _named_refs(question: str, rw: Dict) -> List[str]:
+    """Notification keys the user named, in the question or as spotted by the rewrite."""
+    keys: List[str] = []
     for text in [question] + list(rw.get('notification_refs') or []):
-        asked += [r.key for r in ag.find_refs(text)]
+        keys += [r.key for r in ag.find_refs(text)]
         k = ag.parse_key(text)
         if k:
-            asked.append(k)
+            keys.append(k)
+    return list(dict.fromkeys(keys))
+
+
+def _unknown_refs(named: List[str], top: List[Dict]) -> List[str]:
+    """Named notifications that neither the amendment index nor any retrieved text mentions.
+
+    Citing a notification that does not exist is the failure courts sanctioned in 2026
+    (e.g. Gujarat HC, Faiz Enterprise), so this is checked in code, not left to the model.
+    """
+    out = []
+    for k in named:
+        if graph is not None and graph.chain(k)['known']:
+            continue
+        num, rest = k.split('/', 1)
+        year = rest.split('-', 1)[0]
+        pat = re.compile(rf'(?<!\d)0*{num}\s*/\s*(?:{year}|{year[2:]})(?!\d)')
+        if not any(pat.search(h.get('text') or '') or pat.search(h.get('title') or '') for h in top):
+            out.append(k)
+    return out
+
+
+def _chains(named: List[str], top: List[Dict]) -> List[Dict]:
+    if graph is None:
+        return []
     # notifications the user named are always reported; ones that merely appear in
     # the top sources only when there is an amendment / rescission to warn about
     from_sources = [k for k in (graph.key_for_doc(h.get('doc_id') or '') for h in top[:4]) if k]
     out, seen = [], set()
-    for k, named in [(k, True) for k in asked] + [(k, False) for k in from_sources]:
+    for k, is_named in [(k, True) for k in named] + [(k, False) for k in from_sources]:
         if k in seen:
             continue
         seen.add(k)
         ch = graph.chain(k)
-        if ch['known'] and (named or ch['amended_by'] or ch['ended_by']):
+        if ch['known'] and (is_named or ch['amended_by'] or ch['ended_by']):
             out.append(ch)
         if len(out) == 3:
             break
     return out
 
 
-def _status_block(chains: List[Dict]) -> str:
-    if not chains:
-        return ''
-    lines = ['NOTIFICATION STATUS (from the amendment index; each line is backed by corpus text):']
+def _status_block(chains: List[Dict], unknown: List[str]) -> str:
+    lines = []
+    for k in unknown:
+        lines.append(f'WARNING: the question cites notification {k}, which does not appear in any CBIC '
+                     f'document searched. Say plainly that you cannot find it and do not describe its contents.')
+    if chains:
+        lines.append('NOTIFICATION STATUS (from the amendment index; each line is backed by corpus text):')
     for c in chains:
         amends = ', '.join(a['key'] for a in c['amended_by'][-5:]) or 'none found'
         lines.append(f"- {c['key']}: {c['status']}. Amended by: {amends}.")
-    return '\n'.join(lines) + '\n\n'
+    return '\n'.join(lines) + '\n\n' if lines else ''
 
 
 def _confidence(verified: int, suspicious: int) -> str:
@@ -231,7 +257,8 @@ class FeedbackReq(BaseModel):
 @app.get('/api/health')
 def health():
     out = {'graph': graph is not None}
-    for name, url in (('upstream', f'{UPSTREAM_URL}/health'), ('llm', f'{LLM_URL}/health')):
+    # /v1/models is served by llama-server, Ollama and LM Studio alike
+    for name, url in (('upstream', f'{UPSTREAM_URL}/health'), ('llm', f'{LLM_URL}/v1/models')):
         try:
             out[name] = httpx.get(url, timeout=5).status_code == 200
         except httpx.HTTPError:
@@ -295,19 +322,22 @@ def _ask(req: AskReq, name: str) -> Dict:
         lists = list(ex.map(upstream_retrieve, queries))
     timings['retrieve_ms'] = round((time.perf_counter() - t) * 1000)
     top = rrf(lists, key=_hit_key)[:ANSWER_K]
-    chains = _chains(q, rw, top)
+    named = _named_refs(q, rw)
+    chains = _chains(named, top)
+    unknown = _unknown_refs(named, top)
 
     if not top:
         result = {'status': 'not_found', 'confidence': 'none',
                   'answer_markdown': 'No CBIC document matched this question.',
-                  'sources': [], 'verified_quotes': [], 'suspicious_quotes': [], 'chains': chains}
+                  'sources': [], 'verified_quotes': [], 'suspicious_quotes': [], 'chains': chains,
+                  'unknown_refs': unknown}
         return _finish(req, name, q, rw, result, timings, t0)
 
     for h in top:
         h.setdefault('page', None)
     system, user = build_prompt(q, top)
     t = time.perf_counter()
-    answer = call_llm(system + ANSWER_RULES, _status_block(chains) + user)
+    answer = call_llm(system + ANSWER_RULES, _status_block(chains, unknown) + user)
     timings['answer_ms'] = round((time.perf_counter() - t) * 1000)
 
     v = verify_quotes(answer, top)
@@ -323,13 +353,14 @@ def _ask(req: AskReq, name: str) -> Dict:
                                      + answer.split(':', 1)[-1].strip()
                                      + '\n\nThe closest documents are listed below — please tell us '
                                        'the correct reference if you know it.',
-                  'sources': sources, 'verified_quotes': [], 'suspicious_quotes': [], 'chains': chains}
+                  'sources': sources, 'verified_quotes': [], 'suspicious_quotes': [], 'chains': chains,
+                  'unknown_refs': unknown}
     else:
-        result = {'status': 'answered',
-                  'confidence': _confidence(len(v['verified']), len(v['suspicious'])),
+        conf = _confidence(len(v['verified']), len(v['suspicious']))
+        result = {'status': 'answered', 'confidence': 'low' if unknown else conf,
                   'answer_markdown': v['annotated_answer'], 'sources': sources,
                   'verified_quotes': v['verified'], 'suspicious_quotes': v['suspicious'],
-                  'chains': chains}
+                  'chains': chains, 'unknown_refs': unknown}
     return _finish(req, name, q, rw, result, timings, t0)
 
 
@@ -346,6 +377,7 @@ def _finish(req: AskReq, name: str, q: str, rw: Dict, result: Dict, timings: Dic
              len(result['verified_quotes']), len(result['suspicious_quotes']), timings['total_ms']))
         ask_id = cur.lastrowid
     return {'ask_id': ask_id, 'question': q, 'issues': rw.get('issues', []),
+            'unknown_refs': [],
             'search_queries': rw.get('queries', []), 'timings': timings, **result}
 
 

@@ -86,3 +86,4 @@ dashboard/QA_REPORT.md
 
 # Pilot runtime data (tester questions/feedback)
 pilot/backend/pilot_log.sqlite*
+pilot_data/

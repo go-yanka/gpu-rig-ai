@@ -1,15 +1,19 @@
 # CBIC Verify — closed pilot
 
-**Verdict (2026-09-28): ready for a closed pilot with 5–10 invited practitioners once the go-live checklist below is done. Not ready for open or public testing.**
+**Verdict (2026-09-28): ready for a closed pilot with 5–10 invited practitioners once the checklist below is done. Not ready for open or public testing.**
+
+It runs **entirely on your Windows desktop**:
+- a local model through Ollama (or LM Studio);
+- local search over an exported copy of the corpus;
+- the rig is needed once, to export the corpus (read-only).
 
 Not public yet because:
-- the answer model has never been measured on the v2 collection (last score 40% on v1);
-- answers take ~30–60 s on the rig;
-- retrieval finds the right document for ~84% of gold questions;
-- the rig has a hardware fault;
+- the local model's answer quality on this corpus is unmeasured (last score 40% on v1, with qwen3-14b);
+- local search has no cross-encoder reranker, so its recall is unmeasured (the rig reached ~84%);
+- answers will take ~20–90 s, depending on your GPU;
 - there is no case law in the corpus.
 
-A closed pilot is how we find out which of these matter to real users, and every tester correction becomes a real, human-labelled gold question.
+A closed pilot is how we learn which of these matter to real users. Every tester correction becomes a real, human-labelled gold question.
 
 ## What testers get
 
@@ -20,32 +24,55 @@ A closed pilot is how we find out which of these matter to real users, and every
 | Test missions | 29 guided questions in 6 tracks (`test_pack.json`) plus "your own questions". Each has a checklist of what a good answer includes. |
 | Rating | Correct? Right references? The correct reference if we missed it. Would you rely on it (1–5)? |
 
-## What's new compared with the current API
+## What's new compared with the rig's API
 
-All of these run in `backend/pilot_api.py`, which only calls the existing `/retrieve`. `cbic-rag-api` is not modified.
+1. **Issue-spotting query rewrite + fusion** (`rag/cbic_rag/query_rewrite.py`). The model names the legal issue and restates the question in statute language, up to 3 queries. Results are merged by reciprocal-rank fusion. Legal-retrieval studies report +6–10 pts recall@10 from this. It is not the HyDE variant that hurt us (L2).
+2. **Amendment chains** (`rag/cbic_rag/amendment_graph.py`). Deterministic regexes over notification text ("amends…", "rescinds…", "in supersession of…", "last amended by…"). Each link keeps its proving sentence. On the 536 sample chunks in the repo it found 189 links across 260 notifications; the full corpus will give many more. Tests: `rag/cbic_rag/test_amendment_graph.py`.
+3. **Made-up notifications are caught in code.** If a question cites a notification that is in neither the amendment index nor any retrieved text (e.g. "154/2026-Customs"), the app shows a red warning, tells the model not to describe it, and caps confidence at "low". This is the failure behind the 2026 Gujarat HC ruling.
+4. **Honest confidence.** "High" needs 2+ verified quotes and none unverified. If the sources don't answer, the model must reply `NOT_FOUND` rather than use general knowledge.
+5. **Hindi.** Hindi questions are rewritten into English search queries and answered in Hindi; quotes stay verbatim.
+6. **Local hybrid search** (`pilot/local/local_retrieve.py`). SQLite full-text BM25 plus optional BGE-M3 "meaning" search through Ollama, fused. Same `/retrieve` contract as the rig, so the G1 evaluator can score it.
+7. **Feedback that fixes the gold-set problem.** Every rating is logged with the tester's correct reference, and exported as CSV.
 
-1. **Issue-spotting query rewrite + fusion** (`rag/cbic_rag/query_rewrite.py`). The LLM names the legal issue and restates the question in statute language, up to 3 queries. Results are merged with reciprocal-rank fusion. Legal-retrieval studies report +6–10 pts recall@10 from this. It is not the HyDE variant that hurt us (L2).
-2. **Amendment chains** (`rag/cbic_rag/amendment_graph.py`). Deterministic regexes over notification text ("amends…", "rescinds…", "in supersession of…", "last amended by…"). Each link keeps its proving sentence. On the 1,908 sample chunks in the repo it found 183 links across 259 notifications; the full manifest will give many more. Tests: `rag/cbic_rag/test_amendment_graph.py`.
-3. **Honest confidence.** "High" needs 2+ verified quotes and none unverified. If the sources don't answer, the model must say `NOT_FOUND` rather than use general knowledge.
-4. **Hindi.** Hindi questions are rewritten into English search queries and answered in Hindi; quotes stay verbatim.
-5. **Feedback that fixes the gold-set problem.** Every rating is logged with the tester's correct reference. `GET /api/export.csv` (admin token) exports it.
+## Set up on your desktop (about half a day, mostly waiting)
 
-## Go-live checklist (about 1 day on the rig)
+1. **Export the corpus — the only step that touches the rig.** It reads the manifest; nothing is written on the rig's own disk.
+   ```bash
+   python3 pilot/local/export_chunks.py --manifest /opt/indian-legal-ai/data/ingest_manifest_v2.sqlite --out /mnt/d/_gpu_rig_ai/pilot_data
+   ```
+   Parts are small and checksummed, because of the rig's write-corruption fault. The desktop verifies every part. If one fails, re-export just that part with `--only N`.
+2. **Install [Ollama](https://ollama.com/download) and Python 3.10+** on the desktop. Pick a model for your GPU:
 
-- [ ] **Rotate the leaked tester tokens.** `cloudflare_access_setup.md` has three live tokens committed to git. Make new ones in `/opt/cbic-auth/pilot_tokens.json` (`{"name@firm": "<token>"}`, chmod 600) and never commit that file.
-- [ ] **Run the CLAUDE.md preflight** (`/preflight` with keywords `pilot`, `retrieval`, `service`). This adds a new service and a new retrieval path.
-- [ ] Copy `rag/cbic_rag/amendment_graph.py` and `query_rewrite.py` to `/opt/indian-legal-ai/rag/cbic_rag/`, and `pilot/` to `/opt/indian-legal-ai/pilot/`. These are small files; the >150 MB SMB rule doesn't apply.
-- [ ] Build the amendment index from the manifest (read-only; no Qdrant scroll):
-      `python3 /opt/indian-legal-ai/rag/cbic_rag/amendment_graph.py build --manifest /opt/indian-legal-ai/data/ingest_manifest_v2.sqlite --out /opt/indian-legal-ai/data/amendment_graph.sqlite`
-- [ ] **Choose the answer model** (your call). The default, local qwen3-14b on :9082, keeps data on the rig but is slower and weaker. A hosted model (Claude / Gemini through an OpenAI-compatible endpoint: set `LLM_URL`, `LLM_MODEL`, `LLM_KEY`) is faster and better, but questions and passages leave the rig. Tell testers which one they are using.
-- [ ] Install `cbic-pilot.service` (below), start it, and check `curl localhost:9600/api/health` → all `true`.
-- [ ] **Stable URL.** Point a *named* Cloudflare tunnel at `localhost:9600`. Quick tunnels change URL on every restart.
-- [ ] **Internal dry run.** Do all 29 missions yourself. Go only if:
-    - there are no errors;
-    - every F-track trap is refused or answered "not found";
-    - the A-track chains match the checklists;
-    - median answer time is under 60 s.
-- [ ] Invite 5–10 testers: 2–3 customs brokers, 2–3 CAs with customs/excise work, 1–2 importers. Send each one `https://<url>/?t=<token>`. Run a 2-week window and review the export weekly.
+   | GPU memory | Model |
+   |---|---|
+   | ≥ 12 GB | `qwen3:14b` |
+   | 8 GB | `qwen3:8b` (default) |
+   | No GPU | `qwen3:4b` (slow) |
+3. **Start everything:**
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File pilot\local\run_local.ps1 -Model qwen3:8b -Dense
+   ```
+   On first run it:
+   - installs Python packages;
+   - pulls the model;
+   - creates a 16K-context copy of the model (Ollama's default context would silently cut off sources);
+   - builds the search index and the amendment index;
+   - creates your owner key and prints your link.
+
+   `-Dense` adds meaning search. It is better recall, but embedding ~50K chunks takes roughly 30–60 min on a GPU and hours on CPU. Leave it off for a first look.
+4. **Measure search before inviting anyone**, with the same scorer and gold set as the rig:
+   ```powershell
+   $env:G1_RETRIEVE_API="http://127.0.0.1:9601/retrieve"; python reingest_spec\evaluators\gate_g1_recall.py --retrieve-only --out g1_local.json
+   ```
+5. **Dry run:** `python pilot\local\dry_run.py --token <owner key>`. Go only if:
+   - there are no errors;
+   - the F-track traps are refused or answered "not found";
+   - median answer time is under 60 s.
+
+   Then rate the missions yourself in the app.
+6. **Add testers** to `pilot_data\pilot_tokens.json`: one line `"name@firm": "<random key>"` each. Never commit this file.
+7. **Share.** Run `cloudflared tunnel --url http://localhost:9600` and send each tester `https://<url>/?t=<their key>`. Quick-tunnel URLs change on restart; a named tunnel with a domain gives a stable one. Your desktop must stay on while testers use it.
+8. Invite 5–10 testers: 2–3 customs brokers, 2–3 CAs with customs/excise work, 1–2 importers. Run a 2-week window and review the export weekly (the launcher prints the command).
 
 ## What the pilot should tell us
 
@@ -58,25 +85,18 @@ From the export:
 
 The corrected references become the new, human-labelled gold set. That is the re-baselining step in the project review.
 
-## Run it
+## Other ways to run it
 
-```bash
-# on the rig
-cd /opt/indian-legal-ai/pilot/backend
-CBIC_RAG_DIR=/opt/indian-legal-ai/rag/cbic_rag UPSTREAM_URL=http://127.0.0.1:9500 \
-LLM_URL=http://127.0.0.1:9082 LLM_MODEL=qwen3-14b-q4_k_m.gguf \
-GRAPH_DB=/opt/indian-legal-ai/data/amendment_graph.sqlite \
-PILOT_TOKENS=/opt/cbic-auth/pilot_tokens.json PILOT_ADMIN_TOKEN=<secret> \
-python3 -m uvicorn pilot_api:app --host 127.0.0.1 --port 9600
-
-# anywhere, without the rig (plumbing only — the mock's answers mean nothing)
-python3 pilot/dev/mock_rig.py --port 9555 &
-python3 rag/cbic_rag/amendment_graph.py build --jsonl eval/training_pairs/pairs_2000_20260422.jsonl --out /tmp/g.sqlite
-cd pilot/backend && CBIC_RAG_DIR=../../rag/cbic_rag:../../cbic_rag UPSTREAM_URL=http://127.0.0.1:9555 \
-LLM_URL=http://127.0.0.1:9555 GRAPH_DB=/tmp/g.sqlite PILOT_OPEN=1 python3 -m uvicorn pilot_api:app --port 9600
-```
+- **On the rig instead:** set `UPSTREAM_URL=http://127.0.0.1:9500`, `LLM_URL=http://127.0.0.1:9082`, and `CBIC_RAG_DIR=/opt/indian-legal-ai/rag/cbic_rag`. `cbic-pilot.service` is a ready systemd unit. Run the CLAUDE.md preflight first.
+- **Hosted model:** point `LLM_URL` / `LLM_MODEL` / `LLM_KEY` at any OpenAI-compatible endpoint. Questions and passages then leave your machine.
+- **Plumbing test without any model** (answers are fake):
+  ```bash
+  python3 pilot/dev/mock_rig.py --port 9555 &
+  python3 rag/cbic_rag/amendment_graph.py build --jsonl eval/training_pairs/pairs_2000_20260422.jsonl --out /tmp/g.sqlite
+  cd pilot/backend && CBIC_RAG_DIR=../../rag/cbic_rag:../../cbic_rag UPSTREAM_URL=http://127.0.0.1:9555 \
+  LLM_URL=http://127.0.0.1:9555 GRAPH_DB=/tmp/g.sqlite PILOT_OPEN=1 python3 -m uvicorn pilot_api:app --port 9600
+  ```
 
 Useful settings:
 - `USE_REWRITE=0` turns the rewrite off, for an A/B comparison.
-- `COLLECTION=cbic_v2` picks the Qdrant collection.
-- `PILOT_RATE_PER_MIN` (default 6) and `PILOT_MAX_CONCURRENT` (default 2) protect the single-slot qwen3.
+- `PILOT_RATE_PER_MIN` (default 6) and `PILOT_MAX_CONCURRENT` (1 on the desktop) protect a single local model.

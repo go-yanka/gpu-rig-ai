@@ -19,12 +19,12 @@ Writes gate_g1_result.json. Exits 0/2.
 Pattern reused from probe_v16_theta.py (API call shape) and theta_tune.py.
 """
 from __future__ import annotations
-import argparse, json, sys, time, urllib.request
+import argparse, json, os, sys, time, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).parent
-API = "http://127.0.0.1:9500/query"
-RETRIEVE_API = "http://127.0.0.1:9500/retrieve"
+API = os.environ.get("G1_QUERY_API", "http://127.0.0.1:9500/query")
+RETRIEVE_API = os.environ.get("G1_RETRIEVE_API", "http://127.0.0.1:9500/retrieve")
 DEFAULT_GOLD = HERE.parent / "eval" / "v2_gold.json"  # reingest_spec/eval/
 OUT = HERE / "gate_g1_result.json"
 

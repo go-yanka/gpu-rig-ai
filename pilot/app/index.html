@@ -189,6 +189,7 @@ function renderResult(r) {
   $('#result').innerHTML = `
   <div class="card">
     <div class="banner ${cls}">${title}<span>${sub}</span></div>
+    ${(r.unknown_refs || []).map(k => `<div class="banner b-low">Notification ${esc(k)} is not in the CBIC documents we have<span>It may not exist, or it may be newer than our copy of the corpus. Do not rely on any description of it.</span></div>`).join('')}
     <div class="answer">${renderAnswer(r.answer_markdown)}</div>
     ${r.chains.length ? `<h3>Notification status</h3>${r.chains.map(chainHtml).join('')}` : ''}
     ${r.sources.length ? `<h3>Sources (${r.sources.length})</h3>${r.sources.map(sourceHtml).join('')}` : ''}

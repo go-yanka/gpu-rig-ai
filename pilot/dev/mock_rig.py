@@ -107,6 +107,24 @@ def _answer(user):
             f'**Conclusion:** (mock answer — for plumbing tests only.)')
 
 
+@app.get('/v1/models')
+def models():
+    return {'object': 'list', 'data': [{'id': 'mock'}]}
+
+
+@app.post('/api/embed')
+async def embed(req: Request):
+    """Ollama-style embeddings: hashed bag of words — similar texts get similar vectors."""
+    body = await req.json()
+    out = []
+    for t in body['input']:
+        v = [0.0] * 256
+        for w in toks(t):
+            v[hash(w) % 256] += 1.0
+        out.append(v)
+    return {'embeddings': out}
+
+
 @app.post('/v1/chat/completions')
 async def chat(req: Request):
     body = await req.json()
